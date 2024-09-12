@@ -2,11 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/adat" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/dint" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/eie" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/pmul" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/pser" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/sxe" vcs="Git" />
   </component>
 </project>
