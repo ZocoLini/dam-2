@@ -9,21 +9,18 @@ public class EJ1_A1UD1
 {
     public static void main(String[] args)
     {
-        System.out.println("Escribe el primer número:");
+        Optional<Integer> num = Optional.empty();
         
-        Optional<Integer> num = leerEntero();
+        System.out.println("Escribe el primer número:");
         
         int num1;
         
-        if (num.isPresent()) 
+        while (num.isEmpty()) 
         {
-            num1 = num.get();
+            num = leerEntero();
         }
-        else
-        {
-            System.err.println("Error al leer el primer número.");
-            return;
-        }
+        
+        num1 = num.get();
         
         System.out.println("Escribe el segundo número:");
         
@@ -31,15 +28,12 @@ public class EJ1_A1UD1
         
         int num2;
         
-        if (num.isPresent()) 
+        while (num.isEmpty()) 
         {
-            num2 = num.get();
+            num = leerEntero();
         }
-        else
-        {
-            System.err.println("Error al leer el segundo número.");
-            return;
-        }
+        
+        num2 = num.get();
         
         System.out.println("La suma es: " + (num1 + num2));
         System.out.println("La resta es: " + (num1 - num2));
