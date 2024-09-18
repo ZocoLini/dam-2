@@ -18,13 +18,29 @@ public class EJ2_A1UD1
         int num1 = Teclado.leerInt();
         print("Leer numero real double: ");
         double num2 = Teclado.leerDouble();
+        print("Leer entero positivo: ");
+        int numPos = leerPositivo();
         print(" cadena: " + s + "\n"
                 + " caracter: " + car + "\n"
                 + " numero entero: " + num1 + "\n"
-                + " numero real double: " + num2 + "\n",
+                + " numero real double: " + num2 + "\n"
+                + " entero positivo: " + numPos + "\n",
                 f);
     }
 
+    private static int leerPositivo()
+    {
+        try
+        {
+            return Teclado.leerPositivo();
+        }
+        catch (NotPositiveIntegerException e)
+        {
+            print("El número introducido no es positivo. Inténtelo de nuevo: ");
+            return leerPositivo();
+        }
+    }
+    
     private static void print(String s)
     {
         BufferedOutputStream bs = new BufferedOutputStream(System.out);

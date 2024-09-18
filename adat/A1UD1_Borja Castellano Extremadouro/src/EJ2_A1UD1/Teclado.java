@@ -59,7 +59,13 @@ public class Teclado
     
     public static int leerPositivo()
     {
-        // TODO: Implementar
-        return 0;
+        int num = leerInt();
+        
+        if (num <= 0) 
+        {
+            throw new NotPositiveIntegerException();
+        }
+        
+        return num;
     }
 }
