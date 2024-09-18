@@ -1,0 +1,4 @@
+ cadena: 123
+ caracter: 1
+ numero entero: 123
+ numero real double: 12.43
