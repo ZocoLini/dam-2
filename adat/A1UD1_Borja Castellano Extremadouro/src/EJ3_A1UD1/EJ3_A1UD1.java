@@ -10,7 +10,7 @@ public class EJ3_A1UD1
 {
     private static final File f = new File("NumerosPositivos.txt");
     private static PrintStream ps;
-    
+
     public static void main(String[] args) throws IOException, NotPositiveIntegerException
     {
         abrirFichero();
@@ -36,17 +36,17 @@ public class EJ3_A1UD1
             System.out.println("Error al abrir el fichero");
         }
     }
-    
+
     private static int leerPositivo() throws NotPositiveIntegerException
     {
         return Teclado.leerPositivo();
     }
-    
+
     private static void grabarFichero(int num)
     {
         ps.print(num + ";");
     }
-    
+
     private static void cerrarFichero()
     {
         ps.close();
@@ -58,8 +58,8 @@ public class EJ3_A1UD1
         try (Scanner scanner = new Scanner(new FileInputStream(f)))
         {
             scanner.useDelimiter(";");
-            
-            while (scanner.hasNext()) 
+
+            while (scanner.hasNext())
             {
                 System.out.println(scanner.next());
             }

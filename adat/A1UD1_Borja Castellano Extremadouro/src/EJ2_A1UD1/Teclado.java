@@ -5,10 +5,9 @@ import java.io.InputStreamReader;
 
 public class Teclado
 {
-    public static String leer() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        try
+    public static String leer()
+    {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
         {
             return reader.readLine();
         }
@@ -18,10 +17,9 @@ public class Teclado
         }
     }
 
-    public static char leerChar() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        try
+    public static char leerChar()
+    {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
         {
             return (char) reader.read();
         }
@@ -31,10 +29,9 @@ public class Teclado
         }
     }
 
-    public static int leerInt() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        try
+    public static int leerInt()
+    {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
         {
             return Integer.parseInt(reader.readLine());
         }
@@ -44,10 +41,9 @@ public class Teclado
         }
     }
 
-    public static double leerDouble() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        try
+    public static double leerDouble()
+    {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
         {
             return Double.parseDouble(reader.readLine());
         }
@@ -56,16 +52,16 @@ public class Teclado
             return 0.0;
         }
     }
-    
+
     public static int leerPositivo()
     {
         int num = leerInt();
-        
-        if (num <= 0) 
+
+        if (num <= 0)
         {
             throw new NotPositiveIntegerException();
         }
-        
+
         return num;
     }
 }

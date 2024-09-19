@@ -9,7 +9,7 @@ public class EJ2_A1UD1
     public static void main(String[] args)
     {
         File f = new File("Datos.txt");
-        
+
         print("Leer cadena: ");
         String s = Teclado.leer();
         print("Leer caracter: ");
@@ -21,10 +21,10 @@ public class EJ2_A1UD1
         print("Leer entero positivo: ");
         int numPos = leerPositivo();
         print(" cadena: " + s + "\n"
-                + " caracter: " + car + "\n"
-                + " numero entero: " + num1 + "\n"
-                + " numero real double: " + num2 + "\n"
-                + " entero positivo: " + numPos + "\n",
+                        + " caracter: " + car + "\n"
+                        + " numero entero: " + num1 + "\n"
+                        + " numero real double: " + num2 + "\n"
+                        + " entero positivo: " + numPos + "\n",
                 f);
     }
 
@@ -40,7 +40,7 @@ public class EJ2_A1UD1
             return leerPositivo();
         }
     }
-    
+
     private static void print(String s)
     {
         BufferedOutputStream bs = new BufferedOutputStream(System.out);
@@ -55,7 +55,7 @@ public class EJ2_A1UD1
             System.err.println("Error al escribir en la salida estándar.");
         }
     }
-    
+
     private static void print(String s, File f)
     {
         try
