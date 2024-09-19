@@ -1,17 +1,21 @@
-package EJ2_A2UD1;
+package EJ4_A2UD1;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Scanner;
 
-public class EJ2_A2UD1
+public class EJ4_A2UD1
 {
     public static void main(String[] args)
     {
         System.out.println("Introduce la ruta a un directorio");
-        String ruta = System.console().readLine();
+        String ruta = new Scanner(System.in).nextLine();
 
         File directorio = new File(ruta);
+
+        System.out.println("Introduce una extensión de archivo");
+        String extension = new Scanner(System.in).nextLine();
 
         if (!directorio.exists())
         {
@@ -27,15 +31,11 @@ public class EJ2_A2UD1
 
         System.out.println("--- LISTANDO EL DIRECTORIO " + directorio.getAbsolutePath() + " ---");
 
-        for (File variable : directorio.listFiles())
+        for (File variable : directorio.listFiles(file -> file.getName().endsWith("." + extension)))
         {
             if (variable.isFile())
             {
                 printFile(variable);
-            }
-            else
-            {
-                printDirectory(variable);
             }
         }
     }
@@ -49,10 +49,5 @@ public class EJ2_A2UD1
                         0,
                         ZoneOffset.UTC).toString().replace('T', ' ')
         );
-    }
-
-    public static void printDirectory(File directory)
-    {
-        System.out.println("-| " + directory.getName() + " <DIR>");
     }
 }

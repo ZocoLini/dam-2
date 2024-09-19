@@ -3,13 +3,14 @@ package EJ3_A2UD1;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Scanner;
 
 public class EJ3_A2UD1
 {
     public static void main(String[] args)
     {
         System.out.println("Introduce la ruta a un directorio");
-        String ruta = System.console().readLine();
+        String ruta = new Scanner(System.in).nextLine();
 
         File directorio = new File(ruta);
 
@@ -33,7 +34,7 @@ public class EJ3_A2UD1
     public static void printFile(File file, int indent)
     {
         System.out.println("-".repeat(indent * 4 + 1) + "| " + file.getName() + " <FICHERO> "
-                + file.getUsableSpace() / 1024.0 + " Kbytes " +
+                + file.length() / 1024.0 + " Kbytes " +
                 LocalDateTime.ofEpochSecond(
                         file.lastModified() / 1000,
                         0,
