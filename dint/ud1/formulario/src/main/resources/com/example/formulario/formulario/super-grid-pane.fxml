@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          prefHeight="400.0" prefWidth="600.0" hgap="15" vgap="15">
+
+    <padding>
+        <Insets top="15" bottom="15" left="15" right="15" />
+    </padding>
+    
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+    </columnConstraints>
+    
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="ALWAYS" />
+        <RowConstraints vgrow="ALWAYS" />
+        <RowConstraints vgrow="ALWAYS" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    
+    <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label text="Apellido 1" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+    <TextField GridPane.columnIndex="3" GridPane.rowIndex="0" />
+    <Label text="Apellido 2" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+    <TextField GridPane.columnIndex="5" GridPane.rowIndex="0" />
+    <Button text="Gardar" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+
+    <Label text="Observacions" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="5" GridPane.rowSpan="5"/>
+    <Button text="Limpar" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+    
+    <Button text="Pechar" GridPane.columnIndex="6" GridPane.rowIndex="2"/>
+    
+    <Label text="Idade:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    
+    <Label text="Tlf Fixo:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.columnSpan="5"/>
+    
+    <Label text="Tlf Movil:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.columnSpan="5"/>
+</GridPane>

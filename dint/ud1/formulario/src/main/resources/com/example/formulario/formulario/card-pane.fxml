@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.formulario.formulario.CardPaneController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <HBox>
+        <VBox>
+            <Button text="Botones" onAction="#showButtonsPane"/>
+            <Button text="Combos" onAction="#showCombosPane"/>
+            <Button text="Checkboxes" onAction="#showCheckboxes"/>
+        </VBox>
+        
+        <Pane fx:id="centralPane">
+            <HBox fx:id="buttonsPane">
+                <Button text="button1" />
+                <Button text="button2" />
+                <Button text="button3" />
+            </HBox>
+        </Pane>
+    </HBox>
+    
+    <VBox visible="false" maxHeight="0" maxWidth="0">
+        <HBox fx:id="comboPane">
+            <ComboBox />
+            <ComboBox />
+            <ComboBox />
+        </HBox>
+        <HBox fx:id="checkboxPane">
+            <CheckBox text="button1" />
+            <CheckBox text="button2" />
+            <CheckBox text="button3" />
+        </HBox>
+    </VBox>
+    
+</VBox>

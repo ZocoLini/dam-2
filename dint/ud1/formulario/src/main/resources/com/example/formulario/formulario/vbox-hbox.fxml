@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<SplitPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           prefHeight="400.0" prefWidth="600.0">
+
+    <VBox>
+        <padding>
+            <Insets bottom="15" left="15" right="15" top="15" />
+        </padding>
+        <Button text="button1" />
+        <Button text="button2" />
+        <Button text="button3" />
+    </VBox>
+    
+    <HBox>
+        <padding>
+            <Insets bottom="15" left="15" right="15" top="15" />
+        </padding>
+        <Button text="button1" />
+        <Button text="button2" />
+        <Button text="button3" />
+    </HBox>
+    
+</SplitPane>
