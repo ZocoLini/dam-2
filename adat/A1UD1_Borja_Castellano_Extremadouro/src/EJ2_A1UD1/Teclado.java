@@ -7,7 +7,9 @@ public class Teclado
 {
     public static String leer()
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try
         {
             return reader.readLine();
         }
@@ -19,7 +21,9 @@ public class Teclado
 
     public static char leerChar()
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try
         {
             return (char) reader.read();
         }
@@ -31,7 +35,8 @@ public class Teclado
 
     public static int leerInt()
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try
         {
             return Integer.parseInt(reader.readLine());
         }
@@ -43,7 +48,9 @@ public class Teclado
 
     public static double leerDouble()
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try
         {
             return Double.parseDouble(reader.readLine());
         }

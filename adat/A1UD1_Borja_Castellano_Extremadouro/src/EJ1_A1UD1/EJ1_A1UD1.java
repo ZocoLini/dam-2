@@ -45,15 +45,18 @@ public class EJ1_A1UD1
 
     private static Optional<Integer> leerEntero()
     {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Optional<Integer> num = Optional.empty();
+        try
         {
-            return Optional.of(Integer.valueOf(reader.readLine()));
+            String line = reader.readLine();
+            num = Optional.of(Integer.parseInt(line));
         }
         catch (IOException | NumberFormatException e)
         {
             System.out.println("Error al leer el número. Inténtalo de nuevo.");
-
-            return leerEntero();
         }
+
+        return num;
     }
 }

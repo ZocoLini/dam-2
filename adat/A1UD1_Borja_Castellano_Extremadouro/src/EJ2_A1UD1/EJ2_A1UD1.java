@@ -65,6 +65,7 @@ public class EJ2_A1UD1
             BufferedOutputStream bs = new BufferedOutputStream(new FileOutputStream(f));
             bs.write(s.getBytes());
             bs.flush();
+            bs.close();
         }
         catch (Exception e)
         {
