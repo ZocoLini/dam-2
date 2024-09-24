@@ -45,7 +45,6 @@ public class EJ3_A2UD1
     public static void printDirectory(File directory, int indent)
     {
         System.out.println("-".repeat(indent * 4 + 1) + "| " + directory.getName() + " <DIR>");
-        if (directory.listFiles() == null) return;
         for (File variable : directory.listFiles())
         {
             if (variable.isFile())

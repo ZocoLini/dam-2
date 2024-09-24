@@ -3,6 +3,7 @@ package EJ4_A2UD1;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class EJ4_A2UD1
@@ -31,13 +32,9 @@ public class EJ4_A2UD1
 
         System.out.println("--- LISTANDO EL DIRECTORIO " + directorio.getAbsolutePath() + " ---");
 
-        for (File variable : directorio.listFiles(file -> file.getName().endsWith("." + extension)))
-        {
-            if (variable.isFile())
-            {
-                printFile(variable);
-            }
-        }
+        Arrays.stream(directorio.listFiles(file -> file.isFile() && file.getName().endsWith("." + extension)))
+                .forEach(EJ4_A2UD1::printFile);
+        
     }
 
     public static void printFile(File file)

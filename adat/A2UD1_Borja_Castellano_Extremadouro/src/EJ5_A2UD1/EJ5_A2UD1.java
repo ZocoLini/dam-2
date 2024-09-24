@@ -35,7 +35,7 @@ public class EJ5_A2UD1
 
         Arrays.stream(directorio.listFiles(file -> file.getName().endsWith("." + extension) && file.isFile()))
                 .sorted(Comparator.comparing(file -> ((File) file).getName().toLowerCase()).reversed())
-                .iterator().forEachRemaining(file -> printFile(file));
+                .forEach(EJ5_A2UD1::printFile);
     }
 
     public static void printFile(File file)
