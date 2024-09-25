@@ -1,0 +1,39 @@
+--> Descargar Android Studio
+
+- Descargar y descomprimir zip en D:
+
+- En la carpeta generada, dentro de la carpeta bin, modificar idea.propierties. Esto definirá donde Android Studio descargará sus cositas.
+----
+	# Use ${idea.home.path} macro to specify location relative to IDE installation home.
+	# Use ${xxx} where xxx is any Java property (including defined in previous lines of this file) to refer to its value.
+	# Note for Windows users: please make sure you're using forward slashes: C:/dir1/dir2.
+
+	#---------------------------------------------------------------------
+	# Uncomment this option if you want to customize a path to the settings directory.
+	#---------------------------------------------------------------------
+	# idea.config.path=D:/<user>/.AndroidStudio/config
+
+	#---------------------------------------------------------------------
+	# Uncomment this option if you want to customize a path to the caches directory.
+	#---------------------------------------------------------------------
+	# idea.system.path=D:/<user folder>/.AndroidStudio/system
+
+	.....
+	.....
+----
+
+- Iniciar el Android Studios e instalar. En el momento de elegir tipo de instalación elegir opción 'Custom' y definir la carpeta de instalación en D:.
+	Cuidado con descargar el emulador del teléfono, no va a funcionar y lo hará en C:
+
+- Ahora debemos cambiar el home de .gradle. Para ello definiremos una variable de entorno para nuestra cuenta.
+	Nombre: GRADLE_USER_HOME
+	Valor: D:\<user>\.gradle
+	
+- (Optional) Como medida ante posibles quejas, añadí la variable de entorno al Path
+
+- Reiniciar el equipo y todo debería estar listo para funcionar.
+
+--> Utilizar adb con el dispositivo
+
+- Configurar el Reenvio de puertos en Virtual Box. Enviar 127.0.0.1:5555 a <phone ip>:5555
+- $ adb connect 127.0.0.1
