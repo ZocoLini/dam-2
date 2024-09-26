@@ -43,7 +43,26 @@ public class EJ3_A3P1UD1
                     }
                 }
             }
-            catch (EOFException exception) {}
+            catch (EOFException e) {
+                try
+                {
+                    while (true) 
+                    {
+                        writer.writeInt(reader1.readInt());
+                    }
+                }
+                catch (EOFException ex)
+                {
+                   try
+                   {
+                       while (true) 
+                       {
+                           writer.writeInt(reader2.readInt());
+                       }
+                   }
+                   catch (Exception exception) {}
+                }
+            }
         }
         catch (FileNotFoundException e)
         {
