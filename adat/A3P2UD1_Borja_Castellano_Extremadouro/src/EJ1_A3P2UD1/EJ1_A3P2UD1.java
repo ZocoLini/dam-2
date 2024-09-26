@@ -1,21 +1,27 @@
 package EJ1_A3P2UD1;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class EJ1_A3P2UD1
 {
+    private static final File OUTPUT = new File("Salida.txt");
+    
     public static void main(String[] args)
     {
         for (var filePath : args)
         {
-            visualizarLineas(filePath);
+            try
+            {
+               escribirLineas(OUTPUT, visualizarLineas(filePath));
+            }
+            catch (Exception exception)
+            {
+               escribirError(OUTPUT, exception);
+            }
         }
     }
 
-    private static void visualizarLineas(String relPath)
+    private static String visualizarLineas(String relPath) throws IOException
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(relPath)))
         {
@@ -26,15 +32,26 @@ public class EJ1_A3P2UD1
                 contador++;
             }
 
-            System.out.println("El archivo " + relPath + " tiene un total de " + contador + " lineas");
+            return "El archivo " + relPath + " tiene un total de " + contador + " lineas";
         }
-        catch (FileNotFoundException e)
+    }
+    
+    private static void escribirLineas(File output, String line) throws IOException
+    {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(output, true)))
         {
-            System.out.println("El archivo " + relPath + " no existe.");
+            writer.write(line + "\n");
         }
-        catch (IOException e)
+    }
+    
+    private static void escribirError(File error, Exception e)
+    {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(error, true)))
         {
-            System.out.println("Error de IO");
+            writer.write(e.getMessage() + "\n");
+        }
+        catch (Exception exception)
+        {
         }
     }
 }

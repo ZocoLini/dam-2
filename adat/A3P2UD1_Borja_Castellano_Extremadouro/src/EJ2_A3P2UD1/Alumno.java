@@ -22,6 +22,8 @@ public class Alumno
         File cursoFile = new File(root, curso);
         File alumnFile = new File(cursoFile, numero + "-" + nombre);
         
+        if (alumnFile.exists()) alumnFile.delete();
+        
         return alumnFile.mkdirs();
     }
 
