@@ -1,5 +1,3 @@
-import math
-
 barras_viejas = int(input("Cantidad de barras que no son del dia vendidas: "))
 
 print("El precio habitual de la barra es: 3.49€")

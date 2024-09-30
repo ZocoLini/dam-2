@@ -1,0 +1,1 @@
+numero_telf = str(input("Introduce tu numero completo con el formato +34-123456789-12: "))
