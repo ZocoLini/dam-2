@@ -5,8 +5,13 @@ import java.util.Scanner;
 
 public class EJ1_A3P3UD1
 {
-    private static final File DAT_FILE = new File("corredores.dat");
+    private static final String DAT_FILE_NAME = "corredores.dat";
+    private static final File DAT_FILE = new File(DAT_FILE_NAME);
 
+    public static final String AUX_FILE_NAME = "corredores.tmp";
+    public static final File AUX_FILE = new File(AUX_FILE_NAME);
+
+    private static int dorsal = 1;
     public static void main(String[] args)
     {
         boolean exit = false;
@@ -45,8 +50,9 @@ public class EJ1_A3P3UD1
         try
         {
             response = new Scanner(System.in).nextInt();
+        } catch (Exception ignore)
+        {
         }
-        catch (Exception ignore) {}
 
         return response;
     }
@@ -63,48 +69,146 @@ public class EJ1_A3P3UD1
                 return;
             }
         }
-        
-        
+
+
     }
 
     private static void addRegistro()
     {
         String line = new Scanner(System.in).nextLine();
-        
-        try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(DAT_FILE, true)))
+
+        ObjectOutputStream writer = null;
+
+        try
         {
-            Corredor corredor = new Corredor(line);
+            writer = DAT_FILE.exists()
+                    ? new CustomObjectOutputStream(new FileOutputStream(DAT_FILE, true))
+                    : new ObjectOutputStream(new FileOutputStream(DAT_FILE));
+
+            Corredor corredor = new Corredor(line, dorsal, false);
+            dorsal++;
             writer.writeObject(corredor);
-        }
-        catch (Exception exception)
+        } catch (Exception exception)
         {
             System.out.println("El formato introducido no ha sido el correcto");
             System.out.println("ERROR: " + exception.getMessage());
         }
+        finally
+        {
+            if (writer != null)
+            {
+                try
+                {
+                    writer.close();
+                } catch (IOException e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
-    private static void consultarRegistro() {}
-
-    private static void consultarTodosRegistros() 
+    private static void consultarRegistro()
     {
+        System.out.println("Introduce el dorsal del corredor que quieres consultar: ");
+        int dorsal = new Scanner(System.in).nextInt();
+
         try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(DAT_FILE)))
         {
             Corredor corredor;
-            
-            while ((corredor = (Corredor) reader.readObject()) != null) 
+
+            while ((corredor = (Corredor) reader.readObject()) != null)
             {
-                System.out.println(corredor);
+                if (corredor.getDorsal() == dorsal)
+                {
+                    System.out.println(corredor);
+                    return;
+                }
             }
-        }
-        catch (Exception exception)
+
+            System.out.println("No se ha encontrado ningún corredor con el dorsal " + dorsal);
+        } catch (Exception exception)
         {
             System.out.println(exception.getMessage());
         }
     }
 
-    private static void modRegistro() {}
+    private static void consultarTodosRegistros()
+    {
+        try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(DAT_FILE)))
+        {
+            Corredor corredor;
 
-    private static void borrar() {}
+            while ((corredor = (Corredor) reader.readObject()) != null)
+            {
+                System.out.println(corredor);
+            }
+        } catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void modRegistro()
+    {
+        System.out.println("Introduce el dorsal del corredor que quieres modificar: ");
+        int dorsal = new Scanner(System.in).nextInt();
+
+        try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(DAT_FILE));
+             ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(AUX_FILE)))
+        {
+            Corredor corredor;
+
+            while ((corredor = (Corredor) reader.readObject()) != null)
+            {
+                if (corredor.getDorsal() == dorsal)
+                {
+                    System.out.println("Introduce el nuevo nombre del corredor: ");
+                    String name = new Scanner(System.in).nextLine();
+                    System.out.println("Introduce los nuevos segundos del corredor: ");
+                    int seconds = new Scanner(System.in).nextInt();
+
+                    corredor = new Corredor(name + " " + seconds, dorsal, false);
+                }
+
+                writer.writeObject(corredor);
+            }
+
+            DAT_FILE.delete();
+            AUX_FILE.renameTo(DAT_FILE);
+        } catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void borrar()
+    {
+        System.out.println("Introduce el dorsal del corredor que quieres modificar: ");
+        int dorsal = new Scanner(System.in).nextInt();
+
+        try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(DAT_FILE));
+             ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(AUX_FILE)))
+        {
+            Corredor corredor;
+
+            while ((corredor = (Corredor) reader.readObject()) != null)
+            {
+                if (corredor.getDorsal() == dorsal)
+                {
+                    continue;
+                }
+
+                writer.writeObject(corredor);
+            }
+
+            DAT_FILE.delete();
+            AUX_FILE.renameTo(DAT_FILE);
+        } catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+    }
 
     private static boolean obtenerConfirmacion()
     {
@@ -113,8 +217,7 @@ public class EJ1_A3P3UD1
             char response = new Scanner(System.in).nextLine().charAt(0);
 
             return response == 'Y' || response == 'y';
-        }
-        catch (IndexOutOfBoundsException exception)
+        } catch (IndexOutOfBoundsException exception)
         {
             return true;
         }

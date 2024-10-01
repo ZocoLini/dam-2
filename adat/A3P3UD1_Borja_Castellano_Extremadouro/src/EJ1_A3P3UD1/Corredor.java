@@ -4,17 +4,20 @@ import java.io.Serializable;
 
 public class Corredor implements Serializable
 {
+
     private final int dorsal;
     private final String name;
     private final int seconds;
+    private final boolean borrado;
 
-    public Corredor(String data)
+    public Corredor(String data, int dorsal, boolean borrado)
     {
         String[] fields = data.split(" ");
         
-        dorsal = Integer.parseInt(fields[0].trim());
-        name = fields[1].trim();
-        seconds = Integer.parseInt(fields[2].trim());
+        this.dorsal = dorsal;
+        name = fields[0].trim();
+        seconds = Integer.parseInt(fields[1].trim());
+        this.borrado = borrado;
     }
 
     public boolean isLast()
@@ -35,6 +38,11 @@ public class Corredor implements Serializable
     public String getName()
     {
         return name;
+    }
+
+    public boolean isBorrado()
+    {
+        return borrado;
     }
 
     @Override
