@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.dint.graphiccomponents/com.example.dint.graphiccomponents.HelloApplication
+                                com.example.dint.graphiccomponents.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
