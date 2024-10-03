@@ -4,29 +4,33 @@
  */
 package CLASESDATOS;
 
+import java.io.File;
+import java.io.RandomAccessFile;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class Alumno implements Serializable
 {
+    private static final File DATA = new File("alumnos.dat");
+    public static final int LONGITUD_RESGISTRO = 150;
+    
     private int numero;
     private Nombre nombre;
-    Date fechaNac;
-    ArrayList<String> telefono;
-    boolean borrado;
+    private Date fechaNac;
+    private Set<String> telefonos;
+    private boolean borrado;
 
     public Alumno()
     {
     }
 
 
-    public Alumno(Nombre nombre, Date fechaNac, ArrayList<String> telefono, boolean borrado)
+    public Alumno(Nombre nombre, Date fechaNac, Set<String> telefono, boolean borrado)
     {
-
+        this.numero = getNumeroRegistros() + 1;
         this.nombre = nombre;
         this.fechaNac = fechaNac;
-        this.telefono = telefono;
+        this.telefonos = telefono;
         this.borrado = borrado;
     }
 
@@ -61,14 +65,14 @@ public class Alumno implements Serializable
         this.fechaNac = fechaNac;
     }
 
-    public ArrayList<String> getTelefono()
+    public Set<String> getTelefonos()
     {
-        return telefono;
+        return telefonos;
     }
 
-    public void setTelefono(ArrayList<String> telefono)
+    public void setTelefonos(Set<String> telefonos)
     {
-        this.telefono = telefono;
+        this.telefonos = telefonos;
     }
 
     public boolean isBorrado()
@@ -87,7 +91,89 @@ public class Alumno implements Serializable
         //Date en Internet dice que ocupa 12 bytes? . Vamos a suponer esto
 
         return (4 + nombre.getNombre().length() + nombre.getApellido1().length() + nombre.getApellido2().length() + 12 +
-                (telefono.toString()).length() + 1);
+                (telefonos.toString()).length() + 1);
 
+    }
+    
+    public boolean guardar()
+    {
+        try (RandomAccessFile raf = new RandomAccessFile(DATA, "rw"))
+        {
+            raf.seek((long) (numero - 1) * LONGITUD_RESGISTRO);
+            raf.writeUTF(String.format("%d %s %s %s %d ", numero, nombre.getNombre(), nombre.getApellido1(),
+                    nombre.getApellido2(), fechaNac.getTime()));
+            
+            StringBuilder stringBuilder = new StringBuilder();
+            
+            for (var telefono : telefonos)
+            {
+                stringBuilder.append(telefono).append(" ");
+            }
+
+            raf.writeUTF(stringBuilder.toString());
+            
+            raf.writeUTF(String.format("%b\n", borrado));
+        }
+        catch (Exception exception)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static Alumno getAlumno(int numero)
+    {
+        if (numero < 1 || numero > getNumeroRegistros()) 
+        {
+            System.out.println("El número de alumno no es válido.");
+            return null;
+        }
+        
+        try (RandomAccessFile raf = new RandomAccessFile(DATA, "r"))
+        {
+            raf.seek((long) (numero - 1) * LONGITUD_RESGISTRO);
+            String registro = raf.readUTF();
+            String[] campos = registro.split(" ");
+            
+            int num = Integer.parseInt(campos[0]);
+            
+            if (num != numero)
+            {
+                System.out.println("Error en la lectura del fichero. La posición no coincide con el número de alumno.");
+                return null;
+            }
+            
+            Nombre nombre = new Nombre(campos[1], campos[2], campos[3]);
+            Date fechaNac = new Date(Long.parseLong(campos[4]));
+
+            Set<String> telefonos = new HashSet<>(Arrays.stream(raf.readUTF().split(" ")).toList());
+            
+            boolean borrado = Boolean.parseBoolean(raf.readUTF().trim());
+            
+            return new Alumno(nombre, fechaNac, telefonos, borrado);
+            
+        }
+        catch (Exception exception)
+        {
+            return null;
+        }
+    }
+    
+    public static int getNumeroRegistros()
+    {
+        return (int) Math.ceilDiv(DATA.length(), LONGITUD_RESGISTRO);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Alumno{" +
+                "numero=" + numero +
+                ", nombre=" + nombre +
+                ", fechaNac=" + fechaNac +
+                ", telefonos=" + telefonos +
+                ", borrado=" + borrado +
+                '}';
     }
 }
