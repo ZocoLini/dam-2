@@ -8,12 +8,9 @@ import java.util.Scanner;
 
 public class EJ1_A3P4UD1
 {
-    public static final int TAMAÑO_REGISTRO = 80;
+    public static final int REGISTER_SIZE = 80;
     private static final String DAT_FILE_NAME = "corredores.dat";
     private static final File DAT_FILE = new File(DAT_FILE_NAME);
-
-    public static final String AUX_FILE_NAME = "corredores.tmp";
-    public static final File AUX_FILE = new File(AUX_FILE_NAME);
 
     public static void main(String[] args)
     {
@@ -51,7 +48,8 @@ public class EJ1_A3P4UD1
         try
         {
             response = new Scanner(System.in).nextInt();
-        } catch (Exception ignore)
+        }
+        catch (Exception ignore)
         {
         }
 
@@ -66,37 +64,60 @@ public class EJ1_A3P4UD1
             boolean exit = false;
             while (!exit)
             {
-                System.out.println("Introduce el nombre del corredor: ");
-                String nombre = new Scanner(System.in).nextLine();
+                Corredor corredor = crearCorredor();
 
-                if (nombre.equals("*") || nombre.isEmpty())
+                if (corredor == null)
                 {
                     exit = true;
                     continue;
                 }
 
-                System.out.println("Introduce el tiempo del corredor en segundos: ");
-                int tiempo = new Scanner(System.in).nextInt();
-
-                Corredor corredor = new Corredor(nombre, getNumeroRegistros() + 1, tiempo, false);
-
-                var bytes = corredor.toString().getBytes();
-
-                if (bytes.length > TAMAÑO_REGISTRO)
-                {
-                    throw new RuntimeException("El registro es demasiado grande");
-                }
-
-                raf.write(bytes);
-                raf.write(new byte[TAMAÑO_REGISTRO - bytes.length]);
+                writeCorredor(corredor, raf);
             }
-        } catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        } catch (IOException e)
+        }
+        catch (FileNotFoundException e)
         {
             throw new RuntimeException(e);
         }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Corredor crearCorredor()
+    {
+        return crearCorredor(getNumeroRegistros() + 1);
+    }
+
+    private static Corredor crearCorredor(int dorsal)
+    {
+        System.out.println("Introduce el nombre del corredor: ");
+        String nombre = new Scanner(System.in).nextLine();
+
+        if (nombre.equals("*") || nombre.isEmpty())
+        {
+            return null;
+        }
+
+        System.out.println("Introduce el tiempo del corredor en segundos: ");
+        int tiempo = new Scanner(System.in).nextInt();
+
+        return new Corredor(nombre, dorsal, tiempo, false);
+
+    }
+
+    private static void writeCorredor(Corredor corredor, RandomAccessFile raf) throws IOException
+    {
+        var bytes = corredor.toString().getBytes();
+
+        if (bytes.length > REGISTER_SIZE)
+        {
+            throw new RuntimeException("El registro es demasiado grande");
+        }
+
+        raf.write(bytes);
+        raf.write(new byte[REGISTER_SIZE - bytes.length]);
     }
 
     private static void consultarRegistro()
@@ -104,33 +125,30 @@ public class EJ1_A3P4UD1
         System.out.println("Introduce el dorsal del corredor que quieres consultar: ");
         int dorsal = new Scanner(System.in).nextInt();
 
-        try (RandomAccessFile raf = new RandomAccessFile(DAT_FILE, "r"))
+        if (dorsal > getNumeroRegistros())
         {
-            raf.seek((dorsal - 1) * TAMAÑO_REGISTRO);
-            byte[] bytes = new byte[TAMAÑO_REGISTRO];
-            raf.read(bytes);
+            throw new IndexOutOfBoundsException();
+        }
 
-            int end = 0;
+        try (RandomAccessFile raf = new RandomAccessFile(DAT_FILE, "rw"))
+        {
+            raf.seek((long) (dorsal - 1) * REGISTER_SIZE);
+            
+            Corredor corredor = leerCorredor(raf);
 
-            for (byte data : bytes)
+            if (corredor.borrado())
             {
-                if (data == 0)
-                {
-                    break;
-                }
-
-                end++;
+                System.out.println("Este registro está marcado como borrado");
+                return;
             }
 
-            byte[] by = new byte[end];
-            System.arraycopy(bytes, 0, by, 0, end);
-
-            Corredor corredor = Corredor.fromString(new String(by));
             System.out.println(corredor);
-        } catch (FileNotFoundException e)
+        }
+        catch (FileNotFoundException e)
         {
             throw new RuntimeException(e);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             throw new RuntimeException(e);
         }
@@ -138,7 +156,54 @@ public class EJ1_A3P4UD1
 
     private static void consultarTodosRegistros()
     {
+        System.out.println("Mostrando todos los registros");
 
+        try (RandomAccessFile raf = new RandomAccessFile(DAT_FILE, "r"))
+        {
+            for (int i = 0; i < getNumeroRegistros(); i++)
+            {
+                raf.seek((long) i * REGISTER_SIZE);
+                Corredor corredor = leerCorredor(raf);
+
+                if (corredor.borrado())
+                {
+                    continue;
+                }
+
+                System.out.println(corredor);
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Corredor leerCorredor(RandomAccessFile raf) throws IOException
+    {
+        byte[] bytes = new byte[REGISTER_SIZE];
+        raf.read(bytes);
+
+        int end = 0;
+
+        for (byte data : bytes)
+        {
+            if (data == 0)
+            {
+                break;
+            }
+
+            end++;
+        }
+
+        byte[] by = new byte[end];
+        System.arraycopy(bytes, 0, by, 0, end);
+
+        return Corredor.fromString(new String(by));
     }
 
     private static void modRegistro()
@@ -146,7 +211,33 @@ public class EJ1_A3P4UD1
         System.out.println("Introduce el dorsal del corredor que quieres modificar: ");
         int dorsal = new Scanner(System.in).nextInt();
 
+        if (dorsal > getNumeroRegistros())
+        {
+            throw new IndexOutOfBoundsException();
+        }
 
+        try (RandomAccessFile raf = new RandomAccessFile(DAT_FILE, "rw"))
+        {
+            raf.seek((long) (dorsal - 1) * REGISTER_SIZE);
+            Corredor corredor = crearCorredor(dorsal);
+
+            if (corredor == null)
+            {
+                System.out.println("Se ha cancelado la modificación del registro");
+                return;
+            }
+
+            writeCorredor(corredor, raf);
+
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void borrar()
@@ -154,11 +245,29 @@ public class EJ1_A3P4UD1
         System.out.println("Introduce el dorsal del corredor que quieres modificar: ");
         int dorsal = new Scanner(System.in).nextInt();
 
+        try (RandomAccessFile raf = new RandomAccessFile(DAT_FILE, "rw"))
+        {
+            raf.seek((long) (dorsal - 1) * REGISTER_SIZE);
+            Corredor corredor = leerCorredor(raf);
 
+            Corredor newCorredor = new Corredor(corredor.nombre(),
+                    corredor.dorsal(), corredor.tiempo(), true);
+
+            raf.seek((long) (dorsal - 1) * REGISTER_SIZE);
+            writeCorredor(newCorredor, raf);
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     private static int getNumeroRegistros()
     {
-        return (int) Math.ceilDiv(DAT_FILE.length(), TAMAÑO_REGISTRO);
+        return (int) Math.ceilDiv(DAT_FILE.length(), REGISTER_SIZE);
     }
 }

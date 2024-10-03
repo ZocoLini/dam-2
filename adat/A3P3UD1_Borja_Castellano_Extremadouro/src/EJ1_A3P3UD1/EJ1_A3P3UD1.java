@@ -119,7 +119,7 @@ public class EJ1_A3P3UD1
 
             while ((corredor = (Corredor) reader.readObject()) != null)
             {
-                if (corredor.getDorsal() == dorsal)
+                if (corredor.dorsal() == dorsal)
                 {
                     System.out.println(corredor);
                     return;
@@ -161,7 +161,7 @@ public class EJ1_A3P3UD1
 
             while ((corredor = (Corredor) reader.readObject()) != null)
             {
-                if (corredor.getDorsal() == dorsal)
+                if (corredor.dorsal() == dorsal)
                 {
                     System.out.println("Introduce el nuevo nombre del corredor: ");
                     String name = new Scanner(System.in).nextLine();
@@ -194,7 +194,7 @@ public class EJ1_A3P3UD1
 
             while ((corredor = (Corredor) reader.readObject()) != null)
             {
-                if (corredor.getDorsal() == dorsal)
+                if (corredor.dorsal() == dorsal)
                 {
                     continue;
                 }

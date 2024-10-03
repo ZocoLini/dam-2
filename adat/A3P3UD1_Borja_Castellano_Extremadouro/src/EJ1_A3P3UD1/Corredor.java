@@ -2,42 +2,16 @@ package EJ1_A3P3UD1;
 
 import java.io.Serializable;
 
-public class Corredor implements Serializable
+public record Corredor(int dorsal, String name, int seconds, boolean borrado) implements Serializable
 {
-
-    private final int dorsal;
-    private final String name;
-    private final int seconds;
-    private final boolean borrado;
-
     public Corredor(String data, int dorsal, boolean borrado)
     {
-        String[] fields = data.split(" ");
-        
-        this.dorsal = dorsal;
-        name = fields[0].trim();
-        seconds = Integer.parseInt(fields[1].trim());
-        this.borrado = borrado;
+        this(dorsal, data.split(" ")[0].trim(), Integer.parseInt(data.split(" ")[1].trim()), borrado);
     }
 
     public boolean isLast()
     {
         return name.equals("*");
-    }
-    
-    public int getDorsal()
-    {
-        return dorsal;
-    }
-
-    public int getSeconds()
-    {
-        return seconds;
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     public boolean isBorrado()
