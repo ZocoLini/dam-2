@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class NotaModulo implements Serializable
 {
     private String asignatura;
-    private Double nota;
+    private double nota;
 
     public NotaModulo() {}
 
@@ -43,4 +43,13 @@ public class NotaModulo implements Serializable
         this.nota = nota;
     }
 
+
+    @Override
+    public String toString()
+    {
+        return "NotaModulo{" +
+                "asignatura='" + asignatura + '\'' +
+                ", nota=" + nota +
+                '}';
+    }
 }

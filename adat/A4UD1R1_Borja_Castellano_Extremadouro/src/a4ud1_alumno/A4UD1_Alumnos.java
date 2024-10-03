@@ -7,12 +7,12 @@ package a4ud1_alumno;
 
 import CLASESDATOS.Alumno;
 import CLASESDATOS.Nombre;
+import CLASESDATOS.NotaAlumno;
+import CLASESDATOS.NotaModulo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 
 public class A4UD1_Alumnos {
@@ -39,6 +39,8 @@ public class A4UD1_Alumnos {
                 case 5 -> modificarNumerosAlumno();
                 default -> exit = true;
             }
+            
+            systemPause();
         }
     }
     
@@ -72,7 +74,20 @@ public class A4UD1_Alumnos {
     
     private static void listarNotasAlumnos()
     {
-        
+        for (int i = 0; i < Alumno.getNumeroRegistros(); i++)
+        {
+            System.out.println(Alumno.getAlumno(i + 1));
+            final var notas = NotaAlumno.getNotaAlumno(i + 1);
+            if (notas == null)
+            {
+                continue;
+            }
+            
+            for (var variable : notas.getNotas())
+            {
+                System.out.println("--->" + variable);
+            }
+        }
     }
     
     private static void addNuevoAlumno()
@@ -120,8 +135,35 @@ public class A4UD1_Alumnos {
         }
         catch (ParseException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error al guardar el alumno. El formato de la fecha no es válido.");
+            return;
         }
+
+        System.out.println("Vamos a guardar ahora las notas del alumno en cuesión: ");
+        System.out.println("Introduce * para salir a la hora de indicar el nombre del modulo.");
+        exit = false;
+
+        ArrayList<NotaModulo> notas = new ArrayList<>();
+        
+        while (!exit)
+        {
+            System.out.println("Introduce el nombre del módulo: ");
+            String modulo = new Scanner(System.in).nextLine();
+            
+            if (modulo.equals("*"))
+            {
+                exit = true;
+                continue;
+            }
+            
+            System.out.println("Introduce la nota del módulo: ");
+            double nota = new Scanner(System.in).nextDouble();
+            
+            notas.add(new NotaModulo(modulo, nota));
+        }
+        
+        NotaAlumno notaAlumno = new NotaAlumno(Alumno.getNumeroRegistros(), notas);
+        notaAlumno.guardarNotaAlumno();
     }
     
     private static void visualizarAlumno()
@@ -161,12 +203,6 @@ public class A4UD1_Alumnos {
         {
             return;
         }
-        
-        if (alumno.getTelefonos().contains(telefono))
-        {
-            System.out.println("El número de teléfono ya existe.");
-            return;
-        }
 
         System.out.println("¿Quieres añadir o eliminar el número de teléfono? (a/e): ");
         
@@ -174,10 +210,22 @@ public class A4UD1_Alumnos {
         
         if (opcion.equals("a"))
         {
+            if (alumno.getTelefonos().contains(telefono))
+            {
+                System.out.println("El número de teléfono ya existe.");
+                return;
+            }
+            
             alumno.getTelefonos().add(telefono);
         }
         else if (opcion.equals("e"))
         {
+            if (!alumno.getTelefonos().contains(telefono)) 
+            {
+                System.out.println("El número de teléfono no existe.");
+                return;
+            }
+            
             alumno.getTelefonos().remove(telefono);
         }
         else
@@ -191,5 +239,11 @@ public class A4UD1_Alumnos {
     private static void exportarDatosTXT()
     {
         
+    }
+    
+    private static void systemPause()
+    {
+        System.out.println("Presiona cualquier tecla para continuar...");
+        new Scanner(System.in).nextLine();
     }
 }

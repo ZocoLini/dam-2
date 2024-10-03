@@ -24,14 +24,18 @@ public class Alumno implements Serializable
     {
     }
 
-
-    public Alumno(Nombre nombre, Date fechaNac, Set<String> telefono, boolean borrado)
+    public Alumno(Nombre nombre, Date fechaNac, Set<String> telefono, boolean borrado, int numero)
     {
-        this.numero = getNumeroRegistros() + 1;
+        this.numero = numero;
         this.nombre = nombre;
         this.fechaNac = fechaNac;
         this.telefonos = telefono;
         this.borrado = borrado;
+    }
+
+    public Alumno(Nombre nombre, Date fechaNac, Set<String> telefono, boolean borrado)
+    {
+        this(nombre, fechaNac, telefono, borrado, getNumeroRegistros() + 1);
     }
 
 
@@ -151,7 +155,7 @@ public class Alumno implements Serializable
             
             boolean borrado = Boolean.parseBoolean(raf.readUTF().trim());
             
-            return new Alumno(nombre, fechaNac, telefonos, borrado);
+            return new Alumno(nombre, fechaNac, telefonos, borrado, num);
             
         }
         catch (Exception exception)
