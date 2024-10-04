@@ -1,9 +1,12 @@
 package com.example.dint.graphiccomponents;
 
 import javafx.application.Platform;
+import javafx.beans.binding.StringBinding;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 
 public class FormularioController
 {
@@ -20,7 +23,92 @@ public class FormularioController
 
     public void initialize()
     {
-        traballadoresDisponiblesTable.setItems(Empresa.getInstance().getTraballadors());
+        configurarColumnas(traballadoresDisponiblesTable);
+
+        traballadoresDisponiblesTable.setRowFactory(param -> new TableRow<>() {
+            @Override
+            protected void updateItem(Traballador traballador, boolean empty)
+            {
+                super.updateItem(traballador, empty);
+                if (empty || traballador == null)
+                {
+                    setOnMouseClicked(null);
+                }
+                else
+                {
+                    setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 1)
+                        {
+                            detallesTrabajadorArea.setText(traballador.generateDetails());
+                        }
+                    });
+                }
+            }
+        });
+        
+        Empresa.getInstance().getTraballadors().addListener((ListChangeListener<? super Traballador>) c ->
+        {
+            traballadoresDisponiblesTable.setItems(Empresa.getInstance().getTraballadors());
+        });
+    }
+
+    public static void configurarColumnas(TableView<Traballador> table)
+    {
+        TableColumn<Traballador, String> columnaA = new TableColumn<>("Nome e apelidos");
+        columnaA.setCellValueFactory(cellData -> new StringBinding()
+        {
+            @Override
+            protected String computeValue()
+            {
+                return cellData.getValue().nome() + " " + cellData.getValue().apelido1() + " " + cellData.getValue().apelido2();
+            }
+        });
+        columnaA.setCellFactory(getTableColumnTableCellCallback());
+
+        TableColumn<Traballador, String> columnaB = new TableColumn<>("Provincia");
+        columnaB.setCellValueFactory(cellData -> new StringBinding()
+        {
+            @Override
+            protected String computeValue()
+            {
+                return cellData.getValue().provincia();
+            }
+        });
+        columnaB.setCellFactory(getTableColumnTableCellCallback());
+
+        TableColumn<Traballador, String> columnaC = new TableColumn<>("Profesión");
+        columnaC.setCellValueFactory(cellData -> new StringBinding()
+        {
+            @Override
+            protected String computeValue()
+            {
+                return cellData.getValue().profesion();
+            }
+        });
+        columnaC.setCellFactory(getTableColumnTableCellCallback());
+
+        // Agregar las columnas a la tabla
+        table.getColumns().addAll(columnaA, columnaB, columnaC);
+    }
+
+    private static Callback<TableColumn<Traballador, String>, TableCell<Traballador, String>> getTableColumnTableCellCallback()
+    {
+        return _ -> new TableCell<>()
+        {
+            @Override
+            protected void updateItem(String nome, boolean empty)
+            {
+                super.updateItem(nome, empty);
+                if (empty || nome == null)
+                {
+                    setText(null);
+                }
+                else
+                {
+                    setText(nome);
+                }
+            }
+        };
     }
 
     @FXML
@@ -56,17 +144,18 @@ public class FormularioController
                 apelido1Field.getText(),
                 apelido2Field.getText(),
                 provinciaSeleccionada.getSelectionModel().getSelectedItem(),
-                profesionListView.getSelectionModel().getSelectedItem(),
-                detallesTrabajadorArea.getText()
+                profesionListView.getSelectionModel().getSelectedItem()
         );
 
         Empresa.getInstance().getTraballadors().add(traballador);
     }
 
     @FXML
-    private void eliminarTraballador(ActionEvent actionEvent) 
+    private void eliminarTraballador(ActionEvent actionEvent)
     {
-        Empresa.getInstance().getTraballadors().remove(traballadoresDisponiblesTable.getSelectionModel().getSelectedItem());
+        Empresa.getInstance().getTraballadors()
+                .remove(traballadoresDisponiblesTable.getSelectionModel().getSelectedItem());
+        detallesTrabajadorArea.setText("");
     }
 
     @FXML

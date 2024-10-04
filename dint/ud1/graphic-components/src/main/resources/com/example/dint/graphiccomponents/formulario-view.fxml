@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<HBox alignment="CENTER" 
+<HBox alignment="CENTER"
       fx:controller="com.example.dint.graphiccomponents.FormularioController" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -18,10 +18,10 @@
                 </columnConstraints>
 
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
 
                 <Label text="DNI" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
@@ -46,8 +46,8 @@
                 </columnConstraints>
 
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
 
                 <ComboBox fx:id="provinciaSeleccionada" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
@@ -66,11 +66,11 @@
                 </columnConstraints>
 
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" valignment="TOP" vgrow="ALWAYS"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" valignment="TOP" vgrow="ALWAYS"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
 
-                <ListView fx:id="profesionListView" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <ListView prefHeight="800"  fx:id="profesionListView" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                 <Button onAction="#eliminarProfesion" text="Eliminar profesión" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
                 <TextField fx:id="profesionField" GridPane.rowIndex="1" prefColumnCount="0"/>
@@ -82,24 +82,21 @@
     </VBox>
 
     <VBox spacing="5" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
-        <TitledPane text="Traballos dispoñibles">
-            <TableView fx:id="traballadoresDisponiblesTable" minHeight="150">
+        <TitledPane text="Traballadores dispoñibles">
+            <TableView  prefHeight="800" fx:id="traballadoresDisponiblesTable" minHeight="150">
                 <padding>
                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                 </padding>
-
-                <columns>
-                    <TableColumn text="Nome e apelidos" maxWidth="Infinity" editable="false"/>
-                    <TableColumn text="Provincia" editable="false"/>
-                    <TableColumn text="Profesión" editable="false"/>
-                </columns>
+                
+                
             </TableView>
+            
         </TitledPane>
 
         <Button onAction="#eliminarTraballador" maxWidth="Infinity" text="Eliminar traballador"/>
 
         <TitledPane maxHeight="Infinity" text="Detalle do traballador">
-            <TextArea fx:id="detallesTrabajadorArea" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+            <TextArea  minHeight="300" editable="false" fx:id="detallesTrabajadorArea" />
         </TitledPane>
 
         <Button onAction="#pecharAplicacion" maxWidth="Infinity" text="Pechar aplicación"/>

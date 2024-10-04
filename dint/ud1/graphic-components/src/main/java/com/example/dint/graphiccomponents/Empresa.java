@@ -1,7 +1,9 @@
 package com.example.dint.graphiccomponents;
 
-import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 public class Empresa
 {
@@ -14,7 +16,7 @@ public class Empresa
         return instance;
     }
     
-    private final ObservableList<Traballador> traballadors = new SimpleListProperty<>();
+    private final ObservableList<Traballador> traballadors = FXCollections.observableList(new ArrayList<>());
     
     private Empresa() {}
     
