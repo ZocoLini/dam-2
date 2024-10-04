@@ -17,17 +17,20 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class SettingsActivity extends AppCompatActivity
 {
+    private EditText editText;
+    private Spinner spinner;
+    private CheckBox checkBox;
 
     public static final String SETTINGS_FILE = "settings.xml";
     public static final String SPINNER_FIELD = "spinner_field";
     public static final String NAME_FIELD = "name_field";
     public static final String HELPED_RECEIVED_FIELD = "helped_received_field";
 
-    private enum Opcion
+    private enum SettingsOption
     {
-        OPCION_1,
-        OPCION_2,
-        OPCION_3
+        OPTION_1,
+        OPTION_2,
+        OPTION_3
     }
 
     @Override
@@ -44,22 +47,22 @@ public class SettingsActivity extends AppCompatActivity
             return insets;
         });
 
+        editText = findViewById(R.id.input_text);
+        spinner = findViewById(R.id.spinner);
+        checkBox = findViewById(R.id.check_box);
+
         findViewById(R.id.button).setOnClickListener(this::savePreferences);
         loadPreferences();
     }
 
     private void loadPreferences()
     {
-        EditText editText = findViewById(R.id.input_text);
-        Spinner spinner = findViewById(R.id.spinner);
-        CheckBox checkBox = findViewById(R.id.check_box);
-
         SharedPreferences sp = getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
 
-        ArrayAdapter<Opcion> adapter = new ArrayAdapter<>(
+        ArrayAdapter<SettingsOption> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
-                Opcion.values()
+                SettingsOption.values()
         );
 
         spinner.setAdapter(adapter);
@@ -71,10 +74,6 @@ public class SettingsActivity extends AppCompatActivity
 
     private void savePreferences(View view)
     {
-        EditText editText = findViewById(R.id.input_text);
-        Spinner spinner = findViewById(R.id.spinner);
-        CheckBox checkBox = findViewById(R.id.check_box);
-
         SharedPreferences sp = getSharedPreferences("settings.xml", MODE_PRIVATE);
 
         sp.edit().putString(NAME_FIELD, editText.getText().toString())
