@@ -77,11 +77,11 @@ public class EJ1_A3P4UD1
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No se ha podido crear el archivo de datos");
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error de Entrada/Salida");
         }
     }
 
@@ -113,7 +113,8 @@ public class EJ1_A3P4UD1
 
         if (bytes.length > REGISTER_SIZE)
         {
-            throw new RuntimeException("El registro es demasiado grande");
+            System.out.println("El registro es demasiado largo");
+            return;
         }
 
         raf.write(bytes);
@@ -127,13 +128,13 @@ public class EJ1_A3P4UD1
 
         if (dorsal > getNumeroRegistros())
         {
-            throw new IndexOutOfBoundsException();
+            System.out.println("No existe este dorsal dentro de los registros");
         }
 
         try (RandomAccessFile raf = new RandomAccessFile(DAT_FILE, "rw"))
         {
             raf.seek((long) (dorsal - 1) * REGISTER_SIZE);
-            
+
             Corredor corredor = leerCorredor(raf);
 
             if (corredor.borrado())
@@ -146,11 +147,11 @@ public class EJ1_A3P4UD1
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado ningun fichero de datos");
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error de Entrada/Saldia");
         }
     }
 
@@ -175,11 +176,11 @@ public class EJ1_A3P4UD1
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado ningun fichero de datos");
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error de Entrada/Saldia");
         }
     }
 
@@ -232,11 +233,11 @@ public class EJ1_A3P4UD1
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado ningun fichero de datos");
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error de Entrada/Saldia");
         }
     }
 
@@ -258,11 +259,11 @@ public class EJ1_A3P4UD1
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado ningun fichero de datos");
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error de Entrada/Saldia");
         }
     }
 
