@@ -28,10 +28,11 @@ public class StartActivity extends AppCompatActivity
             return insets;
         });
 
-        SharedPreferences sp = getSharedPreferences(SettingsActivity.SETTINGS_FILE, MODE_PRIVATE);
-
-        ((TextView) findViewById(R.id.text_view)).setText(sp.getString(SettingsActivity.NAME_FIELD,
-                "No se ha encontrado ningún registro, vaya a ajustes e ingreselo"));
+        String name = Settings.getInstance(this).getName();
+        ((TextView) findViewById(R.id.text_view)).setText(name.isEmpty()
+                ? "No se ha encontrado ningún registro, vaya a ajustes e ingreselo"
+                : "Hola, " + name
+        );
 
         findViewById(R.id.settings_button).setOnClickListener(this::openSettings);
     }

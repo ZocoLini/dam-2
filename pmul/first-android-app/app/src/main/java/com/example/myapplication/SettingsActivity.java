@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,11 +18,6 @@ public class SettingsActivity extends AppCompatActivity
     private EditText editText;
     private Spinner spinner;
     private CheckBox checkBox;
-
-    public static final String SETTINGS_FILE = "settings.xml";
-    public static final String SPINNER_FIELD = "spinner_field";
-    public static final String NAME_FIELD = "name_field";
-    public static final String HELPED_RECEIVED_FIELD = "helped_received_field";
 
     private enum SettingsOption
     {
@@ -51,14 +44,13 @@ public class SettingsActivity extends AppCompatActivity
         spinner = findViewById(R.id.spinner);
         checkBox = findViewById(R.id.check_box);
 
-        findViewById(R.id.button).setOnClickListener(this::savePreferences);
+        findViewById(R.id.button_save).setOnClickListener(this::savePreferences);
+        findViewById(R.id.button_exit).setOnClickListener(this::exit);
         loadPreferences();
     }
 
     private void loadPreferences()
     {
-        SharedPreferences sp = getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
-
         ArrayAdapter<SettingsOption> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -67,21 +59,27 @@ public class SettingsActivity extends AppCompatActivity
 
         spinner.setAdapter(adapter);
 
-        editText.setText(sp.getString(NAME_FIELD, ""));
-        spinner.setSelection(sp.getInt(SPINNER_FIELD, 0));
-        checkBox.setChecked(sp.getBoolean(HELPED_RECEIVED_FIELD, false));
+        Settings settings = Settings.getInstance(this);
+
+        editText.setText(settings.getName());
+        spinner.setSelection(settings.getSpinnerSelection());
+        checkBox.setChecked(settings.getHelpedReceived());
     }
 
     private void savePreferences(View view)
     {
-        SharedPreferences sp = getSharedPreferences("settings.xml", MODE_PRIVATE);
+        boolean out = Settings.getInstance(this).savePreferences(
+                editText.getText().toString(),
+                spinner.getSelectedItemPosition(),
+                checkBox.isChecked()
+        );
 
-        sp.edit().putString(NAME_FIELD, editText.getText().toString())
-                .putInt(SPINNER_FIELD, spinner.getSelectedItemPosition())
-                .putBoolean(HELPED_RECEIVED_FIELD, checkBox.isChecked())
-                .apply();
+        if (out) finish();
+        else System.out.println("Error saving preferences");
+    }
 
-        // TODO: No habria que cargar una nueva, sino ir a la anterior
-        startActivity(new Intent(this, StartActivity.class));
+    private void exit(View view)
+    {
+        finish();
     }
 }
