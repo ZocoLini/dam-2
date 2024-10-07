@@ -58,5 +58,13 @@ public class Nombre implements Serializable
         this.apellido2 = apellido2;
     }
 
-
+    @Override
+    public String toString()
+    {
+        return "Nombre{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                '}';
+    }
 }
