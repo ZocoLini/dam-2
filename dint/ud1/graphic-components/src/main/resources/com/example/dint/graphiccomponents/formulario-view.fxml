@@ -9,7 +9,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <VBox spacing="5" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+    <VBox fx:id="prueba" spacing="5" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
         <TitledPane text="Identificador do traballador">
             <GridPane hgap="5" vgap="5">
                 <columnConstraints>

@@ -3,17 +3,21 @@ package com.example.dint.graphiccomponents;
 import javafx.application.Platform;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
+import javax.swing.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class FormularioController implements Validable
 {
+    public VBox prueba;
     @FXML private ListView<String> profesionListView;
     @FXML private TextField nameField;
     @FXML private TextField dniField;
@@ -177,7 +181,6 @@ public class FormularioController implements Validable
         
         if (!new Dni(dniField.getText()).validate()) 
         {
-            System.out.println(dniField.getText());
             dniField.setStyle(errorStyle);
             valid = false;
         }
