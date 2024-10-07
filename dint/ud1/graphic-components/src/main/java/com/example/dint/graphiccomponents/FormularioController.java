@@ -6,9 +6,13 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-public class FormularioController
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+public class FormularioController implements Validable
 {
     @FXML private ListView<String> profesionListView;
     @FXML private TextField nameField;
@@ -37,10 +41,9 @@ public class FormularioController
                 else
                 {
                     setOnMouseClicked(event -> {
-                        if (event.getClickCount() == 1)
-                        {
-                            detallesTrabajadorArea.setText(traballador.generateDetails());
-                        }
+                        if (event.getClickCount() != 1) return;
+
+                        detallesTrabajadorArea.setText(traballador.generateDetails());
                     });
                 }
             }
@@ -50,6 +53,8 @@ public class FormularioController
         {
             traballadoresDisponiblesTable.setItems(Empresa.getInstance().getTraballadors());
         });
+        
+        
     }
 
     public static void configurarColumnas(TableView<Traballador> table)
@@ -146,8 +151,8 @@ public class FormularioController
                 provinciaSeleccionada.getSelectionModel().getSelectedItem(),
                 profesionListView.getSelectionModel().getSelectedItem()
         );
-
-        Empresa.getInstance().getTraballadors().add(traballador);
+        
+        if (validate()) Empresa.getInstance().getTraballadors().add(traballador);
     }
 
     @FXML
@@ -162,5 +167,40 @@ public class FormularioController
     private void pecharAplicacion(ActionEvent actionEvent)
     {
         Platform.exit();
+    }
+
+    @Override
+    public boolean validate()
+    {
+        String errorStyle = "-fx-border-color: red";
+        boolean valid = true;
+        
+        if (!new Dni(dniField.getText()).validate()) 
+        {
+            System.out.println(dniField.getText());
+            dniField.setStyle(errorStyle);
+            valid = false;
+        }
+        else {
+            dniField.setStyle("");
+        }
+        
+        if (nameField.getText().isEmpty()) 
+        {
+            nameField.setStyle(errorStyle);
+            valid = false;
+        }else {
+            nameField.setStyle("");
+        }
+        
+        if (apelido1Field.getText().isBlank()) 
+        {
+            apelido1Field.setStyle(errorStyle);
+            valid = false;
+        } else {
+            apelido1Field.setStyle("");
+        }
+        
+        return valid;
     }
 }

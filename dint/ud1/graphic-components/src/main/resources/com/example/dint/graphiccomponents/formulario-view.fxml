@@ -83,7 +83,7 @@
 
     <VBox spacing="5" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
         <TitledPane text="Traballadores dispoñibles">
-            <TableView  prefHeight="800" fx:id="traballadoresDisponiblesTable" minHeight="150">
+            <TableView  prefHeight="500" fx:id="traballadoresDisponiblesTable" minHeight="150">
                 <padding>
                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
                 </padding>
@@ -96,7 +96,7 @@
         <Button onAction="#eliminarTraballador" maxWidth="Infinity" text="Eliminar traballador"/>
 
         <TitledPane maxHeight="Infinity" text="Detalle do traballador">
-            <TextArea  minHeight="300" editable="false" fx:id="detallesTrabajadorArea" />
+            <TextArea  minHeight="100" prefHeight="300" editable="false" fx:id="detallesTrabajadorArea" />
         </TitledPane>
 
         <Button onAction="#pecharAplicacion" maxWidth="Infinity" text="Pechar aplicación"/>
