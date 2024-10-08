@@ -14,11 +14,6 @@ public record Corredor(int dorsal, String name, int seconds, boolean borrado) im
         return name.equals("*");
     }
 
-    public boolean isBorrado()
-    {
-        return borrado;
-    }
-
     @Override
     public String toString()
     {

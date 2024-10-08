@@ -6,10 +6,9 @@
 package a4ud1_alumno;
 
 import CLASESDATOS.Alumno;
-import CLASESDATOS.Nombre;
 import CLASESDATOS.NotaAlumno;
-import CLASESDATOS.NotaModulo;
 
+import java.io.FileWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,6 +36,7 @@ public class A4UD1_Alumnos {
                 case 3 -> addNuevoAlumno();
                 case 4 -> visualizarAlumno();
                 case 5 -> modificarNumerosAlumno();
+                case 6 -> exportarDatosTXT();
                 default -> exit = true;
             }
             
@@ -78,59 +78,21 @@ public class A4UD1_Alumnos {
         {
             System.out.println(Alumno.getAlumno(i + 1));
             final var notas = NotaAlumno.getNotaAlumno(i + 1);
-            if (notas == null)
-            {
-                continue;
-            }
             
-            for (var variable : notas.getNotas())
-            {
-                System.out.println("--->" + variable);
-            }
+            if (notas == null) continue;
+            
+            notas.getNotas().forEach(v -> System.out.println("--->" + v));
         }
     }
     
     private static void addNuevoAlumno()
     {
         System.out.println("Vamos a añadir un nuevo alumno: ");
-        System.out.println("Introduzca ekl nombre del alumno: ");
-        String nombre = new Scanner(System.in).nextLine();
-        System.out.println("Introduzca el primer apellido del alumno: ");
-        String apellido1 = new Scanner(System.in).nextLine();
-        System.out.println("Introduzca el segundo apellido del alumno: ");
-        String apellido2 = new Scanner(System.in).nextLine();
-        System.out.println("Introduzca la fecha de nacimiento del alumno (dd/MM/yyyy): ");
-        String fechaNac = new Scanner(System.in).nextLine();
-        System.out.println("Introduzca los numeros asociados al alumno (* para salir): ");
-        
-        Set<String> telefonos = new HashSet<>();
-        
-        boolean exit = false;
-        
-        while (!exit)
-        {
-            String telefono = new Scanner(System.in).nextLine();
-            
-            if (telefono.equals("*"))
-            {
-                exit = true;
-                continue;
-            }
-            
-            if (telefonos.contains(telefono)) 
-            {
-                System.out.println("El número de teléfono ya existe.");
-                continue;
-            }
-            
-            telefonos.add(telefono);
-        }
-
-        Nombre nombreAlumno = new Nombre(nombre, apellido1, apellido2);
-        
+        Alumno alumno;
+                
         try
         {
-            Alumno alumno = new Alumno(nombreAlumno, formato.parse(fechaNac), telefonos, false);
+            alumno = Alumno.generate();
             alumno.guardar();
         }
         catch (ParseException e)
@@ -139,31 +101,9 @@ public class A4UD1_Alumnos {
             return;
         }
 
-        System.out.println("Vamos a guardar ahora las notas del alumno en cuesión: ");
-        System.out.println("Introduce * para salir a la hora de indicar el nombre del modulo.");
-        exit = false;
-
-        ArrayList<NotaModulo> notas = new ArrayList<>();
-        
-        while (!exit)
-        {
-            System.out.println("Introduce el nombre del módulo: ");
-            String modulo = new Scanner(System.in).nextLine();
-            
-            if (modulo.equals("*"))
-            {
-                exit = true;
-                continue;
-            }
-            
-            System.out.println("Introduce la nota del módulo: ");
-            double nota = new Scanner(System.in).nextDouble();
-            
-            notas.add(new NotaModulo(modulo, nota));
-        }
-        
-        NotaAlumno notaAlumno = new NotaAlumno(Alumno.getNumeroRegistros(), notas);
-        notaAlumno.guardarNotaAlumno();
+        System.out.println("Vamos a guardar ahora las notas del alumno en cuestión: ");
+        NotaAlumno notaAlumno = NotaAlumno.generate(alumno);
+        notaAlumno.guardar();
     }
     
     private static void visualizarAlumno()
@@ -199,10 +139,7 @@ public class A4UD1_Alumnos {
         
         String telefono = new Scanner(System.in).nextLine();
         
-        if (telefono.equals("*"))
-        {
-            return;
-        }
+        if (telefono.equals("*")) return;
 
         System.out.println("¿Quieres añadir o eliminar el número de teléfono? (a/e): ");
         
@@ -238,7 +175,26 @@ public class A4UD1_Alumnos {
     
     private static void exportarDatosTXT()
     {
+        try (FileWriter writer = new FileWriter("output.txt"))
+        {
+            writer.write("-------------------------DATOS ALUMNOS-----------------------\n");
+            Alumno alumno;
+            for (int i = 1; i <= Alumno.getNumeroRegistros(); i++) 
+            {
+                alumno = Alumno.getAlumno(i);
+                
+                if (alumno == null || alumno.isBorrado()) continue;
+                
+                writer.write(alumno.preattyPrinting()+ "\n");
+                writer.write("---------------------------------------------------------\n");
+            }
+            
+            writer.write("TOTAL DE ALUMNOS\t\t\t\t" + Alumno.getNumeroRegistros());
+        }
+        catch (Exception exception)
+        {
         
+        }
     }
     
     private static void systemPause()

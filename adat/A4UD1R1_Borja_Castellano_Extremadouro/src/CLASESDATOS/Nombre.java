@@ -58,6 +58,15 @@ public class Nombre implements Serializable
         this.apellido2 = apellido2;
     }
 
+    public String preattyPrinting()
+    {
+        return "NOMBRE: " +
+                nombre + " " +
+                apellido1 + " " +
+                apellido2 + " " +
+                "(nombre con apellidos)";
+    }
+    
     @Override
     public String toString()
     {

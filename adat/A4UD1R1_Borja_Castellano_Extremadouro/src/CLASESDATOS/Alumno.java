@@ -4,9 +4,14 @@
  */
 package CLASESDATOS;
 
+import a4ud1_alumno.A4UD1_Alumnos;
+
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Alumno implements Serializable
@@ -163,12 +168,72 @@ public class Alumno implements Serializable
             return null;
         }
     }
-    
+
+    public static Alumno generate() throws ParseException
+    {
+        System.out.println("Introduzca el nombre del alumno: ");
+        String nombre = new Scanner(System.in).nextLine();
+        System.out.println("Introduzca el primer apellido del alumno: ");
+        String apellido1 = new Scanner(System.in).nextLine();
+        System.out.println("Introduzca el segundo apellido del alumno: ");
+        String apellido2 = new Scanner(System.in).nextLine();
+        System.out.println("Introduzca la fecha de nacimiento del alumno (dd/MM/yyyy): ");
+        String fechaNac = new Scanner(System.in).nextLine();
+        System.out.println("Introduzca los numeros asociados al alumno (* para salir): ");
+
+        Set<String> telefonos = new HashSet<>();
+
+        boolean exit = false;
+
+        while (!exit)
+        {
+            String telefono = new Scanner(System.in).nextLine();
+
+            if (telefono.equals("*"))
+            {
+                exit = true;
+                continue;
+            }
+
+            if (telefonos.contains(telefono))
+            {
+                System.out.println("El número de teléfono ya existe.");
+                continue;
+            }
+
+            telefonos.add(telefono);
+        }
+
+        Nombre nombreAlumno = new Nombre(nombre, apellido1, apellido2);
+        
+        return new Alumno(nombreAlumno, A4UD1_Alumnos.formato.parse(fechaNac), telefonos, false);
+    }
+
     public static int getNumeroRegistros()
     {
         return (int) Math.ceilDiv(DATA.length(), LONGITUD_RESGISTRO);
     }
 
+    public String preattyPrinting()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ALUMNO NUMERO: ").append(numero).append("\n");
+        sb.append(nombre.preattyPrinting()).append("\n");
+        sb.append("FECHA NACIMIENTO: ").append(A4UD1_Alumnos.formato.format(fechaNac));
+        int edad = -1;
+        sb.append(" ").append("EDAD: ").append(edad).append("\n");
+        sb.append("TELEFONO(S): " );
+        telefonos.forEach(tel -> sb.append(tel).append(" "));
+        sb.append("\n\n");
+        
+        NotaAlumno notas = NotaAlumno.getNotaAlumno(numero);
+        
+        if (notas == null) return sb.toString(); 
+        
+        sb.append(notas.preattyPrinting());
+        return sb.toString();
+    }
+    
     @Override
     public String toString()
     {

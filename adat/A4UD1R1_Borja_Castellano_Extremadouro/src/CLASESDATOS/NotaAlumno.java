@@ -83,7 +83,7 @@ public class NotaAlumno implements Serializable
         }
     }
     
-    public void guardarNotaAlumno()
+    public void guardar()
     {
         ObjectOutputStream outputStream = null;
         try
@@ -114,6 +114,48 @@ public class NotaAlumno implements Serializable
         }
     }
 
+    public static NotaAlumno generate(Alumno alumno)
+    {
+        System.out.println("Introduce * para salir a la hora de indicar el nombre del modulo.");
+        boolean exit = false;
+
+        ArrayList<NotaModulo> notas = new ArrayList<>();
+
+        while (!exit)
+        {
+            NotaModulo notaModulo = NotaModulo.generate();
+
+            if (notaModulo.isLast())
+            {
+                exit = true;
+                continue;
+            }
+
+            notas.add(notaModulo);
+        }
+
+        return new NotaAlumno(alumno.getNumero(), notas);
+    }
+
+    public String preattyPrinting()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("MODULO\t\t\t\tNOTA\n");
+        sb.append("--------------------------------------------------\n");
+        double notaMedia = 0;
+        
+        for (var nota : notas)
+        {
+            sb.append(nota.preattyPrinting()).append("\n");
+            notaMedia += nota.getNota();
+        }
+        
+        notaMedia /= notas.size();
+        
+        sb.append("NOTA MEDIA\t\t\t").append(String.format("%.2f", notaMedia));
+        return sb.toString();
+    }
+    
     @Override
     public String toString()
     {
@@ -123,4 +165,3 @@ public class NotaAlumno implements Serializable
                 '}';
     }
 }
-

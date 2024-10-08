@@ -68,9 +68,11 @@ public class EJ1_A3P3UD1
                 System.out.println("Cancelando la operación");
                 return;
             }
+            
+            DAT_FILE.delete();
         }
-
-
+        
+        try (FileOutputStream writer = new FileOutputStream(DAT_FILE)) {} catch (Exception _) { }
     }
 
     private static void addRegistro()

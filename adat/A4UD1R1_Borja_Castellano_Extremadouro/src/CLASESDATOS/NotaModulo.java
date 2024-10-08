@@ -6,6 +6,7 @@
 package CLASESDATOS;
 
 import java.io.Serializable;
+import java.util.Scanner;
 
 /**
  * @author usuario
@@ -43,7 +44,29 @@ public class NotaModulo implements Serializable
         this.nota = nota;
     }
 
+    public boolean isLast()
+    {
+        return asignatura.equals("*");
+    }
+    
+    public static NotaModulo generate()
+    {
+        System.out.println("Introduce el nombre del módulo: ");
+        String modulo = new Scanner(System.in).nextLine();
+        
+        if (modulo.equals("*")) return new NotaModulo(modulo, 0.0);
+        
+        System.out.println("Introduce la nota del módulo: ");
+        double nota = new Scanner(System.in).nextDouble();
+        
+        return new NotaModulo(modulo, nota);
+    }
 
+    public String preattyPrinting()
+    {
+        return String.format("%s\t\t\t\t%.2f", asignatura, nota);
+    }
+    
     @Override
     public String toString()
     {
