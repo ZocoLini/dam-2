@@ -14,6 +14,17 @@ public record Corredor(int dorsal, String name, int seconds, boolean borrado) im
         return name.equals("*");
     }
 
+    public static Corredor generate(int dorsal)
+    {
+        System.out.println("Introduce el nombre del corredor: ");
+        String name = new java.util.Scanner(System.in).nextLine();
+        
+        System.out.println("Introduce los segundos del corredor: ");
+        int seconds = new java.util.Scanner(System.in).nextInt();
+        
+        return new Corredor(dorsal, name, seconds, false);
+    }
+    
     @Override
     public String toString()
     {

@@ -77,8 +77,7 @@ public class EJ1_A3P3UD1
 
     private static void addRegistro()
     {
-        String line = new Scanner(System.in).nextLine();
-
+        Corredor corredor = Corredor.generate(dorsal);
         ObjectOutputStream writer = null;
 
         try
@@ -87,12 +86,10 @@ public class EJ1_A3P3UD1
                     ? new CustomObjectOutputStream(new FileOutputStream(DAT_FILE, true))
                     : new ObjectOutputStream(new FileOutputStream(DAT_FILE));
 
-            Corredor corredor = new Corredor(line, dorsal, false);
             dorsal++;
             writer.writeObject(corredor);
         } catch (Exception exception)
         {
-            System.out.println("El formato introducido no ha sido el correcto");
             System.out.println("ERROR: " + exception.getMessage());
         }
         finally
@@ -175,12 +172,14 @@ public class EJ1_A3P3UD1
 
                 writer.writeObject(corredor);
             }
-
-            DAT_FILE.delete();
-            AUX_FILE.renameTo(DAT_FILE);
         } catch (Exception exception)
         {
-            System.out.println(exception.getMessage());
+        }
+        finally
+        {
+            DAT_FILE.delete();
+            AUX_FILE.renameTo(new File(DAT_FILE.getName()));
+            AUX_FILE.delete();
         }
     }
 
@@ -203,12 +202,14 @@ public class EJ1_A3P3UD1
 
                 writer.writeObject(corredor);
             }
-
-            DAT_FILE.delete();
-            AUX_FILE.renameTo(DAT_FILE);
         } catch (Exception exception)
         {
-            System.out.println(exception.getMessage());
+        }
+        finally
+        {
+            DAT_FILE.delete();
+            AUX_FILE.renameTo(new File(DAT_FILE.getName()));
+            AUX_FILE.delete();
         }
     }
 
