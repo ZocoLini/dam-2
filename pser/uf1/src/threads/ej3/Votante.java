@@ -1,12 +1,12 @@
 package threads.ej3;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class Votante extends Thread
 {
-    private final AtomicInteger[] partidos;
+    private static final int TIME_TO_WAIT = 500;
+    
+    private final Partido[] partidos;
 
-    public Votante(AtomicInteger[] partidos)
+    public Votante(Partido[] partidos)
     {
         this.partidos = partidos;
     }
@@ -16,13 +16,13 @@ public class Votante extends Thread
     {
         try
         {
-            Thread.sleep((int) (Math.random() * 500));
+            Thread.sleep((int) (Math.random() * TIME_TO_WAIT));
         } catch (InterruptedException e)
         {
             throw new RuntimeException(e);
         }
 
         int voto = (int) (Math.random() * partidos.length);
-        partidos[voto].incrementAndGet();
+        partidos[voto].increment();
     }
 }
