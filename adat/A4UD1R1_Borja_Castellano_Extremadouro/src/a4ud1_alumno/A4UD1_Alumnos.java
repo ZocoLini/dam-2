@@ -37,6 +37,9 @@ public class A4UD1_Alumnos {
                 case 4 -> visualizarAlumno();
                 case 5 -> modificarNumerosAlumno();
                 case 6 -> exportarDatosTXT();
+                case 7 -> listarInformacionAlumnosMayorMenor();
+                case 8 -> listarNumeroAlumnoPorEdad();
+                case 9 -> listarInfoAlumnoPorNacimiento();
                 default -> exit = true;
             }
             
@@ -53,6 +56,9 @@ public class A4UD1_Alumnos {
         System.out.println("4. Visualizar un alumno");
         System.out.println("5. Añadir/Eliminar los números de un alumno");
         System.out.println("6. Exportar datos a TXT");
+        System.out.println("7. Listar alumnos por fechas de mayor a menor");
+        System.out.println("8. Listar el número de alumnos por edad");
+        System.out.println("9. Listar información de cada alumno por cada año de nacimiento");
     
         try
         {
@@ -82,6 +88,7 @@ public class A4UD1_Alumnos {
             if (notas == null) continue;
             
             notas.getNotas().forEach(v -> System.out.println("--->" + v));
+            System.out.println();
         }
     }
     
@@ -185,15 +192,76 @@ public class A4UD1_Alumnos {
                 
                 if (alumno == null || alumno.isBorrado()) continue;
                 
-                writer.write(alumno.preattyPrinting()+ "\n");
+                writer.write(alumno.preattyPrintingWithMarks()+ "\n");
                 writer.write("---------------------------------------------------------\n");
             }
             
             writer.write("TOTAL DE ALUMNOS\t\t\t\t" + Alumno.getNumeroRegistros());
         }
-        catch (Exception exception)
+        catch (Exception exception) {}
+    }
+    
+    private static void listarInformacionAlumnosMayorMenor()
+    {
+        TreeMap<Long, Alumno> alumnosOrdenados = new TreeMap<>((a, b) -> -1 * Long.compare(a, b));
+
+        for (int i = 0; i < Alumno.getNumeroRegistros(); i++)
         {
+            Alumno alumno = Alumno.getAlumno(i + 1);
+
+            if (alumno == null || alumno.isBorrado()) continue;
+
+            alumnosOrdenados.put(alumno.getFechaNac().getTime(), alumno);
+        }
         
+        alumnosOrdenados.forEach((key, value) -> System.out.println(value.preattyPrinting()));
+    }
+    
+    private static void listarNumeroAlumnoPorEdad()
+    {
+        TreeMap<Integer, Integer> cantidadAlumnosEdad = new TreeMap<>();
+
+        for (int i = 0; i < Alumno.getNumeroRegistros(); i++)
+        {
+            Alumno alumno = Alumno.getAlumno(i + 1);
+
+            if (alumno == null || alumno.isBorrado()) continue;
+
+            int cantidad = cantidadAlumnosEdad.getOrDefault(alumno.getEdad(), 0);
+            cantidadAlumnosEdad.put(alumno.getEdad(), cantidad + 1);
+        }
+        
+        cantidadAlumnosEdad.forEach((key, value) -> 
+                System.out.println("Para la edad " + key + " hay un total de " + value)
+        );
+    }
+    
+    private static void listarInfoAlumnoPorNacimiento()
+    {
+        TreeMap<Integer, ArrayList<Alumno>> alumnosPorNacimiento = new TreeMap<>();
+
+        for (int i = 0; i < Alumno.getNumeroRegistros(); i++)
+        {
+            Alumno alumno = Alumno.getAlumno(i + 1);
+            
+            if (alumno == null || alumno.isBorrado()) continue;
+            
+            List<Alumno> alumnos = alumnosPorNacimiento.computeIfAbsent(alumno.getFechaNac().getYear() + 1900,
+                    l -> new ArrayList<>());
+            
+            alumnos.add(alumno);
+        }
+        
+        for (var entry : alumnosPorNacimiento.entrySet())
+        {
+            System.out.println("Año " + entry.getKey() + ":");
+            System.out.println("-----------------------------------------------------");
+            
+            for (var alumno : entry.getValue())
+            {
+                System.out.println(alumno.preattyPrinting());
+                System.out.println("-----------------------------------------------------");
+            }
         }
     }
     

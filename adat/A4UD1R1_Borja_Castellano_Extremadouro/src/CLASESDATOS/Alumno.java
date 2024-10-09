@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Alumno implements Serializable
@@ -169,6 +169,14 @@ public class Alumno implements Serializable
         }
     }
 
+    public int getEdad()
+    {
+        LocalDate today = LocalDate.now();
+        LocalDate bithday = LocalDate.ofEpochDay(fechaNac.getTime() / 1000 / 60 / 60 / 24);
+        
+        return (int) bithday.until(today).get(ChronoUnit.YEARS);
+    }
+    
     public static Alumno generate() throws ParseException
     {
         System.out.println("Introduzca el nombre del alumno: ");
@@ -214,23 +222,30 @@ public class Alumno implements Serializable
         return (int) Math.ceilDiv(DATA.length(), LONGITUD_RESGISTRO);
     }
 
-    public String preattyPrinting()
+    public String preattyPrintingWithMarks()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("ALUMNO NUMERO: ").append(numero).append("\n");
-        sb.append(nombre.preattyPrinting()).append("\n");
-        sb.append("FECHA NACIMIENTO: ").append(A4UD1_Alumnos.formato.format(fechaNac));
-        int edad = -1;
-        sb.append(" ").append("EDAD: ").append(edad).append("\n");
-        sb.append("TELEFONO(S): " );
-        telefonos.forEach(tel -> sb.append(tel).append(" "));
-        sb.append("\n\n");
+        sb.append(this.preattyPrinting()).append("\n\n");
         
         NotaAlumno notas = NotaAlumno.getNotaAlumno(numero);
         
         if (notas == null) return sb.toString(); 
         
         sb.append(notas.preattyPrinting());
+        return sb.toString();
+    }
+    
+    public String preattyPrinting()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ALUMNO NUMERO: ").append(numero).append("\n");
+        sb.append(nombre.preattyPrinting()).append("\n");
+        sb.append("FECHA NACIMIENTO: ").append(A4UD1_Alumnos.formato.format(fechaNac));
+        int edad = this.getEdad();
+        sb.append(" ").append("EDAD: ").append(edad).append("\n");
+        sb.append("TELEFONO(S): " );
+        telefonos.forEach(tel -> sb.append(tel).append(" "));
+        
         return sb.toString();
     }
     
