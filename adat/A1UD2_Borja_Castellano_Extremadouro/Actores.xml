@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE Actores [
+        <!ELEMENT Actores (Actor)*>
+        <!ELEMENT Actor (Nome|Sexo|DataNacemento)*>
+        <!ATTLIST Actor
+                id CDATA #REQUIRED>
+        <!ELEMENT Nome (#PCDATA)>
+        <!ELEMENT Sexo (#PCDATA)>
+        <!ELEMENT DataNacemento (#PCDATA)>
+        <!ATTLIST DataNacemento
+                formato CDATA #REQUIRED>
+        ]>
+<Actores>
+    <Actor id="50">
+        <Nome>Elisabeth Shue</Nome>
+        <Sexo>muller</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">06/10/1963</DataNacemento>
+    </Actor>
+    <Actor id="139">
+        <Nome>Jhonny Depp</Nome>
+        <Sexo>home</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">09/06/1963</DataNacemento>
+    </Actor>
+    <Actor id="100">
+        <Nome>Harrison Ford</Nome>
+        <Sexo>home</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">13/07/1943</DataNacemento>
+    </Actor>
+	<Actor id="64">
+        <Nome>Penelope Cruz</Nome>
+        <Sexo>muller</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">28/04/1974</DataNacemento>
+    </Actor>
+	<Actor id="25">
+        <Nome>Michael Keaton</Nome>
+        <Sexo>home</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">5/09/1951</DataNacemento>
+    </Actor>
+</Actores>
