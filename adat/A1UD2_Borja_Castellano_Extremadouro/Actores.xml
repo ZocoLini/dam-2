@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<!DOCTYPE Actores [
-        <!ELEMENT Actores (Actor)*>
-        <!ELEMENT Actor (Nome|Sexo|DataNacemento)*>
-        <!ATTLIST Actor
-                id CDATA #REQUIRED>
-        <!ELEMENT Nome (#PCDATA)>
-        <!ELEMENT Sexo (#PCDATA)>
-        <!ELEMENT DataNacemento (#PCDATA)>
-        <!ATTLIST DataNacemento
-                formato CDATA #REQUIRED>
-        ]>
+<!DOCTYPE Actores SYSTEM "a1_dtd.dtd">
 <Actores>
     <Actor id="50">
         <Nome>Elisabeth Shue</Nome>
