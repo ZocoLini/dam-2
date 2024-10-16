@@ -26,15 +26,14 @@ public class EJ3_A1UD2
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setIgnoringComments(true);
         dbf.setValidating(true);
+        dbf.setNamespaceAware(true);
         dbf.setIgnoringElementContentWhitespace(true);
-
-        // TODO: Por algun motivo no ignora los #text cuando usa un xsd
-
+        
+        dbf.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+        
         DocumentBuilder db;
         try
         {
-            dbf.setFeature("http://xml.org/sax/features/validation", true);
-            dbf.setFeature("http://apache.org/xml/features/validation/schema", true);
             db = dbf.newDocumentBuilder();
             db.setErrorHandler(new ErrorHandler()
             {
@@ -188,7 +187,7 @@ public class EJ3_A1UD2
     {
         Element root = document.getDocumentElement();
         Node clonedNode = root.getChildNodes().item(2).cloneNode(true);
-
+        
         root.appendChild(clonedNode);
     }
 
