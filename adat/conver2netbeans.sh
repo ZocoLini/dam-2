@@ -10,7 +10,7 @@ fi
 PROJECT_NAME=$1
 DIFF_PROJECT_NAME=$1_
 
-mkt spawn -n netbeans-project -o "$DIFF_PROJECT_NAME"
+echo "$PROJECT_NAME" | mkt spawn -n nb-project -o "$DIFF_PROJECT_NAME"
 
 # Copy the project files
 cp -r "$PROJECT_NAME/src" "$DIFF_PROJECT_NAME"

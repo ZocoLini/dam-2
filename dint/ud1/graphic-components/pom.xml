@@ -18,14 +18,26 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.6</version>
+            <version>24-ea+5</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.6</version>
+            <version>24-ea+5</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>24-ea+5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aeat.valida</groupId>
+            <artifactId>ValNif</artifactId>
+            <version>2.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/valnif-2.0.1.jar</systemPath>
+        </dependency>
+        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -61,7 +73,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.dint.graphiccomponents/com.example.dint.graphiccomponents.HelloApplication
+                                com.example.dint.graphiccomponents.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

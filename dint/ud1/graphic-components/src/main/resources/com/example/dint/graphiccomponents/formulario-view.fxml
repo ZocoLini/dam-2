@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<HBox alignment="TOP_CENTER"
+      fx:controller="com.example.dint.graphiccomponents.FormularioController"
+      spacing="20.0" xmlns:fx="http://javafx.com/fxml">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <VBox fx:id="prueba" spacing="5" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+        <TitledPane text="Identificador do traballador">
+            <GridPane hgap="5" vgap="5">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+
+                <Label text="DNI" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="dniField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Nome" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Apelido 1" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="apelido1Field" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Apelido 2" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="apelido2Field" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </TitledPane>
+        
+        <TitledPane text="Provincia do traballador">
+            <GridPane hgap="5" vgap="5">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+
+                <ComboBox fx:id="provinciaSeleccionada" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Button onAction="#eliminarProvincia" text="Eliminar provincia" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <TextField fx:id="provincia2Add" GridPane.rowIndex="1" prefColumnCount="0"/>
+                <Button onAction="#addProvincia" text="Engadir provincia" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+        </TitledPane>
+
+        <TitledPane maxHeight="Infinity" text="Profesión do traballador">
+            <GridPane maxHeight="Infinity" hgap="5" vgap="5">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints minHeight="30.0" valignment="TOP" vgrow="ALWAYS"/>
+                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+
+                <ListView prefHeight="800"  fx:id="profesionListView" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Button onAction="#eliminarProfesion" text="Eliminar profesión" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <TextField fx:id="profesionField" GridPane.rowIndex="1" prefColumnCount="0"/>
+                <Button onAction="#engadirProfesion" text="Engadir profesión" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+        </TitledPane>
+
+        <Button onAction="#engadirTraballador" maxWidth="Infinity" text="Engadir traballador"/>
+    </VBox>
+
+    <VBox spacing="5" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+        <TitledPane text="Traballadores dispoñibles">
+            <TableView  prefHeight="500" fx:id="traballadoresDisponiblesTable" minHeight="150">
+                <padding>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                </padding>
+                
+                
+            </TableView>
+            
+        </TitledPane>
+
+        <Button onAction="#eliminarTraballador" maxWidth="Infinity" text="Eliminar traballador"/>
+
+        <TitledPane maxHeight="Infinity" text="Detalle do traballador">
+            <TextArea  minHeight="100" prefHeight="300" editable="false" fx:id="detallesTrabajadorArea" />
+        </TitledPane>
+
+        <Button onAction="#pecharAplicacion" maxWidth="Infinity" text="Pechar aplicación"/>
+    </VBox>
+</HBox>
