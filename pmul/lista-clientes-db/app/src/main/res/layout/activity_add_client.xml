@@ -21,6 +21,7 @@
 
     <EditText
         android:id="@+id/client_name"
+        android:hint="@string/nombre_del_cliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +30,7 @@
         android:layout_marginTop="10dp" />
 
     <EditText
+        android:hint="@string/nif_cliente"
         android:id="@+id/client_nif"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

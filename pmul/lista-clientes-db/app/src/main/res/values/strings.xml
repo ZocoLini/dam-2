@@ -45,4 +45,6 @@
     </string>
     <string name="cliente_vip">Cliente VIP</string>
     <string name="guardar">Guardar</string>
+    <string name="nif_cliente">NIF Cliente</string>
+    <string name="nombre_del_cliente">Nombre del cliente</string>
 </resources>

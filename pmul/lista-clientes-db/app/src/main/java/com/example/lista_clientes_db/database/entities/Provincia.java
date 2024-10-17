@@ -1,5 +1,7 @@
 package com.example.lista_clientes_db.database.entities;
 
+import androidx.annotation.NonNull;
+
 public class Provincia
 {
     private final int id;
@@ -17,6 +19,13 @@ public class Provincia
     }
 
     public String getNombre()
+    {
+        return nombre;
+    }
+
+    @NonNull
+    @Override
+    public String toString()
     {
         return nombre;
     }

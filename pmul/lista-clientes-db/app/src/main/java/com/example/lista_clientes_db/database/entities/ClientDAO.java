@@ -3,10 +3,12 @@ package com.example.lista_clientes_db.database.entities;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 
+import com.example.lista_clientes_db.ObjWrapper;
 import com.example.lista_clientes_db.database.Database;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientDAO
 {
@@ -25,9 +27,30 @@ public class ClientDAO
         return true;
     }
 
-    public static Client select(int id)
+    public static Optional<Client> select(int id)
     {
-        return null;
+        ObjWrapper<Client> client = new ObjWrapper<>();
+
+        Database.getInstance().connect(db ->
+        {
+            try (Cursor cursor = db.rawQuery("select * from client where id = ?",
+                    new String[]{String.valueOf(id)}))
+            {
+                if (cursor.moveToNext())
+                {
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                    String nif = cursor.getString(cursor.getColumnIndexOrThrow("nif"));
+                    boolean vip = cursor.getInt(cursor.getColumnIndexOrThrow("vip")) == 1;
+                    int provinciaId = cursor.getInt(cursor.getColumnIndexOrThrow("provincia"));
+
+                    Provincia provincia = ProvinciaDAO.select(provinciaId).get();
+
+                    client.setObj(new Client(id, name, nif, vip, provincia));
+                }
+            }
+        });
+
+        return client.intoOptional();
     }
 
     public static List<Client> selectAll()
@@ -35,24 +58,35 @@ public class ClientDAO
         List<Client> clients = new ArrayList<>();
 
         Database.getInstance().connect(db -> {
-            Cursor cursor = db.rawQuery("select * from client", null);
-
-            while (cursor.moveToNext())
+            try (Cursor cursor = db.rawQuery("select * from client", null))
             {
-                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
-                @SuppressLint("Range") String nif = cursor.getString(cursor.getColumnIndex("nif"));
-                @SuppressLint("Range") boolean vip = cursor.getInt(cursor.getColumnIndex("vip")) == 1;
-                @SuppressLint("Range") int provinciaId = cursor.getInt(cursor.getColumnIndex("provincia"));
+                while (cursor.moveToNext())
+                {
+                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                    String nif = cursor.getString(cursor.getColumnIndexOrThrow("nif"));
+                    boolean vip = cursor.getInt(cursor.getColumnIndexOrThrow("vip")) == 1;
+                    int provinciaId = cursor.getInt(cursor.getColumnIndexOrThrow("provincia"));
 
-                Provincia provincia = ProvinciaDAO.select(provinciaId);
+                    Provincia provincia = ProvinciaDAO.select(provinciaId).get();
 
-                clients.add(new Client(id, name, nif, vip, provincia));
+                    clients.add(new Client(id, name, nif, vip, provincia));
+                }
             }
-
-            cursor.close();
         });
 
         return clients;
+    }
+
+    public static boolean update(Client newClient)
+    {
+        Database.getInstance().connect(db ->
+        {
+            db.execSQL("update client set name = ?, nif = ?, vip = ?, provincia = ? where id = ?",
+                    new Object[]{newClient.getName(), newClient.getNif(), newClient.isVip(),
+                            newClient.getProvincia().getId(), newClient.getId()});
+        });
+
+        return true;
     }
 }

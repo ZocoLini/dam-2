@@ -1,12 +1,18 @@
 package com.example.lista_clientes_db;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.lista_clientes_db.database.Database;
 import com.example.lista_clientes_db.database.entities.Client;
 import com.example.lista_clientes_db.database.entities.ClientDAO;
+import com.example.lista_clientes_db.database.entities.Provincia;
+import com.example.lista_clientes_db.database.entities.ProvinciaDAO;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -25,10 +31,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.Comparator;
+
 public class MainActivity extends AppCompatActivity
 {
+    private ActivityResultLauncher<Intent> resultLauncher;
+
     private ActivityMainBinding binding;
+
     private ListView listView;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,21 +52,42 @@ public class MainActivity extends AppCompatActivity
 
         Database.initialize(this);
 
-        Client clientePrueba = new Client(-1, "Cliente Prueba", "12345678Z", true, null);
+        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+        {
+            if (result.getResultCode() != RESULT_OK) return;
 
-        ClientDAO.insert(clientePrueba);
+            loadClientsList();
+        });
 
         listView = findViewById(R.id.client_list);
+        fab = findViewById(R.id.fab);
 
-        Client[] clients = ClientDAO.selectAll().toArray(new Client[0]);
+        fab.setOnClickListener(view -> resultLauncher.launch(new Intent(this, AddClientActivity.class)));
 
-        ListAdapter adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                clients
-        );
+        loadClientsList();
 
-        listView.setAdapter(adapter);
+        listView.setOnItemClickListener((parent, view, position, id) ->
+        {
+            Client client = (Client) parent.getItemAtPosition(position);
+            Intent intent = new Intent(this, AddClientActivity.class);
+            intent.putExtra(AddClientActivity.ACCOUNT_ID_EXTRA, client.getId());
+            resultLauncher.launch(intent);
+        });
+    }
+
+    private void loadClientsList()
+    {
+        new Thread(() ->
+        {
+            Client[] clients = ClientDAO.selectAll().stream().sorted(Comparator.comparingInt(Client::getId)).toArray(Client[]::new);
+            ListAdapter adapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    clients
+            );
+
+            runOnUiThread(() -> listView.setAdapter(adapter));
+        }).start();
     }
 
     @Override
