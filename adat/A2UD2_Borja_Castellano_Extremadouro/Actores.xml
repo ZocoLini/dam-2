@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE Actores SYSTEM "actores.dtd">
+
+<Actores>
+    <Actor id="51">
+        <Nome>Elisabeth Shue</Nome>
+        <Sexo>muller</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">06/10/1963</DataNacemento>
+    </Actor>
+    <Actor id="139">
+        <Nome>Jhonny Depp</Nome>
+        <Sexo>home</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">09/06/1963</DataNacemento>
+    </Actor>
+    <Actor id="100">
+        <Nome>Harrison Ford</Nome>
+        <Sexo>home</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">13/07/1943</DataNacemento>
+    </Actor>
+</Actores>
