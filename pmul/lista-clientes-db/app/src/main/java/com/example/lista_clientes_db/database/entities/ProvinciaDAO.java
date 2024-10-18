@@ -21,7 +21,7 @@ public class ProvinciaDAO
 
         Database.getInstance().connect(db ->
         {
-            try (Cursor cursor = db.rawQuery("select * from Provincia where id = ?",
+            try (Cursor cursor = db.rawQuery("select id, name from Provincia where id = ?",
                     new String[]{String.valueOf(id)}))
             {
                 if (cursor.moveToNext())

@@ -19,6 +19,7 @@ import com.example.lista_clientes_db.database.entities.Provincia;
 import com.example.lista_clientes_db.database.entities.ProvinciaDAO;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class AddClientActivity extends AppCompatActivity
@@ -32,6 +33,8 @@ public class AddClientActivity extends AppCompatActivity
     private CheckBox clientVip;
     private Spinner clientProvincia;
     private Button mainButton;
+
+    // TODO: Mapear las provincias private HashMap<>
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)

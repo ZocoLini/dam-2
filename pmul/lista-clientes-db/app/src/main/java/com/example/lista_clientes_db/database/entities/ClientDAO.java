@@ -58,7 +58,7 @@ public class ClientDAO
         List<Client> clients = new ArrayList<>();
 
         Database.getInstance().connect(db -> {
-            try (Cursor cursor = db.rawQuery("select * from client", null))
+            try (Cursor cursor = db.rawQuery("select id, name, nif, vip, provincia from client", null))
             {
                 while (cursor.moveToNext())
                 {

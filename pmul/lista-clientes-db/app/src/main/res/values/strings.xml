@@ -47,4 +47,8 @@
     <string name="guardar">Guardar</string>
     <string name="nif_cliente">NIF Cliente</string>
     <string name="nombre_del_cliente">Nombre del cliente</string>
+    <string name="account">Account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
