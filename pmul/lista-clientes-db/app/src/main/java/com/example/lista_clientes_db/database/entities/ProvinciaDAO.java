@@ -36,11 +36,16 @@ public class ProvinciaDAO
 
     public static Collection<Provincia> selectAll()
     {
+        return selectAll("");
+    }
+
+    public static Collection<Provincia> selectAll(String orderBy)
+    {
         List<Provincia> provincias = new ArrayList<>();
 
         Database.getInstance().connect(db ->
         {
-            try (Cursor cursor = db.rawQuery("select * from Provincia", null))
+            try (Cursor cursor = db.rawQuery("select * from Provincia" + orderBy, null))
             {
                 while (cursor.moveToNext())
                 {

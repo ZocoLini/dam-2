@@ -51,13 +51,6 @@ public class AddClientActivity extends AppCompatActivity
 
         client = ClientDAO.select(getIntent().getIntExtra(ACCOUNT_ID_EXTRA, -1));
 
-        SpinnerAdapter adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                ProvinciaDAO.selectAll().stream().sorted(Comparator.comparingInt(Provincia::getId)).toArray()
-        );
-        clientProvincia.setAdapter(adapter);
-
         mainButton.setOnClickListener(v -> saveClient());
         initialize();
     }
@@ -65,6 +58,14 @@ public class AddClientActivity extends AppCompatActivity
     private void initialize()
     {
         boolean clientPresent = client.isPresent();
+
+        Provincia[] provincias = ProvinciaDAO.selectAll("order by id").toArray(new Provincia[0]);
+        SpinnerAdapter adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                provincias
+        );
+        clientProvincia.setAdapter(adapter);
 
         if (clientPresent)
         {
@@ -76,7 +77,15 @@ public class AddClientActivity extends AppCompatActivity
             clientName.setText(client.getName());
             clientNif.setText(client.getNif());
             clientVip.setChecked(client.isVip());
-            clientProvincia.setSelection(client.getProvincia().getId() - 1);
+
+            int i = 0;
+
+            for (i = 0; i < provincias.length; i++)
+            {
+                if (provincias[i].getId() == client.getProvincia().getId()) break;
+            }
+
+            clientProvincia.setSelection(i);
         }
         else
         {
@@ -109,7 +118,7 @@ public class AddClientActivity extends AppCompatActivity
                 clientName.getText().toString(),
                 clientNif.getText().toString(),
                 clientVip.isChecked(),
-                ProvinciaDAO.select(clientProvincia.getSelectedItemPosition() + 1).get()
+                (Provincia) clientProvincia.getSelectedItem()
         );
 
         if (id == -1)

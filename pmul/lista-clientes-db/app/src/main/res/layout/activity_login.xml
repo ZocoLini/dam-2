@@ -39,6 +39,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/username"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:text=""
+            android:id="@+id/error"
+            app:layout_constraintTop_toBottomOf="@id/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/login"/>
 
         <Button
             android:id="@+id/login"
@@ -46,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password" />
+            app:layout_constraintTop_toBottomOf="@id/error" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

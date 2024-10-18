@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Database.initialize(this);
-
         resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
         {
             if (result.getResultCode() != RESULT_OK) return;
