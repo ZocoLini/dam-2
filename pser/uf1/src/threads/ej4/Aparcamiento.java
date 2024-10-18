@@ -3,7 +3,7 @@ package threads.ej4;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class Aparcamiento
+public class Aparcamiento extends Thread
 {
     private static final int NUM_PLAZAS = 10;
     
@@ -19,10 +19,13 @@ public class Aparcamiento
     private final Conductor[] plazasConductores = new Conductor[NUM_PLAZAS];
     private int cursorActual = -1;
     private final Queue<Conductor> colaConductores = new ArrayDeque<>();
+    private final Queue<Registro> colaNotificaciones = new ArrayDeque<>();
+    private boolean abierto = true;
     
-    private void imprimirEstado()
+    private void imprimirEstado(Registro registro)
     {
         System.out.println("INFORMACION");
+        System.out.println(registro.toString());
         for (int i = 0; i < plazasConductores.length; i++)
         {
             if (i == (int) (plazasConductores.length / 2.0)) 
@@ -36,6 +39,35 @@ public class Aparcamiento
         System.out.println();
         System.out.println();
     }
+
+    @Override
+    public synchronized void run()
+    {
+        try
+        {
+            while (abierto)
+            {
+                if (!colaNotificaciones.isEmpty())
+                {
+                    Registro registro = colaNotificaciones.poll();
+                    
+                    imprimirEstado(registro);
+                }
+                
+                wait();
+            }
+        }
+        catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public synchronized void cerrar()
+    {
+        abierto = false;
+        notify();
+    }
     
     public void salir(Conductor conductor)
     {
@@ -47,7 +79,7 @@ public class Aparcamiento
                 break;
             }
         }
-
+        
         Conductor siguiente = colaConductores.poll();
 
         if (siguiente != null)
@@ -59,17 +91,18 @@ public class Aparcamiento
         }
     }
     
-    public boolean intentarAparcar(Conductor conductor)
+    public synchronized boolean intentarAparcar(Conductor conductor)
     {
         for (int i = 0; i < NUM_PLAZAS; i++) 
         {
             if (plazasConductores[incrementarCursor()] == null)
             {
                 plazasConductores[cursorActual] = conductor;
-                imprimirEstado();
                 return true;
             }
         }
+        
+        notify();
         
         colaConductores.add(conductor);
         return false;

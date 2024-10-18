@@ -9,6 +9,8 @@ public class Main
     public static void main(String[] args)
     {
         ArrayList<Conductor> conductores = new ArrayList<>();
+        Thread aparcamiento = Aparcamiento.getInstance();
+        aparcamiento.start();
         
         for (int i = 0; i < CONDUCTORES; i++) 
         {
@@ -26,7 +28,8 @@ public class Main
         }
         catch (Exception exception)
         {
-        
         }
+        
+        Aparcamiento.getInstance().cerrar();
     }
 }

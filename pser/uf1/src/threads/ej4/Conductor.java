@@ -21,7 +21,7 @@ public class Conductor extends Thread
                 wait();
             }
             
-            sleep(tiempoSeg);
+            sleep(tiempoSeg * 1000);
         }
         catch (InterruptedException e)
         {
