@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Hoteles>
+    <Hotel id="12">
+        <Nombre>Pepes</Nombre>
+        <Telefono>1234123</Telefono>
+        <Direccion>
+            <Calle>Pepin</Calle>
+            <Numero>2</Numero>
+            <CodigoPostal>36656</CodigoPostal>
+        </Direccion>
+    </Hotel>
+</Hoteles>
