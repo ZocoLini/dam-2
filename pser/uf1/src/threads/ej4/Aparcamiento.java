@@ -1,9 +1,6 @@
 package threads.ej4;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
-public class Aparcamiento extends Thread
+public class Aparcamiento
 {
     private static final int NUM_PLAZAS = 10;
     
@@ -16,103 +13,67 @@ public class Aparcamiento extends Thread
         return instance;
     }
     
-    private final Conductor[] plazasConductores = new Conductor[NUM_PLAZAS];
-    private int cursorActual = -1;
-    private final Queue<Conductor> colaConductores = new ArrayDeque<>();
-    private final Queue<Registro> colaNotificaciones = new ArrayDeque<>();
-    private boolean abierto = true;
+    private final PlazaAparcamiento[] plazasAparcamiento = new PlazaAparcamiento[NUM_PLAZAS];
     
-    private void imprimirEstado(Registro registro)
+    private Aparcamiento()
     {
-        System.out.println("INFORMACION");
-        System.out.println(registro.toString());
-        for (int i = 0; i < plazasConductores.length; i++)
+        for (int i = 0; i < plazasAparcamiento.length; i++) 
         {
-            if (i == (int) (plazasConductores.length / 2.0)) 
+            plazasAparcamiento[i] = new PlazaAparcamiento();
+        }
+    }
+    
+    private void imprimirEstado(String mensaje)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("INFORMACION").append("\n");
+        sb.append(mensaje).append("\n");
+        
+        for (int i = 0; i < plazasAparcamiento.length; i++)
+        {
+            if (i == (int) (plazasAparcamiento.length / 2.0)) 
             {
-                System.out.println();
+                sb.append("\n");
             }
             
-            System.out.print(plazasConductores[i] == null ? "X " : plazasConductores[i].getNumero() + " ");
+            sb.append((plazasAparcamiento[i].toString()));
         }
-        
-        System.out.println();
-        System.out.println();
-    }
 
-    @Override
-    public synchronized void run()
-    {
-        try
-        {
-            while (abierto)
-            {
-                if (!colaNotificaciones.isEmpty())
-                {
-                    Registro registro = colaNotificaciones.poll();
-                    
-                    imprimirEstado(registro);
-                }
-                
-                wait();
-            }
-        }
-        catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public synchronized void cerrar()
-    {
-        abierto = false;
-        notify();
+        sb.append("\n");
+        System.out.println(sb);
     }
     
-    public void salir(Conductor conductor)
+    public synchronized void salir(Conductor conductor)
     {
-        for (int i = 0; i < plazasConductores.length; i++)
+        for (PlazaAparcamiento plazaAparcamiento : plazasAparcamiento)
         {
-            if (plazasConductores[i] == conductor)
+            if (plazaAparcamiento.ocupada() && plazaAparcamiento.conductor.equals(conductor))
             {
-                plazasConductores[i] = null;
+                plazaAparcamiento.vaciar();
+                imprimirEstado("SALIDA");
                 break;
             }
         }
         
-        Conductor siguiente = colaConductores.poll();
+       notify();
+    }
+    
+    public synchronized void aparcar(Conductor conductor) throws InterruptedException
+    {
+        while (true)
+        {
+            for (int i = 0; i < NUM_PLAZAS; i++)
+            {
+                final var plazaAparcamiento = plazasAparcamiento[i];
+                
+                if (plazaAparcamiento.ocupada()) continue;
 
-        if (siguiente != null)
-        {
-            synchronized (siguiente)
-            {
-                siguiente.notify();
+                plazaAparcamiento.ocupar(conductor);
+                imprimirEstado("ENTRADA");
+                return;
             }
+            
+            wait();
         }
-    }
-    
-    public synchronized boolean intentarAparcar(Conductor conductor)
-    {
-        for (int i = 0; i < NUM_PLAZAS; i++) 
-        {
-            if (plazasConductores[incrementarCursor()] == null)
-            {
-                plazasConductores[cursorActual] = conductor;
-                return true;
-            }
-        }
-        
-        notify();
-        
-        colaConductores.add(conductor);
-        return false;
-    }
-    
-    private int incrementarCursor()
-    {
-        cursorActual++;
-        cursorActual %= plazasConductores.length;
-        
-        return cursorActual;
     }
 }

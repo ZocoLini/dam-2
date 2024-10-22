@@ -16,11 +16,7 @@ public class Conductor extends Thread
         
         try
         {
-            while (!Aparcamiento.getInstance().intentarAparcar(this))
-            {
-                wait();
-            }
-            
+            Aparcamiento.getInstance().aparcar(this);
             sleep(tiempoSeg * 1000);
         }
         catch (InterruptedException e)
