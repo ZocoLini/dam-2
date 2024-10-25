@@ -24,8 +24,6 @@ public class Main
                 conductor.join();
             }
         }
-        catch (Exception exception)
-        {
-        }
+        catch (Exception exception) {}
     }
 }
