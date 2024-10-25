@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lista_clientes_db"
+    namespace = "com.example.aplicacion_elecciones"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lista_clientes_db"
+        applicationId = "com.example.aplicacion_elecciones"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

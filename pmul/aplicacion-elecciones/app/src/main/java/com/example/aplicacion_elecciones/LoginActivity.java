@@ -1,7 +1,9 @@
-package com.example.lista_clientes_db;
+package com.example.aplicacion_elecciones;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,12 +13,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.lista_clientes_db.database.Database;
-import com.example.lista_clientes_db.database.entities.UsuarioDAO;
+import com.example.aplicacion_elecciones.database.Database;
+import com.example.aplicacion_elecciones.database.entities.UsuarioDAO;
 
 public class LoginActivity extends AppCompatActivity
 {
-    private EditText etName;
+    private EditText etNif;
     private EditText etPassword;
     private TextView tvError;
 
@@ -35,16 +37,36 @@ public class LoginActivity extends AppCompatActivity
 
         Database.initialize(this);
 
-        etName = findViewById(R.id.username);
+        etNif = findViewById(R.id.nif);
         etPassword = findViewById(R.id.password);
         tvError = findViewById(R.id.error);
+
+        etNif.addTextChangedListener(nifTextWatcher);
 
         findViewById(R.id.login).setOnClickListener(v -> login());
     }
 
+    private final TextWatcher nifTextWatcher = new TextWatcher()
+    {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        @Override
+        public void afterTextChanged(Editable editable)
+        {
+            if (!UsuarioDAO.validateNIFFormat(editable.toString()))
+            {
+                etNif.setError("Invalid NIF format");
+            }
+        }
+    };
+
     private void login()
     {
-        String name = etName.getText().toString();
+        String name = etNif.getText().toString();
         String password = etPassword.getText().toString();
 
         if (name.isBlank() || password.isBlank())

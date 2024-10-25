@@ -1,4 +1,4 @@
-package com.example.lista_clientes_db.database;
+package com.example.aplicacion_elecciones.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -47,8 +47,7 @@ public class Database
     {
         if (stack.isEmpty())
         {
-            consumer.accept(CustomSQLOpenHelper.getInstance(context).getWritableDatabase());
-            return;
+            throw new RuntimeException("No connections available");
         }
 
         SQLiteDatabase db = stack.pop();

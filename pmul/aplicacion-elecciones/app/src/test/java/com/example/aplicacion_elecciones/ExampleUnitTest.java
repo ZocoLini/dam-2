@@ -1,4 +1,4 @@
-package com.example.lista_clientes_db;
+package com.example.aplicacion_elecciones;
 
 import org.junit.Test;
 

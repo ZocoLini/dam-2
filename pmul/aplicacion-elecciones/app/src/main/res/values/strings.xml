@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">lista-clientes-db</string>
+    <string name="app_name">elecciones</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -48,7 +48,7 @@
     <string name="nif_cliente">NIF Cliente</string>
     <string name="nombre_del_cliente">Nombre del cliente</string>
     <string name="account">Account</string>
-    <string name="username">Username</string>
+    <string name="nif">Nif</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
 </resources>
