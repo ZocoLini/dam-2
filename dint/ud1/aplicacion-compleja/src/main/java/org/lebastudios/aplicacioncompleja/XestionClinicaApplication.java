@@ -8,6 +8,6 @@ public class XestionClinicaApplication extends Application
     @Override
     public void start(Stage stage)
     {
-        new MainStageController().instantiate();
+        new LogInStageController().instantiate();
     }
 }

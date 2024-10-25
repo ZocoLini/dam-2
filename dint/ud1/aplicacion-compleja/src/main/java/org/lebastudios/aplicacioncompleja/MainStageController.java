@@ -1,11 +1,24 @@
 package org.lebastudios.aplicacioncompleja;
 
-import controllers.StageController;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.stage.WindowEvent;
+import org.lebastudios.aplicacioncompleja.controllers.StageController;
+import org.lebastudios.aplicacioncompleja.events.AppLifeCicleEvents;
+import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
 
 import java.net.URL;
 
 public class MainStageController extends StageController<MainStageController>
 {
+    public void initialize()
+    {
+        getRoot().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, _ -> AppLifeCicleEvents.OnAppCloseRequest.invoke());
+    }
+    
+    @Override
+    protected void customizeStageBuilder(StageBuilder stageBuilder) {}
+
     @Override
     public String getTitle()
     {
@@ -16,5 +29,16 @@ public class MainStageController extends StageController<MainStageController>
     public URL getFXML()
     {
         return MainStageController.class.getResource("main-stage.fxml");
+    }
+
+    public void openMenuPerrosRazas(ActionEvent actionEvent) {}
+
+    public void openMenuPropietarios(ActionEvent actionEvent) {}
+
+    public void openMenuGestionVacunaciones(ActionEvent actionEvent) {}
+
+    public void menuSalir(ActionEvent actionEvent) 
+    {
+        Platform.exit();
     }
 }

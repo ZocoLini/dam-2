@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Label?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.lebastudios.aplicacioncompleja.MainStageController"
             prefHeight="400.0" prefWidth="600.0">
-    <Label text="Hola" />
-</AnchorPane>
+    <top>
+        <MenuBar>
+            <Menu text="%word.opciones">
+                <Menu text="%word.altas">
+                    <MenuItem text="%phrase.perrosrazas" onAction="#openMenuPerrosRazas"/>
+                    <MenuItem text="%word.propietarios" onAction="#openMenuPropietarios"/>
+                </Menu>
+                <MenuItem text="%phrase.gestionvacunaciones" onAction="#openMenuGestionVacunaciones"/>
+                <SeparatorMenuItem />
+                <MenuItem text="%word.salir" onAction="#menuSalir"/>
+            </Menu>
+        </MenuBar>
+    </top>
+</BorderPane>
