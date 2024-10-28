@@ -13,7 +13,7 @@ public class PartidoPoliticoDAO
             "color_red integer not null, " +
             "color_green integer not null, " +
             "color_blue integer not null, " +
-            "siglas text not nul;";
+            "siglas text not null)";
 
     public static PartidoPolitico select(int id)
     {

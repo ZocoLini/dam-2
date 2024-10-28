@@ -19,25 +19,31 @@ public class UsuarioDAO
             "password text not null, " +
             "votaciones_realizadas boolean not null)";
 
-    public static boolean validateUser(String nif, String password)
+    public static Usuario validateUser(String nif, String password)
     {
-        final boolean[] result = {false};
-        if (!validateNIFFormat(nif)) return false;
-        if (!validatePassword(password)) return false;
+        final Usuario[] result = {null};
+        if (!validateNIFFormat(nif)) return null;
+        if (!validatePassword(password)) return null;
 
         String inputPasswordHash = generateHash(password);
 
         Database.getInstance().connect(db ->
         {
             try (Cursor cursor = db.rawQuery(
-                    "select * from Usuario where nif = ?",
+                    "select (id, nif, password, votaciones_realizadas) from Usuario where nif = ?",
                     new String[]{nif})
             )
             {
                 if (cursor.moveToNext())
                 {
                     String hash = cursor.getString(2);
-                    result[0] = hash.equals(inputPasswordHash);
+                    if (!hash.equals(inputPasswordHash)) return;
+                    result[0] = new Usuario(
+                            cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            Boolean.parseBoolean(cursor.getString(3))
+                    );
                 }
             }
         });

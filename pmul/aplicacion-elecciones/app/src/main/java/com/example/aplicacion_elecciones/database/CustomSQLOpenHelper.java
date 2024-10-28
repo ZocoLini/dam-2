@@ -4,12 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.aplicacion_elecciones.database.entities.CandidatoElecciones;
-import com.example.aplicacion_elecciones.database.entities.CandidatoEleccionesDAO;
-import com.example.aplicacion_elecciones.database.entities.PartidoPolitico;
-import com.example.aplicacion_elecciones.database.entities.PartidoPoliticoDAO;
-import com.example.aplicacion_elecciones.database.entities.Usuario;
-import com.example.aplicacion_elecciones.database.entities.UsuarioDAO;
+import com.example.aplicacion_elecciones.database.entities.*;
 
 import java.lang.reflect.Method;
 
@@ -84,10 +79,10 @@ public class CustomSQLOpenHelper extends SQLiteOpenHelper
 
         sqLiteDatabase.execSQL(CandidatoEleccionesDAO.TABLE_DEFINITION);
         // Rellena con inserciones de candidatos a elecciones usando el DAO
-        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Pablo Casado", 1), sqLiteDatabase);
-        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Pedro Sánchez", 2), sqLiteDatabase);
-        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Pablo Iglesias", 3), sqLiteDatabase);
-        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Santiago Abascal", 4), sqLiteDatabase);
-        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Albert Rivera", 5), sqLiteDatabase);
+        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Pablo Casado", 1, 0), sqLiteDatabase);
+        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Pedro Sánchez", 2, 0), sqLiteDatabase);
+        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Pablo Iglesias", 3, 0), sqLiteDatabase);
+        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Santiago Abascal", 4, 0), sqLiteDatabase);
+        CandidatoEleccionesDAO.insert(new CandidatoElecciones(-1, "Albert Rivera", 5, 0), sqLiteDatabase);
     }
 }

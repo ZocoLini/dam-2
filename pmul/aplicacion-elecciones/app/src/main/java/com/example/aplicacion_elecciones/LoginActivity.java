@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity
             return;
         }
 
-        if (!UsuarioDAO.validateUser(name, password))
+        if (!AccountManager.getInstance().login(name, password))
         {
             tvError.setText("Invalid name or password");
             return;
