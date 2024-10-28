@@ -14,7 +14,7 @@ public class FormularioNuevaRazaController extends PaneController
     @Override
     public URL getFXML()
     {
-        return FormularioNuevaRazaController.class.getResource("formulario-neva-raza.fxml");
+        return FormularioNuevaRazaController.class.getResource("formulario-nueva-raza.fxml");
     }
 
     public void buttonCloseAction(ActionEvent actionEvent)

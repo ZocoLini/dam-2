@@ -49,8 +49,8 @@
     
     <HBox spacing="10" maxHeight="Infinity" maxWidth="Infinity" alignment="CENTER"
         GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
-        <Button text="%word.conectar" prefWidth="75" onAction="#botonConectar"/>
-        <Button text="%word.salir" prefWidth="75" onAction="#botonCerrar"/>
+        <Button text="%word.conectar" prefWidth="100" onAction="#botonConectar"/>
+        <Button text="%word.salir" prefWidth="100" onAction="#botonCerrar"/>
     </HBox>
     
     

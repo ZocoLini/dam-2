@@ -1,6 +1,6 @@
 package org.lebastudios.aplicacioncompleja.database.entities;
 
-public class Raza
+public class Raza implements IEntity
 {
     private final int codRaza;
     private final String descripcion;
@@ -15,4 +15,5 @@ public class Raza
     {
         this(-1, descripcion);
     }
+
 }

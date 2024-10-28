@@ -13,11 +13,9 @@
         <Insets top="10" left="10" right="10" bottom="10" />
     </padding>
     <columnConstraints>
-        <ColumnConstraints prefWidth="100"/>
+        <ColumnConstraints prefWidth="125"/>
         <ColumnConstraints hgrow="ALWAYS"/>
-        <ColumnConstraints prefWidth="100"/>
-        <ColumnConstraints hgrow="ALWAYS"/>
-        <ColumnConstraints prefWidth="100"/>
+        <ColumnConstraints prefWidth="125"/>
         <ColumnConstraints hgrow="ALWAYS"/>
     </columnConstraints>
     
@@ -30,13 +28,13 @@
 
     <Label text="%word.dni" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" />
     <TextField maxWidth="Infinity" fx:id="dniField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label text="%word.nombre" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+    <TextField maxWidth="Infinity" fx:id="nameField" GridPane.columnIndex="3" GridPane.rowIndex="0" />
     
-    <Label text="%word.nombre" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <TextField maxWidth="Infinity" fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <Label text="%word.apellido1" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-    <TextField maxWidth="Infinity" fx:id="apellido1Field" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-    <Label text="%word.apellido2" maxWidth="Infinity" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-    <TextField maxWidth="Infinity" fx:id="apellido2Field" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+    <Label text="%word.apellido1" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField maxWidth="Infinity" fx:id="apellido1Field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="%word.apellido2" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+    <TextField maxWidth="Infinity" fx:id="apellido2Field" GridPane.columnIndex="3" GridPane.rowIndex="1" />
     
     <Label text="%word.telefono" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" />
     <TextField maxWidth="Infinity" fx:id="telefonoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />

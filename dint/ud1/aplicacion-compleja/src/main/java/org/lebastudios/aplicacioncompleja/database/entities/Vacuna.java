@@ -1,8 +1,6 @@
 package org.lebastudios.aplicacioncompleja.database.entities;
 
-import java.time.LocalDate;
-
-public class Vacuna
+public class Vacuna implements IEntity
 {
     private final int codVacina;
     private final String nomeVacina;

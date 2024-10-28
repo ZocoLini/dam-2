@@ -1,10 +1,8 @@
 package org.lebastudios.aplicacioncompleja.database.entities;
 
-import lombok.Getter;
-
 import java.time.LocalDate;
 
-public class Operacion
+public class Operacion implements IEntity
 {
     private final int codOperacion;
     private final String chip;
@@ -15,6 +13,8 @@ public class Operacion
     private final int sangue;
     private final int scaner;
 
+    private Perro perro;
+    
     Operacion(int codOperacion, String chip, String descripcion, LocalDate data, int anestesia, int raios,
             int sangue, int scaner)
     {
@@ -31,5 +31,11 @@ public class Operacion
     public Operacion(String chip, String descripcion, LocalDate data, int anestesia, int raios, int sangue, int scaner)
     {
         this(-1, chip, descripcion, data, anestesia, raios, sangue, scaner);
+    }
+
+    @Override
+    public void loadRelations()
+    {
+        
     }
 }

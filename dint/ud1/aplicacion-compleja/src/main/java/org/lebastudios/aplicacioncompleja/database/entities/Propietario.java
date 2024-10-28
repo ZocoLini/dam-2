@@ -3,7 +3,7 @@ package org.lebastudios.aplicacioncompleja.database.entities;
 import lombok.Getter;
 
 @Getter
-public class Propietario
+public class Propietario implements IEntity
 {
    private final String dni;
     private final String nome;
@@ -22,5 +22,5 @@ public class Propietario
         this.email = email;
         this.tlf = tlf;
     }
-    
+
 }

@@ -31,6 +31,13 @@ public abstract class StageController<T extends Controller<T>> extends Controlle
                 .setTitle(getTitle());
     }
 
+    public final Stage getStage()
+    {
+        if (getRoot().getScene() == null) return null;
+        
+        return (Stage) getRoot().getScene().getWindow();
+    }
+    
     protected abstract void customizeStageBuilder(StageBuilder stageBuilder);
 
     public abstract String getTitle();

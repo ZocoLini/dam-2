@@ -2,7 +2,7 @@ package org.lebastudios.aplicacioncompleja.database.entities;
 
 import java.time.LocalDate;
 
-public class PerroVacuna
+public class PerroVacuna implements IEntity
 {
     private final int codVacinacion;
     private final String chip;
@@ -11,6 +11,9 @@ public class PerroVacuna
     private final String observaciones;
     private final int dose;
 
+    private Perro perro;
+    private Vacuna vacuna;
+    
     PerroVacuna(int codVacinacion, String chip, int codVacina, LocalDate data, String observaciones, int dose)
     {
         this.codVacinacion = codVacinacion;
@@ -24,5 +27,11 @@ public class PerroVacuna
     public PerroVacuna(String chip, int codVacina, LocalDate data, String observaciones, int dose)
     {
         this(-1, chip, codVacina, data, observaciones, dose);
+    }
+
+    @Override
+    public void loadRelations()
+    {
+        
     }
 }

@@ -26,10 +26,7 @@ public class StageAltaRazaPerroController extends StageController
         opcionAltaChoiceBox.getItems().clear();
         opcionAltaChoiceBox.getItems().addAll(Modo.values());
         
-        opcionAltaChoiceBox.selectionModelProperty().subscribe(() -> {
-            loadSelectedPane();
-            System.out.println(123);
-        });
+        opcionAltaChoiceBox.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> loadSelectedPane());
         
         opcionAltaChoiceBox.getSelectionModel().select(Modo.RAZAS);
     }
@@ -62,5 +59,7 @@ public class StageAltaRazaPerroController extends StageController
         
         opcionPaneContainer.getChildren().clear();
         opcionPaneContainer.getChildren().add(opcion.getRoot());
+        
+        if (getStage() != null) getStage().sizeToScene();
     }
 }
