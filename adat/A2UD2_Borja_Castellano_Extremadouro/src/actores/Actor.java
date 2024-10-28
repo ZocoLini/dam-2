@@ -10,23 +10,6 @@ public class Actor
     private String sexo;
     private FechaNacimiento fechaNacimiento;
 
-    Actor(String uri, String localName, String qName, Attributes attributes) throws SAXException
-    {
-        if (!qName.equals("Actor")) throw new IllegalArgumentException();
-
-        final var idValue = attributes.getValue("id");
-        
-        if (idValue != null) 
-        {
-            id = Integer.parseInt(idValue);
-        }
-    }
-
-    void characteres(char[] ch, int start, int length) throws SAXException
-    {
-
-    }
-
     void setFechaNacimiento(FechaNacimiento fechaNacimiento)
     {
         this.fechaNacimiento = fechaNacimiento;
@@ -40,6 +23,11 @@ public class Actor
     void setNombre(String nombre)
     {
         this.nombre = nombre;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String preattyPrinting()

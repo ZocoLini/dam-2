@@ -1,28 +1,20 @@
 package actores;
 
-import org.xml.sax.Attributes;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
+import javax.swing.text.DateFormatter;
 
 public class FechaNacimiento
 {
-    private final DateFormat format;
+    private String format;
     private String fecha;
-    
-    FechaNacimiento(String uri, String localName, String qName, Attributes attributes)
+
+    void setFormat(String format)
     {
-        if (!qName.equals("DataNacemento")) throw new IllegalArgumentException();
-        
-        this.format = new SimpleDateFormat(attributes.getValue("formato"));
+        this.format = format;
     }
-    
-    void characteres(char[] ch, int start, int length)
+
+    void setFecha(String fecha)
     {
-        fecha = String.valueOf(ch).substring(start, start + length);
+        this.fecha = fecha;
     }
 
     @Override
