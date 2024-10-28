@@ -9,6 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Stack;
 
 public class StateMachineParserHandler extends DefaultHandler
@@ -25,18 +26,12 @@ public class StateMachineParserHandler extends DefaultHandler
         parseHandlers.pop();
     }
     
-    public void parse(XMLReader reader, File file, ParserHandlerState<?> initialState) throws SAXException
+    public void parse(XMLReader reader, InputStream inputStream, ParserHandlerState<?> initialState)
+            throws SAXException, IOException
     {
-        try
-        {
-            parseHandlers.push(initialState);
-            reader.setContentHandler(this);
-            reader.parse(new InputSource(new FileInputStream(file)));
-        }
-        catch (IOException e)
-        {
-            System.out.println("IO Error al parsear el archivo " + file.getName());
-        }
+        parseHandlers.push(initialState);
+        reader.setContentHandler(this);
+        reader.parse(new InputSource(inputStream));
     }
     
     @Override
