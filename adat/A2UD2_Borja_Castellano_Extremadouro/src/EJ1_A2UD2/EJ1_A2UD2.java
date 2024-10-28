@@ -1,7 +1,5 @@
 package EJ1_A2UD2;
 
-import actores.Actor;
-import actores.ActoresParseHandlerState;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import parser.StateMachineParserHandler;

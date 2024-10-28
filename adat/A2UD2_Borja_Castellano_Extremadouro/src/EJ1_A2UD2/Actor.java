@@ -1,7 +1,4 @@
-package actores;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
+package EJ1_A2UD2;
 
 public class Actor
 {

@@ -1,6 +1,4 @@
-package actores;
-
-import javax.swing.text.DateFormatter;
+package EJ1_A2UD2;
 
 public class FechaNacimiento
 {
