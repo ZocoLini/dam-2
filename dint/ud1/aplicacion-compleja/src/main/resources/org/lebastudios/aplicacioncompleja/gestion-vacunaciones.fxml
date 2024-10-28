@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.skin.TitledPaneSkin.TitleRegion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<VBox xmlns="http://javafx.com/javafx" fx:id="root"
+      xmlns:fx="http://javafx.com/fxml" spacing="10"
+      fx:controller="org.lebastudios.aplicacioncompleja.GestionVacunacionesController">
+    <padding>
+        <Insets top="10" bottom="10" left="10" right="10" />
+    </padding>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="%word.propietario" />
+        <ChoiceBox fx:id="propietarioChoiceBox" HBox.hgrow="ALWAYS" prefWidth="150"/>
+        <Label text="%word.perro" />
+        <ChoiceBox fx:id="perroChoiceBox" HBox.hgrow="ALWAYS" prefWidth="150" />
+        <Label text="%word.chip:" />
+        <Label fx:id="chipIdLabel" />
+    </HBox>
+    
+    <TitledPane text="%phrase.vacunasaplicadas">
+        <TableView fx:id="vacunasTable">
+            <columns>
+                <TableColumn text="%word.vacuna"/>
+                <TableColumn text="%phrase.numtotaldosis" />
+                <TableColumn text="%phrase.dosisaplicadas" />
+                <TableColumn text="%word.fecha" />
+                <TableColumn text="%word.observaciones" />
+            </columns>
+        </TableView>
+    </TitledPane>
+    
+    <TitledPane text="%phrase.aplicarvacuna">
+        <GridPane vgap="5" hgap="10">
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints />
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints />
+            </columnConstraints>
+            
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints valignment="TOP"/>
+            </rowConstraints>
+            
+            <Label maxWidth="Infinity" text="%word.vacuna" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ChoiceBox fx:id="vacunaChoiceBox" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label maxWidth="Infinity" text="%word.fecha" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <DatePicker fx:id="vacunaDatePicker" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <Button maxWidth="Infinity" text="%word.vacunar" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+            
+            <Label maxWidth="Infinity" text="%word.observaciones" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextArea fx:id="vacunaObservaciones" maxWidth="Infinity" prefRowCount="3" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1"/>
+        </GridPane>
+    </TitledPane>
+</VBox>

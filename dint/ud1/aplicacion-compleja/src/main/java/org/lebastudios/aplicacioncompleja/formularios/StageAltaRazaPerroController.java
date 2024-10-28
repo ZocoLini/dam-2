@@ -1,6 +1,5 @@
 package org.lebastudios.aplicacioncompleja.formularios;
 
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
@@ -14,22 +13,25 @@ import java.net.URL;
 public class StageAltaRazaPerroController extends StageController
 {
     @FXML private HBox opcionPaneContainer;
-    @FXML private ChoiceBox<Opciones> opcionAltaChoiceBox;
+    @FXML private ChoiceBox<Modo> opcionAltaChoiceBox;
 
-    private enum Opciones
+    public enum Modo
     {
         RAZAS,
         PERROS
     }
-
+    
     public void initialize()
     {
         opcionAltaChoiceBox.getItems().clear();
-        opcionAltaChoiceBox.getItems().addAll(Opciones.values());
+        opcionAltaChoiceBox.getItems().addAll(Modo.values());
         
-        opcionAltaChoiceBox.getItems().addListener((ListChangeListener<Opciones>) c -> loadSelectedPane());
+        opcionAltaChoiceBox.selectionModelProperty().subscribe(() -> {
+            loadSelectedPane();
+            System.out.println(123);
+        });
         
-        opcionAltaChoiceBox.getSelectionModel().select(Opciones.RAZAS);
+        opcionAltaChoiceBox.getSelectionModel().select(Modo.RAZAS);
     }
     
     @Override

@@ -19,7 +19,10 @@ public class MainStageController extends StageController<MainStageController>
     }
     
     @Override
-    protected void customizeStageBuilder(StageBuilder stageBuilder) {}
+    protected void customizeStageBuilder(StageBuilder stageBuilder) 
+    {
+        stageBuilder.setResizeable(true);
+    }
 
     @Override
     public String getTitle()
@@ -42,9 +45,7 @@ public class MainStageController extends StageController<MainStageController>
     {
         new FormularioNuevoPropietarioController().instantiate();
     }
-
-    public void openMenuGestionVacunaciones(ActionEvent actionEvent) {}
-
+    
     public void menuSalir(ActionEvent actionEvent) 
     {
         Platform.exit();

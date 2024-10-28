@@ -7,8 +7,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" fx:id="root"
-            fx:controller="org.lebastudios.aplicacioncompleja.MainStageController"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="org.lebastudios.aplicacioncompleja.MainStageController">
     <top>
         <MenuBar>
             <Menu text="%word.opciones">
@@ -16,10 +15,13 @@
                     <MenuItem text="%phrase.perrosrazas" onAction="#openMenuPerrosRazas"/>
                     <MenuItem text="%word.propietarios" onAction="#openMenuPropietarios"/>
                 </Menu>
-                <MenuItem text="%phrase.gestionvacunaciones" onAction="#openMenuGestionVacunaciones"/>
                 <SeparatorMenuItem />
                 <MenuItem text="%word.salir" onAction="#menuSalir"/>
             </Menu>
         </MenuBar>
     </top>
+    
+    <center>
+        <fx:include source="gestion-vacunaciones.fxml" />
+    </center>
 </BorderPane>
