@@ -12,7 +12,7 @@ public abstract class StageController<T extends Controller<T>> extends Controlle
     {
         StageBuilder stageBuilder = getDefaultStageBuilder();
 
-        acceptController.accept(this.controller);
+        acceptController.accept(getController());
         customizeStageBuilder(stageBuilder);
 
         stageBuilder.build().show();

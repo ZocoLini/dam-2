@@ -6,7 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+            xmlns:fx="http://javafx.com/fxml" fx:id="root"
             fx:controller="org.lebastudios.aplicacioncompleja.MainStageController"
             prefHeight="400.0" prefWidth="600.0">
     <top>

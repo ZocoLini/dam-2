@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.stage.WindowEvent;
 import org.lebastudios.aplicacioncompleja.controllers.StageController;
 import org.lebastudios.aplicacioncompleja.events.AppLifeCicleEvents;
+import org.lebastudios.aplicacioncompleja.formularios.FormularioNuevoPropietarioController;
+import org.lebastudios.aplicacioncompleja.formularios.StageAltaRazaPerroController;
 import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
 
 import java.net.URL;
@@ -31,9 +33,15 @@ public class MainStageController extends StageController<MainStageController>
         return MainStageController.class.getResource("main-stage.fxml");
     }
 
-    public void openMenuPerrosRazas(ActionEvent actionEvent) {}
+    public void openMenuPerrosRazas(ActionEvent actionEvent) 
+    {
+        new StageAltaRazaPerroController().instantiate();
+    }
 
-    public void openMenuPropietarios(ActionEvent actionEvent) {}
+    public void openMenuPropietarios(ActionEvent actionEvent) 
+    {
+        new FormularioNuevoPropietarioController().instantiate();
+    }
 
     public void openMenuGestionVacunaciones(ActionEvent actionEvent) {}
 

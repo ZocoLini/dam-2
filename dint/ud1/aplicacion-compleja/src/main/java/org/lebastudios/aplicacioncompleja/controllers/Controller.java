@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import lombok.Getter;
 import org.lebastudios.aplicacioncompleja.language.LangBundleLoader;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ public abstract class Controller<T extends Controller<T>>
 {
     @FXML private Node root;
 
-    @Getter protected T controller;
+    private T controller;
 
     private Thread loadingRoot;
 
@@ -77,6 +76,11 @@ public abstract class Controller<T extends Controller<T>>
         return (Parent) getRoot();
     }
 
+    public final <U> U getController()
+    {
+        return controller == null ? (U) this : (U) controller;
+    }
+    
     public abstract URL getFXML();
 
     public FXMLLoader getFXMLLoader()

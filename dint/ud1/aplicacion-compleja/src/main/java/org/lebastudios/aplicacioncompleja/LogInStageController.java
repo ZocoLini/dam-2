@@ -9,7 +9,7 @@ import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
 
 import java.net.URL;
 
-public class LogInStageController extends StageController
+public class LogInStageController extends StageController<LogInStageController>
 {
     @FXML private TextField textLabelPassword;
     @FXML private TextField textLabelUsuario;
@@ -37,6 +37,7 @@ public class LogInStageController extends StageController
         if (!validarConexion()) return;
         
         new MainStageController().instantiate();
+        close();
     }
 
     private boolean validarConexion()
