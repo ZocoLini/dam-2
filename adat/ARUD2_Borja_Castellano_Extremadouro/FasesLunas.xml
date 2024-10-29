@@ -1,0 +1,34 @@
+<Lunas Descripcion="Fases da lúa" Servicio="https://www.meteogalicia.gal/web/predicion/mareas-e-luas">
+    <Luna Estado="Lúa nova">
+        <Fecha>02/10/2024</Fecha>
+        <Hora>20:50</Hora>
+    </Luna>
+    <Luna Estado="Cuarto crecente">
+        <Fecha>10/10/2024</Fecha>
+        <Hora>20:56</Hora>
+    </Luna>
+    <Luna Estado="Lúa chea">
+        <Fecha>17/10/2024</Fecha>
+        <Hora>13:27</Hora>
+    </Luna>
+    <Luna Estado="Cuarto minguante">
+        <Fecha>24/10/2024</Fecha>
+        <Hora>10:05</Hora>
+    </Luna>
+    <Luna Estado="Lúa nova">
+        <Fecha>01/11/2024</Fecha>
+        <Hora>13:48</Hora>
+    </Luna>
+    <Luna Estado="Cuarto crecente">
+        <Fecha>09/11/2024</Fecha>
+        <Hora>06:56</Hora>
+    </Luna>
+    <Luna Estado="Lúa chea">
+        <Fecha>15/11/2024</Fecha>
+        <Hora>22:29</Hora>
+    </Luna>
+    <Luna Estado="Cuarto minguante">
+        <Fecha>23/11/2024</Fecha>
+        <Hora>02:29</Hora>
+    </Luna>
+</Lunas>

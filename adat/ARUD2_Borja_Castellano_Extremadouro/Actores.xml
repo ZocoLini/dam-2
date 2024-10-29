@@ -1,27 +1,29 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Actores SYSTEM "actores.dtd">
-
 <Actores>
-    <Actor id="51">
+    <Actor id="A51">
         <Nome>Elisabeth Shue</Nome>
         <Sexo>muller</Sexo>
         <DataNacemento formato="dd/mm/aaaa">06/10/1963</DataNacemento>
     </Actor>
-    <Actor id="139">
+    <Actor id="A120">
         <Nome>Jhonny Depp</Nome>
         <Sexo>home</Sexo>
-        <DataNacemento formato="dd/mm/aaaa">09/06/1963</DataNacemento>
+        <DataNacemento formato="dd/mm/aaaa">11/11/1962</DataNacemento>
     </Actor>
-    <Actor id="100">
+    <Actor id="A20">
         <Nome>Harrison Ford</Nome>
         <Sexo>home</Sexo>
-        <DataNacemento formato="dd/mm/aaaa">13/07/1943</DataNacemento>
+        <DataNacemento formato="dd/mm/aaaa">15/09/2002</DataNacemento>
     </Actor>
-    <Actor id="111">
+    <Actor id="A111">
         <Nome>David López</Nome>
         <Sexo>home</Sexo>
         <DataNacemento formato="dd/mm/aaaa">11/08/1999</DataNacemento>
     </Actor>
-    
+    <Actor id="A32">
+        <Nome>Michael Caine</Nome>
+        <Sexo>home</Sexo>
+        <DataNacemento formato="dd/mm/aaaa">14/03/1933</DataNacemento>
+    </Actor>
 </Actores>

@@ -1,0 +1,113 @@
+<rss version="2.0">
+    <channel>
+        <title>Fases da lúa</title>
+        <link>
+            https://www.meteogalicia.gal/web/predicion/mareas-e-luas
+        </link>
+        <description>Fases da lúa</description>
+        <item>
+            <title>Lúa nova 02/10/2024 20:50</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=02/10/2024
+            </link>
+            <description>02/10/2024 20:50</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=02/10/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">02/10/2024 20:50</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Lúa nova</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">0</Luas:idLua>
+        </item>
+        <item>
+            <title>Cuarto crecente 10/10/2024 20:56</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=10/10/2024
+            </link>
+            <description>10/10/2024 20:56</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=10/10/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">10/10/2024 20:56</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Cuarto crecente</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">1</Luas:idLua>
+        </item>
+        <item>
+            <title>Lúa chea 17/10/2024 13:27</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=17/10/2024
+            </link>
+            <description>17/10/2024 13:27</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=17/10/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">17/10/2024 13:27</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Lúa chea</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">2</Luas:idLua>
+        </item>
+        <item>
+            <title>Cuarto minguante 24/10/2024 10:05</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=24/10/2024
+            </link>
+            <description>24/10/2024 10:05</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=24/10/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">24/10/2024 10:05</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Cuarto minguante</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">3</Luas:idLua>
+        </item>
+        <item>
+            <title>Lúa nova 01/11/2024 13:48</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=01/11/2024
+            </link>
+            <description>01/11/2024 13:48</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=01/11/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">01/11/2024 13:48</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Lúa nova</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">0</Luas:idLua>
+        </item>
+        <item>
+            <title>Cuarto crecente 09/11/2024 06:56</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=09/11/2024
+            </link>
+            <description>09/11/2024 06:56</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=09/11/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">09/11/2024 06:56</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Cuarto crecente</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">1</Luas:idLua>
+        </item>
+        <item>
+            <title>Lúa chea 15/11/2024 22:29</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=15/11/2024
+            </link>
+            <description>15/11/2024 22:29</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=15/11/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">15/11/2024 22:29</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Lúa chea</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">2</Luas:idLua>
+        </item>
+        <item>
+            <title>Cuarto minguante 23/11/2024 02:29</title>
+            <link>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=23/11/2024
+            </link>
+            <description>23/11/2024 02:29</description>
+            <guid>
+                https://www.meteogalicia.gal/web/predicion/mareas-e-luasdata=23/11/2024
+            </guid>
+            <Luas:data descricion="Data de inicio da fase da lúa">23/11/2024 02:29</Luas:data>
+            <Luas:estado descricion="Fase da lúa">Cuarto minguante</Luas:estado>
+            <Luas:idLua descricion="Identificador da fase da lúa">3</Luas:idLua>
+        </item>
+    </channel>
+</rss>
