@@ -1,5 +1,7 @@
 package threads.ej6;
 
+import java.io.IOException;
+
 public class Conversador extends Thread
 {
     private final Conversacion conversacion;
@@ -22,6 +24,10 @@ public class Conversador extends Thread
             }
         }
         catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e)
         {
             throw new RuntimeException(e);
         }
