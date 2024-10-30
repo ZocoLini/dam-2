@@ -16,12 +16,16 @@ public abstract class ParserHandlerState<T>
         setAttributes(attributes);
     }
     
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {};
-    public void endElement(String uri, String localName, String qName) throws SAXException {};
-    public void text(String text) throws SAXException {};
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {}
+
+    public void endElement(String uri, String localName, String qName) throws SAXException {}
+
+    public void text(String text) throws SAXException {}
+
     public final T get()
     {
         return element;
     }
-    protected void setAttributes(Attributes attributes) {};
+    
+    protected void setAttributes(Attributes attributes) {}
 }

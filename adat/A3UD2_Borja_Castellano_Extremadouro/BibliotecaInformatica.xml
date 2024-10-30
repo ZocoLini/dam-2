@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Contenido de tu documento XML -->
+<biblioteca xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="BibliotecaInformatica.xsd">    
+
+    <facultad>Informática</facultad>
+    <Campus>Escuela Politécnica de Valencia </Campus>
+    <secciones>
+        <seccion nombre="Programación">
+            <libros>
+                <libro ID="A001" isbn="666-1234567890" titulo="Introducción a la Programación en Java" numero_de_paginas="300">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Maria Pérez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>12-12-2012</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>29</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A002" isbn="988-1111111111" titulo="Aprende Java en 21 días" numero_de_paginas="400">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>John Smith</autor>
+                        <autor>Maria Pérez</autor>
+                    </autores>
+                    <fechaEdicion>02-10-2015</fechaEdicion>
+                    <editorial>Anaya Multimedias</editorial>
+                    <precio>39.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                    </copias>
+                </libro>
+                <libro ID="A003" isbn="988-8822222222" titulo="Python para Principiantes" numero_de_paginas="250">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>02-09-2015</fechaEdicion>
+                    <editorial>Coders Press</editorial>
+                    <precio>24.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                    </copias>
+                </libro>
+                <libro ID="A004" isbn="988-3633333333" titulo="Desarrollo de Aplicaciones Web con Java" numero_de_paginas="350">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>05-03-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>32.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A005" isbn="968-2224444444" titulo="Programación Avanzada en Java" numero_de_paginas="280">
+                    <autores>
+                        <autor>Carlos Rodríguez</autor>
+                        <autor>John Smith</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>04-10-2022</fechaEdicion>
+                    <editorial>Anaya Multimedias</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                        <copia numero="5" estado="Prestado"/>
+                    </copias>
+                </libro>
+            </libros>
+        </seccion>
+        <seccion nombre="Redes">
+            <libros>
+                <libro ID="A101" isbn="998-5588555555" titulo="Comunicación en Redes Empresariales" numero_de_paginas="380">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>Maria Pérez</autor>
+                    </autores>
+                    <fechaEdicion>04-10-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A102" isbn="878-6546666666" titulo="Seguridad en Redes Corporativas" numero_de_paginas="420">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Maria Pérez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>09-09-2021</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>39.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Prestado"/>
+                        <copia numero="5" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A103" isbn="878-8767777777" titulo="Introducción a las Redes de Comunicación" numero_de_paginas="320">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>14-04-2020</fechaEdicion>
+                    <editorial>Anaya Multimedia</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A104" isbn="978-8888888323" titulo="Redes Avanzadas y Protocolos de Comunicación" numero_de_paginas="350">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Luis Martínez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>21-12-2022</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>32.00</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A105" isbn="968-9999999543" titulo="Comunicación de Datos en Redes Empresariales" numero_de_paginas="290">
+                    <autores>
+                        <autor>Carlos Rodríguez</autor>
+                        <autor>John Smith</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>04-12-2021</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>25.50</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A106" isbn="778-1010101032" titulo="Seguridad en Redes Empresariales" numero_de_paginas="400">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>Maria Pérez</autor>
+                    </autores>
+                    <fechaEdicion>12-03-2020</fechaEdicion>
+                    <editorial>Anaya Multimedia</editorial>
+                    <precio>34.5</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A107" isbn="343-1111114545" titulo="Introducción a la Comunicación en Redes" numero_de_paginas="350">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>15-07-2021</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>32.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+            </libros>
+        </seccion> 
+        <seccion nombre="Inteligencia Artificial">
+            <libros>
+                <libro ID="A201" isbn="928-5555553212" titulo="Introducción a la Inteligencia Artificial" numero_de_paginas="380">
+                    <autores>
+                        <autor>David Lee</autor>
+                        <autor>María Pérez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>22-01-2021</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A202" isbn="958-1266666666" titulo="Aprendizaje Automático Avanzado" numero_de_paginas="420">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>05-10-2021</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>39.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Prestado"/>
+                        <copia numero="5" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A203" isbn="546-3477777777" titulo="Inteligencia Artificial en Aplicaciones Prácticas" numero_de_paginas="320">
+                    <autores>
+                        <autor>Laura García</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>28-10-2021</fechaEdicion>
+                    <editorial>Anaya Multimedia</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A204" isbn="954-3452888888" titulo="Redes Neuronales y Aprendizaje Profundo" numero_de_paginas="350">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>18-04-2022</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>32.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A205" isbn="918-999999543" titulo="Aprendizaje Profundo en la Práctica" numero_de_paginas="290">
+                    <autores>
+                        <autor>María Pérez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>26-02-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A206" isbn="348-1010101324" titulo="Aplicaciones Prácticas de la Inteligencia Artificial" numero_de_paginas="400">
+                    <autores>
+                        <autor>David Lee</autor>
+                        <autor>Laura García</autor>
+                    </autores>
+                    <fechaEdicion>23-06-2019</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>32.5</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+            </libros>
+        </seccion>
+        <seccion nombre="Base de datos">
+            <libros>
+                <libro ID="A301" isbn="548-5555555532" titulo="Introducción a Bases de Datos Relacionales" numero_de_paginas="380">
+                    <autores>
+                        <autor>Maria Pérez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>12-12-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A302" isbn="548-9866666676" titulo="Diseño de Bases de Datos Avanzado" numero_de_paginas="420">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>04-10-2020</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>39.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Prestado"/>
+                        <copia numero="5" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A303" isbn="998-3277777786" titulo="Base de Datos en la Práctica" numero_de_paginas="320">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>12-07-2019</fechaEdicion>
+                    <editorial>Anaya Multimedia</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A304" isbn="548-5468888868" titulo="Administración de Bases de Datos Empresariales" numero_de_paginas="350">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>02-05-2022</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>32.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A305" isbn="978-9999999999" titulo="Modelado de Datos y SQL" numero_de_paginas="290">
+                    <autores>
+                        <autor>María Pérez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>17-10-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A306" isbn="978-1010101010" titulo="Tecnologías NoSQL" numero_de_paginas="400">
+                    <autores>
+                        <autor>David Lee</autor>
+                        <autor>Laura García</autor>
+                    </autores>
+                    <fechaEdicion>21-10-2018</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A307" isbn="978-1212121212" titulo="Bases de Datos Distribuidas" numero_de_paginas="380">
+                    <autores>
+                        <autor>Laura García</autor>
+                        <autor>Carlos Rodríguez</autor>
+                        <autor>John Smith</autor>
+                    </autores>
+                    <fechaEdicion>21-12-2022</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>39.25</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                        <copia numero="4" estado="Disponible"/>
+                        <copia numero="5" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A308" isbn="978-1313131313" titulo="SQL Avanzado y Optimización de Bases de Datos" numero_de_paginas="420">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>15-05-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>45.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Prestado"/>
+                        <copia numero="5" estado="Disponible"/>
+                        <copia numero="6" estado="Disponible"/>
+                    </copias>
+                </libro>
+                  
+            </libros>
+        </seccion>
+        <seccion nombre="Sistemas Operativos">
+            <libros>
+                <libro ID="A401" isbn="978-5555555555" titulo="Sistemas Operativos Modernos" numero_de_paginas="380">
+                    <autores>
+                        <autor>David Lee</autor>
+                        <autor>Maria Pérez</autor>
+                    </autores>
+                    <fechaEdicion>22-02-2021</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A402" isbn="978-6666666666" titulo="Administración de Sistemas Unix" numero_de_paginas="420">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>14-06-2022</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>39.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Prestado"/>
+                        <copia numero="5" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A403" isbn="978-7777777777" titulo="Gestión de Recursos en Sistemas Operativos" numero_de_paginas="320">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>11-10-2021</fechaEdicion>
+                    <editorial>Anaya Multimedia</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A404" isbn="978-8888888888" titulo="Sistemas Operativos en la Nube" numero_de_paginas="350">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>04-09-2022</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>32.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A405" isbn="777-9977599999" titulo="Introducción a Sistemas Operativos" numero_de_paginas="290">
+                    <autores>
+                        <autor>María Pérez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>22-05-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <!-- Agrega más libros de Sistemas Operativos -->
+            </libros>
+        </seccion>
+        <seccion nombre="Ciberseguridad">
+            <libros>
+                <libro ID="A501" isbn="878-1313131313" titulo="Ciberseguridad y Protección de Datos" numero_de_paginas="420">
+                    <autores>
+                        <autor>John Smith</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>06-11-2021</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>45.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Prestado"/>
+                        <copia numero="5" estado="Disponible"/>
+                        <copia numero="6" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A502" isbn="978-1414141414" titulo="Seguridad en Redes Empresariales" numero_de_paginas="380">
+                    <autores>
+                        <autor>David Lee</autor>
+                        <autor>Maria Pérez</autor>
+                    </autores>
+                    <fechaEdicion>04-10-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>39.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A503" isbn="967-1515151515" titulo="Hacking Ético y Seguridad Web" numero_de_paginas="320">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>12-02-2017</fechaEdicion>
+                    <editorial>Anaya Multimedia</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Disponible"/>
+                        <copia numero="3" estado="Prestado"/>
+                    </copias>
+                </libro>
+                <libro ID="A504" isbn="923-1616161616" titulo="Ciberseguridad en Entornos Críticos" numero_de_paginas="350">
+                    <autores>
+                        <autor>Sara Rodríguez</autor>
+                        <autor>Ramón Bermúdez</autor>
+                    </autores>
+                    <fechaEdicion>09-11-2017</fechaEdicion>
+                    <editorial>Marcombo</editorial>
+                    <precio>32.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A505" isbn="934-1717171717" titulo="Ciberseguridad en la Empresa" numero_de_paginas="290">
+                    <autores>
+                        <autor>María Sánchez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>24-04-2022</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                        <copia numero="4" estado="Disponible"/>
+                    </copias>
+                </libro>
+                  
+            </libros>
+        </seccion>
+        <seccion nombre="Robótica">
+            <libros>
+                <libro ID="A1001" isbn="938-3232323232" titulo="Introducción a la Robótica" numero_de_paginas="320">
+                    <autores>
+                        <autor>Luis Martínez</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>07-12-2020</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>29.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A1002" isbn="978-3333333333" titulo="Robótica Avanzada" numero_de_paginas="380">
+                    <autores>
+                        <autor>David Lee</autor>
+                        <autor>Maria Pérez</autor>
+                    </autores>
+                    <fechaEdicion>07-12-2020</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>34.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A1003" isbn="978-3434343434" titulo="Automatización Industrial con Robots" numero_de_paginas="310">
+                    <autores>
+                        <autor>Laura García</autor>
+                        <autor>Carlos Rodríguez</autor>
+                    </autores>
+                    <fechaEdicion>08-12-2019</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>31.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A1004" isbn="978-3535353535" titulo="Visión por Computadora en Robótica" numero_de_paginas="360">
+                    <autores>
+                        <autor>Maria Pérez</autor>
+                        <autor>Luis Martínez</autor>
+                    </autores>
+                    <fechaEdicion>16-08-2021</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>32.75</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A1005" isbn="978-3636363636" titulo="Robótica en la Industria" numero_de_paginas="300">
+                    <autores>
+                        <autor>Carlos Rodríguez</autor>
+                        <autor>David Lee</autor>
+                    </autores>
+                    <fechaEdicion>17-12-2021</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>29.55</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>
+                <libro ID="A1006" isbn="978-3737373737" titulo="Control de Robots Industriales" numero_de_paginas="340">
+                    <autores>
+                        <autor>María López</autor>
+                        <autor>Laura García</autor>
+                    </autores>
+                    <fechaEdicion>07-12-2022</fechaEdicion>
+                    <editorial>Paraninfo</editorial>
+                    <precio>31.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                         
+                    </copias>
+                </libro>
+                <libro ID="A1007" isbn="978-3838383838" titulo="Programación de Robots Autónomos" numero_de_paginas="330">
+                    <autores>
+                        <autor>Ángel López</autor>
+                        <autor>Javier Martín</autor>
+                    </autores>
+                    <fechaEdicion>12-12-2012</fechaEdicion>
+                    <editorial>Rama</editorial>
+                    <precio>30.99</precio>
+                    <copias>
+                        <copia numero="1" estado="Disponible"/>
+                        <copia numero="2" estado="Prestado"/>
+                        <copia numero="3" estado="Disponible"/>
+                    </copias>
+                </libro>                  
+            </libros>
+        </seccion>
+    </secciones>
+</biblioteca>

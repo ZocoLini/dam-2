@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="biblioteca">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="facultad" type="xs:string"/>
+                <xs:element name="Campus" type="xs:string"/>
+                <xs:element name="secciones">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="seccion" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="libros">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="libro" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="autores">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="autor" type="xs:string" maxOccurs="unbounded"/>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="fechaEdicion" type="xs:string"/>
+                                                                <xs:element name="editorial" type="xs:string"/>
+                                                                <xs:element name="precio" type="xs:decimal"/>
+                                                                <xs:element name="copias">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="copia" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:attribute name="numero" type="xs:string"/>
+                                                                                    <xs:attribute name="estado" type="xs:string"/>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="ID" type="xs:ID" use="required"/>
+                                                            <xs:attribute name="isbn" type="xs:string" use="required"/>
+                                                            <xs:attribute name="titulo" type="xs:string" use="required"/>
+                                                            <xs:attribute name="numero_de_paginas" type="xs:integer" use="required"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="nombre" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:unique name="uniqueISBN">
+            <xs:selector xpath=".//libro"/>
+            <xs:field xpath="@isbn"/>
+        </xs:unique>
+   
+        <xs:unique name="uniqueNombreSeccion">
+            <xs:selector xpath=".//seccion"/>
+            <xs:field xpath="@nombre"/>
+        </xs:unique> 
+    </xs:element>
+</xs:schema>
