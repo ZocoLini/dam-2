@@ -16,7 +16,8 @@ public class Database
     private static final int MIN_CONNECTIONS = 2;
 
     private static Database instance;
-    private static String dbURL; ;
+    private static String dbURL;
+    ;
     private static String connectionUser;
     private static String connectionPassword;
 
@@ -32,7 +33,7 @@ public class Database
         dbURL = "jdbc:mysql://" + ip + ":" + puerto + "/clinica"; // Cambia el nombre de tu BD
         connectionUser = user; // Usuario de MySQL
         connectionPassword = password; // Contraseña de MySQL
-        
+
         instance = new Database();
     }
 
@@ -63,17 +64,19 @@ public class Database
             throw new RuntimeException(e);
         }
 
-        AppLifeCicleEvents.OnAppCloseRequest.addListener(() -> createdConnections.forEach(connection ->
-        {
-            try
-            {
-                connection.close();
-            }
-            catch (SQLException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }));
+        AppLifeCicleEvents.OnAppCloseRequest.addListener(() ->
+                createdConnections.forEach(connection ->
+                {
+                    try
+                    {
+                        connection.close();
+                    }
+                    catch (SQLException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
+                })
+        );
     }
 
     public void connectTransaction(Consumer<Connection> consumer)
