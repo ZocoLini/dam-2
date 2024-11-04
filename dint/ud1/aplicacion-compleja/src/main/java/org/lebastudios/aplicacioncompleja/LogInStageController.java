@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.lebastudios.aplicacioncompleja.controllers.StageController;
+import org.lebastudios.aplicacioncompleja.database.Database;
+import org.lebastudios.aplicacioncompleja.dialogs.InformationDialogController;
+import org.lebastudios.aplicacioncompleja.language.LangFileLoader;
 import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
 
 import java.net.URL;
@@ -42,7 +45,19 @@ public class LogInStageController extends StageController<LogInStageController>
 
     private boolean validarConexion()
     {
-        return true;
+        try
+        {
+            Database.init(textLabelUsuario.getText(), textLabelPassword.getText(),
+                    textLabelIPServidor.getText(), textLabelPuertoServidor.getText());
+            
+            Database.getInstance();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            new InformationDialogController(LangFileLoader.getTranslation("phrase.dbloginerror")).instantiate();
+            return false;
+        }
     }
 
     @FXML

@@ -1,7 +1,12 @@
 package org.lebastudios.aplicacioncompleja.database.entities;
 
-import java.time.LocalDate;
+import lombok.Getter;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
 public class PerroVacuna implements IEntity
 {
     private final int codVacinacion;
@@ -33,5 +38,12 @@ public class PerroVacuna implements IEntity
     public void loadRelations()
     {
         
+    }
+    
+    public static List<PerroVacuna> selectAllFrom(String dogChip)
+    {
+        List<PerroVacuna> vacunas = new ArrayList<>();
+        
+        return vacunas;
     }
 }

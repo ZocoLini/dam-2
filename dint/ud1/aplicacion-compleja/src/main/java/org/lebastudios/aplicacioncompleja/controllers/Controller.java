@@ -33,6 +33,8 @@ public abstract class Controller<T extends Controller<T>>
         return this.root;
     }
 
+    @FXML protected void initialize() {}
+    
     public void loadAsync()
     {
         Thread loadingThread = new Thread(() ->

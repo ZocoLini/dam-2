@@ -1,5 +1,8 @@
 package org.lebastudios.aplicacioncompleja.database.entities;
 
+import lombok.Getter;
+
+@Getter
 public class Vacuna implements IEntity
 {
     private final int codVacina;
@@ -16,5 +19,15 @@ public class Vacuna implements IEntity
     public Vacuna(String nomeVacina, int numTotalDoses)
     {
         this(-1, nomeVacina, numTotalDoses);
+    }
+    
+    public boolean save()
+    {
+        return false;
+    }
+    
+    public static Vacuna select(int codVacina)
+    {
+        return null;
     }
 }
