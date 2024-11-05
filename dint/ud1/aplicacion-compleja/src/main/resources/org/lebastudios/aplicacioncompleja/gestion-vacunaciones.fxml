@@ -21,9 +21,9 @@
     </padding>
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label text="%word.propietario" />
-        <ChoiceBox fx:id="propietarioChoiceBox" HBox.hgrow="ALWAYS" prefWidth="150"/>
+        <ChoiceBox fx:id="propietarioChoiceBox" HBox.hgrow="ALWAYS" minWidth="250"/>
         <Label text="%word.perro" />
-        <ChoiceBox fx:id="perroChoiceBox" HBox.hgrow="ALWAYS" prefWidth="150" />
+        <ChoiceBox fx:id="perroChoiceBox" HBox.hgrow="ALWAYS" minWidth="150" />
         <Label text="%word.chip:" />
         <Label fx:id="chipIdLabel" />
     </HBox>
@@ -59,7 +59,7 @@
             <ChoiceBox fx:id="vacunaChoiceBox" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Label maxWidth="Infinity" text="%word.fecha" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
             <DatePicker fx:id="vacunaDatePicker" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-            <Button maxWidth="Infinity" text="%word.vacunar" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+            <Button onAction="#vacunaButtonAction" maxWidth="Infinity" text="%word.vacunar" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
             
             <Label maxWidth="Infinity" text="%word.observaciones" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <TextArea fx:id="vacunaObservaciones" maxWidth="Infinity" prefRowCount="3" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1"/>

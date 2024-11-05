@@ -6,6 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import org.lebastudios.aplicacioncompleja.apparience.UIEffects;
 import org.lebastudios.aplicacioncompleja.controllers.StageController;
+import org.lebastudios.aplicacioncompleja.database.entities.Perro;
+import org.lebastudios.aplicacioncompleja.database.entities.Propietario;
+import org.lebastudios.aplicacioncompleja.dialogs.InformationDialogController;
+import org.lebastudios.aplicacioncompleja.language.LangFileLoader;
 import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
 
 import java.net.URL;
@@ -41,6 +45,14 @@ public class FormularioNuevoPropietarioController extends StageController
     private void buttonSaveAction(ActionEvent actionEvent)
     {
         if (!validateData()) return;
+
+        if (!new Propietario(dniField.getText(), nameField.getText(),
+                apellido1Field.getText(), apellido2Field.getText(),
+                emailField.getText(), telefonoField.getText()).insert())
+        {
+            new InformationDialogController(LangFileLoader.getTranslation("phrase.inserterror")).instantiate();
+            return;
+        }
         
         buttonCloseAction(actionEvent);
     }
@@ -53,27 +65,15 @@ public class FormularioNuevoPropietarioController extends StageController
 
     private boolean validateData()
     {
-        if (nameField.getText().isBlank()) 
+        return validateField(dniField) && validateField(nameField) && validateField(apellido1Field)
+                && validateField(apellido2Field) && validateField(telefonoField) && validateField(emailField) ;
+    }
+    
+    private boolean validateField(TextField textField)
+    {
+        if (textField.getText().isBlank()) 
         {
-            UIEffects.shakeNode(nameField);
-            return false;
-        }
-        
-        if (apellido1Field.getText().isBlank()) 
-        {
-            UIEffects.shakeNode(apellido1Field);
-            return false;
-        }
-        
-        if (dniField.getText().isBlank()) 
-        {
-            UIEffects.shakeNode(dniField);
-            return false;
-        }
-        
-        if (telefonoField.getText().isBlank()) 
-        {
-            UIEffects.shakeNode(telefonoField);
+            UIEffects.shakeNode(textField);
             return false;
         }
         

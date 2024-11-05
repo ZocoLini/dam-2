@@ -16,6 +16,8 @@ public class MainStageController extends StageController<MainStageController>
     public void initialize()
     {
         getRoot().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, _ -> AppLifeCicleEvents.OnAppCloseRequest.invoke());
+        
+        
     }
     
     @Override

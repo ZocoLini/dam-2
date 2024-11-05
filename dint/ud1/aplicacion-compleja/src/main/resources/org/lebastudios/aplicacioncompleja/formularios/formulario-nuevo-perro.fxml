@@ -40,5 +40,4 @@
     <Button  maxWidth="Infinity" text="%word.cerrar" defaultButton="true" onAction="#buttonCloseAction" 
             GridPane.columnIndex="4" GridPane.rowIndex="1"/>
     
-    
 </GridPane>
