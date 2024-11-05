@@ -2,34 +2,19 @@ package com.example.lista_clientes_db;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.lista_clientes_db.database.Database;
-import com.example.lista_clientes_db.database.entities.Client;
-import com.example.lista_clientes_db.database.entities.ClientDAO;
-import com.example.lista_clientes_db.database.entities.Provincia;
-import com.example.lista_clientes_db.database.entities.ProvinciaDAO;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
+import com.example.lista_clientes_db.database.entities.Client;
+import com.example.lista_clientes_db.database.entities.ClientDAO;
 import com.example.lista_clientes_db.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Comparator;
 
@@ -78,9 +63,8 @@ public class MainActivity extends AppCompatActivity
         new Thread(() ->
         {
             Client[] clients = ClientDAO.selectAll().stream().sorted(Comparator.comparingInt(Client::getId)).toArray(Client[]::new);
-            ListAdapter adapter = new ArrayAdapter<>(
+            ListAdapter adapter = new ClientAdapter(
                     this,
-                    android.R.layout.simple_list_item_1,
                     clients
             );
 
