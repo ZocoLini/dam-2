@@ -50,7 +50,7 @@ public class FormularioNuevoPerroController extends PaneController
                 }
             }
         });
-        
+
         razasList.getItems().clear();
         razasList.getItems().addAll(Raza.selectAll("ORDER BY codRaza"));
 
@@ -60,7 +60,7 @@ public class FormularioNuevoPerroController extends PaneController
             protected void updateItem(Propietario item, boolean empty)
             {
                 super.updateItem(item, empty);
-                
+
                 if (item == null || empty)
                 {
                     setText(null);
@@ -72,7 +72,12 @@ public class FormularioNuevoPerroController extends PaneController
                 }
             }
         });
-        
+
+        reloadPropietariosList();
+    }
+
+    private void reloadPropietariosList()
+    {
         propietariosList.getItems().clear();
         propietariosList.getItems().addAll(Propietario.selectAll("ORDER BY dni"));
     }
@@ -126,5 +131,13 @@ public class FormularioNuevoPerroController extends PaneController
         }
 
         return true;
+    }
+
+    @FXML
+    private void buttonNewPropietarioAction(ActionEvent actionEvent) 
+    {
+        new FormularioNuevoPropietarioController().instantiate(true);
+        
+        reloadPropietariosList();
     }
 }

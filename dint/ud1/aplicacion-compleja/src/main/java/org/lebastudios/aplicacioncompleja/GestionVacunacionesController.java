@@ -203,7 +203,8 @@ public class GestionVacunacionesController extends PaneController
         }
         else
         {
-            if (!perroVacuna.saveIncrementandoDosis())
+            if (!new PerroVacuna(perroVacuna, vacunaObservaciones.getText(), vacunaDatePicker.getValue())
+                    .saveIncrementandoDosis())
             {
                 new InformationDialogController("No se ha podido incrementar la dosis.").instantiate();
                 return;

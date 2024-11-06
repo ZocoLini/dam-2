@@ -53,6 +53,4 @@
         <Button text="%word.conectar" defaultButton="true" prefWidth="100" onAction="#botonConectar"/>
         <Button text="%word.salir" prefWidth="100" onAction="#botonCerrar"/>
     </HBox>
-    
-    
 </GridPane>

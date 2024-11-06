@@ -8,19 +8,36 @@ import java.util.function.Consumer;
 
 public abstract class StageController<T extends Controller<T>> extends Controller<T>
 {
-    public final void instantiate(Consumer<T> acceptController)
+    public final void instantiate(Consumer<T> acceptController, boolean wait)
     {
         StageBuilder stageBuilder = getDefaultStageBuilder();
 
         acceptController.accept(getController());
         customizeStageBuilder(stageBuilder);
 
-        stageBuilder.build().show();
+        if (wait) 
+        {
+            stageBuilder.build().showAndWait();
+        }
+        else
+        {
+            stageBuilder.build().show();
+        }
+    }
+
+    public final void instantiate(Consumer<T> acceptController)
+    {
+        instantiate(acceptController, false);
+    }
+    
+    public final void instantiate(boolean wait)
+    {
+        instantiate(_ -> {}, wait);
     }
 
     public final void instantiate()
     {
-        instantiate(_ -> {});
+        instantiate(_ -> {}, false);
     }
 
     private StageBuilder getDefaultStageBuilder()

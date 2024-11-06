@@ -68,7 +68,7 @@ public class FormularioNuevoPropietarioController extends StageController
         return validateField(dniField) && validateField(nameField) && validateField(apellido1Field)
                 && validateField(apellido2Field) && validateField(telefonoField) && validateField(emailField) ;
     }
-    
+
     private boolean validateField(TextField textField)
     {
         if (textField.getText().isBlank()) 
