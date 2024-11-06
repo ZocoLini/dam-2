@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Modulo xsl:noNamespaceSchemaLocation="Modulo.xsd" xmlns:xsl="http://www.w3.org/2001/XMLSchema-instance">
+    <Nome>Redes de Área Local</Nome>
+    <Contidos>
+        <Bloque sesions="60" num="1">
+            <Titulo>Sistemas de comunicacións</Titulo>
+            <Descripcion>Aspectos físicos, procolos e arquitecturas de redes</Descripcion>
+        </Bloque>
+        <Bloque sesions="50" num="2">
+            <Titulo>Redes de datos</Titulo>
+            <Descripcion>Dispositivos de interconexión de redes locais e de área extensa</Descripcion>
+        </Bloque>
+        <Bloque sesions="90" num="3">
+            <Titulo>Redes de área local</Titulo>
+            <Descripcion>Administración e xestión dunha rede de área local.</Descripcion>
+        </Bloque>
+        <Bloque sesions="60" num="4">
+            <Titulo>Servizos de Internet</Titulo>
+            <Descripcion>Adm. de servizos que empreguen protocolos estándar en Internet</Descripcion>
+        </Bloque>
+    </Contidos>
+</Modulo>
