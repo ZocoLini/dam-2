@@ -102,7 +102,7 @@ public class EJ1_A3UD2
             }
             
             seccionCuentaLibros.stream()
-                    .sorted(Comparator.reverseOrder())
+                    .sorted(Comparator.comparingInt((SeccionCuentaLibros o) -> o.cantidadLibros).reversed().thenComparing(o -> o.nombre))
                     .forEach(seccion -> System.out.println(seccion + "--------------------------------------"));
         }
     }
@@ -171,18 +171,12 @@ public class EJ1_A3UD2
                 + ", Estado: " + copia.getAttributes().getNamedItem("estado").getNodeValue() + "}");
     }
 
-    private record SeccionCuentaLibros(String nombre, int cantidadLibros) implements Comparable<SeccionCuentaLibros>
+    private record SeccionCuentaLibros(String nombre, int cantidadLibros)
     {
         @Override
         public String toString()
         {
             return "Seccion: " + nombre + "\nNumero de libros: " + cantidadLibros + "\n";
-        }
-
-        @Override
-        public int compareTo(SeccionCuentaLibros o)
-        {
-            return Integer.compare(cantidadLibros, o.cantidadLibros);
         }
     }
 }
