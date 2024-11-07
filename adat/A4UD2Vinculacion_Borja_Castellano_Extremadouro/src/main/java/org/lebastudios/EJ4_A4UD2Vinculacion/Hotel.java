@@ -14,7 +14,8 @@ import java.util.List;
 public class Hotel
 {
     @XmlAttribute(name = "id")
-    private int codigoHotel;
+    @XmlID
+    private String codigoHotel;
     @XmlElement(name = "Nombre")
     private String nombre;
     @XmlElement(name = "FechaInauguracion")

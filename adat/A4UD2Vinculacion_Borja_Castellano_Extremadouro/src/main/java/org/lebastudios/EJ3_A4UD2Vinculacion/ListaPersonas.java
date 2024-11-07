@@ -1,9 +1,6 @@
 package org.lebastudios.EJ3_A4UD2Vinculacion;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +15,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListaPersonas
 {
-    @XmlElement
+    @XmlElements({
+            @XmlElement(name = "Estudiante", type = Estudiante.class),
+            @XmlElement(name = "Trabajador", type = Trabajador.class)
+    })
     private List<Persona> personas = new ArrayList<>();
 }

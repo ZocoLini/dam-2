@@ -19,7 +19,7 @@ public abstract class Persona
     private String nombre;
     @XmlElement(name = "Edad")
     private int edad;
-    @XmlElementWrapper(name = "Informacion Contacto")
-    @XmlList
-    private List<String> telefonos = new ArrayList<>();
+
+    @XmlElement(name = "InformacionContacto")
+    private InfoContacto infoContacto = new InfoContacto();
 }
