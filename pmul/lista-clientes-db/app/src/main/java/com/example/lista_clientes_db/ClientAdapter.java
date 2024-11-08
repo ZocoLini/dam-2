@@ -29,6 +29,8 @@ public class ClientAdapter extends ArrayAdapter<Client>
         {
             TextView textLabel = view.findViewById(android.R.id.text1);
 
+            
+
             textLabel.setBackgroundColor(Color.RED);
             textLabel.setTextColor(Color.WHITE);
         }

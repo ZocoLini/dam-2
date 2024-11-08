@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CadenaHotelera nombre="SOL CONFORT" CIF="AB23723787">
+    <Hotel id="1">
+        <Nombre>El Eden</Nombre>
+        <FechaInauguracion>10/06/2000</FechaInauguracion>
+        <Telefonos>1231241 235546345643</Telefonos>
+        <Direccion>
+            <Calle>Cabadiña</Calle>
+            <Numero>5</Numero>
+            <CodigoPostal>36690</CodigoPostal>
+        </Direccion>
+    </Hotel>
+    <Hotel id="2">
+        <Nombre>El quisco</Nombre>
+        <FechaInauguracion>11/11/2004</FechaInauguracion>
+        <Telefonos>3456731 34561231</Telefonos>
+        <Direccion>
+            <Calle>Cabadiña</Calle>
+            <Numero>7</Numero>
+            <CodigoPostal>36690</CodigoPostal>
+        </Direccion>
+    </Hotel>
+</CadenaHotelera>

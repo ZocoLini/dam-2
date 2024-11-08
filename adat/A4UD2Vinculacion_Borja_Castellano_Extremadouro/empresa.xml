@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<empresa cif="A13241324">
+    <nombre>LebaStudios</nombre>
+    <empleados>
+        <empleado>
+            <dni>76582884R</dni>
+            <nombre>Borja</nombre>
+            <edad>24</edad>
+        </empleado>
+        <empleado>
+            <dni>77476385W</dni>
+            <nombre>David</nombre>
+            <edad>20</edad>
+        </empleado>
+    </empleados>
+</empresa>

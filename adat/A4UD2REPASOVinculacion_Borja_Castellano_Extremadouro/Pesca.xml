@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Pesca>
+    <Especies>
+        <Especie nome="Robaliza" valor="alto">
+            <Habitat>Mar</Habitat>
+            <NomeCientifico>Dicentrarchus labrax</NomeCientifico>
+            <OutrosNomes>Lubina</OutrosNomes>
+            <CapturaMinima unidade="cm">36</CapturaMinima>
+            <Nota>Puede llegar a penetrar en aguas dulces</Nota>
+        </Especie>
+        <Especie nome="Sargo" valor="alto">
+            <Habitat>Mar</Habitat>
+            <NomeCientifico>Diplodus sargus sargus</NomeCientifico>
+            <CapturaMinima unidade="cm">15</CapturaMinima>
+            <Nota>Os exemplares novos viven en bancos, volvéndose solitarios ó facerse maiores</Nota>
+        </Especie>
+        <Especie nome="Congrio" valor="baixo">
+            <Habitat>Mar</Habitat>
+            <NomeCientifico>Conger conger</NomeCientifico>
+            <CapturaMinima unidade="cm">58</CapturaMinima>
+            <Nota>A parte final do seu corpo non se come, pois ten moitas espiñas.</Nota>
+            <Nota>Sempre sae comer pola noite, e polo día agóchase en gretas e buracos.</Nota>
+        </Especie>
+        <Especie nome="Pinto" valor="medio">
+            <Habitat>Mar</Habitat>
+            <NomeCientifico>Labrus bergylta</NomeCientifico>
+            <CapturaMinima unidade="cm">35</CapturaMinima>
+            <Nota>Son hermafroditas proterogínicos. Comezan o seu crecemento como femias para transformarse posteriormente en machos</Nota>
+            <Nota>Presenta unha ámplia gama cromática, en xeral adaptada o seu entorno</Nota>
+        </Especie>
+        <Especie nome="Polbo" valor="alto">
+            <Habitat>Mar</Habitat>
+            <NomeCientifico>Octopoda</NomeCientifico>
+            <OutrosNomes>Pulpo</OutrosNomes>
+            <CapturaMinima unidade="kg">1</CapturaMinima>
+            <Nota>As especies mais grandes poden chegar a 6 metros e 70 kgs.</Nota>
+            <Nota>O terceiro brazo dereito do macho é realmente un órgano copulador</Nota>
+            <Nota>Son moluscos</Nota>
+            <Nota>Considéranse os invertebrados de maior intelixencia</Nota>
+        </Especie>
+        <Especie nome="Choco" valor="medio">
+            <Habitat>Mar</Habitat>
+            <NomeCientifico>Sepiida</NomeCientifico>
+            <OutrosNomes>Sepia</OutrosNomes>
+            <CapturaMinima unidade="cm">20</CapturaMinima>
+            <Nota>Cando se ven ameazados soltan un chorro de tinta</Nota>
+        </Especie>
+        <Especie nome="Troita">
+            <Habitat>Río</Habitat>
+            <NomeCientifico>Salmoninae</NomeCientifico>
+            <OutrosNomes>Trucha</OutrosNomes>
+            <CapturaMinima unidade="cm">21</CapturaMinima>
+        </Especie>
+    </Especies>
+    <Xornada lugar="Cabicastro" data="2020-05-21"/>
+    <Xornada lugar="Lagos" data="20020-05-27">
+        <Captura numUnidades="3" peso="5">Pinto</Captura>
+        <Captura numUnidades="1" peso="1.7">Pulpo</Captura>
+        <Descricion>A auga estaba fría e turbia. A visibilidade era de 2 metros.       
+        </Descricion>
+    </Xornada>
+    <Xornada lugar="Illa do santo" data="2020-07-07">
+        <Captura numUnidades="1" peso="7.5">Congrio</Captura>
+        <Captura numUnidades="5" peso="2.3">Sargo</Captura>
+        <Captura numUnidades="1" peso="1.2">Robaliza</Captura>
+        <Descricion>Un día moi agradable para a pesca con boa visibilidade. A auga estaba especialmente quente.
+        </Descricion>
+    </Xornada>
+    <Xornada lugar="Con negro" data="2020-08-30">
+        <Captura numUnidades="2" peso="4.8">Pulpo</Captura>
+    </Xornada>
+    <Xornada lugar="Area de Bon" data="2020-09-03">
+        <Descricion>Aínda que o mar esta en calma, non se vía nada.
+        </Descricion>
+    </Xornada>
+</Pesca>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

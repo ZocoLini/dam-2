@@ -1,6 +1,7 @@
 package org.lebastudios.aplicacioncompleja.database.entities;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.lebastudios.aplicacioncompleja.database.Database;
 
 import java.sql.Date;
@@ -39,6 +40,11 @@ public class PerroVacuna implements IEntity
         this(-1, chip, codVacina, data, observaciones, dose);
     }
     
+    public PerroVacuna(PerroVacuna perroVacuna, String observaciones, LocalDate data)
+    {
+        this(perroVacuna.codVacinacion, perroVacuna.chip, perroVacuna.codVacina, data, observaciones, perroVacuna.dose);
+    }
+    
     @Override
     public void loadRelations()
     {
@@ -59,10 +65,12 @@ public class PerroVacuna implements IEntity
             try
             {
                 PreparedStatement statement = connection.prepareStatement(
-                        "UPDATE vacinacions SET dose = ? WHERE chip = ? and codVacina = ?");
+                        "UPDATE vacinacions SET dose = ?, data = ?, observacions = ? WHERE chip = ? and codVacina = ?");
                 statement.setInt(1, dose + 1);
-                statement.setString(2, chip);
-                statement.setInt(3, codVacina);
+                statement.setDate(2, Date.valueOf(data));
+                statement.setString(3, observaciones);
+                statement.setString(4, chip);
+                statement.setInt(5, codVacina);
                 
                 saved[0] = !statement.execute();
             }

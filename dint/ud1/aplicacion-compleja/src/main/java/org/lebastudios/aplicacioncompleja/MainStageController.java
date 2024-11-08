@@ -2,9 +2,11 @@ package org.lebastudios.aplicacioncompleja;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.stage.WindowEvent;
 import org.lebastudios.aplicacioncompleja.controllers.StageController;
 import org.lebastudios.aplicacioncompleja.events.AppLifeCicleEvents;
+import org.lebastudios.aplicacioncompleja.formularios.FormularioCitaPerruceriaController;
 import org.lebastudios.aplicacioncompleja.formularios.FormularioNuevoPropietarioController;
 import org.lebastudios.aplicacioncompleja.formularios.StageAltaRazaPerroController;
 import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
@@ -51,5 +53,11 @@ public class MainStageController extends StageController<MainStageController>
     public void menuSalir(ActionEvent actionEvent) 
     {
         Platform.exit();
+    }
+
+    @FXML private 
+    void openMenuCitaPerruqueria(ActionEvent actionEvent) 
+    {
+        new FormularioCitaPerruceriaController().instantiate();
     }
 }
