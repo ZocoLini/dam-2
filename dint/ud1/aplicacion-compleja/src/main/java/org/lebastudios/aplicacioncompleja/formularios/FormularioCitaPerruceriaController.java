@@ -42,8 +42,9 @@ public class FormularioCitaPerruceriaController extends StageController
 
         reservarButton.setDisable(true);
 
-        horasGroup.selectedToggleProperty().addListener((_, _, newValue) ->
-                reservarButton.setDisable(newValue == null));
+        horasGroup.selectedToggleProperty().addListener(
+                (_, _, newValue) -> reservarButton.setDisable(newValue == null)
+        );
 
         fechaDatePicker.valueProperty().addListener((_, _, newValue) ->
         {
@@ -194,7 +195,8 @@ public class FormularioCitaPerruceriaController extends StageController
     @Override
     protected void customizeStageBuilder(StageBuilder stageBuilder)
     {
-        stageBuilder.setModality(Modality.APPLICATION_MODAL);
+        stageBuilder.setModality(Modality.APPLICATION_MODAL)
+                .setResizeable(true);
     }
 
     @Override
