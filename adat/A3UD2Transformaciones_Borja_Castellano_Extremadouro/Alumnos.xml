@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><notas>
+    <nota valor="9">
+        <alumno>Blancanieves</alumno>
+    </nota>
+    <nota valor="8">
+        <alumno>Perico dos Palotes</alumno>
+        <alumno>Pulgarcito</alumno>
+    </nota>
+    <nota valor="7">
+        <alumno>Arsenio Lupin</alumno>
+        <alumno>Frodo Bolson</alumno>
+    </nota>
+    <nota valor="5">
+        <alumno>Cenicienta</alumno>
+        <alumno>Bob Esponja</alumno>
+    </nota>
+    <nota valor="4">
+        <alumno>Smeagol</alumno>
+    </nota>
+</notas>
