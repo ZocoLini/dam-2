@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Aplicacion-elecciones-kotlin</string>
+    <string name="account">Cuenta</string>
+    <string name="nif">NIF</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Aceptar</string>
+    <string name="votaciones_nacionales">Votaciones nacionales</string>
 </resources>
