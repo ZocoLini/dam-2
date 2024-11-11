@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="Hardware.xsl"?>
+<Hardware>
+    <Maquina nome="PC017">
+        <Info>
+            <Tipo>PC Sobremesa</Tipo>
+            <Fabricante>Dell</Fabricante>
+            <Disco tecnoloxia="SATA" capacidade="500" />
+        </Info>
+        
+        <Config>
+            <OS>Windows XP</OS>
+            <IP>192.168.20.105</IP>
+        </Config>
+    </Maquina>
+    
+    <Maquina nome="GALILEO">
+        <Info>
+            <Tipo>Torre</Tipo>
+            <Fabricante>Fujitsu-Siemens</Fabricante>
+            <Disco tecnoloxia="SCSI" capacidade="200" />
+            <Disco tecnoloxia="SCSI" capacidade="200" />
+            <Disco tecnoloxia="SCSI" capacidade="200" />
+        </Info>
+        
+        <Config>
+            <OS>Windows 2003 Server R2</OS>
+            <IP>192.168.20.10</IP>
+        </Config>
+    </Maquina>
+    
+    <Maquina nome="PC007">
+        <Info>
+            <Tipo>Semitorre</Tipo>
+            <Memoria>0,5</Memoria>
+            <Disco capacidade="40" />
+        </Info>
+        <Config>
+            <OS>Windows98 SE</OS>
+        </Config>
+        <Notas>Sen tarxeta de rede</Notas>
+    </Maquina>
+    
+    <Maquina nome="PR007">
+        <Info>
+            <Tipo>Impresora Láser</Tipo>
+            <Fabricante>OKI</Fabricante>
+        </Info>       
+        <Config />
+        <Notas>Monocromo, dúplex, red</Notas>
+    </Maquina>
+</Hardware>
