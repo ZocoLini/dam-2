@@ -9,14 +9,14 @@
       fx:controller="org.lebastudios.aplicacioncompleja.formularios.FormularioCitaPerruceriaController"
       spacing="10">
     <padding>
-        <Insets bottom="10" left="10" right="10" top="10"/>
+        <Insets bottom="15" left="15" right="15" top="15"/>
     </padding>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Label text="%word.propietario" />
-        <ChoiceBox fx:id="propietarioChoiceBox" HBox.hgrow="ALWAYS" minWidth="200"/>
+        <ChoiceBox fx:id="propietarioChoiceBox" maxWidth="Infinity" HBox.hgrow="ALWAYS" minWidth="200"/>
         <Label text="%word.perro" />
-        <ChoiceBox fx:id="perroChoiceBox" HBox.hgrow="ALWAYS" minWidth="150" />
+        <ChoiceBox maxWidth="Infinity" fx:id="perroChoiceBox" HBox.hgrow="ALWAYS" minWidth="150" />
     </HBox>
     
     <GridPane hgap="10" vgap="10">

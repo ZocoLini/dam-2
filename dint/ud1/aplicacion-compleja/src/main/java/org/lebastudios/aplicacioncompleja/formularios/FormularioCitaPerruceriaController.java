@@ -34,6 +34,8 @@ public class FormularioCitaPerruceriaController extends StageController
     {
         horasGroup.getToggles().addAll(hora10, hora11, hora12, hora16, hora17);
 
+        fechaDatePicker.setDisable(true);
+        
         initPerrosChoiceBox();
 
         initPropietarioChoiceBox();
@@ -46,24 +48,32 @@ public class FormularioCitaPerruceriaController extends StageController
                 (_, _, newValue) -> reservarButton.setDisable(newValue == null)
         );
 
+        
         fechaDatePicker.valueProperty().addListener((_, _, newValue) ->
         {
-            if (newValue == null) return;
-
             horasGroup.getToggles().forEach(toggle ->
             {
                 final var radioButton = (RadioButton) toggle;
 
                 radioButton.setDisable(false);
+            });
 
+            if (newValue != null)
+            {
                 ConsultasSQLPerrucaria.recuperarTodaAsCitasDunhaData(newValue).forEach(cita ->
                 {
-                    if (cita.getHora() == 10 && toggle.equals(hora10)) radioButton.setDisable(true);
-                    if (cita.getHora() == 11 && toggle.equals(hora11)) radioButton.setDisable(true);
-                    if (cita.getHora() == 12 && toggle.equals(hora12)) radioButton.setDisable(true);
-                    if (cita.getHora() == 16 && toggle.equals(hora16)) radioButton.setDisable(true);
-                    if (cita.getHora() == 17 && toggle.equals(hora17)) radioButton.setDisable(true);
+                    if (cita.getHora() == 10) hora10.setDisable(true);
+                    else if (cita.getHora() == 11) hora11.setDisable(true);
+                    else if (cita.getHora() == 12) hora12.setDisable(true);
+                        else if (cita.getHora() == 16) hora16.setDisable(true);
+                            else if (cita.getHora() == 17) hora17.setDisable(true);
                 });
+            }
+            
+
+            horasGroup.getToggles().forEach(toggle ->
+            {
+                final var radioButton = (RadioButton) toggle;
 
                 radioButton.setStyle(radioButton.isDisable() ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
             });
@@ -97,6 +107,10 @@ public class FormularioCitaPerruceriaController extends StageController
                 return null;
             }
         });
+        
+        perroChoiceBox.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) ->
+                fechaDatePicker.setDisable(newValue == null)
+        );
     }
 
     private void initPropietarioChoiceBox()
