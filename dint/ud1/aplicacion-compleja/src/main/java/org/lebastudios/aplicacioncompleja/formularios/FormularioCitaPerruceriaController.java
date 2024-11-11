@@ -65,8 +65,8 @@ public class FormularioCitaPerruceriaController extends StageController
                     if (cita.getHora() == 10) hora10.setDisable(true);
                     else if (cita.getHora() == 11) hora11.setDisable(true);
                     else if (cita.getHora() == 12) hora12.setDisable(true);
-                        else if (cita.getHora() == 16) hora16.setDisable(true);
-                            else if (cita.getHora() == 17) hora17.setDisable(true);
+                    else if (cita.getHora() == 16) hora16.setDisable(true);
+                    else if (cita.getHora() == 17) hora17.setDisable(true);
                 });
             }
             

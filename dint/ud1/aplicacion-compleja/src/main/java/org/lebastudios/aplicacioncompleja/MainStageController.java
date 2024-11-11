@@ -18,8 +18,6 @@ public class MainStageController extends StageController<MainStageController>
     public void initialize()
     {
         getRoot().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, _ -> AppLifeCicleEvents.OnAppCloseRequest.invoke());
-        
-        
     }
     
     @Override
@@ -40,21 +38,26 @@ public class MainStageController extends StageController<MainStageController>
         return MainStageController.class.getResource("main-stage.fxml");
     }
 
-    public void openMenuPerrosRazas(ActionEvent actionEvent) 
+    @FXML private void openMenuPerrosRazas(ActionEvent actionEvent) 
     {
         new StageAltaRazaPerroController().instantiate();
     }
 
-    public void openMenuPropietarios(ActionEvent actionEvent) 
+    @FXML private void openMenuPropietarios(ActionEvent actionEvent) 
     {
         new FormularioNuevoPropietarioController().instantiate();
     }
     
-    public void menuSalir(ActionEvent actionEvent) 
+    @FXML private void menuSalir(ActionEvent actionEvent) 
     {
         Platform.exit();
     }
 
+    @FXML private void openMenuImpresionFacturas()
+    {
+        
+    }
+    
     @FXML private 
     void openMenuCitaPerruqueria(ActionEvent actionEvent) 
     {

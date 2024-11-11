@@ -17,6 +17,8 @@
                 </Menu>
                 <MenuItem text="%phrase.citaperruqueria" onAction="#openMenuCitaPerruqueria"/>
                 <SeparatorMenuItem />
+                <MenuItem text="%phrase.facturacion" onAction="#openMenuImpresionFacturas" />
+                <SeparatorMenuItem />
                 <MenuItem text="%word.salir" onAction="#menuSalir"/>
             </Menu>
         </MenuBar>
