@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.stage.WindowEvent;
 import org.lebastudios.aplicacioncompleja.controllers.StageController;
 import org.lebastudios.aplicacioncompleja.events.AppLifeCicleEvents;
+import org.lebastudios.aplicacioncompleja.facturacion.FacturacionStageController;
 import org.lebastudios.aplicacioncompleja.formularios.FormularioCitaPerruceriaController;
 import org.lebastudios.aplicacioncompleja.formularios.FormularioNuevoPropietarioController;
 import org.lebastudios.aplicacioncompleja.formularios.StageAltaRazaPerroController;
@@ -55,7 +56,7 @@ public class MainStageController extends StageController<MainStageController>
 
     @FXML private void openMenuImpresionFacturas()
     {
-        
+        new FacturacionStageController().instantiate();
     }
     
     @FXML private 

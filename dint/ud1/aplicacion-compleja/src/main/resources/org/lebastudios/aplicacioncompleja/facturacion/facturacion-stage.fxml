@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.lebastudios.aplicacioncompleja.facturacion.FacturacionStageController"
-            prefHeight="400.0" prefWidth="600.0">
+<GridPane hgap="20" vgap="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.lebastudios.aplicacioncompleja.facturacion.FacturacionStageController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
-</AnchorPane>
+    <HBox fx:id="dateFilterBox" alignment="CENTER_LEFT" maxWidth="Infinity" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <Label text="%word.from" />
+        <DatePicker prefWidth="125" fx:id="fromDate" />
+        <Label text="%word.until" />
+        <DatePicker prefWidth="125" fx:id="untilDate" />
+    </HBox>
+    <HBox fx:id="facturaIdFilterBox" alignment="CENTER_LEFT" maxWidth="Infinity" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <Label text="%word.facturaid" />
+        <TextField fx:id="facturaId" />
+    </HBox>
+    
+    <HBox fx:id="clientNameFilterBox" alignment="CENTER_LEFT" spacing="5" maxWidth="Infinity"
+          GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <Label text="%word.clientname"/>
+        <TextField fx:id="clientName" HBox.hgrow="ALWAYS" />
+    </HBox>
+</GridPane>
