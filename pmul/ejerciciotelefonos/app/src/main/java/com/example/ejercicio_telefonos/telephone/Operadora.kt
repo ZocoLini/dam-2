@@ -38,8 +38,8 @@ object Operadora
             {
                 if (telephones[callingTo - 1].isInACall()) return false;
 
-                calls[getTelephoneId()] = callingTo;
-                telephones[callingTo - 1].onReceiveCall(getTelephoneId());
+                calls[getTelephoneNumber()] = callingTo;
+                telephones[callingTo - 1].onReceiveCall(getTelephoneNumber());
                 return true;
             }
 
@@ -47,10 +47,10 @@ object Operadora
 
             override fun onHangUp(hangUpTo: Int)
             {
-                if (isCallingSomeone(getTelephoneId()))
+                if (isCallingSomeone(getTelephoneNumber()))
                 {
-                    endCall(getTelephoneId());
-                } else if (isReceivingCall(getTelephoneId()))
+                    endCall(getTelephoneNumber());
+                } else if (isReceivingCall(getTelephoneNumber()))
                 {
                     endCall(hangUpTo);
                 } else
@@ -58,10 +58,10 @@ object Operadora
                     throw IllegalStateException("No call to hang up");
                 }
 
-                telephones[hangUpTo - 1].onOtherHangUp(getTelephoneId());
+                telephones[hangUpTo - 1].onOtherHangUp(getTelephoneNumber());
             }
 
-            override fun getTelephoneId(): Int
+            override fun getTelephoneNumber(): Int
             {
                 return telephoneId;
             }

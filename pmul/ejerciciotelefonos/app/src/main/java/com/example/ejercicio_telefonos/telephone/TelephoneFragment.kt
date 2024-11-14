@@ -19,7 +19,7 @@ class TelephoneFragment : Fragment() {
     private lateinit var action: TelephoneFragmentActions;
     private lateinit var editText: EditText;
     private lateinit var displayInfo: TextView;
-    private var callingPhone: Int? = null;
+    private var callingPhoneNumber: Int? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +41,15 @@ class TelephoneFragment : Fragment() {
     fun setActions(actions: TelephoneFragmentActions) {
         action = actions;
 
-        displayInfo.text = action.getTelephoneId().toString();
+        displayInfo.text = action.getTelephoneNumber().toString();
     }
 
     fun isInACall(): Boolean {
-        return callingPhone != null;
+        return callingPhoneNumber != null;
     }
 
     private fun onAction() {
-        if (callingPhone != null) {
+        if (callingPhoneNumber != null) {
             hangUp();
         } else {
             if (editText.text.isEmpty()) return;
@@ -60,49 +60,49 @@ class TelephoneFragment : Fragment() {
     }
 
     private fun hangUp() {
-        action.onHangUp(callingPhone!!);
-        callingPhone = null;
+        action.onHangUp(callingPhoneNumber!!);
+        callingPhoneNumber = null;
 
-        displayInfo.text = action.getTelephoneId().toString();
+        displayInfo.text = action.getTelephoneNumber().toString();
     }
 
     private fun callTo(telephoneNumber: Int) {
         if (!action.onSendCall(telephoneNumber)) return;
 
-        callingPhone = telephoneNumber;
+        callingPhoneNumber = telephoneNumber;
 
         displayInfo.text = buildString {
             append(
                 action
-                    .getTelephoneId()
+                    .getTelephoneNumber()
                     .toString()
             )
             append(" > ")
-            append(callingPhone)
+            append(callingPhoneNumber)
         };
     }
 
-    fun onReceiveCall(telephoneId: Int) {
-        action.onReceiveCall(telephoneId)
+    fun onReceiveCall(telephoneNumber: Int) {
+        action.onReceiveCall(telephoneNumber)
 
-        callingPhone = telephoneId;
+        callingPhoneNumber = telephoneNumber;
 
         displayInfo.text = buildString {
             append(
                 action
-                    .getTelephoneId()
+                    .getTelephoneNumber()
                     .toString()
             )
             append(" < ")
-            append(telephoneId)
+            append(telephoneNumber)
         };
     }
 
     fun onOtherHangUp(hangUpFrom: Int) {
-        callingPhone = null;
+        callingPhoneNumber = null;
 
         action.onOtherHangUp(hangUpFrom);
-        displayInfo.text = action.getTelephoneId().toString();
+        displayInfo.text = action.getTelephoneNumber().toString();
     }
 
     companion object {
@@ -122,6 +122,6 @@ class TelephoneFragment : Fragment() {
         fun onSendCall(callingTo: Int): Boolean;
         fun onOtherHangUp(hangUpFrom: Int);
         fun onHangUp(hangUpTo: Int);
-        fun getTelephoneId(): Int;
+        fun getTelephoneNumber(): Int;
     }
 }
