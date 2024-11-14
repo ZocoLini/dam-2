@@ -5,6 +5,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.ejercicio_telefonos.telephone.Operadora
+import com.example.ejercicio_telefonos.telephone.TelephoneFragment
 
 class MainActivity : AppCompatActivity()
 {
@@ -18,17 +20,23 @@ class MainActivity : AppCompatActivity()
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        Operadora.addTelephone(supportFragmentManager.findFragmentById(R.id.fragment_telefono1)
+                as TelephoneFragment
+        )
+        Operadora.addTelephone(supportFragmentManager.findFragmentById(R.id.fragment_telefono2)
+                as TelephoneFragment
+        )
+        Operadora.addTelephone(supportFragmentManager.findFragmentById(R.id.fragment_telefono3)
+                as TelephoneFragment
+        )
+        Operadora.addTelephone(supportFragmentManager.findFragmentById(R.id.fragment_telefono4)
+                as TelephoneFragment
+        )
     }
 
-    override fun onAttachedToWindow()
-    {
-        Operadora.addTelefono(supportFragmentManager.findFragmentById(R.id.fragment_telefono1)
-                as TelefonoFragment)
-        Operadora.addTelefono(supportFragmentManager.findFragmentById(R.id.fragment_telefono2)
-                as TelefonoFragment)
-        Operadora.addTelefono(supportFragmentManager.findFragmentById(R.id.fragment_telefono3)
-                as TelefonoFragment)
-        Operadora.addTelefono(supportFragmentManager.findFragmentById(R.id.fragment_telefono4)
-                as TelefonoFragment)
+    override fun onStart() {
+        super.onStart()
+
     }
 }

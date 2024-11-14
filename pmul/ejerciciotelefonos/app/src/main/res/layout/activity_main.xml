@@ -10,25 +10,25 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.ejercicio_telefonos.TelefonoFragment"
+        android:name="com.example.ejercicio_telefonos.telephone.TelephoneFragment"
         android:id="@+id/fragment_telefono1"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.ejercicio_telefonos.TelefonoFragment"
+        android:name="com.example.ejercicio_telefonos.telephone.TelephoneFragment"
         android:id="@+id/fragment_telefono2"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.ejercicio_telefonos.TelefonoFragment"
+        android:name="com.example.ejercicio_telefonos.telephone.TelephoneFragment"
         android:id="@+id/fragment_telefono3"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.ejercicio_telefonos.TelefonoFragment"
+        android:name="com.example.ejercicio_telefonos.telephone.TelephoneFragment"
         android:id="@+id/fragment_telefono4"/>
 
 
