@@ -18,8 +18,8 @@ class Telephone(
 
     fun hangUp()
     {
+        Operadora.endCall(telephoneNumber, otherInTheCall);
         otherInTheCall = -1;
-        Operadora.endCall(telephoneNumber);
     }
 
     fun call(telephoneNumber: Int): Boolean

@@ -61,9 +61,7 @@ class TelephoneFragment : Fragment()
     {
         this.actions = actions;
 
-        displayInfo.text = this.actions
-            .getTelephoneNumber(this)
-            .toString();
+        setIdleApparience();
     }
 
     fun setReceivingCallApparecience(callingFromNumber: Int)

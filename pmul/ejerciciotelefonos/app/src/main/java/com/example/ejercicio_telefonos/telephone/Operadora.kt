@@ -5,6 +5,15 @@ object Operadora
     private var telephones: HashMap<Int, Telephone> = HashMap();
     private val calls: HashMap<Int, Int> = HashMap();
 
+    fun endCall(numberEndingTheCall: Int, otherNumber: Int)
+    {
+        if (calls.containsKey(numberEndingTheCall)) endCallByCallerNumber(numberEndingTheCall);
+        else if (calls.containsKey(otherNumber)) endCallByCallerNumber(otherNumber);
+        else throw IllegalStateException("No call found");
+
+        telephones[otherNumber]!!.onOtherHangUp();
+    }
+
     fun endCall(endingCallFrom: Int)
     {
         val otherInCall = getOtherInCallWith(endingCallFrom);
@@ -16,7 +25,7 @@ object Operadora
         telephones[otherInCall]!!.onOtherHangUp();
     }
 
-    fun endCallByCallerNumber(callerNumber: Int)
+    private fun endCallByCallerNumber(callerNumber: Int)
     {
         if (!calls.containsKey(callerNumber)) throw IllegalStateException("No call found");
 
