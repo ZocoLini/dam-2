@@ -1,17 +1,36 @@
 package com.example.ejercicio_telefonos.telephone
 
-import com.example.ejercicio_telefonos.telephone.TelephoneFragment.TelephoneFragmentActions
-
 object Operadora
 {
-    private var telephones: ArrayList<TelephoneFragment> = ArrayList();
+    private var telephones: HashMap<Int, Telephone> = HashMap();
     private val calls: HashMap<Int, Int> = HashMap();
 
-    private fun endCall(callerId: Int)
+    fun endCall(endingCallFrom: Int)
     {
-        if (!calls.containsKey(callerId)) throw IllegalArgumentException("No such caller found");
+        val otherInCall = getOtherInCallWith(endingCallFrom);
 
-        calls.remove(callerId);
+        if (calls.containsKey(endingCallFrom)) endCallByCallerNumber(endingCallFrom);
+        else if (calls.containsKey(otherInCall)) endCallByCallerNumber(otherInCall);
+        else throw IllegalStateException("No call found");
+
+        telephones[otherInCall]!!.onOtherHangUp();
+    }
+
+    fun endCallByCallerNumber(callerNumber: Int)
+    {
+        if (!calls.containsKey(callerNumber)) throw IllegalStateException("No call found");
+        
+        calls.remove(callerNumber);
+    }
+
+    fun sendCall(callingFrom: Int, callingTo: Int): Boolean
+    {
+        if (!telephones.containsKey(callingTo)) return false;
+        if (isInACall(callingTo)) return false;
+
+        calls[callingFrom] = callingTo;
+        telephones[callingTo]!!.onReceiveCall(callingFrom);
+        return true;
     }
 
     private fun isReceivingCall(telephoneId: Int): Boolean
@@ -24,49 +43,27 @@ object Operadora
         return calls.containsKey(telephoneId);
     }
 
-    fun addTelephone(telephoneFragment: TelephoneFragment)
+    private fun isInACall(telephoneId: Int): Boolean
     {
-        telephones.add(telephoneFragment);
-
-        val telephoneId = telephones.size;
-
-        telephoneFragment.setActions(object : TelephoneFragmentActions
-        {
-            override fun onReceiveCall(receivingFrom: Int) {}
-
-            override fun onSendCall(callingTo: Int): Boolean
-            {
-                if (telephones[callingTo - 1].isInACall()) return false;
-
-                calls[getTelephoneNumber()] = callingTo;
-                telephones[callingTo - 1].onReceiveCall(getTelephoneNumber());
-                return true;
-            }
-
-            override fun onOtherHangUp(hangUpFrom: Int) {}
-
-            override fun onHangUp(hangUpTo: Int)
-            {
-                if (isCallingSomeone(getTelephoneNumber()))
-                {
-                    endCall(getTelephoneNumber());
-                } else if (isReceivingCall(getTelephoneNumber()))
-                {
-                    endCall(hangUpTo);
-                } else
-                {
-                    throw IllegalStateException("No call to hang up");
-                }
-
-                telephones[hangUpTo - 1].onOtherHangUp(getTelephoneNumber());
-            }
-
-            override fun getTelephoneNumber(): Int
-            {
-                return telephoneId;
-            }
-        });
+        return isReceivingCall(telephoneId) || isCallingSomeone(telephoneId);
     }
 
+    private fun getOtherInCallWith(telephoneId: Int): Int
+    {
+        if (isCallingSomeone(telephoneId)) return calls[telephoneId]!!;
+        if (isReceivingCall(telephoneId)) return calls.filter { it.value == telephoneId }.keys.first();
+        throw IllegalStateException("No call found");
+    }
 
+    private fun getCaller(telephoneId: Int): Int
+    {
+        if (isCallingSomeone(telephoneId)) return telephoneId;
+        if (isReceivingCall(telephoneId)) return calls.filter { it.value == telephoneId }.keys.first();
+        throw IllegalStateException("No call found");
+    }
+
+    fun addTelephone(telephone: Telephone)
+    {
+        telephones[telephone.getTelephoneNumber()] = telephone;
+    }
 }

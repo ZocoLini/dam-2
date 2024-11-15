@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    tools:context=".telephone.TelephoneFragment"
+    tools:context=".fragments.TelephoneFragment"
     android:orientation="horizontal">
 
     <TextView
@@ -20,6 +20,7 @@
     <Button
         android:id="@+id/ib_telefono"
         android:layout_width="50dp"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@android:drawable/stat_sys_phone_call"/>
 
 </LinearLayout>
