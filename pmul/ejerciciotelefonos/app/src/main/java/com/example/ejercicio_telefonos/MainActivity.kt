@@ -11,6 +11,9 @@ import com.example.ejercicio_telefonos.telephone.Operadora
 
 class MainActivity : AppCompatActivity()
 {
+    private val telephones: HashMap<TelephoneFragment, Telephone> = HashMap();
+    private val telephonesFragments: HashMap<Telephone, TelephoneFragment> = HashMap();
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -37,10 +40,25 @@ class MainActivity : AppCompatActivity()
         val telephone3 = Telephone(3);
         val telephone4 = Telephone(4);
 
-        registerEventsTelephone(telephone1, supportFragmentManager.findFragmentById(R.id.fragment_telefono1) as TelephoneFragment);
-        registerEventsTelephone(telephone2, supportFragmentManager.findFragmentById(R.id.fragment_telefono2) as TelephoneFragment);
-        registerEventsTelephone(telephone3, supportFragmentManager.findFragmentById(R.id.fragment_telefono3) as TelephoneFragment);
-        registerEventsTelephone(telephone4, supportFragmentManager.findFragmentById(R.id.fragment_telefono4) as TelephoneFragment);
+        val telephoneFragment1 = supportFragmentManager.findFragmentById(R.id.fragment_telefono1) as TelephoneFragment
+        val telephoneFragment2 = supportFragmentManager.findFragmentById(R.id.fragment_telefono2) as TelephoneFragment
+        val telephoneFragment3 = supportFragmentManager.findFragmentById(R.id.fragment_telefono3) as TelephoneFragment
+        val telephoneFragment4 = supportFragmentManager.findFragmentById(R.id.fragment_telefono4) as TelephoneFragment
+
+        telephones[telephoneFragment1] = telephone1;
+        telephones[telephoneFragment2] = telephone2;
+        telephones[telephoneFragment3] = telephone3;
+        telephones[telephoneFragment4] = telephone4;
+
+        telephonesFragments[telephone1] = telephoneFragment1;
+        telephonesFragments[telephone2] = telephoneFragment2;
+        telephonesFragments[telephone3] = telephoneFragment3;
+        telephonesFragments[telephone4] = telephoneFragment4;
+
+        registerEventsTelephone(telephone1, telephoneFragment1);
+        registerEventsTelephone(telephone2, telephoneFragment2);
+        registerEventsTelephone(telephone3, telephoneFragment3);
+        registerEventsTelephone(telephone4, telephoneFragment4);
 
         Operadora.addTelephone(telephone1);
         Operadora.addTelephone(telephone2);
@@ -50,39 +68,43 @@ class MainActivity : AppCompatActivity()
 
     private fun registerEventsTelephone(telephone: Telephone, telephoneFragment: TelephoneFragment)
     {
-        telephoneFragment.setActions(object : TelephoneFragment.TelephoneFragmentActions
+        telephoneFragment.setActions(telephoneFragmentActions);
+        telephone.setTelephoneActions(telephoneActions)
+    }
+
+    private val telephoneFragmentActions = object : TelephoneFragment.TelephoneFragmentActions
+    {
+        override fun onPhoneAction(telephoneNumber: Int, telephoneFragment: TelephoneFragment)
         {
-            override fun onPhoneAction(telephoneNumber: Int)
-            {
-                if (telephone.isInACall())
-                {
-                    telephone.hangUp();
-                    telephoneFragment.setIdleApparience();
-                }
-                else if (telephone.call(telephoneNumber))
-                {
-                    telephoneFragment.setCallingApparience(telephoneNumber);
-                }
-            }
+            val telephone: Telephone = telephones[telephoneFragment]!!;
 
-            override fun getTelephoneNumber(): Int
+            if (telephone.isInACall())
             {
-                return telephone.getTelephoneNumber();
-            }
-        });
-
-        telephone.setTelephoneActions(object : Telephone.TelephoneActions
-        {
-            override fun onReceivingCall(callingFromNumber: Int)
-            {
-                telephoneFragment.setReceivingCallApparecience(callingFromNumber)
-            }
-
-            override fun onOtherHangUp()
-            {
+                telephone.hangUp();
                 telephoneFragment.setIdleApparience();
             }
+            else if (telephone.call(telephoneNumber))
+            {
+                telephoneFragment.setCallingApparience(telephoneNumber);
+            }
+        }
 
-        })
+        override fun getTelephoneNumber(telephoneFragment: TelephoneFragment): Int
+        {
+            return telephones[telephoneFragment]!!.getTelephoneNumber();
+        }
+    }
+
+    private val telephoneActions = object : Telephone.TelephoneActions
+    {
+        override fun onReceivingCall(callingFromNumber: Int, telephone: Telephone)
+        {
+            telephonesFragments[telephone]!!.setReceivingCallApparecience(callingFromNumber)
+        }
+
+        override fun onOtherHangUp(telephone: Telephone)
+        {
+            telephonesFragments[telephone]!!.setIdleApparience();
+        }
     }
 }

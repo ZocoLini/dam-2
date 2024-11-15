@@ -6,8 +6,8 @@ class Telephone(
 {
     private var actions: TelephoneActions = object : TelephoneActions
     {
-        override fun onReceivingCall(callingFromNumber: Int) {}
-        override fun onOtherHangUp() {}
+        override fun onReceivingCall(callingFromNumber: Int, telephone: Telephone) {}
+        override fun onOtherHangUp(telephone: Telephone) {}
     };
     private var otherInTheCall: Int = -1;
 
@@ -33,7 +33,7 @@ class Telephone(
     fun onReceiveCall(callingFrom: Int)
     {
         otherInTheCall = callingFrom;
-        actions.onReceivingCall(callingFrom);
+        actions.onReceivingCall(callingFrom, this);
     }
 
     fun isInACall(): Boolean
@@ -49,7 +49,7 @@ class Telephone(
     fun onOtherHangUp()
     {
         otherInTheCall = -1;
-        actions.onOtherHangUp();
+        actions.onOtherHangUp(this);
     }
 
     override fun equals(other: Any?): Boolean
@@ -69,7 +69,7 @@ class Telephone(
 
     interface TelephoneActions
     {
-        fun onReceivingCall(callingFromNumber: Int);
-        fun onOtherHangUp();
+        fun onReceivingCall(callingFromNumber: Int, telephone: Telephone);
+        fun onOtherHangUp(telephone: Telephone);
     }
 }

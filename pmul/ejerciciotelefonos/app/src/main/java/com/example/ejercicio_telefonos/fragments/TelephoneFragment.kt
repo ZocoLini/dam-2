@@ -19,13 +19,8 @@ class TelephoneFragment : Fragment()
 {
     private var actions: TelephoneFragmentActions = object : TelephoneFragmentActions
     {
-        override fun onPhoneAction(telephoneNumber: Int)
-        {
-        }
-
-        override fun getTelephoneNumber(): Int
-        {
-            return -1; }
+        override fun onPhoneAction(telephoneNumber: Int, telephoneFragment: TelephoneFragment) {}
+        override fun getTelephoneNumber(telephoneFragment: TelephoneFragment): Int { return -1; }
     };
     private lateinit var editText: EditText;
     private lateinit var displayInfo: TextView;
@@ -53,7 +48,8 @@ class TelephoneFragment : Fragment()
                 catch (e: NumberFormatException)
                 {
                     -1
-                }
+                },
+                this
             );
         }
 
@@ -66,7 +62,7 @@ class TelephoneFragment : Fragment()
         this.actions = actions;
 
         displayInfo.text = this.actions
-            .getTelephoneNumber()
+            .getTelephoneNumber(this)
             .toString();
     }
 
@@ -76,12 +72,10 @@ class TelephoneFragment : Fragment()
 
         setInACallApparience(callingFromNumber);
 
+        val telephoneNumber = actions.getTelephoneNumber(this);
+
         displayInfo.text = buildString {
-            append(
-                actions
-                    .getTelephoneNumber()
-                    .toString()
-            )
+            append(telephoneNumber)
             append(" < ")
             append(callingFromNumber)
         };
@@ -93,12 +87,10 @@ class TelephoneFragment : Fragment()
 
         setInACallApparience(callingToNumber);
 
+        val telephoneNumber = actions.getTelephoneNumber(this);
+
         displayInfo.text = buildString {
-            append(
-                actions
-                    .getTelephoneNumber()
-                    .toString()
-            )
+            append(telephoneNumber)
             append(" > ")
             append(callingToNumber)
         };
@@ -113,7 +105,7 @@ class TelephoneFragment : Fragment()
         editText.isEnabled = true;
 
         displayInfo.text = actions
-            .getTelephoneNumber()
+            .getTelephoneNumber(this)
             .toString();
     }
 
@@ -126,12 +118,6 @@ class TelephoneFragment : Fragment()
 
     companion object
     {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment TelefonoFragment.
-         */
         @JvmStatic
         fun newInstance() =
             TelephoneFragment().apply {}
@@ -139,7 +125,7 @@ class TelephoneFragment : Fragment()
 
     interface TelephoneFragmentActions
     {
-        fun onPhoneAction(telephoneNumber: Int);
-        fun getTelephoneNumber(): Int;
+        fun onPhoneAction(telephoneNumber: Int, telephoneFragment: TelephoneFragment);
+        fun getTelephoneNumber(telephoneFragment: TelephoneFragment): Int;
     }
 }

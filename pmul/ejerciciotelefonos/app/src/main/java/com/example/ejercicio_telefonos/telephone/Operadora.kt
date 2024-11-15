@@ -19,7 +19,7 @@ object Operadora
     fun endCallByCallerNumber(callerNumber: Int)
     {
         if (!calls.containsKey(callerNumber)) throw IllegalStateException("No call found");
-        
+
         calls.remove(callerNumber);
     }
 
