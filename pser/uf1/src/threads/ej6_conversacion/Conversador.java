@@ -1,4 +1,4 @@
-package threads.ej6;
+package threads.ej6_conversacion;
 
 import java.io.IOException;
 
