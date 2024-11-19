@@ -38,7 +38,7 @@ public class Porra
         final var cantidad = apuesta.getCantidad();
         
         dineroApostado.put(tipoApuesta, dineroApostado.get(tipoApuesta) + cantidad);
-        numeroApostadores.computeIfAbsent(tipoApuesta, _ -> new HashSet<>()).add(apuesta.getApostador());
+        numeroApostadores.get(tipoApuesta).add(apuesta.getApostador());
     }
 
     private ResultadoPartido generarResultado()
