@@ -1,18 +1,7 @@
 package threads.ej8_naves;
 
-import java.util.function.Consumer;
-
 public class Meteorito
 {
-    public boolean estaBombaColocada() 
-    {
-        return estado == EstadoMeteorito.BOMBA_COLACADA;
-    }
-
-    public boolean esTaladrabe() {
-        return estado == EstadoMeteorito.DEFAULT;
-    }
-
     private enum EstadoMeteorito
     {
         DEFAULT,
@@ -20,20 +9,29 @@ public class Meteorito
         DESTRUIDO,
         BOMBA_COLACADA
     }
+
+    private final int identificador;
     private EstadoMeteorito estado = EstadoMeteorito.DEFAULT;
-    private Consumer<Meteorito> onDestruccion;
 
-    public Meteorito(Consumer<Meteorito> onDestruccion)
+    public Meteorito(int identificador)
     {
-        this.onDestruccion = onDestruccion;
-    }
-    
-    public boolean estaTaladrado()
-    {
-        return estado == EstadoMeteorito.TALADRADO;
+        this.identificador = identificador;
     }
 
-    public synchronized void taladrar()
+    public int getIdentificador()
+    {
+        return identificador;
+    }
+
+    public boolean estaBombaColocada() 
+    {
+        return estado == EstadoMeteorito.BOMBA_COLACADA;
+    }
+    public boolean esTaladrabe() {
+        return estado == EstadoMeteorito.DEFAULT;
+    }
+
+    public void taladrar()
     {
         if (estado != EstadoMeteorito.DEFAULT) throw new IllegalStateException("El meteorito no se puede taladrar");
         
@@ -55,8 +53,8 @@ public class Meteorito
             {
                 e.printStackTrace();
             }
-            
-            onDestruccion.accept(this);
+
+            System.out.println("Meteorito #" + identificador + ": Meteorito destruido");
         }).start();
     }
 }

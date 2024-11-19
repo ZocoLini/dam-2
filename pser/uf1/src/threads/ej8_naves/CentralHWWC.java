@@ -1,7 +1,6 @@
 package threads.ej8_naves;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CentralHWWC
 {
@@ -16,78 +15,44 @@ public class CentralHWWC
     
     private CentralHWWC() {}
 
-    private static final int NUM_METEORITOS = 2;
-    private static final int NUM_NAVES_A = 2;
-    private static final int NUM_NAVES_BS = 1;
+    private static final int NUM_METEORITOS = 4;
+    private static final int NUM_NAVES_A = 1;
+    private static final int NUM_NAVES_BS = 2;
 
-    private final List<Meteorito> meteoritosVisibles = new ArrayList<>();
+    private final TrackerMeteoritosTaladrables trackerMeteoritosTaladrables = new TrackerMeteoritosTaladrables();
+    private final TrackerDeMeteoritosTaladrados trackerDeMeteoritosTaladrados = new TrackerDeMeteoritosTaladrados();
     
     public void init()
     {
         for (int i = 0; i < NUM_METEORITOS; i++)
         {
-            final var e = new Meteorito(this::onDestruccionMeteorito);
-            meteoritosVisibles.add(e);
+            trackerMeteoritosTaladrables.registrarMeteoritoTaladrable(new Meteorito(i));
         }
         
         for (int i = 0; i < NUM_NAVES_A; i++)
         {
-            new Armageddon().start();
+            new Armageddon(i).start();
         }
 
         for (int i = 0; i < NUM_NAVES_BS; i++)
         {
-            new BomberosSurtidores().start();
+            new BombarderosSurtidores(i).start();
         }
     }
     
     public Meteorito obtenerNuevoMeteorito()
     {
-        if (meteoritosVisibles.isEmpty()) return null;
-
-        final var meteorito = meteoritosVisibles.get((int) (Math.random() * meteoritosVisibles.size()));
-        
-        if (!meteorito.esTaladrabe()) 
-        {
-            eliminarMeteoritoDeTalatrables(meteorito);
-            return obtenerNuevoMeteorito();
-        }
-        
-        return meteorito;
+        return trackerMeteoritosTaladrables.obtenerMeteoritoTaladrable();
     }
     
-    private final List<Meteorito> meteoritosTaladrados = new ArrayList<>();
-    
-    public synchronized void registrarMeteoritoComoTaladrado(Meteorito m)
+    public void registrarMeteoritoComoTaladrado(Meteorito m)
     {
-        meteoritosTaladrados.add(m);
-        notify();
+        trackerDeMeteoritosTaladrados.registrarMeteoritoTaladrado(m);
     }
     
-    public synchronized Meteorito obtenerMeteoritoTaladrado()
+    public Meteorito obtenerMeteoritoTaladrado()
     {
-        if (meteoritosTaladrados.isEmpty())
-        {
-            try
-            {
-                wait();
-            }
-            catch (InterruptedException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-        
-        if (meteoritosTaladrados.isEmpty()) return null;
-        
-        return meteoritosTaladrados.removeFirst();
-    }
-    
-    public synchronized void eliminarMeteoritoDeTalatrables(Meteorito m)
-    {
-        meteoritosVisibles.remove(m);
-        
-        if (meteoritosVisibles.isEmpty()) notifyAll();
+        return trackerDeMeteoritosTaladrados.esperarMeteoritoTaladrado();
     }
     
     public void aterrizar()
@@ -95,9 +60,69 @@ public class CentralHWWC
         System.out.println("Nave aterrizando");
     }
     
-    public void onDestruccionMeteorito(Meteorito m)
+    private static class TrackerDeMeteoritosTaladrados
     {
-        System.out.println("Meteorito destruido");
-        eliminarMeteoritoDeTalatrables(m);
+        private final Stack<Meteorito> meteoritosTaladrados = new Stack<>();
+        
+        public synchronized void registrarMeteoritoTaladrado(Meteorito m)
+        {
+            meteoritosTaladrados.add(m);
+            notify();
+        }
+        
+        public synchronized Meteorito esperarMeteoritoTaladrado()
+        {
+            if (meteoritosTaladrados.isEmpty())
+            {
+                if (!CentralHWWC.getInstance().estaTrackeandoAlgunMeterito()) 
+                {
+                    notificarVueltaABase();
+                    return null;
+                }
+                
+                try
+                {
+                    wait();
+                }
+                catch (InterruptedException e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }
+            
+            // Puede suceder que un bombardero este esperando un meteorito pero ya otras naves se ocupaon de todos 
+            // antes de su turno asi que devolvemos que no hay nada despues de la epsera
+            if (meteoritosTaladrados.isEmpty()) return null; 
+            
+            return meteoritosTaladrados.pop();
+        }
+        
+        private void notificarVueltaABase()
+        {
+            System.out.println("CentralHWWC: Notificando vuelta a base a todas las naves bombardero");
+            notifyAll();
+        }
+    }
+
+    private boolean estaTrackeandoAlgunMeterito() 
+    {
+        return !trackerMeteoritosTaladrables.meteoritosTaladrables.isEmpty();
+    }
+
+    private static class TrackerMeteoritosTaladrables
+    {
+        private final List<Meteorito> meteoritosTaladrables = new ArrayList<>();
+        
+        public void registrarMeteoritoTaladrable(Meteorito m)
+        {
+            meteoritosTaladrables.add(m);
+        }
+        
+        public synchronized Meteorito obtenerMeteoritoTaladrable()
+        {
+            if (meteoritosTaladrables.isEmpty()) return null;
+            
+            return meteoritosTaladrables.remove((int) (Math.random() * meteoritosTaladrables.size()));
+        }
     }
 }
