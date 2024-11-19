@@ -54,7 +54,12 @@ public class CentralHWWC
     {
         return trackerDeMeteoritosTaladrados.esperarMeteoritoTaladrado();
     }
-    
+
+    private boolean estaTrackeandoAlgunMeterito()
+    {
+        return !trackerMeteoritosTaladrables.meteoritosTaladrables.isEmpty();
+    }
+
     public void aterrizar()
     {
         System.out.println("Nave aterrizando");
@@ -62,14 +67,15 @@ public class CentralHWWC
     
     private static class TrackerDeMeteoritosTaladrados
     {
+
         private final Stack<Meteorito> meteoritosTaladrados = new Stack<>();
-        
+
         public synchronized void registrarMeteoritoTaladrado(Meteorito m)
         {
             meteoritosTaladrados.add(m);
             notify();
         }
-        
+
         public synchronized Meteorito esperarMeteoritoTaladrado()
         {
             if (meteoritosTaladrados.isEmpty())
@@ -96,17 +102,12 @@ public class CentralHWWC
             
             return meteoritosTaladrados.pop();
         }
-        
         private void notificarVueltaABase()
         {
             System.out.println("CentralHWWC: Notificando vuelta a base a todas las naves bombardero");
             notifyAll();
         }
-    }
 
-    private boolean estaTrackeandoAlgunMeterito() 
-    {
-        return !trackerMeteoritosTaladrables.meteoritosTaladrables.isEmpty();
     }
 
     private static class TrackerMeteoritosTaladrables
