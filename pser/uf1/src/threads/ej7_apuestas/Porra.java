@@ -79,6 +79,8 @@ public class Porra
                 Integer::sum
         );
         
+        // Estas cuentas no estan bien. No tienen en cuenta que las cantidades 
+        // apostadas no son iguales pero como idea general esta gucci
         System.out.println("Dinero a repartir: " + dineroARepartir + " € entre " + numeroApostadores.get(apuestaGanadora).size() + " ganadores");
         System.out.println("Ha cada ganador le toca: " 
                 + (float) dineroARepartir / numeroApostadores.get(apuestaGanadora).size() 
