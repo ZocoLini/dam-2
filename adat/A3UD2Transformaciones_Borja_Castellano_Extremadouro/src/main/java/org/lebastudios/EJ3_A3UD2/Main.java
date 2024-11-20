@@ -3,6 +3,8 @@ package org.lebastudios.EJ3_A3UD2;
 import org.lebastudios.parser.StateMachineParserHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,26 +31,23 @@ public class Main
 
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-
-            Document doc = db.newDocument();
             
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            
+            Document doc = db.getDOMImplementation().createDocument(null, null, null);
             DOMResult output = new DOMResult(doc);
             
             transformer.transform(data, output);
 
-            Element nuevoAlumno = doc.createElement("alumno");
-            nuevoAlumno.setTextContent("Nuevo Alumno");
-
-            doc.getDocumentElement().getLastChild().appendChild(nuevoAlumno);
-
             StateMachineParserHandler parser = new StateMachineParserHandler();
             List<Nota> notas = new ArrayList<>();
-            ListaNotasParserHandlerState
-                    listaNotasParserHandlerState = new ListaNotasParserHandlerState(parser, notas, null);
+            ListaNotasParserHandlerState listaNotasParserHandlerState = new ListaNotasParserHandlerState(parser, notas, null);
             parser.addState(listaNotasParserHandlerState);
             
-            transformer.transform(new DOMSource(doc), new SAXResult(parser));
+            Transformer transformer2 = tf.newTransformer();
+            
+            final var outputTarget = new SAXResult(parser);
+            transformer2.transform(new DOMSource(doc), outputTarget);
             
             System.out.println(notas);
         }
