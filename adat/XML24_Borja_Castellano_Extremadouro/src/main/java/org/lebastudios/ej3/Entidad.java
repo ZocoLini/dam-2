@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso({Laboratorio.class, Universidad.class})
+@XmlSeeAlso({Laboratorio.class, Universidad.class, Instituto.class})
 public abstract class Entidad
 {
     @XmlAttribute(name = "siglas")

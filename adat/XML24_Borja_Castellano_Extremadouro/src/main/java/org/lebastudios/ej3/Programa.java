@@ -24,6 +24,7 @@ public class Programa
     @XmlElements({
             @XmlElement(name = "Laboratorio", type = Laboratorio.class),
             @XmlElement(name = "Universidad", type = Universidad.class),
+            @XmlElement(name = "Instituto", type = Instituto.class),
     })
     private List<Entidad> entidades = new ArrayList<>();
     
