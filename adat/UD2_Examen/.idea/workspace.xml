@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6b95f169-3607-416c-952b-2c14d4943ee0" name="Changes" comment="(adat) UD2_Examen examen terminado">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actualizaciones.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actualizaciones.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medicionesRios.dtd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medicionesRios.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medicionesRiosOUT.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medicionesRiosSinDTD.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/MedicionesRios.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/ActualizacionesParserHandlerState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/Datos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/DatosParserHandlerState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/Entrada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/EntradaParserHandlerState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/PH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/PHParserHandlerState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/Rio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/RioParserHandlerState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Entidad.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Laboratorio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Medicion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Programa.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Rio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/ej3/Universidad.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/parser/ParserHandlerState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lebastudios/parser/StateMachineParserHandler.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ZocoLini&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ZocoLini/dam-2.git&quot;,
+    &quot;accountId&quot;: &quot;8cf1c4dc-8f4b-4ef2-8323-4783a2d9e30b&quot;
+  }
+}</component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="pa9v1db0" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2p7037nVHMFRXqTQrKDtt1RD87Z" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.org.lebastudios.ej1.Main.executor": "Run",
+    "Application.org.lebastudios.ej1y2.Main.executor": "Run",
+    "Application.org.lebastudios.ej3.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/bcastextr/dam-2/adat/XML24_Borja_Castellano_Extremadouro",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen" />
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen\src\main\resources" />
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen\src\main\java\org\lebastudios\examples\jaxb" />
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen\src\main\java\org\lebastudios\parser" />
+      <recent name="+" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen" />
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen\src\main\resources" />
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen\src\main\java\org\lebastudios\examples\jaxb" />
+      <recent name="D:\bcastextr\dam-2\adat\UD2_Examen\src\main\java\org\lebastudios" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.org.lebastudios.ej1y2.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.lebastudios.Main" />
+      <module name="XML24_Borja_Castellano_Extremadouro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lebastudios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.lebastudios.ej1y2.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.lebastudios.ej1y2.Main" />
+      <module name="XML24_Borja_Castellano_Extremadouro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lebastudios.ej1y2.actualizaciones.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.lebastudios.ej3.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.lebastudios.ej3.Main" />
+      <module name="XML24_Borja_Castellano_Extremadouro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lebastudios.ej3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="XML24_Borja_Castellano_Extremadouro" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="XML24_Borja_Castellano_Extremadouro" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.org.lebastudios.ej1y2.Main" />
+        <item itemvalue="Application.org.lebastudios.ej3.Main" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6b95f169-3607-416c-952b-2c14d4943ee0" name="Changes" comment="" />
+      <created>1732101614986</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732101614986</updated>
+      <workItem from="1732101616665" duration="5860000" />
+      <workItem from="1732173646923" duration="331000" />
+      <workItem from="1732174010215" duration="4248000" />
+      <workItem from="1732178430369" duration="2167000" />
+      <workItem from="1732180699765" duration="4536000" />
+      <workItem from="1732185589945" duration="2346000" />
+    </task>
+    <task id="LOCAL-00001" summary="(adat) UD2_Examen dependencies set">
+      <option name="closed" value="true" />
+      <created>1732101884837</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732101884837</updated>
+    </task>
+    <task id="LOCAL-00002" summary="(adat) UD2_Examen examples created">
+      <option name="closed" value="true" />
+      <created>1732105314286</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732105314286</updated>
+    </task>
+    <task id="LOCAL-00003" summary="(adat) UD2_Examen modified dependencies">
+      <option name="closed" value="true" />
+      <created>1732105599747</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732105599747</updated>
+    </task>
+    <task id="LOCAL-00004" summary="(adat) UD2_Examen pre-modificaciones para usar LocalDate">
+      <option name="closed" value="true" />
+      <created>1732183696385</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732183696385</updated>
+    </task>
+    <task id="LOCAL-00005" summary="(adat) UD2_Examen modificacion de fechas exitosa">
+      <option name="closed" value="true" />
+      <created>1732184125450</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732184125450</updated>
+    </task>
+    <task id="LOCAL-00006" summary="(adat) UD2_Examen ejercicio 3 finalizado">
+      <option name="closed" value="true" />
+      <created>1732186243338</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732186243338</updated>
+    </task>
+    <task id="LOCAL-00007" summary="(adat) UD2_Examen examen terminado">
+      <option name="closed" value="true" />
+      <created>1732187821907</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732187821907</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="(adat) UD2_Examen dependencies set" />
+    <MESSAGE value="(adat) UD2_Examen examples created" />
+    <MESSAGE value="(adat) UD2_Examen modified dependencies" />
+    <MESSAGE value="(adat) UD2_Examen pre-modificaciones para usar LocalDate" />
+    <MESSAGE value="(adat) UD2_Examen modificacion de fechas exitosa" />
+    <MESSAGE value="(adat) UD2_Examen ejercicio 3 finalizado" />
+    <MESSAGE value="(adat) UD2_Examen examen terminado" />
+    <option name="LAST_COMMIT_MESSAGE" value="(adat) UD2_Examen examen terminado" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/lebastudios/ej1y2/actualizaciones/ActualizacionesParserHandlerState.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
