@@ -1,6 +1,5 @@
 package es.ies.chandomonte.examensorpresa
 
-import android.content.res.loader.ResourcesLoader
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -8,14 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import es.ies.chandomonte.examensorpresa.fragments.FilterListFragment
-import java.io.FileReader
-import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity()
 {
-    lateinit var textView: TextView;
+    private lateinit var textView: TextView;
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -53,8 +49,6 @@ class MainActivity : AppCompatActivity()
 
     private fun loadPalabras(): List<String>
     {
-        println(this.javaClass.getResource("/"))
-
         val reader = InputStreamReader(resources.openRawResource(R.raw.palabras));
 
         val list = reader.readLines();

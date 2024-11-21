@@ -3,16 +3,13 @@ package es.ies.chandomonte.examensorpresa.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ListAdapter
 import android.widget.ListView
+import androidx.fragment.app.Fragment
 import es.ies.chandomonte.examensorpresa.R
 
 class FilterListFragment<T> : Fragment()
@@ -25,11 +22,6 @@ class FilterListFragment<T> : Fragment()
     private var actions: FilterListActions<T> = object : FilterListActions<T>
     {
         override fun onSelectedItem(item: T, fragment: FilterListFragment<T>) {}
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
