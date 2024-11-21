@@ -5,6 +5,9 @@ import org.lebastudios.parser.StateMachineParserHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class EntradaParserHandlerState extends ParserHandlerState<Entrada>
 {
     private String actualElement = "";
@@ -39,7 +42,7 @@ public class EntradaParserHandlerState extends ParserHandlerState<Entrada>
     {
         if (actualElement.equals("Fecha")) 
         {
-            element.setFecha(text);
+            element.setFecha(DateTimeFormatter.ofPattern("dd/MM/yyyy").parse(text, LocalDate::from));
         }
         actualElement = "";
     }

@@ -118,7 +118,8 @@ public class MedicionesRios
             {
                 Node medicion = rio.getChildNodes().item(i);
                 
-                if (medicion.getAttributes().getNamedItem("fecha").getNodeValue().equals(entrada.getFecha())) 
+                if (medicion.getAttributes().getNamedItem("fecha").getNodeValue()
+                        .equals(entrada.getFechaFormatoMedicionesRios())) 
                 {
                     medicionAModificar = medicion;
                     break;
@@ -157,7 +158,7 @@ public class MedicionesRios
         rio.appendChild(medicion);
         
         System.out.println("Se ha añadido una medicion al rio " + entrada.getRio().getCodigo() + " con fecha del " 
-                + entrada.getFecha());
+                + entrada.getFechaFormatoMedicionesRios());
     }
     
     private void modificarRioModificandoMedicion(Entrada entrada, Node medicion)
@@ -189,14 +190,14 @@ public class MedicionesRios
         }
         
         System.out.println("Se ha modificado una medicion en el rio " + entrada.getRio().getCodigo() + " con fecha " +
-                "del " + entrada.getFecha());
+                "del " + entrada.getFechaFormatoMedicionesRios());
     }
     
     private Element crearMedicion(Entrada entrada)
     {
         Element medicion = medicionesRiosXML.createElement("Medicion");
         
-        medicion.setAttribute("fecha", entrada.getFecha());
+        medicion.setAttribute("fecha", entrada.getFechaFormatoMedicionesRios());
         medicion.setAttribute("calidad", entrada.getDatos().getCalidad());
         
         Element ph = medicionesRiosXML.createElement("pH");

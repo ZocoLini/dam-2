@@ -31,12 +31,12 @@
         <Oxigeno>5.4</Oxigeno>
         <Temperatura>22</Temperatura>
       </Medicion>
-      <Medicion calidad="Óptima" fecha="25/04/2023">
+      <Medicion calidad="Óptima" fecha="25-abr-2023">
         <pH tipo="alcalino">7.8</pH>
         <Oxigeno>8.7</Oxigeno>
         <Temperatura>23</Temperatura>
       </Medicion>
-      <Medicion calidad="Óptima" fecha="15/11/2023">
+      <Medicion calidad="Óptima" fecha="15-nov-2023">
         <pH tipo="neutro">7.5</pH>
         <Oxigeno>9.1</Oxigeno>
         <Temperatura>17</Temperatura>
@@ -48,10 +48,10 @@
         <Oxigeno>8.5</Oxigeno>
         <Temperatura>15</Temperatura>
       </Medicion>
-      <Medicion calidad="Óptima" fecha="10-feb-2023">
-        <pH tipo="alcalino">7.8</pH>
-        <Oxigeno>9.0</Oxigeno>
-        <Temperatura>16</Temperatura>
+      <Medicion calidad="Moderada" fecha="10-feb-2023">
+        <pH tipo="neutro">7.3</pH>
+        <Oxigeno>8.2</Oxigeno>
+        <Temperatura>10</Temperatura>
       </Medicion>
       <Medicion calidad="Moderada" fecha="5-mar-2023">
         <pH tipo="neutro">7.2</pH>
@@ -63,12 +63,7 @@
         <Oxigeno>6.9</Oxigeno>
         <Temperatura>19</Temperatura>
       </Medicion>
-      <Medicion calidad="Moderada" fecha="10/02/2023">
-        <pH tipo="neutro">7.3</pH>
-        <Oxigeno>8.2</Oxigeno>
-        <Temperatura>10</Temperatura>
-      </Medicion>
-      <Medicion calidad="Moderada" fecha="15/07/2023">
+      <Medicion calidad="Moderada" fecha="15-jul-2023">
         <pH tipo="alcalino">7.6</pH>
         <Oxigeno>8.0</Oxigeno>
         <Temperatura>18</Temperatura>
@@ -90,27 +85,22 @@
         <Oxigeno>4.5</Oxigeno>
         <Temperatura>22</Temperatura>
       </Medicion>
-      <Medicion calidad="Crítica" fecha="12-may-2023">
-        <pH tipo="alcalino">5.7</pH>
-        <Oxigeno>4.5</Oxigeno>
-        <Temperatura>23</Temperatura>
-      </Medicion>
-      <Medicion calidad="Baja" fecha="05/06/2023">
-        <pH tipo="ácido">6.5</pH>
-        <Oxigeno>6.3</Oxigeno>
-        <Temperatura>25</Temperatura>
-      </Medicion>
-      <Medicion calidad="Baja" fecha="12/05/2023">
+      <Medicion calidad="Baja" fecha="12-may-2023">
         <pH tipo="ácido">6.6</pH>
         <Oxigeno>6.1</Oxigeno>
         <Temperatura>21</Temperatura>
       </Medicion>
+      <Medicion calidad="Baja" fecha="05-jun-2023">
+        <pH tipo="ácido">6.5</pH>
+        <Oxigeno>6.3</Oxigeno>
+        <Temperatura>25</Temperatura>
+      </Medicion>
     </Rio>
     <Rio codigo="R004" nombre="Miño">
-      <Medicion calidad="Óptima" fecha="15-mar-2023">
-        <pH tipo="neutro">7.4</pH>
-        <Oxigeno>9.0</Oxigeno>
-        <Temperatura>17</Temperatura>
+      <Medicion calidad="Moderada" fecha="15-mar-2023">
+        <pH tipo="alcalino">7.6</pH>
+        <Oxigeno>8.4</Oxigeno>
+        <Temperatura>21</Temperatura>
       </Medicion>
       <Medicion calidad="Moderada" fecha="10-abr-2023">
         <pH tipo="alcalino">7.6</pH>
@@ -122,12 +112,7 @@
         <Oxigeno>5.3</Oxigeno>
         <Temperatura>21</Temperatura>
       </Medicion>
-      <Medicion calidad="Moderada" fecha="15/03/2023">
-        <pH tipo="alcalino">7.6</pH>
-        <Oxigeno>8.4</Oxigeno>
-        <Temperatura>21</Temperatura>
-      </Medicion>
-      <Medicion calidad="Óptima" fecha="22/08/2023">
+      <Medicion calidad="Óptima" fecha="22-ago-2023">
         <pH tipo="alcalino">8.0</pH>
         <Oxigeno>9.0</Oxigeno>
         <Temperatura>20</Temperatura>
@@ -151,19 +136,19 @@
       </Medicion>
     </Rio>
     <Rio codigo="R006" nombre="Duero">
-      <Medicion calidad="Moderada" fecha="10/01/2023">
+      <Medicion calidad="Moderada" fecha="10-ene-2023">
         <pH tipo="neutro">7.4</pH>
         <Oxigeno>7.9</Oxigeno>
         <Temperatura>11</Temperatura>
       </Medicion>
-      <Medicion calidad="Moderada" fecha="15/03/2023">
+      <Medicion calidad="Moderada" fecha="15-mar-2023">
         <pH tipo="neutro">7.5</pH>
         <Oxigeno>7.5</Oxigeno>
         <Temperatura>15</Temperatura>
       </Medicion>
     </Rio>
     <Rio codigo="R007" nombre="Sella">
-      <Medicion calidad="Óptima" fecha="12/07/2023">
+      <Medicion calidad="Óptima" fecha="12-jul-2023">
         <pH tipo="neutro">7.2</pH>
         <Oxigeno>8.0</Oxigeno>
         <Temperatura>19</Temperatura>
