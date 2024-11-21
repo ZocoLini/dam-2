@@ -67,8 +67,12 @@ public class MedicionesRios
 
             XMLReader reader = saxParser.getXMLReader();
 
+            // Validar con XSD
+            reader.setFeature("http://xml.org/sax/features/namespaces", true);
+            reader.setFeature("http://apache.org/xml/features/validation/schema", true);
+
             // Error Handler
-            reader.setErrorHandler(new MedicionesRiosParserErrorHandler());
+            reader.setErrorHandler(new ActualizacionesParserErrorHandler());
             // Comenzar a parsear
             StateMachineParserHandler parserHandler = new StateMachineParserHandler();
             List<Entrada> entradas = new ArrayList<>();
@@ -80,38 +84,39 @@ public class MedicionesRios
             
             actualizarConEntradas(entradas);
         }
-        catch (SAXNotRecognizedException e)
+        catch (SAXNotRecognizedException | SAXNotSupportedException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No deberia suceder nunca ya que a features usadas son siempre validas");
         }
         catch (ParserConfigurationException e)
         {
-            throw new RuntimeException(e);
-        }
-        catch (SAXNotSupportedException e)
-        {
-            throw new RuntimeException(e);
+            System.out.println("La configuraciuon del parser es siempre correcta");
         }
         catch (SAXException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Debe parsear sin ningun problema el archivo ya que esta validado con un XSD");
         }
     }
     
+    // Recibiendo una lista de entradas obtenidas del archivo Actualizaciones.xml realizamos las operaciones 
+    // indicadas para cada una
     public void actualizarConEntradas(List<Entrada> entradas)
     {
         entradas.forEach(entrada -> 
         {
+            // Buscamos el rio indicado en la entrada actual
             Node rio = obtenerNodoConXpath(
                     String.format("//Rio[@codigo = '%s']", entrada.getRio().getCodigo())
             );
             
+            // Si no existe tal rio lo añaimos a el junto a la entrada
             if (rio == null) 
             {
                 addNuevaMedicionYRio(entrada);
                 return;
             }
             
+            // Si el rio existe llegamos aqui y lo que toca verificar es si para dicha fecha ya existe una medicion
             Node medicionAModificar = null;
             
             for (int i = 0; i < rio.getChildNodes().getLength(); i++) 
@@ -126,6 +131,7 @@ public class MedicionesRios
                 }
             }
             
+            // Dependiendo de si existe o no la medicion la modificamos o la creamos respectivamente
             if (medicionAModificar != null) 
             {
                 modificarRioModificandoMedicion(entrada, medicionAModificar);
@@ -137,7 +143,7 @@ public class MedicionesRios
         });
     }
 
-    // Añadir el rio con la correspondiente medicion
+    // Añadir el rio con la correspondiente medicion dada una entrada del archivo Actualizaciones.xml
     private void addNuevaMedicionYRio(Entrada entrada)
     {
         Element medicion = crearMedicion(entrada);
@@ -152,6 +158,7 @@ public class MedicionesRios
         System.out.println("Se ha añadido un nuevo Río con codigo " + entrada.getRio().getCodigo());
     }
     
+    // Añadimos una nueva medicion creada a partir de una entrada del archivo Actualizaciones.xml a un rio dado
     private void modificarRioAnhadiendoMedicion(Entrada entrada, Node rio)
     {
         Node medicion = crearMedicion(entrada);
@@ -161,6 +168,7 @@ public class MedicionesRios
                 + entrada.getFechaFormatoMedicionesRios());
     }
     
+    // Modifica una medicion de un rio existente con los valores de una entrada del archivo Actualizaciones.xml
     private void modificarRioModificandoMedicion(Entrada entrada, Node medicion)
     {
         Element elementoMedicion = (Element) medicion;
@@ -193,6 +201,7 @@ public class MedicionesRios
                 "del " + entrada.getFechaFormatoMedicionesRios());
     }
     
+    // Crea un elemento medicion a partir de una entrada del archivo Actualizaciones.xml
     private Element crearMedicion(Entrada entrada)
     {
         Element medicion = medicionesRiosXML.createElement("Medicion");
@@ -217,6 +226,7 @@ public class MedicionesRios
         return medicion;
     }
     
+    // Dado una expresion XPath devolvemos el nodo que se encuentre al evaluar
     private Node obtenerNodoConXpath(String xpathString)
     {
         XPath xpath = XPathFactory.newDefaultInstance().newXPath();
@@ -228,7 +238,8 @@ public class MedicionesRios
         }
         catch (XPathExpressionException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error al compilar la expresion XPath");
+            return null;
         }
 
         try
@@ -237,10 +248,12 @@ public class MedicionesRios
         }
         catch (XPathExpressionException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error al evaluar la expresion XPath");
+            return null;
         }
     }
     
+    // Simplemente usamos un transformer para escribir a un fichero el DOM que este objeto tiene cargado en memoria
     public void escribirEnFichero(File file)
     {
         TransformerFactory factory = TransformerFactory.newDefaultInstance();
@@ -257,13 +270,16 @@ public class MedicionesRios
         }
         catch (TransformerConfigurationException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No deberia haber un error de configuracion del transformer.");
         }
         catch (TransformerException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No deberia suceder ningun error irrecuperable al hacer a transformacion");
         }
     }
+    
+    // Los diferentes error handlers que, en caso de necesitar realizar alguna operacion por errores en la validacion 
+    // pueden ser facilmente modificados
     
     private static class ActualizacionesParserErrorHandler implements ErrorHandler
     {

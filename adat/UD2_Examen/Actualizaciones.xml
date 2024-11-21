@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Actualizaciones>
+<Actualizaciones xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="Actualizaciones.xsd">
     <Entrada numero='E001'>
         <Rio codigo='R001'>Ebro</Rio>
         <Fecha>25/04/2023</Fecha>

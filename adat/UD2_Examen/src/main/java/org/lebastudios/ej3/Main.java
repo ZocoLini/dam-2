@@ -13,6 +13,9 @@ public class Main
     
     public static void main(String[] args)
     {
+        // EJERCICIO 3. Usando JAXB para cargar en memoria a los objetos correspondientes y despues mostrando 
+        // la informacion por consola
+        
         JAXBContext context;
         try
         {
@@ -28,11 +31,11 @@ public class Main
         }
         catch (JAXBException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Algun error inesperado ocurrio mientras se hacia el unmarchal");
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("No se ha encontrado el archivo XML que se uso en el unmarshaller");
         }
 
     }
