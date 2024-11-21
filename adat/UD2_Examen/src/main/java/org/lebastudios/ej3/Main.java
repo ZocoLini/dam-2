@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 
 public class Main
 {
+    private static final String MEDICIONES_RIOS_SIN_DTD_FILE_PATH = "medicionesRiosSinDTD.xml";
+    
     public static void main(String[] args)
     {
         JAXBContext context;
@@ -18,10 +20,11 @@ public class Main
             context = JAXBContext.newInstance(Programa.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Programa programa = (Programa) unmarshaller.unmarshal(
-                    new FileInputStream("medicionesRios.xml")
+                    new FileInputStream(MEDICIONES_RIOS_SIN_DTD_FILE_PATH)
             );
             
             // Imprimimos por consola la informacion de Programa
+            System.out.println(programa.getPreattyPrinting());
         }
         catch (JAXBException e)
         {

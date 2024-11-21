@@ -17,4 +17,17 @@ public class Laboratorio extends Entidad
     private int numEmpleados;
     @XmlAttribute(name = "especialidad")
     private String especialidad;
+
+    @Override
+    public String preattyPrinting()
+    {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("\tLaboratorio: ").append(getNombre()).append(" (").append(getSiglas()).append(") ");
+        sb.append("Sede: ").append(getSede()).append(" ".repeat(8)).append("Año de creacion: ").append(getAnho()).append("\n");
+        
+        sb.append("\t\tEmpleados: ").append(getNumEmpleados()).append("Expecialidad: ").append(especialidad).append("\n");
+        
+        return sb.toString();
+    }
 }

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<Programa denominacion='Monitoreo de Calidad del Agua en Ríos' pais='España'>
+    <!-- Las entidades representan diferentes organizaciones relacionadas con el monitoreo de calidad del agua, incluyendo laboratorios, universidades e institutos de investigación. -->
+    <Entidades>
+        <Laboratorio siglas='LAGUA' año='2008' sede='Barcelona' numEmpleados='300' especialidad='Análisis Químicos'>Laboratorio Agua</Laboratorio>
+        <Universidad siglas='UPC' año='1975' sede='Barcelona' numEstudiantes='20000' facultades='15'>Universidad Politécnica de Cataluña</Universidad>
+        <Laboratorio siglas='LABAQUA' año='2012' sede='Madrid' numEmpleados='150' especialidad='Investigación Ambiental'>Laboratorio de Investigación en Calidad del Agua</Laboratorio>
+        <Instituto siglas='CIAMA' año='1995' sede='Madrid' numProyectos='50'>Centro de Investigación Agua y Medio Ambiente</Instituto>
+        <Instituto siglas='IIAMA' año='2010' sede='Sevilla' numProyectos='30'>Instituto de Innovación y Aplicación de las Ciencias Ambientales</Instituto>
+        <Universidad siglas='UCM' año='1965' sede='Madrid' numEstudiantes='50000' facultades='20'>Universidad Complutense de Madrid</Universidad>
+        <Universidad siglas='UAM' año='1980' sede='Madrid' numEstudiantes='25000' facultades='12'>Universidad Autónoma de Madrid</Universidad>
+    </Entidades>
+    <Rios>
+        <Rio codigo='R001' nombre='Ebro'>
+            <Medicion fecha='15-ene-2023' calidad='Óptima'>
+                <pH tipo='neutro'>7.5</pH>
+                <Oxigeno>9.2</Oxigeno>
+                <Temperatura>15</Temperatura>
+            </Medicion>
+            <Medicion fecha='15-feb-2023' calidad='Moderada'>
+                <pH tipo='neutro'>7.3</pH>
+                <Oxigeno>8.5</Oxigeno>
+                <Temperatura>14</Temperatura>
+            </Medicion>
+            <Medicion fecha='25-mar-2023' calidad='Baja'>
+                <pH tipo='ácido'>6.9</pH>
+                <Oxigeno>7.2</Oxigeno>
+                <Temperatura>18</Temperatura>
+            </Medicion>
+            <Medicion fecha='10-abr-2023' calidad='Crítica'>
+                <pH tipo='ácido'>6.3</pH>
+                <Oxigeno>5.4</Oxigeno>
+                <Temperatura>22</Temperatura>
+            </Medicion>
+        </Rio>
+        <Rio codigo='R002' nombre='Tajo'>
+            <Medicion fecha='15-ene-2023' calidad='Óptima'>
+                <pH tipo='alcalino'>7.9</pH>
+                <Oxigeno>8.5</Oxigeno>
+                <Temperatura>15</Temperatura>
+            </Medicion>
+            <Medicion fecha='10-feb-2023' calidad='Óptima'>
+                <pH tipo='alcalino'>7.8</pH>
+                <Oxigeno>9.0</Oxigeno>
+                <Temperatura>16</Temperatura>
+            </Medicion>
+            <Medicion fecha='5-mar-2023' calidad='Moderada'>
+                <pH tipo='neutro'>7.2</pH>
+                <Oxigeno>7.5</Oxigeno>
+                <Temperatura>14</Temperatura>
+            </Medicion>
+            <Medicion fecha='20-may-2023' calidad='Baja'>
+                <pH tipo='ácido'>6.7</pH>
+                <Oxigeno>6.9</Oxigeno>
+                <Temperatura>19</Temperatura>
+            </Medicion>
+        </Rio>
+        <Rio codigo='R003' nombre='Guadalquivir'>
+            <Medicion fecha='20-feb-2023' calidad='Óptima'>
+                <pH tipo='alcalino'>7.7</pH>
+                <Oxigeno>9.1</Oxigeno>
+                <Temperatura>16</Temperatura>
+            </Medicion>
+            <Medicion fecha='2-mar-2023' calidad='Baja'>
+                <pH tipo='ácido'>6.8</pH>
+                <Oxigeno>6.5</Oxigeno>
+                <Temperatura>19</Temperatura>
+            </Medicion>
+            <Medicion fecha='18-abr-2023' calidad='Crítica'>
+                <pH tipo='alcalino'>5.9</pH>
+                <Oxigeno>4.5</Oxigeno>
+                <Temperatura>22</Temperatura>
+            </Medicion>
+             <Medicion fecha='12-may-2023' calidad='Crítica'>
+                <pH tipo='alcalino'>5.7</pH>
+                <Oxigeno>4.5</Oxigeno>
+                <Temperatura>23</Temperatura>
+            </Medicion>
+        </Rio>
+        <Rio codigo='R004' nombre='Miño'>
+            <Medicion fecha='15-mar-2023' calidad='Óptima'>
+                <pH tipo='neutro'>7.4</pH>
+                <Oxigeno>9.0</Oxigeno>
+                <Temperatura>17</Temperatura>
+            </Medicion>
+            <Medicion fecha='10-abr-2023' calidad='Moderada'>
+                <pH tipo='alcalino'>7.6</pH>
+                <Oxigeno>8.0</Oxigeno>
+                <Temperatura>18</Temperatura>
+            </Medicion>
+            <Medicion fecha='30-may-2023' calidad='Crítica'>
+                <pH tipo='ácido'>6.2</pH>
+                <Oxigeno>5.3</Oxigeno>
+                <Temperatura>21</Temperatura>
+            </Medicion>
+        </Rio>
+        <Rio codigo='R005' nombre='Guadiana'>
+            <Medicion fecha='28-feb-2023' calidad='Óptima'>
+                <pH tipo='alcalino'>7.9</pH>
+                <Oxigeno>9.3</Oxigeno>
+                <Temperatura>17</Temperatura>
+            </Medicion>
+            <Medicion fecha='15-mar-2023' calidad='Moderada'>
+                <pH tipo='neutro'>7.2</pH>
+                <Oxigeno>7.6</Oxigeno>
+                <Temperatura>20</Temperatura>
+            </Medicion>
+            <Medicion fecha='20-abr-2023' calidad='Moderada'>
+                <pH tipo='neutro'>7.2</pH>
+                <Oxigeno>7.7</Oxigeno>
+                <Temperatura>22</Temperatura>
+            </Medicion>
+        </Rio>
+    </Rios>
+</Programa>

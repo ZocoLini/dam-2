@@ -21,7 +21,13 @@ public class Medicion
     @XmlElement(name = "Oxigeno")
     private float Oxigeno;
     @XmlElement(name = "Temperatura")
-    private float Temperatura;
+    private int Temperatura;
+
+    public String preattyPrinting() 
+    {
+        return String.format("Fecha: %-15s Calidad: %-15s Ph: %-20s Oxigeno: %f mg/l Temperatura %d º", 
+                fecha, calidad, ph.valor + " (" + ph.tipo + ") ", getOxigeno(), getTemperatura()) + "\n";
+    }
 
     @Getter
     @Setter

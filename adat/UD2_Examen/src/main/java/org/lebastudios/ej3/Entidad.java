@@ -20,4 +20,6 @@ public abstract class Entidad
     private String sede;
     @XmlValue
     private String nombre;
+
+    public abstract String preattyPrinting();
 }
