@@ -1,0 +1,52 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Actualizaciones">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Entrada">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- Definir Rio con contenido de texto y atributo -->
+                            <xs:element name="Rio">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="codigo" type="xs:string" use="required"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Fecha" type="xs:string"/>
+                            <xs:element name="Datos">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="pH">
+                                            <xs:complexType>
+                                                <xs:sequence/>
+                                                <xs:attribute name="tipo" type="xs:string"/>
+                                                <xs:attribute name="porcentaje" type="xs:string"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Oxigeno">
+                                            <xs:complexType>
+                                                <xs:sequence/>
+                                                <xs:attribute name="valor" type="xs:string"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Temperatura">
+                                            <xs:complexType>
+                                                <xs:sequence/>
+                                                <xs:attribute name="grados" type="xs:string"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="calidad" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="numero" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

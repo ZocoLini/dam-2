@@ -3,11 +3,13 @@ package org.lebastudios.examples.jaxb;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import lombok.SneakyThrows;
 
 import java.io.FileInputStream;
 
 public class JAXBExample
 {
+    @SneakyThrows
     public static void main(String[] args)
     {
         JAXBContext context = JAXBContext.newInstance(ListaPersonas.class);

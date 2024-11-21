@@ -1,5 +1,6 @@
 package org.lebastudios.examples.sax;
 
+import lombok.SneakyThrows;
 import org.lebastudios.parser.StateMachineParserHandler;
 import org.xml.sax.XMLReader;
 
@@ -9,6 +10,7 @@ import java.io.FileInputStream;
 
 public class SAXExample
 {
+    @SneakyThrows
     public static void main(String[] args)
     {
         SAXParserFactory parser = SAXParserFactory.newDefaultInstance();

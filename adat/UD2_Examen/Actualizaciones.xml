@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Actualizaciones>
+    <Entrada numero='E001'>
+        <Rio codigo='R001'>Ebro</Rio>
+        <Fecha>25/04/2023</Fecha>
+        <Datos>
+            <pH tipo='alcalino' porcentaje='7.8'/>
+            <Oxigeno valor='8.7'/>
+            <Temperatura grados="23"/>
+            <calidad>Óptima</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E002'>
+        <Rio codigo='R002'>Tajo</Rio>
+        <Fecha>10/02/2023</Fecha>
+        <Datos>
+            <pH tipo='neutro' porcentaje='7.3'/>
+            <Oxigeno valor='8.2'/>
+            <Temperatura grados="10"/>
+            <calidad>Moderada</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E003'>
+        <Rio codigo='R003'>Guadalquivir</Rio>
+        <Fecha>05/06/2023</Fecha>
+        <Datos>
+            <pH tipo='ácido' porcentaje='6.5'/>
+            <Oxigeno valor='6.3'/>
+            <Temperatura grados="25"/>
+            <calidad>Baja</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E004'>
+        <Rio codigo='R004'>Miño</Rio>
+        <Fecha>15/03/2023</Fecha>
+        <Datos>
+            <pH tipo='alcalino' porcentaje='7.6'/>
+            <Oxigeno valor='8.4'/>
+            <Temperatura grados="21"/>
+            <calidad>Moderada</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E005'>
+        <Rio codigo='R006'>Duero</Rio>
+        <Fecha>10/01/2023</Fecha>
+        <Datos>
+            <pH tipo='neutro' porcentaje='7.4'/>
+            <Oxigeno valor='7.9'/>
+            <Temperatura grados="11"/>
+            <calidad>Moderada</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E006'>
+        <Rio codigo='R007'>Sella</Rio>
+        <Fecha>12/07/2023</Fecha>
+        <Datos>
+            <pH tipo='neutro' porcentaje='7.2'/>
+            <Oxigeno valor='8.0'/>
+            <Temperatura grados="19"/>
+            <calidad>Óptima</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E007'>
+        <Rio codigo='R004'>Miño</Rio>
+        <Fecha>22/08/2023</Fecha>
+        <Datos>
+            <pH tipo='alcalino' porcentaje='8.0'/>
+            <Oxigeno valor='9.0'/>
+            <Temperatura grados="20"/>
+            <calidad>Óptima</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E008'>
+        <Rio codigo='R006'>Duero</Rio>
+        <Fecha>15/03/2023</Fecha>
+        <Datos>
+            <pH tipo='neutro' porcentaje='7.5'/>
+            <Oxigeno valor='7.5'/>
+            <Temperatura grados="15"/>
+            <calidad>Moderada</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E009'>
+        <Rio codigo='R001'>Ebro</Rio>
+        <Fecha>15/11/2023</Fecha>
+        <Datos>
+            <pH tipo='neutro' porcentaje='7.5'/>
+            <Oxigeno valor='9.1'/>
+            <Temperatura grados="17"/>
+            <calidad>Óptima</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E010'>
+        <Rio codigo='R002'>Tajo</Rio>
+        <Fecha>15/07/2023</Fecha>
+        <Datos>
+            <pH tipo='alcalino' porcentaje='7.6'/>
+            <Oxigeno valor='8.0'/>
+            <Temperatura grados="18"/>
+            <calidad>Moderada</calidad>
+        </Datos>
+    </Entrada>
+    <Entrada numero='E011'>
+        <Rio codigo='R003'>Guadalquivir</Rio>
+        <Fecha>12/05/2023</Fecha>
+        <Datos>
+            <pH tipo='ácido' porcentaje='6.6'/>
+            <Oxigeno valor='6.1'/>
+            <Temperatura grados="21"/>
+            <calidad>Baja</calidad>
+        </Datos>
+    </Entrada>
+</Actualizaciones>
+

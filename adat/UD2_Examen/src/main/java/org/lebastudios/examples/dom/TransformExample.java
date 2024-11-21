@@ -1,7 +1,9 @@
 package org.lebastudios.examples.dom;
 
 import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.util.JAXBResult;
 import jakarta.xml.bind.util.JAXBSource;
+import lombok.SneakyThrows;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMResult;
@@ -13,6 +15,7 @@ import javax.xml.transform.stream.StreamSource;
 
 public class TransformExample
 {
+    @SneakyThrows
     public static void main(String[] args)
     {
         // Parametro de newInstance es la hoja XSLT
@@ -37,7 +40,7 @@ public class TransformExample
         Result result1 = new StreamResult("resultado.xml");
         Result result2 = new DOMResult(null);
         Result result3 = new SAXResult(null);
-        Result result4 = new JAXBSource((JAXBContext) null, null);
+        Result result4 = new JAXBResult((JAXBContext) null);
         
         transformer.transform(new StreamSource("documento.xml"), new StreamResult("resultado.xml"));
     }

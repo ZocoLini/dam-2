@@ -1,0 +1,40 @@
+<!ELEMENT Programa (Entidades, Rios)>
+<!ATTLIST Programa denominacion CDATA #REQUIRED
+            pais CDATA #REQUIRED>
+
+<!ELEMENT Entidades (Laboratorio | Universidad | Instituto)*>
+<!ELEMENT Laboratorio (#PCDATA)>
+<!ATTLIST Laboratorio siglas CDATA #REQUIRED
+                    año CDATA #REQUIRED
+                    sede CDATA #REQUIRED
+                    numEmpleados CDATA #REQUIRED
+                    especialidad CDATA #REQUIRED>
+
+<!ELEMENT Universidad (#PCDATA)>
+<!ATTLIST Universidad siglas CDATA #REQUIRED
+                    año CDATA #REQUIRED
+                    sede CDATA #REQUIRED
+                    numEstudiantes CDATA #REQUIRED
+                    facultades CDATA #REQUIRED>
+
+<!ELEMENT Instituto (#PCDATA)>
+<!ATTLIST Instituto siglas CDATA #REQUIRED
+                    año CDATA #REQUIRED
+                    sede CDATA #REQUIRED
+                    numProyectos CDATA #REQUIRED
+                    especialidad CDATA #IMPLIED>
+
+<!ELEMENT Rios (Rio*)>
+<!ELEMENT Rio (Medicion+)>
+<!ATTLIST Rio codigo ID #REQUIRED
+                        nombre CDATA #REQUIRED>
+
+<!ELEMENT Medicion (pH, Oxigeno, Temperatura)>
+<!ATTLIST Medicion fecha CDATA #REQUIRED
+                     calidad CDATA #REQUIRED>
+
+<!ELEMENT pH (#PCDATA)>
+<!ATTLIST pH tipo (neutro | alcalino | ácido) #REQUIRED>
+
+<!ELEMENT Oxigeno (#PCDATA)>
+<!ELEMENT Temperatura (#PCDATA)>

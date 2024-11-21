@@ -1,5 +1,6 @@
 package org.lebastudios.examples.dom;
 
+import lombok.SneakyThrows;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
@@ -14,7 +15,8 @@ public class CreacionDeDocumentExample
     //especifica el espacio de nombres
     private static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
     
-    public static void main(String[] args) throws ParserConfigurationException
+    @SneakyThrows
+    public static void main(String[] args)
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         // Ignore comments: 
@@ -42,8 +44,8 @@ public class CreacionDeDocumentExample
         // DOMImplementation
         DOMImplementation dom = builder.getDOMImplementation();
         
-        Document document = dom.createDocument(null, "root", null);
-        document.setXmlStandalone(true);
-        document.setXmlVersion("1.0");
+        Document document2 = dom.createDocument(null, "root", null);
+        document2.setXmlStandalone(true);
+        document2.setXmlVersion("1.0");
     }
 }
