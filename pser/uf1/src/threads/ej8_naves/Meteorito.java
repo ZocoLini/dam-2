@@ -55,6 +55,6 @@ public class Meteorito
             }
 
             System.out.println("Meteorito #" + identificador + ": Meteorito destruido");
-        }).start();
+       }).start();
     }
 }

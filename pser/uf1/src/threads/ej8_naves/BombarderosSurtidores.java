@@ -1,10 +1,15 @@
 package threads.ej8_naves;
 
+import java.util.function.Consumer;
+
 public class BombarderosSurtidores extends Nave
 {
-    public BombarderosSurtidores(int identificador)
+    private final Consumer<Meteorito> onBombaColocada;
+    
+    public BombarderosSurtidores(int identificador, Consumer<Meteorito> onBombaColocada)
     {
         super(identificador);
+        this.onBombaColocada = onBombaColocada;
     }
 
     @Override
@@ -24,6 +29,7 @@ public class BombarderosSurtidores extends Nave
                 meteorito.colocarBomba();
                 System.out.println("Bombardero #" + getIdentificador() + ": Bomba colocada y combustible repostado en " +
                         "meteorito #" + meteorito.getIdentificador());
+                onBombaColocada.accept(meteorito);
                 meteorito.notifyAll();
             }
         }
