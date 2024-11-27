@@ -1,7 +1,0 @@
-[package]
-name = "db-sniffer"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-odbc-api = { version = "10.0.0" }
