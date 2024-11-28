@@ -1,6 +1,5 @@
 use BDEmpresa;
 
--- T_EMPREGADO
 if DB_ID('EMPREGADO') is not null
     begin
         select 'LA TABLA EMPREGADO EXISTE Y SE VA A PROCEDER A BORRAR' as MENSAJE
