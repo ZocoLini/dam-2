@@ -49,13 +49,13 @@ class DadoFragment : Fragment()
         return view;
     }
 
-    public fun setRange(minValue: Int, maxValue: Int)
+    fun setRange(minValue: Int, maxValue: Int)
     {
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
 
-    public fun setOnResultListener(resultListener: ResultListener)
+    fun setOnResultListener(resultListener: ResultListener)
     {
         this.resultListener = resultListener;
     }
