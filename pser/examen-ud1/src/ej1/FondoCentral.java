@@ -1,7 +1,5 @@
 package ej1;
 
-
-
 public class FondoCentral
 {
     private static FondoCentral instance;
@@ -45,7 +43,7 @@ public class FondoCentral
         }
     }
     
-    private synchronized void realizarOperacionEnElFondo(int operacion)
+    private void realizarOperacionEnElFondo(int operacion)
     {
         dineroDisponible += operacion;
         System.out.println("Cantidad disponible en el fondo: " + dineroDisponible + "€.");

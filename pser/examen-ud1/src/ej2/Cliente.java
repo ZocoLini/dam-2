@@ -38,7 +38,7 @@ public class Cliente extends Thread
                 Sara.getInstance().decidirNoComprar(producto);
                 continue;
             }
-
+            
             if (Sara.getInstance().quedaMenosOIgualQueLaMitadDelStock(producto))
             {
                 realizarCompraEnSara(producto);
