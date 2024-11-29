@@ -24,6 +24,11 @@ public class Sara
         return instance;
     }
 
+    public int getCantidadProductosALaVenta()
+    {
+        return nombresProductos.length;
+    }
+    
     private final Map<Producto, Integer> productosDisponibles = new HashMap<>();
     private final Map<Producto, Integer> productosAunNoComprados = new HashMap<>();
 
@@ -40,13 +45,8 @@ public class Sara
         }
     }
 
-    public synchronized Producto cogerProductoAleatorio(Set<Producto> productosYaComprados)
+    public synchronized Producto cogerProductoAleatorio()
     {
-        if (productosYaComprados.size() == nombresProductos.length) 
-        {
-            return null;
-        }
-        
         if (finalDeExistencias)
         {
             return null;
@@ -75,7 +75,7 @@ public class Sara
         }
         catch (InterruptedException e) {}
         
-        return cogerProductoAleatorio(productosYaComprados);
+        return cogerProductoAleatorio();
     }
 
     public synchronized void decidirNoComprar(Producto producto)
