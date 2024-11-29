@@ -33,11 +33,11 @@ public class Cliente extends Thread
 
         while ((producto = Sara.getInstance().cogerProductoAleatorio()) != null)
         {
-            if (productosComprados.contains(producto))
-            {
-                Sara.getInstance().decidirNoComprar(producto);
-                continue;
-            }
+            System.out.println("Pillado " + getClienteName() + " " + producto);
+            
+            if (productosComprados.contains(producto)) continue;
+
+            System.out.println(getClienteName() + " " + producto);
             
             if (Sara.getInstance().quedaMenosOIgualQueLaMitadDelStock(producto))
             {
@@ -55,10 +55,6 @@ public class Cliente extends Thread
                 {
                     realizarCompraEnSara(producto);
                 }
-                else
-                {
-                    Sara.getInstance().decidirNoComprar(producto);
-                }
             }
         }
 
@@ -67,7 +63,8 @@ public class Cliente extends Thread
 
     private void realizarCompraEnSara(Producto producto)
     {
-        Sara.getInstance().comprarProducto(producto, this);
+        if (!Sara.getInstance().comprarProducto(producto, this)) return;
+        
         productosComprados.add(producto);
     }
 }
