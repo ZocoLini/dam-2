@@ -31,7 +31,7 @@ public class Cliente extends Thread
     {
         Producto producto;
 
-        while ((producto = Sara.getInstance().cogerProductoAleatorio()) != null)
+        while ((producto = Sara.getInstance().cogerProductoAleatorio(productosComprados)) != null)
         {
             if (productosComprados.contains(producto))
             {

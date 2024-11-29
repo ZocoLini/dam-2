@@ -4,6 +4,7 @@ package ej2;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Sara
 {
@@ -39,8 +40,13 @@ public class Sara
         }
     }
 
-    public synchronized Producto cogerProductoAleatorio()
+    public synchronized Producto cogerProductoAleatorio(Set<Producto> productosYaComprados)
     {
+        if (productosYaComprados.size() == nombresProductos.length) 
+        {
+            return null;
+        }
+        
         if (finalDeExistencias)
         {
             return null;
@@ -69,7 +75,7 @@ public class Sara
         }
         catch (InterruptedException e) {}
         
-        return cogerProductoAleatorio();
+        return cogerProductoAleatorio(productosYaComprados);
     }
 
     public synchronized void decidirNoComprar(Producto producto)

@@ -2,7 +2,7 @@ package ej2;
 
 public class Main
 {
-    private static final int NUM_CLIENTES = 20;
+    private static final int NUM_CLIENTES = 1;
     
     public static void main(String[] args)
     {
