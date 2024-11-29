@@ -10,6 +10,7 @@ import org.lebastudios.aplicacioncompleja.facturacion.FacturacionStageController
 import org.lebastudios.aplicacioncompleja.formularios.FormularioCitaPerruceriaController;
 import org.lebastudios.aplicacioncompleja.formularios.FormularioNuevoPropietarioController;
 import org.lebastudios.aplicacioncompleja.formularios.StageAltaRazaPerroController;
+import org.lebastudios.aplicacioncompleja.perruqueria.VisorCitasPerruqueriaStageController;
 import org.lebastudios.aplicacioncompleja.ui.StageBuilder;
 
 import java.net.URL;
@@ -60,8 +61,13 @@ public class MainStageController extends StageController<MainStageController>
     }
     
     @FXML private 
-    void openMenuCitaPerruqueria(ActionEvent actionEvent) 
+    void openFormularioCitaPerruqueria(ActionEvent actionEvent) 
     {
         new FormularioCitaPerruceriaController().instantiate();
+    }
+    
+    @FXML private void openMenuCitaPerruqueria(ActionEvent actionEvent)
+    {
+        new VisorCitasPerruqueriaStageController().instantiate();
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:id="root"
+      fx:controller="org.lebastudios.aplicacioncompleja.perruqueria.VisorCitasPerruqueriaStageController"
+      spacing="10">
+    <padding>
+        <Insets top="10" bottom="10" right="10" left="10" />
+    </padding>
+    <HBox spacing="5">
+        <Label text="%word.from" />
+        <DatePicker fx:id="fromDate"/>
+        <Label text="%word.to" />
+        <DatePicker fx:id="toDate"/>
+        <Button text="%word.find" onAction="#onFindButtonClick" />
+    </HBox>
+    
+    <TableView VBox.vgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" fx:id="citasTableView">
+        <columns>
+            <TableColumn text="PROPIETARIO" />
+            <TableColumn text="CAN" />
+            <TableColumn text="DATA" />
+            <TableColumn text="HORA" />
+        </columns>
+    </TableView>
+</VBox>

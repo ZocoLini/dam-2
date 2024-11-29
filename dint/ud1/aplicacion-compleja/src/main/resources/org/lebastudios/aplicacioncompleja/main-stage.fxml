@@ -15,7 +15,8 @@
                     <MenuItem text="%phrase.perrosrazas" onAction="#openMenuPerrosRazas"/>
                     <MenuItem text="%word.propietarios" onAction="#openMenuPropietarios"/>
                 </Menu>
-                <MenuItem text="%phrase.citaperruqueria" onAction="#openMenuCitaPerruqueria"/>
+                <MenuItem text="%phrase.nuevacitaperruqueria" onAction="#openFormularioCitaPerruqueria"/>
+                <MenuItem text="%phrase.listacitasperruqueria" onAction="#openMenuCitaPerruqueria" />
                 <SeparatorMenuItem />
                 <MenuItem text="%phrase.facturacion" onAction="#openMenuImpresionFacturas" />
                 <SeparatorMenuItem />
