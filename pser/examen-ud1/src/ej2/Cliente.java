@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Cliente extends Thread
 {
-    private static final int MIN_MS_PENSAMIENTO = 10;
+    private static final int MIN_MS_PENSAMIENTO = 400;
     private static final int MAX_MS_PENSAMIENTO = 500;
     private static final float PORCENTAJE_COMPRA = 0.3f;
 
@@ -19,7 +19,7 @@ public class Cliente extends Thread
         this.identificador = identificador;
     }
     
-    private static Set<Producto> productosComprados = new HashSet<>();
+    private final Set<Producto> productosComprados = new HashSet<>();
 
     public String getClienteName()
     {
@@ -33,11 +33,11 @@ public class Cliente extends Thread
 
         while ((producto = Sara.getInstance().cogerProductoAleatorio()) != null)
         {
-            System.out.println("Pillado " + getClienteName() + " " + producto);
-            
-            if (productosComprados.contains(producto)) continue;
-
-            System.out.println(getClienteName() + " " + producto);
+            if (productosComprados.contains(producto))
+            {
+                Sara.getInstance().decidirNoComprar(producto);
+                continue;
+            }
             
             if (Sara.getInstance().quedaMenosOIgualQueLaMitadDelStock(producto))
             {
@@ -55,6 +55,10 @@ public class Cliente extends Thread
                 {
                     realizarCompraEnSara(producto);
                 }
+                else
+                {
+                    Sara.getInstance().decidirNoComprar(producto);
+                }
             }
         }
 
@@ -63,8 +67,7 @@ public class Cliente extends Thread
 
     private void realizarCompraEnSara(Producto producto)
     {
-        if (!Sara.getInstance().comprarProducto(producto, this)) return;
-        
+        Sara.getInstance().comprarProducto(producto, this);
         productosComprados.add(producto);
     }
 }
