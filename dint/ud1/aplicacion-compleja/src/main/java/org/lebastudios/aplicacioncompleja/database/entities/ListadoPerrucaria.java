@@ -11,22 +11,25 @@ import java.time.LocalDate;
 /**
  * @author DAM2
  */
+@Getter
 public class ListadoPerrucaria
 {
-    @Getter int codCita;
+    int codCita;
     String propietario;
-    @Getter String can;
-    @Getter LocalDate data;
-    @Getter String hora;
+    String codCan;
+    String can;
+    LocalDate data;
+    String hora;
 
     public ListadoPerrucaria(int codCita, String nombrePropietario, String ap1Propietario, String ap2Propietario,
-            String can, LocalDate data, int hora)
+            String can, LocalDate data, int hora, String codCan)
     {
         this.codCita = codCita;
         this.propietario = nombrePropietario + " " + ap1Propietario + " " + ap2Propietario;
         this.can = can;
         this.data = data;
         this.hora = hora + ".00 h";
+        this.codCan = codCan;
     }
 
     @Override
