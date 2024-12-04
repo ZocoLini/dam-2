@@ -1,25 +1,33 @@
 package org.lebastudios;
 
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        try
+        String sql = 
+                "create table LUGAR(\n" + 
+                "  Nome_lugar varchar(35),\n" + 
+                "  Num_departamento int,\n" + 
+                "  constraint PK_LUGAR primary key (Nome_lugar),\n" + 
+                "  constraint FK_LUGAR_DEPARTAMENTO foreign key (Num_departamento) references DEPARTAMENTO " +
+                        "(Num_departamento)\n" + 
+                ")";
+        
+        Database.getInstance().getConnections().forEach(session ->
         {
-            DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "abc123.");
-            System.out.println("Conectado a MySQL");
-            DriverManager.getConnection("jdbc:sqlite:dbempresa.sqlite");
-            System.out.println("Conectado a SQLite");
-            DriverManager.getConnection("jdbc:sqlserver://localhost\\MV-PROG:1433;trustServerCertificate=true", "sa", 
-                    "abc123.");
-            System.out.println("Conectado a SQLServer");
-        }
-        catch (SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
+            try (Statement statement = session.createStatement())
+            {
+                statement.execute(sql);
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+        });
+        
+        
     }
 }
