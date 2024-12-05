@@ -24,3 +24,28 @@ from EMPREGADO e1
          inner join EMPREGADO e2 on e1.NSS = e2.NSS
          inner join DEPARTAMENTO on e1.Num_departamento_pertenece = DEPARTAMENTO.Num_departamento
 where e1.Localidade = ?;
+
+update PROXECTO
+set Num_departamento_controla = (select Num_departamento from DEPARTAMENTO where Nome_departamento = ?)
+where Nome_proxecto = ?;
+
+insert into PROXECTO (Num_proxecto, Nome_proxecto, Lugar, Num_departamento_controla)
+values (?, ?, ?, ?);
+
+delete
+from EMPREGADO_PROXECTO
+where Num_proxecto = ?;
+delete
+from PROXECTO
+where Num_proxecto = ?;
+
+select Num_proxecto, num_proxecto, nome_proxecto, lugar, num_departamento_controla
+from PROXECTO
+where Num_departamento_controla = (select Num_departamento from DEPARTAMENTO where Nome_departamento = ?)
+
+create proc pr_cambioDomicilio(@nss varchar, @rua varchar, @numero_rua int, @piso varchar, @cp int, @localidade varchar) as
+begin
+    update EMPREGADO
+    set Rua = @rua, Numero_rua = @numero_rua, Piso = @piso, CP = @cp, Localidade = @localidade
+    where NSS = @nss
+end

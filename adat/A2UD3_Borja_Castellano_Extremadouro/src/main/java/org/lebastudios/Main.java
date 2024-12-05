@@ -17,7 +17,22 @@ public class Main
         // EmpregadoProxectoDAO.borrarEmpregadoDeProyecto("0010010", 8);
         
         // EJ 2
-        visualizarEmpleadosSegunLocalidad("Vigo");
+        // visualizarEmpleadosSegunLocalidad("Vigo");
+        
+        // EJ 3
+        //  a)
+        // ProxectoDAO.cambiarDepartamentoControla("INNOVACIÓN", "PORTAL");
+        //  b)
+        // ProxectoDAO.insert(new Proxecto(11, "TRT", "Vigo", 4));
+        //  c)
+        // ProxectoDAO.remove(11);
+        
+        // EJ 4
+        // ProxectoDAO.selectAll("INNOVACIÓN");
+        
+        // EJ 5
+        
+        
     }
     
     private static void visualizarEmpleadosSegunLocalidad(String nombreLocalidad)
@@ -40,7 +55,7 @@ public class Main
             try (PreparedStatement statement = connection.prepareStatement(sql))
             {
                 statement.setString(1, nombreLocalidad);
-
+                
                 ResultSet resultSet = statement.executeQuery();
                 
                 while (resultSet.next()) 
@@ -51,7 +66,7 @@ public class Main
                             resultSet.getString(3),
                             resultSet.getString(4),
                             resultSet.getFloat(5),
-                            resultSet.getString(6).toString(),
+                            resultSet.getString(6),
                             resultSet.getString(7)
                     );
                 }
