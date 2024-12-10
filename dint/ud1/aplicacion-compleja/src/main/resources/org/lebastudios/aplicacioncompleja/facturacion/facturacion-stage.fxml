@@ -23,7 +23,7 @@
     <HBox fx:id="dateFilterBox" alignment="CENTER_LEFT" maxWidth="Infinity" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <Label text="%word.from" />
         <DatePicker prefWidth="125" fx:id="fromDate" />
-        <Label text="%word.until" />
+        <Label text="%word.to" />
         <DatePicker prefWidth="125" fx:id="untilDate" />
     </HBox>
     <HBox fx:id="facturaIdFilterBox" alignment="CENTER_LEFT" maxWidth="Infinity" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">

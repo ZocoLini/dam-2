@@ -26,11 +26,9 @@ public class ConsultasSQLPerrucaria
         {
             try
             {
-                PreparedStatement stmt = session.prepareStatement(
-                        "select hora from citasperrucaria where data = ?"
-                );
+                PreparedStatement stmt = session.prepareStatement("select hora from citasperrucaria where data = ?");
                 stmt.setDate(1, Date.valueOf(data));
-                
+
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next())
                 {
@@ -56,10 +54,8 @@ public class ConsultasSQLPerrucaria
             try
             {
                 Statement stmt = session.createStatement();
-                String consulta =
-                        "insert into citasperrucaria (chip, data, hora) VALUES ('" + c.getCodCan() + "','" +
-                                c.getData() +
-                                "'," + c.getHora() + ")";
+                String consulta = "insert into citasperrucaria (chip, data, hora) VALUES ('" + c.getCodCan() + "','" +
+                        c.getData() + "'," + c.getHora() + ")";
                 stmt.executeUpdate(consulta);
             }
             catch (SQLException e)
@@ -83,16 +79,15 @@ public class ConsultasSQLPerrucaria
             {
                 Statement stmt = session.createStatement();
                 String consulta =
-                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, "
-                                + "citasperrucaria.hora FROM citasperrucaria, cans, propietarios "
-                                +
+                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, " +
+                                "citasperrucaria.hora, citasperrucaria.chip FROM citasperrucaria, cans, propietarios " +
                                 "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni order by citasperrucaria.data";
                 ResultSet rs = stmt.executeQuery(consulta);
                 while (rs.next())
                 {
                     ListadoPerrucaria c =
                             new ListadoPerrucaria(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7));
+                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7), rs.getString(8));
                     resultado.add(c);
                 }
             }
@@ -120,16 +115,16 @@ public class ConsultasSQLPerrucaria
             {
                 Statement stmt = session.createStatement();
                 String consulta =
-                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, "
-                                + "citasperrucaria.hora FROM citasperrucaria, cans, propietarios "
-                                + "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni and "
-                                + "propietarios.dni='" + dni + "' order by citasperrucaria.data";
+                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, " +
+                                "citasperrucaria.hora, citasperrucaria.chip FROM citasperrucaria, cans, propietarios " +
+                                "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni and " +
+                                "propietarios.dni='" + dni + "' order by citasperrucaria.data";
                 ResultSet rs = stmt.executeQuery(consulta);
                 while (rs.next())
                 {
                     ListadoPerrucaria c =
                             new ListadoPerrucaria(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7));
+                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7), rs.getString(8));
                     resultado.add(c);
                 }
             }
@@ -147,7 +142,8 @@ public class ConsultasSQLPerrucaria
 
 
     // Recuperar todas as citas con filtro por datas
-    public static List<ListadoPerrucaria> recuperarTodaAsCitasDePerrucariaEntreDuasDatas(String dataInicial, String dataFinal)
+    public static List<ListadoPerrucaria> recuperarTodaAsCitasDePerrucariaEntreDuasDatas(String dataInicial,
+            String dataFinal)
     {
         List<ListadoPerrucaria> resultado = new ArrayList<>();
 
@@ -157,18 +153,17 @@ public class ConsultasSQLPerrucaria
             {
                 Statement stmt = session.createStatement();
                 String consulta =
-                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, "
-                                + "citasperrucaria.hora FROM citasperrucaria, cans, propietarios "
-                                + "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni "
-                                + "and citasperrucaria.data>='" + dataInicial + "' and citasperrucaria.data<='" +
-                                dataFinal + "'"
-                                + " order by citasperrucaria.data";
+                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, " +
+                                "citasperrucaria.hora, citasperrucaria.chip FROM citasperrucaria, cans, propietarios " +
+                                "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni " +
+                                "and citasperrucaria.data>='" + dataInicial + "' and citasperrucaria.data<='" +
+                                dataFinal + "'" + " order by citasperrucaria.data";
                 ResultSet rs = stmt.executeQuery(consulta);
                 while (rs.next())
                 {
                     ListadoPerrucaria c =
                             new ListadoPerrucaria(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7));
+                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7), rs.getString(8));
                     resultado.add(c);
                 }
             }
@@ -184,8 +179,8 @@ public class ConsultasSQLPerrucaria
         return resultado;
     }
 
-    public static List<ListadoPerrucaria> recuperarTodaAsCitasDePerrucariaDunPropietarioEntreDuasDatas(String dni, String dataInicial,
-            String dataFinal)
+    public static List<ListadoPerrucaria> recuperarTodaAsCitasDePerrucariaDunPropietarioEntreDuasDatas(String dni,
+            String dataInicial, String dataFinal)
     {
         List<ListadoPerrucaria> resultado = new ArrayList<>();
 
@@ -195,19 +190,17 @@ public class ConsultasSQLPerrucaria
             {
                 Statement stmt = session.createStatement();
                 String consulta =
-                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, "
-                                + "citasperrucaria.hora FROM citasperrucaria, cans, propietarios "
-                                + "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni "
-                                + " and propietarios.dni='" + dni + "'"
-                                + " and citasperrucaria.data>='" + dataInicial + "' and citasperrucaria.data<='" +
-                                dataFinal + "'"
-                                + " order by citasperrucaria.data";
+                        "SELECT citasperrucaria.codCita, propietarios.nome, propietarios.ap1, propietarios.ap2, cans.nome, citasperrucaria.data, " +
+                                "citasperrucaria.hora, citasperrucaria.chip FROM citasperrucaria, cans, propietarios " +
+                                "where citasperrucaria.chip=cans.chip and cans.dnipropietario=propietarios.dni " +
+                                " and propietarios.dni='" + dni + "'" + " and citasperrucaria.data>='" + dataInicial +
+                                "' and citasperrucaria.data<='" + dataFinal + "'" + " order by citasperrucaria.data";
                 ResultSet rs = stmt.executeQuery(consulta);
                 while (rs.next())
                 {
                     ListadoPerrucaria c =
                             new ListadoPerrucaria(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7));
+                                    rs.getString(5), rs.getDate(6).toLocalDate(), rs.getInt(7), rs.getString(8));
                     resultado.add(c);
                 }
             }
