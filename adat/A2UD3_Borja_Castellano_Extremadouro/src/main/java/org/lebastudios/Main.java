@@ -1,5 +1,6 @@
 package org.lebastudios;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +16,10 @@ public class Main
         // DepartamentoDAO.insertar(56, "MARKETING", "0010010");
         //  c)
         // EmpregadoProxectoDAO.borrarEmpregadoDeProyecto("0010010", 8);
-        
+
         // EJ 2
         // visualizarEmpleadosSegunLocalidad("Vigo");
-        
+
         // EJ 3
         //  a)
         // ProxectoDAO.cambiarDepartamentoControla("INNOVACIÓN", "PORTAL");
@@ -26,15 +27,24 @@ public class Main
         // ProxectoDAO.insert(new Proxecto(11, "TRT", "Vigo", 4));
         //  c)
         // ProxectoDAO.remove(11);
-        
+
         // EJ 4
         // ProxectoDAO.selectAll("INNOVACIÓN");
-        
+
         // EJ 5
+        //  a)
+        cambiarDomicilio("123456789", "Rua", 1, "1", 12345, "Vigo");
+        //  b)
+        Proxecto proyecto = datosProyecto(1);
+        //  c)  
+        noEntendi(3);
+        //  d)
+        numEmpleadosDep("INNOVACIÓN");
         
-        
+        // EJ 6
+
     }
-    
+
     private static void visualizarEmpleadosSegunLocalidad(String nombreLocalidad)
     {
         String sql = "select e1.Nome,\n" +
@@ -55,13 +65,13 @@ public class Main
             try (PreparedStatement statement = connection.prepareStatement(sql))
             {
                 statement.setString(1, nombreLocalidad);
-                
+
                 ResultSet resultSet = statement.executeQuery();
-                
-                while (resultSet.next()) 
+
+                while (resultSet.next())
                 {
                     System.out.printf("%s %s %s %s %f %s %s \n",
-                            resultSet.getString(1), 
+                            resultSet.getString(1),
                             resultSet.getString(2),
                             resultSet.getString(3),
                             resultSet.getString(4),
@@ -70,12 +80,114 @@ public class Main
                             resultSet.getString(7)
                     );
                 }
-                
+
             }
             catch (SQLException e)
             {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    private static void cambiarDomicilio(String nss, String rua, int calle, String piso, int cp, String localidad)
+    {
+        String call = "{call pr_cambiarDomicilio(?, ?, ?, ?, ?, ?)}";
+
+        Database.getInstance().getConnections().forEach(session ->
+        {
+            try (CallableStatement statement = session.prepareCall(call))
+            {
+                statement.setString(1, nss);
+                statement.setString(2, rua);
+                statement.setInt(3, calle);
+                statement.setString(4, piso);
+                statement.setInt(5, cp);
+                statement.setString(6, localidad);
+
+                statement.execute();
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private static Proxecto datosProyecto(int numeroProyecto)
+    {
+        String call = "{call pr_datosProxecto(?, ?, ?, ?)}";
+
+        Proxecto[] proyecto = new Proxecto[1];
+
+        Database.getInstance().getConnections().forEach(session ->
+        {
+            try (CallableStatement statement = session.prepareCall(call))
+            {
+                statement.setInt(1, numeroProyecto);
+                statement.registerOutParameter(2, java.sql.Types.VARCHAR);
+                statement.registerOutParameter(3, java.sql.Types.VARCHAR);
+                statement.registerOutParameter(4, java.sql.Types.INTEGER);
+
+                statement.execute();
+
+                proyecto[0] = new Proxecto(
+                        numeroProyecto,
+                        statement.getString(2),
+                        statement.getString(3),
+                        statement.getInt(4)
+                );
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+        });
+
+        return proyecto[0];
+    }
+
+    private static void noEntendi(int numMin)
+    {
+        String call = "{call pr_DepartControlaProxe(?)}";
+        
+        Database.getInstance().getConnections().forEach(session ->
+        {
+            try (CallableStatement statement = session.prepareCall(call))
+            {
+                statement.setInt(1, numMin);
+
+                statement.execute();
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private static int numEmpleadosDep(String nombreDepartamento)
+    {
+        String call = "{?= call fn_nEmpDepart(?)}";
+        
+        int[] numEmpleados = new int[1];
+        
+        Database.getInstance().getConnections().forEach(session ->
+        {
+            try (CallableStatement statement = session.prepareCall(call))
+            {
+                statement.setString(2, nombreDepartamento);
+                statement.registerOutParameter(1, java.sql.Types.INTEGER);
+
+                statement.execute();
+
+                numEmpleados[0] = statement.getInt(1);
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+        });
+        
+        return numEmpleados[0];
     }
 }
