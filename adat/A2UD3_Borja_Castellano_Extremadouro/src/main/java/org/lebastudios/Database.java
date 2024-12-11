@@ -24,7 +24,7 @@ public class Database implements AutoCloseable
         try
         {
             connections.add(
-                    DriverManager.getConnection("jdbc:sqlserver://localhost\\MV-PROG:1433;database=BDEmpresa;" +
+                    DriverManager.getConnection("jdbc:sqlserver://10.0.2.4\\MV-PROG:1433;database=BDEmpresa;" +
                             "trustServerCertificate=true", "sa", "abc123.")
             );
         }
