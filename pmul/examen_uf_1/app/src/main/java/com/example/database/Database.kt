@@ -26,7 +26,7 @@ object Database
         initialized = true;
     }
 
-    fun connect(consumer: Consumer<SQLiteDatabase>)
+    fun connect(consumer: (SQLiteDatabase) -> Unit)
     {
         if (connections.isEmpty())
         {
@@ -35,7 +35,7 @@ object Database
 
         val connection = connections.pop();
 
-        consumer.accept(connection);
+        consumer(connection);
 
         connections.push(connection);
     }
