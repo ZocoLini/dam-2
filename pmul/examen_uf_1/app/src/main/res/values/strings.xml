@@ -4,4 +4,8 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="reset_bd">Reinicar BD</string>
+    <string name="police">Policia</string>
+    <string name="fireman">Bomberos</string>
+    <string name="alert_list_view_row_text">Token: %s, Org: %s</string>
+    <string name="db_reseted">Hecho</string>
 </resources>

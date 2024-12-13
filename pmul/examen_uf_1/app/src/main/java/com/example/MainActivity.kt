@@ -2,6 +2,7 @@ package com.example
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,9 +26,8 @@ import com.example.fragments.CniSensorIAFragment
 
 class MainActivity : AppCompatActivity()
 {
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>;
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var pastAlertsListView: ListView;
-
     private lateinit var emailReceiverSensor: CniSensorIAFragment;
     private lateinit var emailSubjectSensor: CniSensorIAFragment;
     private lateinit var emailBodySensor: CniSensorIAFragment;
@@ -54,7 +55,8 @@ class MainActivity : AppCompatActivity()
 
         val fragments = supportFragmentManager;
 
-        emailReceiverSensor = fragments.findFragmentById(R.id.email_receiver) as CniSensorIAFragment;
+        emailReceiverSensor =
+            fragments.findFragmentById(R.id.email_receiver) as CniSensorIAFragment;
         emailSubjectSensor = fragments.findFragmentById(R.id.email_subject) as CniSensorIAFragment;
         emailBodySensor = fragments.findFragmentById(R.id.email_body) as CniSensorIAFragment;
 
@@ -68,14 +70,20 @@ class MainActivity : AppCompatActivity()
     {
         super.onStart()
 
-        emailReceiverSensor.setCniSensorListener(emailReceiverListener);
-        emailSubjectSensor.setCniSensorListener(emailSubjectListener);
-        emailBodySensor.setCniSensorListener(emailBodyListener);
+        emailReceiverSensor.addCniSensorListener(emailReceiverListener);
+        emailSubjectSensor.addCniSensorListener(emailSubjectListener1);
+        emailSubjectSensor.addCniSensorListener(emailSubjectListener2);
+        emailBodySensor.addCniSensorListener(emailBodyListener);
     }
 
-    fun openWarningsActivity(token: CniSensorIAFragment.Token)
+    fun openWarningsActivity(token: CniSensorIAFragment.Token, org: String)
     {
-        WarningsActivity.showActivity(resultLauncher, this, token.token, token.context);
+        WarningsManager.setWarning(
+            WarningsManager.Warning(
+                token.token, token.context, org, token.controlFound
+            ), this
+        );
+        WarningsActivity.showActivity(resultLauncher, this);
     }
 
     private fun populatePastAlertsListView()
@@ -89,6 +97,13 @@ class MainActivity : AppCompatActivity()
     {
         Database.resetTables();
         populatePastAlertsListView();
+
+        Toast.makeText(this, getStringResource(R.string.db_reseted), Toast.LENGTH_SHORT).show();
+    }
+
+    private fun getStringResource(resId: Int): String
+    {
+        return this.resources.getString(resId);
     }
 
     private val emailReceiverListener = object : CniSensorIAFragment.CniSensorListener
@@ -98,7 +113,7 @@ class MainActivity : AppCompatActivity()
         {
             if (text.endsWith("@ot.com"))
             {
-                return CniSensorIAFragment.Token("@ot.com", text);
+                return CniSensorIAFragment.Token("@ot.com", text, "Email Receiver");
             }
 
             return null;
@@ -106,22 +121,24 @@ class MainActivity : AppCompatActivity()
 
         override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
         {
-            openWarningsActivity(token);
+            openWarningsActivity(token, getStringResource(R.string.police));
+        }
+
+        override fun isDeactivated(): Boolean
+        {
+            return false;
         }
 
     }
 
-    private val emailSubjectListener = object : CniSensorIAFragment.CniSensorListener
+    private val emailSubjectListener1 = object : CniSensorIAFragment.CniSensorListener
     {
         override fun findToken(fragment: CniSensorIAFragment, text: String):
                 CniSensorIAFragment.Token?
         {
             if (text.contains("ascensor"))
             {
-                return CniSensorIAFragment.Token("ascensor", text);
-            } else if (text.contains("fuego"))
-            {
-                return CniSensorIAFragment.Token("fuego", text);
+                return CniSensorIAFragment.Token("ascensor", text, "Email Subject");
             }
 
             return null;
@@ -129,7 +146,35 @@ class MainActivity : AppCompatActivity()
 
         override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
         {
-            openWarningsActivity(token);
+            openWarningsActivity(token, getStringResource(R.string.police));
+        }
+
+        override fun isDeactivated(): Boolean
+        {
+            return false;
+        }
+    }
+
+    private val emailSubjectListener2 = object : CniSensorIAFragment.CniSensorListener
+    {
+        override fun findToken(fragment: CniSensorIAFragment, text: String): CniSensorIAFragment.Token?
+        {
+            if (text.contains("fuego"))
+            {
+                return CniSensorIAFragment.Token("fuego", text, "Email Subject");
+            }
+
+            return null;
+        }
+
+        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
+        {
+            openWarningsActivity(token, getStringResource(R.string.fireman));
+        }
+
+        override fun isDeactivated(): Boolean
+        {
+            return false;
         }
     }
 
@@ -143,10 +188,10 @@ class MainActivity : AppCompatActivity()
 
             if (iban != null)
             {
-                return CniSensorIAFragment.Token(iban.value, text);
+                return CniSensorIAFragment.Token(iban.value, text, "Email Body");
             } else if (nif != null)
             {
-                return CniSensorIAFragment.Token(nif.value, text);
+                return CniSensorIAFragment.Token(nif.value, text, "Email Body");
             }
 
             return null;
@@ -154,15 +199,21 @@ class MainActivity : AppCompatActivity()
 
         override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
         {
-            openWarningsActivity(token);
+            openWarningsActivity(token, getStringResource(R.string.police));
+        }
+
+        override fun isDeactivated(): Boolean
+        {
+            return false;
         }
     }
 
-    class AlertListViewAdapter(context: Context, private val alerts: List<Alert>) : ArrayAdapter<Alert>(
-        context,
-        R.layout.alert_list_view_row,
-        alerts
-    )
+    class AlertListViewAdapter(context: Context, private val alerts: List<Alert>) :
+        ArrayAdapter<Alert>(
+            context,
+            R.layout.alert_list_view_row,
+            alerts
+        )
     {
         private class ViewHolder
         {
@@ -193,7 +244,12 @@ class MainActivity : AppCompatActivity()
                 viewHolder = view.tag as ViewHolder;
             }
 
-            viewHolder.textView.text = alert.context;
+            // Crear una cadena usando elementos de string.sml
+            viewHolder.textView.text = context.resources.getString(
+                R.string.alert_list_view_row_text,
+                alert.token, alert.orgName
+            );
+
             viewHolder.imageView.setImageResource(
                 if (alert.accepted) R.drawable.dedo_abajo
                 else R.drawable.dedo_arriba

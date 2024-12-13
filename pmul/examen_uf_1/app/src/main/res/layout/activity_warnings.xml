@@ -24,18 +24,26 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/org_text_view"
+        app:layout_constraintTop_toBottomOf="@id/token_context_text_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <CheckBox
         android:id="@+id/dont_repeat_warning_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dont_repeat_warning"
-        app:layout_constraintTop_toBottomOf="@+id/token_context_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/org_text_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/dont_repeat_warning_checkbox"
         app:layout_constraintLeft_toLeftOf="parent"

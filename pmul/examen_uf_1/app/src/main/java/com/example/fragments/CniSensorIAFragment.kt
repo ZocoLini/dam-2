@@ -11,17 +11,7 @@ import com.example.R
 
 class CniSensorIAFragment : Fragment()
 {
-    private var cniSensorListener: CniSensorListener = object : CniSensorListener
-    {
-        override fun findToken(fragment: CniSensorIAFragment, text: String): Token?
-        {
-            return null;
-        }
-
-        override fun onAlert(fragment: CniSensorIAFragment, token: Token)
-        {
-        }
-    }
+    private var cniSensorListeners = ArrayList<CniSensorListener>();
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,27 +24,35 @@ class CniSensorIAFragment : Fragment()
         view
             .findViewById<EditText>(R.id.edit_text)
             .doOnTextChanged { text, _, _, _ ->
-                val foundToken = cniSensorListener.findToken(this, text.toString())
+                if (text == null) return@doOnTextChanged;
 
-                if (foundToken != null)
+                for (listener in cniSensorListeners)
                 {
-                    cniSensorListener.onAlert(this, foundToken)
+                    if (listener.isDeactivated()) continue;
+
+                    val token = listener.findToken(this, text.toString())
+
+                    if (token != null)
+                    {
+                        listener.onAlert(this, token);
+                    }
                 }
             }
 
         return view
     }
 
-    fun setCniSensorListener(cniSensorListener: CniSensorListener)
+    fun addCniSensorListener(cniSensorListener: CniSensorListener)
     {
-        this.cniSensorListener = cniSensorListener
+        cniSensorListeners.add(cniSensorListener);
     }
 
     interface CniSensorListener
     {
         fun findToken(fragment: CniSensorIAFragment, text: String): Token?;
         fun onAlert(fragment: CniSensorIAFragment, token: Token);
+        fun isDeactivated(): Boolean;
     }
 
-    class Token(val token: String, val context: String)
+    class Token(val token: String, val context: String, val controlFound: String)
 }

@@ -28,9 +28,13 @@ class WarningsActivity : AppCompatActivity()
 
         val detectedToken = intent.getStringExtra("detectedToken")!!;
         val detectedTokenContext = intent.getStringExtra("detectedTokenContext")!!;
+        val org = intent.getStringExtra("org")!!;
+        val control = intent.getStringExtra("control")!!;
 
-        this.findViewById<TextView>(R.id.detected_token_text_view).text = detectedToken;
+        this.findViewById<TextView>(R.id.detected_token_text_view).text =
+            "Token: $detectedToken (Control: $control)";
         this.findViewById<TextView>(R.id.token_context_text_view).text = detectedTokenContext;
+        this.findViewById<TextView>(R.id.org_text_view).text = org;
 
         this
             .findViewById<Button>(R.id.yes_button)
@@ -39,12 +43,13 @@ class WarningsActivity : AppCompatActivity()
                     Alert.insert(
                         Alert(
                             detectedToken, detectedTokenContext,
-                            true
+                            true, org
                         ), conn
                     );
                 }
 
-                closeActivity();
+                setResult(RESULT_OK);
+                finish();
             }
 
         this
@@ -54,34 +59,32 @@ class WarningsActivity : AppCompatActivity()
                     Alert.insert(
                         Alert(
                             detectedToken, detectedTokenContext,
-                            false
+                            false, org
                         ), conn
                     );
                 }
 
-                closeActivity();
+                setResult(RESULT_OK);
+                finish();
             }
-    }
-
-    private fun closeActivity()
-    {
-        setResult(RESULT_OK);
-        finish();
     }
 
     companion object
     {
         @JvmStatic
         fun showActivity(
-            resultLauncher: ActivityResultLauncher<Intent>, context:
-            Context, detectedToken: String,
-            detectedTokenContext: String
+            resultLauncher: ActivityResultLauncher<Intent>, context: Context
         )
         {
+            val warning = WarningsManager.getActualWarning()!!;
+
             resultLauncher.launch(Intent(context, WarningsActivity::class.java).apply {
-                putExtra("detectedToken", detectedToken);
-                putExtra("detectedTokenContext", detectedTokenContext);
+                putExtra("detectedToken", warning.token);
+                putExtra("detectedTokenContext", warning.context);
+                putExtra("org", warning.org_name);
+                putExtra("control", warning.control_name);
             });
         }
     }
+
 }
