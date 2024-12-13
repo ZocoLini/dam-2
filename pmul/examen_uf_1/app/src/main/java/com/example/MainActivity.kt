@@ -68,77 +68,14 @@ class MainActivity : AppCompatActivity()
     {
         super.onStart()
 
-        emailReceiverSensor.setCniSensorListener(object : CniSensorIAFragment.CniSensorListener
-        {
-            override fun findToken(fragment: CniSensorIAFragment, text: String):
-                    CniSensorIAFragment.Token?
-            {
-                if (text.endsWith("@ot.com"))
-                {
-                    return CniSensorIAFragment.Token("@ot.com", text);
-                }
-
-                return null;
-            }
-
-            override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-            {
-                openWarningsActivity(token);
-            }
-
-        })
-
-        emailSubjectSensor.setCniSensorListener(object : CniSensorIAFragment.CniSensorListener
-        {
-            override fun findToken(fragment: CniSensorIAFragment, text: String):
-                    CniSensorIAFragment.Token?
-            {
-                if (text.contains("ascensor"))
-                {
-                    return CniSensorIAFragment.Token("ascensor", text);
-                } else if (text.contains("fuego"))
-                {
-                    return CniSensorIAFragment.Token("fuego", text);
-                }
-
-                return null;
-            }
-
-            override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-            {
-                openWarningsActivity(token);
-            }
-        })
-
-        emailBodySensor.setCniSensorListener(object : CniSensorIAFragment.CniSensorListener
-        {
-            override fun findToken(fragment: CniSensorIAFragment, text: String):
-                    CniSensorIAFragment.Token?
-            {
-                val iban: MatchResult? = Regex("[A-Za-z]{2}[0-9]{2}(-[0-9]){5}").find(text);
-                val nif: MatchResult? = Regex("[0-9]{8}[A-Za-z]").find(text);
-
-                if (iban != null)
-                {
-                    return CniSensorIAFragment.Token(iban.value, text);
-                } else if (nif != null)
-                {
-                    return CniSensorIAFragment.Token(nif.value, text);
-                }
-
-                return null;
-            }
-
-            override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-            {
-                openWarningsActivity(token);
-            }
-        })
+        emailReceiverSensor.setCniSensorListener(emailReceiverListener);
+        emailSubjectSensor.setCniSensorListener(emailSubjectListener);
+        emailBodySensor.setCniSensorListener(emailBodyListener);
     }
 
     fun openWarningsActivity(token: CniSensorIAFragment.Token)
     {
-        WarningsActivity.showActivity(this, token.token, token.context);
+        WarningsActivity.showActivity(resultLauncher, this, token.token, token.context);
     }
 
     private fun populatePastAlertsListView()
@@ -152,6 +89,73 @@ class MainActivity : AppCompatActivity()
     {
         Database.resetTables();
         populatePastAlertsListView();
+    }
+
+    private val emailReceiverListener = object : CniSensorIAFragment.CniSensorListener
+    {
+        override fun findToken(fragment: CniSensorIAFragment, text: String):
+                CniSensorIAFragment.Token?
+        {
+            if (text.endsWith("@ot.com"))
+            {
+                return CniSensorIAFragment.Token("@ot.com", text);
+            }
+
+            return null;
+        }
+
+        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
+        {
+            openWarningsActivity(token);
+        }
+
+    }
+
+    private val emailSubjectListener = object : CniSensorIAFragment.CniSensorListener
+    {
+        override fun findToken(fragment: CniSensorIAFragment, text: String):
+                CniSensorIAFragment.Token?
+        {
+            if (text.contains("ascensor"))
+            {
+                return CniSensorIAFragment.Token("ascensor", text);
+            } else if (text.contains("fuego"))
+            {
+                return CniSensorIAFragment.Token("fuego", text);
+            }
+
+            return null;
+        }
+
+        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
+        {
+            openWarningsActivity(token);
+        }
+    }
+
+    private val emailBodyListener = object : CniSensorIAFragment.CniSensorListener
+    {
+        override fun findToken(fragment: CniSensorIAFragment, text: String):
+                CniSensorIAFragment.Token?
+        {
+            val iban: MatchResult? = Regex("[A-Za-z]{2}[0-9]{2}(-[0-9]){5}").find(text);
+            val nif: MatchResult? = Regex("[0-9]{8}[A-Za-z]").find(text);
+
+            if (iban != null)
+            {
+                return CniSensorIAFragment.Token(iban.value, text);
+            } else if (nif != null)
+            {
+                return CniSensorIAFragment.Token(nif.value, text);
+            }
+
+            return null;
+        }
+
+        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
+        {
+            openWarningsActivity(token);
+        }
     }
 
     class AlertListViewAdapter(context: Context, private val alerts: List<Alert>) : ArrayAdapter<Alert>(

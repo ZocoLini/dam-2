@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -71,14 +72,16 @@ class WarningsActivity : AppCompatActivity()
     companion object
     {
         @JvmStatic
-        fun showActivity(context: Context, detectedToken: String, detectedTokenContext: String)
+        fun showActivity(
+            resultLauncher: ActivityResultLauncher<Intent>, context:
+            Context, detectedToken: String,
+            detectedTokenContext: String
+        )
         {
-            val intent = Intent(context, WarningsActivity::class.java)
-
-            intent.putExtra("detectedToken", detectedToken)
-            intent.putExtra("detectedTokenContext", detectedTokenContext)
-
-            context.startActivity(intent)
+            resultLauncher.launch(Intent(context, WarningsActivity::class.java).apply {
+                putExtra("detectedToken", detectedToken);
+                putExtra("detectedTokenContext", detectedTokenContext);
+            });
         }
     }
 }
