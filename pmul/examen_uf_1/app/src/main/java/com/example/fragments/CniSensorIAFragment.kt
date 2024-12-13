@@ -13,12 +13,12 @@ class CniSensorIAFragment : Fragment()
 {
     private var cniSensorListener: CniSensorListener = object : CniSensorListener
     {
-        override fun filterAlert(fragment: CniSensorIAFragment, text: String): Boolean
+        override fun findToken(fragment: CniSensorIAFragment, text: String): Token?
         {
-            return false
+            return null;
         }
 
-        override fun onAlert(fragment: CniSensorIAFragment, text: String)
+        override fun onAlert(fragment: CniSensorIAFragment, token: Token)
         {
         }
     }
@@ -33,12 +33,12 @@ class CniSensorIAFragment : Fragment()
 
         view
             .findViewById<EditText>(R.id.edit_text)
-            .doOnTextChanged { text, start, before, count ->
-                println(text);
+            .doOnTextChanged { text, _, _, _ ->
+                val foundToken = cniSensorListener.findToken(this, text.toString())
 
-                if (cniSensorListener.filterAlert(view, text.toString()))
+                if (foundToken != null)
                 {
-                    cniSensorListener.onAlert(view, text.toString())
+                    cniSensorListener.onAlert(this, foundToken)
                 }
             }
 
@@ -52,7 +52,9 @@ class CniSensorIAFragment : Fragment()
 
     interface CniSensorListener
     {
-        fun filterAlert(fragment: CniSensorIAFragment, text: String): Boolean;
-        fun onAlert(fragment: CniSensorIAFragment, text: String);
+        fun findToken(fragment: CniSensorIAFragment, text: String): Token?;
+        fun onAlert(fragment: CniSensorIAFragment, token: Token);
     }
+
+    class Token(val token: String, val context: String)
 }

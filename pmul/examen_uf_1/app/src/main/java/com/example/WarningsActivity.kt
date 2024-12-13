@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.database.Database
+import com.example.entities.Alert
 
 class WarningsActivity : AppCompatActivity()
 {
@@ -23,23 +25,46 @@ class WarningsActivity : AppCompatActivity()
             insets
         }
 
-        val detectedToken = intent.getStringExtra("detectedToken");
-        val detectedTokenContext = intent.getStringExtra("detectedTokenContext");
+        val detectedToken = intent.getStringExtra("detectedToken")!!;
+        val detectedTokenContext = intent.getStringExtra("detectedTokenContext")!!;
 
         this.findViewById<TextView>(R.id.detected_token_text_view).text = detectedToken;
         this.findViewById<TextView>(R.id.token_context_text_view).text = detectedTokenContext;
 
-        this.findViewById<Button>(R.id.yes_button).setOnClickListener {
-            closeActivity();
-        }
+        this
+            .findViewById<Button>(R.id.yes_button)
+            .setOnClickListener {
+                Database.connect { conn ->
+                    Alert.insert(
+                        Alert(
+                            detectedToken, detectedTokenContext,
+                            true
+                        ), conn
+                    );
+                }
 
-        this.findViewById<Button>(R.id.no_button).setOnClickListener {
-            closeActivity();
-        }
+                closeActivity();
+            }
+
+        this
+            .findViewById<Button>(R.id.no_button)
+            .setOnClickListener {
+                Database.connect { conn ->
+                    Alert.insert(
+                        Alert(
+                            detectedToken, detectedTokenContext,
+                            false
+                        ), conn
+                    );
+                }
+
+                closeActivity();
+            }
     }
 
     private fun closeActivity()
     {
+        setResult(RESULT_OK);
         finish();
     }
 
