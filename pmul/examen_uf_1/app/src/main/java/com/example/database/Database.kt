@@ -5,8 +5,6 @@ import android.database.sqlite.SQLiteDatabase
 
 object Database
 {
-    private const val MAX_CONNECTIONS = 3;
-
     private lateinit var connection: SQLiteDatabase;
     private var initialized = false;
 

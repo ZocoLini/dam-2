@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity()
         override fun findToken(fragment: CniSensorIAFragment, text: String):
                 CniSensorIAFragment.Token?
         {
-            if (text.endsWith("@ot.com"))
+            if (text.contains("@ot.com"))
             {
                 return CniSensorIAFragment.Token("@ot.com", text, "Email Receiver");
             }
