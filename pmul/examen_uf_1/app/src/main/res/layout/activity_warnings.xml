@@ -5,6 +5,53 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WarningsActivity">
+    tools:context=".WarningsActivity"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/detected_token_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/token_context_text_view"
+        app:layout_constraintTop_toBottomOf="@id/detected_token_text_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <CheckBox
+        android:id="@+id/dont_repeat_warning_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dont_repeat_warning"
+        app:layout_constraintTop_toBottomOf="@+id/token_context_text_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/dont_repeat_warning_checkbox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="@string/yes" />
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="@string/no" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

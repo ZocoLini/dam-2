@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Examen_UF_1</string>
+    <string name="dont_repeat_warning">No repetir advertencia</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 </resources>
