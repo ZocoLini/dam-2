@@ -6,7 +6,7 @@ import com.example.database.Database
 class PersonDAO {
     companion object {
         @JvmStatic
-        private fun insert(person: Person) {
+        fun insert(person: Person) {
             Database.connect { conn ->
                 conn.insert("person",
                     null,
