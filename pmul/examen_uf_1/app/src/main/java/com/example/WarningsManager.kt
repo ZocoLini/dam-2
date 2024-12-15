@@ -1,24 +1,30 @@
 package com.example
 
-import android.content.Context
 import com.example.database.Database
 import com.example.entities.Alert
 
 object WarningsManager
 {
     private var actualWarning: Warning? = null;
+    private var warningOrigin: MainActivity.CniSensorListener? = null;
 
     fun getActualWarning(): Warning?
     {
         return actualWarning;
     }
 
-    fun setWarning(warning: Warning, context: Context)
+    fun showWarning(warning: Warning, warningOrigin: MainActivity.CniSensorListener)
     {
         actualWarning = warning;
+        this.warningOrigin = warningOrigin;
     }
 
-    fun saveWaningAsAlert()
+    fun disableWarning()
+    {
+        warningOrigin!!.deactivate();
+    }
+
+    fun saveWaningAsAlert(accepted: Boolean)
     {
         if (actualWarning == null) return;
 
@@ -26,12 +32,12 @@ object WarningsManager
             Alert.insert(
                 Alert(
                     actualWarning!!.token, actualWarning!!.context,
-                    true, actualWarning!!.org_name
+                    accepted, actualWarning!!.orgName
                 ), conn
             );
         }
     }
 
-    class Warning(val token: String, val context: String, val org_name: String, val control_name:
+    class Warning(val token: String, val context: String, val orgName: String, val controlName:
     String)
 }

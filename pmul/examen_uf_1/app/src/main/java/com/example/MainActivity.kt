@@ -2,7 +2,6 @@ package com.example
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,18 +21,19 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.database.Database
 import com.example.entities.Alert
 import com.example.fragments.CniSensorIAFragment
+import com.example.orgs.Fireman
+import com.example.orgs.Org
+import com.example.orgs.Police
 
 
-class MainActivity : AppCompatActivity()
-{
+class MainActivity : AppCompatActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var pastAlertsListView: ListView;
     private lateinit var emailReceiverSensor: CniSensorIAFragment;
     private lateinit var emailSubjectSensor: CniSensorIAFragment;
     private lateinit var emailBodySensor: CniSensorIAFragment;
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -66,145 +66,106 @@ class MainActivity : AppCompatActivity()
         populatePastAlertsListView();
     }
 
-    override fun onStart()
-    {
+    override fun onStart() {
         super.onStart()
 
         emailReceiverSensor.addCniSensorListener(emailReceiverListener);
-        emailSubjectSensor.addCniSensorListener(emailSubjectListener1);
-        emailSubjectSensor.addCniSensorListener(emailSubjectListener2);
+        emailSubjectSensor.addCniSensorListener(emailSubjectListener);
         emailBodySensor.addCniSensorListener(emailBodyListener);
     }
 
-    fun openWarningsActivity(token: CniSensorIAFragment.Token, org: String)
-    {
-        WarningsManager.setWarning(
+    fun openWarningsActivity(token: CniSensorIAFragment.Token, org: ArrayList<String>, warningOrigin: CniSensorListener) {
+        WarningsManager.showWarning(
             WarningsManager.Warning(
-                token.token, token.context, org, token.controlFound
-            ), this
+                token.token, token.context, org.joinToString(), token.controlFound
+            ), warningOrigin
         );
         WarningsActivity.showActivity(resultLauncher, this);
     }
 
-    private fun populatePastAlertsListView()
-    {
+    private fun populatePastAlertsListView() {
         val previousAlerts = Alert.selectAll();
         val adapter = AlertListViewAdapter(this, previousAlerts)
         pastAlertsListView.adapter = adapter;
     }
 
-    private fun resetDatabase()
-    {
+    private fun resetDatabase() {
         Database.resetTables();
         populatePastAlertsListView();
 
         Toast.makeText(this, getStringResource(R.string.db_reseted), Toast.LENGTH_SHORT).show();
     }
 
-    private fun getStringResource(resId: Int): String
-    {
+    private fun getStringResource(resId: Int): String {
         return this.resources.getString(resId);
     }
 
-    private val emailReceiverListener = object : CniSensorIAFragment.CniSensorListener
-    {
-        override fun findToken(fragment: CniSensorIAFragment, text: String):
-                CniSensorIAFragment.Token?
-        {
-            if (text.contains("@ot.com"))
-            {
-                return CniSensorIAFragment.Token("@ot.com", text, "Email Receiver");
+    private val emailReceiverListener = object : CniSensorListener() {
+        override fun getOrgsListening(): ArrayList<Org> {
+            return ArrayList<Org>().apply {
+                add(Police());
             }
-
-            return null;
         }
 
-        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-        {
-            openWarningsActivity(token, getStringResource(R.string.police));
-        }
-
-        override fun isDeactivated(): Boolean
-        {
-            return false;
-        }
-
-    }
-
-    private val emailSubjectListener1 = object : CniSensorIAFragment.CniSensorListener
-    {
-        override fun findToken(fragment: CniSensorIAFragment, text: String):
-                CniSensorIAFragment.Token?
-        {
-            if (text.contains("ascensor"))
-            {
-                return CniSensorIAFragment.Token("ascensor", text, "Email Subject");
+        override fun getAlertTokensMatchers(): ArrayList<Regex> {
+            return ArrayList<Regex>().apply {
+                add(Regex(".*(?<token>@ot.com).*"))
             }
-
-            return null;
         }
 
-        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-        {
-            openWarningsActivity(token, getStringResource(R.string.police));
+        override fun getMainActivity(): MainActivity {
+            return this@MainActivity;
         }
 
-        override fun isDeactivated(): Boolean
-        {
-            return false;
+        override fun getUIController(): String {
+            return "Email Receiver";
         }
     }
 
-    private val emailSubjectListener2 = object : CniSensorIAFragment.CniSensorListener
-    {
-        override fun findToken(fragment: CniSensorIAFragment, text: String): CniSensorIAFragment.Token?
-        {
-            if (text.contains("fuego"))
-            {
-                return CniSensorIAFragment.Token("fuego", text, "Email Subject");
+    private val emailSubjectListener = object : CniSensorListener() {
+        override fun getOrgsListening(): ArrayList<Org> {
+            return ArrayList<Org>().apply {
+                add(Police());
+                add(Fireman());
             }
-
-            return null;
         }
 
-        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-        {
-            openWarningsActivity(token, getStringResource(R.string.fireman));
+        override fun getAlertTokensMatchers(): ArrayList<Regex> {
+            return ArrayList<Regex>().apply {
+                add(Regex("^(?!seguro ).*(?<token>ascensor).*"))
+                add(Regex(".*(?<token>fuego).*"))
+            }
         }
 
-        override fun isDeactivated(): Boolean
-        {
-            return false;
+        override fun getMainActivity(): MainActivity {
+            return this@MainActivity;
+        }
+
+        override fun getUIController(): String {
+            return "Email Subject";
         }
     }
 
-    private val emailBodyListener = object : CniSensorIAFragment.CniSensorListener
-    {
-        override fun findToken(fragment: CniSensorIAFragment, text: String):
-                CniSensorIAFragment.Token?
-        {
-            val iban: MatchResult? = Regex("[A-Za-z]{2}[0-9]{2}(-[0-9]){5}").find(text);
-            val nif: MatchResult? = Regex("[0-9]{8}[A-Za-z]").find(text);
-
-            if (iban != null)
-            {
-                return CniSensorIAFragment.Token(iban.value, text, "Email Body");
-            } else if (nif != null)
-            {
-                return CniSensorIAFragment.Token(nif.value, text, "Email Body");
+    private val emailBodyListener = object : CniSensorListener() {
+        override fun getOrgsListening(): ArrayList<Org> {
+            return ArrayList<Org>().apply {
+                add(Police());
             }
-
-            return null;
         }
 
-        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token)
-        {
-            openWarningsActivity(token, getStringResource(R.string.police));
+        override fun getAlertTokensMatchers(): ArrayList<Regex> {
+            return ArrayList<Regex>().apply {
+                add(Regex("(?<token>[A-Za-z]{2}[0-9]{2}(-[0-9]){5})"))
+                add(Regex("(?<token>[0-9]{8}[A-Za-z])"))
+            }
         }
 
-        override fun isDeactivated(): Boolean
-        {
-            return false;
+        override fun getMainActivity(): MainActivity {
+            return this@MainActivity;
+        }
+
+        override fun getUIController(): String {
+            return "Email Body";
         }
     }
 
@@ -213,24 +174,20 @@ class MainActivity : AppCompatActivity()
             context,
             R.layout.alert_list_view_row,
             alerts
-        )
-    {
-        private class ViewHolder
-        {
+        ) {
+        private class ViewHolder {
             lateinit var textView: TextView;
             lateinit var imageView: ImageView;
         }
 
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
-        {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             val viewHolder: ViewHolder;
 
             val alert = alerts[position];
 
             var view: View? = convertView;
 
-            if (view == null)
-            {
+            if (view == null) {
                 view = LayoutInflater
                     .from(context)
                     .inflate(R.layout.alert_list_view_row, null);
@@ -238,9 +195,7 @@ class MainActivity : AppCompatActivity()
                 viewHolder.textView = view.findViewById(R.id.text_view);
                 viewHolder.imageView = view.findViewById(R.id.image_view);
                 view.tag = viewHolder;
-            }
-            else
-            {
+            } else {
                 viewHolder = view.tag as ViewHolder;
             }
 
@@ -257,5 +212,46 @@ class MainActivity : AppCompatActivity()
 
             return view!!;
         }
+    }
+
+    abstract class CniSensorListener : CniSensorIAFragment.CniSensorListener {
+        private var deactivated: Boolean = false;
+
+        abstract fun getOrgsListening(): ArrayList<Org>;
+        abstract fun getAlertTokensMatchers(): ArrayList<Regex>;
+        abstract fun getMainActivity(): MainActivity;
+        abstract fun getUIController(): String;
+
+        fun deactivate() {
+            deactivated = true;
+        }
+
+        override fun findToken(
+            fragment: CniSensorIAFragment,
+            text: String
+        ): CniSensorIAFragment.Token? {
+            for (regex in getAlertTokensMatchers()) {
+                val match: MatchResult = regex.find(text) ?: continue;
+
+                val token = match.groups["token"]!!.value;
+
+                return CniSensorIAFragment.Token(token, text, getUIController());
+            }
+
+            return null;
+        }
+
+        override fun onAlert(fragment: CniSensorIAFragment, token: CniSensorIAFragment.Token) {
+            getMainActivity().openWarningsActivity(
+                token,
+                getOrgsListening().map { getMainActivity().getStringResource(it.getOrgName()) }.toCollection(ArrayList()),
+                this
+            );
+        }
+
+        override fun isDeactivated(): Boolean {
+            return deactivated;
+        }
+
     }
 }

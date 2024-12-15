@@ -4,17 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.database.Database
-import com.example.entities.Alert
 
 class WarningsActivity : AppCompatActivity()
 {
+    private lateinit var disableWarningCheckbox: CheckBox;
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -39,34 +40,29 @@ class WarningsActivity : AppCompatActivity()
         this
             .findViewById<Button>(R.id.yes_button)
             .setOnClickListener {
-                Database.connect { conn ->
-                    Alert.insert(
-                        Alert(
-                            detectedToken, detectedTokenContext,
-                            true, org
-                        ), conn
-                    );
-                }
-
-                setResult(RESULT_OK);
-                finish();
+                WarningsManager.saveWaningAsAlert(true);
+                terminateActivity();
             }
 
         this
             .findViewById<Button>(R.id.no_button)
             .setOnClickListener {
-                Database.connect { conn ->
-                    Alert.insert(
-                        Alert(
-                            detectedToken, detectedTokenContext,
-                            false, org
-                        ), conn
-                    );
-                }
-
-                setResult(RESULT_OK);
-                finish();
+                WarningsManager.saveWaningAsAlert(false);
+                terminateActivity();
             }
+
+        disableWarningCheckbox = findViewById(R.id.dont_repeat_warning_checkbox);
+    }
+
+    private fun terminateActivity()
+    {
+        if (disableWarningCheckbox.isChecked)
+        {
+            WarningsManager.disableWarning();
+        }
+
+        setResult(RESULT_OK);
+        finish();
     }
 
     companion object
@@ -81,8 +77,8 @@ class WarningsActivity : AppCompatActivity()
             resultLauncher.launch(Intent(context, WarningsActivity::class.java).apply {
                 putExtra("detectedToken", warning.token);
                 putExtra("detectedTokenContext", warning.context);
-                putExtra("org", warning.org_name);
-                putExtra("control", warning.control_name);
+                putExtra("org", warning.orgName);
+                putExtra("control", warning.controlName);
             });
         }
     }
