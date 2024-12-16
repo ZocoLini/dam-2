@@ -17,7 +17,26 @@ public class LangBundleLoader
 
     private void addLangBundle(String baseName, Locale locale)
     {
-        resourceBundles.put(baseName, ResourceBundle.getBundle(baseName, locale));
+        ResourceBundle resourceBundle;
+
+        try
+        {
+            resourceBundle = ResourceBundle.getBundle(
+                    baseName,
+                    locale,
+                    Launcher.class.getClassLoader()
+            );
+        }
+        catch (MissingResourceException exception)
+        {
+            resourceBundle = ResourceBundle.getBundle(
+                    baseName,
+                    Locale.of("en", "US"),
+                    Launcher.class.getClassLoader()
+            );
+        }
+        
+        resourceBundles.put(baseName, resourceBundle);
     }
 
     public static void addLangBundle(FXMLLoader loader)

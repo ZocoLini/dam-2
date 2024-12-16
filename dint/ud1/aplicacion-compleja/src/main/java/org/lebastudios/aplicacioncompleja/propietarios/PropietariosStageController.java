@@ -169,7 +169,7 @@ public class PropietariosStageController extends StageController<PropietariosSta
         }
 
         Notifications noti = Notifications.create().owner(getRoot());
-        noti.hideAfter(Duration.seconds(3));
+        noti.hideAfter(Duration.seconds(4));
 
         boolean[] consumed = new boolean[1];
         
@@ -228,7 +228,7 @@ public class PropietariosStageController extends StageController<PropietariosSta
         boolean result = PropietarioDAO.eliminarUnPropietarioDadoSeuDni(dniField.getText());
 
         Notifications noti = Notifications.create().owner(getRoot());
-        noti.hideAfter(Duration.seconds(3));
+        noti.hideAfter(Duration.seconds(4));
 
         final PropietarioTableItem propietarioTableItem = selectedPropietario;
         final Propietario propietrioEliminado = propietarioTableItem.intoPropietario();
