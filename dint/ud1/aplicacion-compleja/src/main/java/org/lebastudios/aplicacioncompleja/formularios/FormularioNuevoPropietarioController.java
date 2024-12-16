@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import org.lebastudios.aplicacioncompleja.apparience.UIEffects;
 import org.lebastudios.aplicacioncompleja.controllers.StageController;
-import org.lebastudios.aplicacioncompleja.database.entities.Perro;
 import org.lebastudios.aplicacioncompleja.database.entities.Propietario;
 import org.lebastudios.aplicacioncompleja.dialogs.InformationDialogController;
 import org.lebastudios.aplicacioncompleja.language.LangFileLoader;
