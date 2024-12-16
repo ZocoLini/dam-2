@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 public class Propietario implements IEntity
@@ -184,5 +185,27 @@ public class Propietario implements IEntity
         });
 
         return insertado[0];
+    }
+
+    @Override
+    public final boolean equals(Object o)
+    {
+        if (!(o instanceof Propietario that)) return false;
+
+        return Objects.equals(dni, that.dni) && Objects.equals(nome, that.nome) &&
+                Objects.equals(ap1, that.ap1) && Objects.equals(ap2, that.ap2) &&
+                Objects.equals(email, that.email) && Objects.equals(tlf, that.tlf);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = Objects.hashCode(dni);
+        result = 31 * result + Objects.hashCode(nome);
+        result = 31 * result + Objects.hashCode(ap1);
+        result = 31 * result + Objects.hashCode(ap2);
+        result = 31 * result + Objects.hashCode(email);
+        result = 31 * result + Objects.hashCode(tlf);
+        return result;
     }
 }

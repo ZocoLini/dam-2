@@ -31,6 +31,7 @@ import java.util.Objects;
 
 public class PropietariosStageController extends StageController<PropietariosStageController>
 {
+    @FXML private ImageView userIcon;
     @FXML private Button cancelButton;
     @FXML private Button removeButton;
     @FXML private Button saveButton;
@@ -52,6 +53,8 @@ public class PropietariosStageController extends StageController<PropietariosSta
     @Override
     protected void initialize()
     {
+        userIcon.setImage(new Image(this.getClass().getResourceAsStream("/icons/user.png")));
+        
         removeButton.setGraphic(load(this.getClass().getResourceAsStream("/icons/delete.png")));
         addButton.setGraphic(load(this.getClass().getResourceAsStream("/icons/add.png")));
         saveButton.setGraphic(load(this.getClass().getResourceAsStream("/icons/save.png")));
@@ -147,6 +150,12 @@ public class PropietariosStageController extends StageController<PropietariosSta
         
         boolean result;
         String errorText;
+        
+        if (propietarioPreEdicion.equals(propietarioPostEdicion)) 
+        {
+            hidePropietarioDataPane();
+            return;
+        }
         
         if (!propietarioPreEdicion.getDni().isBlank()) 
         {
@@ -348,7 +357,7 @@ public class PropietariosStageController extends StageController<PropietariosSta
                             String.format("%s %s %s", propietario.getNome(), propietario.getAp1(), propietario.getAp2())),
                     propietario.getNome(), propietario.getAp1(), propietario.getAp2(),
                     new SimpleStringProperty((propietario.getDni())), new SimpleStringProperty(propietario.getTlf()),
-                    new SimpleStringProperty(propietario.getTlf()));
+                    new SimpleStringProperty(propietario.getEmail()));
         }
 
         public static PropietarioTableItem empty()
