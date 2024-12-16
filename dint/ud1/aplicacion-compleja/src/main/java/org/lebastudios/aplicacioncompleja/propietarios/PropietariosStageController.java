@@ -10,6 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -104,6 +106,14 @@ public class PropietariosStageController extends StageController<PropietariosSta
 
     private void showPropietarioDataPane(PropietarioTableItem propietarioTableItem, boolean deleteButton)
     {
+        this.getStage().addEventHandler(KeyEvent.KEY_PRESSED, e ->
+        {
+            if (e.getCode().equals(KeyCode.ESCAPE)) 
+            {
+                hidePropietarioDataPane();
+            }
+        });
+        
         final var root = (Pane) getRoot();
 
         if (!root.getChildren().contains(propietarioDataPane))

@@ -11,7 +11,7 @@
         <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
-    <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefWidth="550" spacing="5">
+    <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefWidth="550" prefHeight="450" spacing="5">
         <Button text="%phrase.nuevopropietario" onAction="#addButton" fx:id="addButton"/>
         <TableView VBox.vgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" fx:id="propietariosTableView">
             <columns>
