@@ -109,7 +109,8 @@ public class PropietariosStageController extends StageController<PropietariosSta
         }
 
         removeButton.setVisible(deleteButton);
-
+        removeButton.setDisable(propietarioTableItem.intoPropietario().hasDogs());
+        
         getRoot().getScene().getWindow().sizeToScene();
         getRoot().getScene().getWindow().centerOnScreen();
 
@@ -144,18 +145,37 @@ public class PropietariosStageController extends StageController<PropietariosSta
         final Propietario propietarioPostEdicion = getPropietarioData();
         final PropietarioTableItem actualEditiong = selectedPropietario;
         
-        boolean result = PropietarioDAO.actualizarPropietario(dniField.getText(), propietarioPostEdicion);
+        boolean result;
+        String errorText;
+        
+        if (!propietarioPreEdicion.getDni().isBlank()) 
+        {
+            result = PropietarioDAO.actualizarPropietario(dniField.getText(), propietarioPostEdicion);
+            errorText = "No se pudo editar al propietario. Vuelva a intentarlo más tarde";
+        }
+        else
+        {
+            result = propietarioPostEdicion.insert();
+            errorText = "No se puedo añadir al propietario. Revise el dni";
+        }
 
-        Notifications noti = Notifications.create().owner(getRoot()).title("Operación de guardado");
+        Notifications noti = Notifications.create().owner(getRoot());
         noti.hideAfter(Duration.seconds(3));
 
+        boolean[] consumed = new boolean[1];
+        
         if (result)
         {
-            final var rollback = new Action(_ ->
+            
+            final var rollback = new Action(e ->
             {
+                if (consumed[0]) return;
+                
                 PropietarioDAO.actualizarPropietario(propietarioPreEdicion.getDni(), propietarioPreEdicion);
                 updatePropitarioTableItem(actualEditiong, propietarioPreEdicion);
                 propietariosTableView.sort();
+                
+                consumed[0] = true;
             });
 
             rollback.setText("Deshacer");
@@ -177,8 +197,7 @@ public class PropietariosStageController extends StageController<PropietariosSta
         }
         else
         {
-            noti.text("Ocurrió un error en la base de datos al intentar actualizar")
-                    .showError();
+            noti.text(errorText).showError();
         }
     }
 
@@ -199,19 +218,24 @@ public class PropietariosStageController extends StageController<PropietariosSta
     {
         boolean result = PropietarioDAO.eliminarUnPropietarioDadoSeuDni(dniField.getText());
 
-        Notifications noti = Notifications.create().owner(getRoot()).title("Operación de borrado");
-        noti.hideAfter(Duration.seconds(5));
+        Notifications noti = Notifications.create().owner(getRoot());
+        noti.hideAfter(Duration.seconds(3));
 
         final PropietarioTableItem propietarioTableItem = selectedPropietario;
         final Propietario propietrioEliminado = propietarioTableItem.intoPropietario();
+        boolean[] consumed = new boolean[1];
 
         if (result)
         {
-            final var rollback = new Action(_ ->
+            final var rollback = new Action(e ->
             {
+                if (consumed[0]) return;
+                
                 propietrioEliminado.insert();
                 propietariosTableView.getItems().add(propietarioTableItem);
                 propietariosTableView.sort();
+                
+                consumed[0] = true;
             });
 
             rollback.setText("Deshacer");

@@ -70,6 +70,26 @@ public class Propietario implements IEntity
         return propietarios.getFirst();
     }
 
+    public boolean hasDogs()
+    {
+        boolean[] hasDogs = {false};
+        
+        Database.getInstance().connect(session ->
+        {
+            try
+            {
+                PreparedStatement statement = session.prepareStatement("SELECT chip from cans WHERE dniPropietario = ?");
+                statement.setString(1, dni);
+                
+               hasDogs[0] = statement.executeQuery().next();
+            }
+            catch (SQLException e) {}
+
+        });
+        
+        return hasDogs[0];
+    }
+    
     public boolean insert()
     {
         if (exists(this)) throw new IllegalStateException("This instance already exists in the database.");
