@@ -65,7 +65,7 @@ end
 go
 create proc pr_DepartControlaProxe(@num_min_proxec int) as
 begin
-
+    (select * from DEPARTAMENTO where (select count(*) from PROXECTO where Num_departamento_controla = Num_departamento) >= @num_min_proxec)
 end
 go
 create function fn_nEmpDepart(@nome_dep varchar) returns int as

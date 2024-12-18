@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 public class Propietario implements IEntity
@@ -70,6 +71,26 @@ public class Propietario implements IEntity
         return propietarios.getFirst();
     }
 
+    public boolean hasDogs()
+    {
+        boolean[] hasDogs = {false};
+        
+        Database.getInstance().connect(session ->
+        {
+            try
+            {
+                PreparedStatement statement = session.prepareStatement("SELECT chip from cans WHERE dniPropietario = ?");
+                statement.setString(1, dni);
+                
+               hasDogs[0] = statement.executeQuery().next();
+            }
+            catch (SQLException e) {}
+
+        });
+        
+        return hasDogs[0];
+    }
+    
     public boolean insert()
     {
         if (exists(this)) throw new IllegalStateException("This instance already exists in the database.");
@@ -164,5 +185,27 @@ public class Propietario implements IEntity
         });
 
         return insertado[0];
+    }
+
+    @Override
+    public final boolean equals(Object o)
+    {
+        if (!(o instanceof Propietario that)) return false;
+
+        return Objects.equals(dni, that.dni) && Objects.equals(nome, that.nome) &&
+                Objects.equals(ap1, that.ap1) && Objects.equals(ap2, that.ap2) &&
+                Objects.equals(email, that.email) && Objects.equals(tlf, that.tlf);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = Objects.hashCode(dni);
+        result = 31 * result + Objects.hashCode(nome);
+        result = 31 * result + Objects.hashCode(ap1);
+        result = 31 * result + Objects.hashCode(ap2);
+        result = 31 * result + Objects.hashCode(email);
+        result = 31 * result + Objects.hashCode(tlf);
+        return result;
     }
 }
