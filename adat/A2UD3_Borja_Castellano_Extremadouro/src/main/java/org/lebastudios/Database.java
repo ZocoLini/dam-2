@@ -44,11 +44,7 @@ public class Database implements AutoCloseable
     {
         for (Connection connection : connections)
         {
-            try
-            {
-                connection.close();
-            }
-            catch (SQLException e) {}
+            try(connection) {} catch (SQLException _) {}
         }
         
         instance = null;
