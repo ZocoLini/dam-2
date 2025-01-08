@@ -22,7 +22,9 @@ public class Main
         {
             Connection con = DriverManager.getConnection(
                     String.format("jdbc:sqlserver://10.0.2.4\\MV-PROG:1433;database=%s;trustServerCertificate=true",
-                            db), user, pass);
+                            db), 
+                    user, pass
+            );
 
             Statement statement = con.createStatement();
 
