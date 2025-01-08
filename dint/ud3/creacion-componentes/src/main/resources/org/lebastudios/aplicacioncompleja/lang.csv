@@ -1,0 +1,3 @@
+key,en_EN,es_ES,gl_ES
+phrase.dbloginerror,Error while trying to log in. Check that the information provided is correct.,Error al iniciar sesión en la base de datos. Compruebe que los parámetros sean los correctos.,Os parámetros proporcionados non son correctos.
+phrase.inserterror,Error inserting into the database.,Error de inserción en la base de datos.,Erro na inserción na base de datos.
