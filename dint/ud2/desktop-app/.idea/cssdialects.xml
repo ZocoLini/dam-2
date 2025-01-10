@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CssDialectMappings">
+    <file url="file://$PROJECT_DIR$/styles/cupertino-dark/theme.css" dialect="JavaFX" />
+    <file url="file://$PROJECT_DIR$/styles/cupertino-light/theme.css" dialect="JavaFX" />
+    <file url="file://$PROJECT_DIR$/styles/dracula/theme.css" dialect="JavaFX" />
+  </component>
+</project>
