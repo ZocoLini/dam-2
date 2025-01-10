@@ -3,6 +3,8 @@ package org.lebastudios.desktopapp.ui;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
@@ -26,12 +28,14 @@ public class MultipleItemsListView<T> extends VBox
     private int maxGroup;
     private Long qty;
 
-    @Setter private ContentGenerator<T> contentGenerator;
+    private ContentGenerator<T> contentGenerator;
     @Setter private int groupSize = 500;
 
     public MultipleItemsListView()
     {
         this.listView = new ListView<>();
+        listView.setCache(true);
+        listView.setCacheHint(CacheHint.SPEED);
 
         VBox.setVgrow(listView, Priority.ALWAYS);
 
@@ -63,6 +67,12 @@ public class MultipleItemsListView<T> extends VBox
         this.getChildren().addAll(listView, footer);
     }
 
+    public void setContentGenerator(ContentGenerator<T> contentGenerator)
+    {
+        this.contentGenerator = contentGenerator;
+        refresh();
+    }
+    
     public void refresh()
     {
         refreshListView();
@@ -110,18 +120,25 @@ public class MultipleItemsListView<T> extends VBox
             }
         }
 
-        int from = group * groupSize;
-        int to = from + groupSize;
+        long from = (long) group * groupSize;
+        long to = Math.min(from + groupSize, qty);
 
         listView.setItems(new ObservableListWrapper<>(contentGenerator.generateContent(from, to)));
 
         actualItemsLabel.setText(String.format("%d - %d", from + 1, Math.min(to, qty)));
     }
-
+    
     public interface ContentGenerator<T>
     {
-        List<T> generateContent(int from, int to);
+        List<T> generateContent(long from, long to);
 
         long count();
     }
+    
+    public interface ListCellNodeRecicler<T, N>
+    {
+        default ListCellContent<N> updateView(N oldNode) { return new ListCellContent<>(oldNode, ""); }
+    }
+    
+    public record ListCellContent<N>(N node, String text){}
 }
