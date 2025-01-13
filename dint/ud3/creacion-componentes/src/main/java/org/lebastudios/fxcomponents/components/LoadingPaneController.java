@@ -1,12 +1,13 @@
-package org.lebastudios.desktopapp.ui;
+package org.lebastudios.fxcomponents.components;
 
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.CacheHint;
 import javafx.util.Duration;
-import org.lebastudios.desktopapp.Launcher;
-import org.lebastudios.desktopapp.controllers.PaneController;
+import org.lebastudios.fxcomponents.controllers.PaneController;
+
+import java.net.URL;
 
 public class LoadingPaneController extends PaneController<LoadingPaneController>
 {
@@ -30,14 +31,8 @@ public class LoadingPaneController extends PaneController<LoadingPaneController>
     }
 
     @Override
-    public Class<?> getBundleClass()
+    public URL getFXML()
     {
-        return Launcher.class;
-    }
-
-    @Override
-    public boolean hasFXMLControllerDefined()
-    {
-        return true;
+        return LoadingPaneController.class.getResource("loading-pane.fxml");
     }
 }

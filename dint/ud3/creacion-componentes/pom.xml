@@ -6,7 +6,7 @@
 
     <groupId>org.lebastudios</groupId>
     <artifactId>aplicacion-compleja</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>aplicacion-compleja</name>
 
     <properties>
@@ -62,29 +62,8 @@
                 <configuration>
                     <source>22</source>
                     <target>22</target>
+                    <release>22</release>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
-                <executions>
-                    <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>
-                                org.lebastudios.aplicacioncompleja/org.lebastudios.aplicacioncompleja.XestionClinicaApplication
-                            </mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
-                            <noManPages>true</noManPages>
-                            <stripDebug>true</stripDebug>
-                            <noHeaderFiles>true</noHeaderFiles>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
