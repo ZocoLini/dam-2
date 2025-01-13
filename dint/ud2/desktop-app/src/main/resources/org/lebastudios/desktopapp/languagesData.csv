@@ -1,0 +1,51 @@
+textKey,en_EN,es_ES
+button.tasks,Running Tasks,Ejecutando Tareas
+textblock.confupdate,There is a new version of the application available. Do you want to update it?,Hay una nueva versión de la aplicacion disponible. ¿Quiere actualizar?
+title.confirmdialog,Confirm Dialog,Cuadro de Confirmación
+title.infodialog,Information Dialog,Cuadro de Información
+tiltle.separateorderdialog,Separate Order,Separar Orden
+word.establishment,Establishment,Establecimiento
+word.preferences,Preferences,Preferencias
+word.general,General,General
+word.database,Database,Base de Datos
+word.about,About,Información
+title.settingsstage,Ajustes,Ajustes
+word.product,Product,Producto
+word.price,Price,Precio
+word.import,Import,Importe
+word.date,Date,Fecha
+word.time,Time,Hora
+phrase.tablename,Table,Mesa
+phrase.simplifiedreceipt,Simplified Receipt,Factura simplificada
+word.client,Client,Cliente
+phrase.generalpublicclient,General Public,Contado
+phrase.attendedby,Attended by: ,Atendido por 
+phrase.taxesincluded,Taxes Included,Impuestos incluidos
+word.method,Method,Metodo
+word.cange,Change,Cambio
+word.amount,Amount,Cantidad
+word.iva,Taxes,IVA
+word.quote,QUOTE,CUOTA
+textblock.confrestart,Need to restart the application to apply some changues. Do you want to do it now??,Es necesario reiniciar para aplicar los cambios. ¿Desea hacerlo ahora?
+textblock.infrestartneeded,Changues will be applied after restart the application.,Los cambios se aplicaran tras reiniciar la aplicación.
+word.restart,Restart Now,Reiniciar ahora
+title.imagechooser,Select and image,Selecciona una imagen
+word.printers,Printers,Impresoras
+phrase.unknownproduct,Others,Otros
+word.account,Account,Cuenta
+textblock.closingsetup,If you close this window it will open the next time you start the application. Continue?,Si cierras esta ventana esta se abrirá la próxima vez que inicies la aplicación. ¿Continuar?
+word.users,Users,Usuarios
+enum.accounttype.root,Root,Root
+enum.accounttype.admin,Administrator,Administrador
+enum.accounttype.manager,Manager,Manager
+enum.accounttype.cashier,Cashier,Cajero
+enum.accounttype.accountant,Accountant,Contable
+setup.title.adminconfig,Main administrator,Administrador principal
+setup.title.establishmentconfig,Establishment,Establecimiento
+setup.title.printersconfig,Printers,Impresoras
+setup.title.databaseconfig,Database,Base de datos
+setup.error.invalidpassword,Password must be at least 8 characters long,La contraseña debe tener 8 caracteres o más
+setup.error.invalidname,Username must be at least 3 characters long,El nombre debe tener 3 caracteres o más
+setup.error.passwordmatch,Passwords do not match,Las contraseñas no coinciden
+word.over,Over,Sobre
+word.qty,Qty,Cant

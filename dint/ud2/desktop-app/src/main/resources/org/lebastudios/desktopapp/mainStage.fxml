@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.lebastudios.desktopapp.ui.MultipleItemsListView?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="720.0"
+      prefWidth="1080.0" minHeight="360"
+      minWidth="480" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      fx:controller="org.lebastudios.desktopapp.MainStageController">
+    <padding>
+        <Insets top="15" left="15" bottom="15" right="15" />
+    </padding>
+    <MultipleItemsListView fx:id="multipleItemsList" VBox.vgrow="ALWAYS" />
+</VBox>

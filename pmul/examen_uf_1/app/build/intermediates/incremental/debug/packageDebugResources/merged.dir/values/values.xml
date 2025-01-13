@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="alert_list_view_row_text">Token: %s, Org: %s</string>
+    <string name="app_name">Examen_UF_1</string>
+    <string name="db_reseted">Hecho</string>
+    <string name="dont_repeat_warning">No repetir advertencia</string>
+    <string name="fireman">Bomberos</string>
+    <string name="no">No</string>
+    <string name="police">Policia</string>
+    <string name="reset_bd">Reinicar BD</string>
+    <string name="yes">Sí</string>
+    <style name="Base.Theme.Examen_UF_1" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.Examen_UF_1" parent="Base.Theme.Examen_UF_1"/>
+</resources>

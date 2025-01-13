@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="300.0" spacing="5" fx:id="root"
+      xmlns="http://javafx.com/javafx/17.0.2-ea">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <Label fx:id="infoLabel" visible="false"/>
+    <TextField fx:id="textInputField"/>
+    <Label fx:id="errorLabel" visible="false"/>
+    <HBox alignment="CENTER_RIGHT" spacing="5">
+        <Button defaultButton="true" onAction="#cancel" text="%word.cancel"/>
+        <Button onAction="#accept" text="%word.accept"/>
+    </HBox>
+</VBox>
