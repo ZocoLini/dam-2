@@ -1,14 +1,17 @@
-package org.lebastudios.desktopapp.ui;
+package org.lebastudios.fxcomponents.components;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,10 +31,16 @@ public class MultipleItemsListView<T> extends VBox
     private Long qty;
 
     private ContentGenerator<T> contentGenerator;
-    @Setter private int groupSize = 500;
+    @Setter private ListCellNodeRecicler<T> listCellNodeRecicler;
+    private int groupSize;
 
-    public MultipleItemsListView()
+    public MultipleItemsListView(ListCellNodeRecicler<T> listCellNodeRecicler, ContentGenerator<T> contentGenerator,
+            int groupSize)
     {
+        this.listCellNodeRecicler = listCellNodeRecicler;
+        this.contentGenerator = contentGenerator;
+        this.groupSize = groupSize;
+        
         this.listView = new ListView<>();
         listView.setCache(true);
         listView.setCacheHint(CacheHint.SPEED);
@@ -64,14 +73,77 @@ public class MultipleItemsListView<T> extends VBox
         footer.setAlignment(Pos.CENTER);
 
         this.getChildren().addAll(listView, footer);
+        
+        listView.setCellFactory(new Callback<>()
+        {
+            @Override
+            public ListCell<T> call(ListView<T> tListView)
+            {
+                return new ListCell<>()
+                {
+                    @Override
+                    protected void updateItem(T item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+
+                        if (empty || item == null)
+                        {
+                            setGraphic(null);
+                            setText(null);
+                            return;
+                        }
+
+                        ListCellContent content = MultipleItemsListView.this.listCellNodeRecicler.updateView(getGraphic(), item);
+
+                        setGraphic(content.node);
+                        setText(content.text);
+                    }
+                };
+            }
+        });
+        
+        refresh();
     }
 
+    public MultipleItemsListView(ListCellNodeRecicler<T> listCellNodeRecicler, ContentGenerator<T> contentGenerator)
+    {
+        this(listCellNodeRecicler, contentGenerator, 500);
+    }
+
+    public MultipleItemsListView(ContentGenerator<T> contentGenerator)
+    {
+        this(new ListCellNodeRecicler<>() {}, contentGenerator);
+    }
+    
+    public MultipleItemsListView()
+    {
+        this(new ContentGenerator<T>() {
+            @Override
+            public List<T> generateContent(long from, long to)
+            {
+                return List.of();
+            }
+
+            @Override
+            public long count()
+            {
+                return 0;
+            }
+        });
+    }
+    
     public void setContentGenerator(ContentGenerator<T> contentGenerator)
     {
         this.contentGenerator = contentGenerator;
         refresh();
     }
-    
+
+    public void setGroupSize(int groupSize)
+    {
+        this.groupSize = groupSize;
+        refresh();
+    }
+
     public void refresh()
     {
         refreshListView();
@@ -124,7 +196,9 @@ public class MultipleItemsListView<T> extends VBox
 
         listView.setItems(new ObservableListWrapper<>(contentGenerator.generateContent(from, to)));
 
-        actualItemsLabel.setText(String.format("%d - %d", from + 1, Math.min(to, qty)));
+        final var toValue = Math.min(to, qty);
+        final var fromValue = Math.min(from + 1, toValue);
+        actualItemsLabel.setText(String.format("%d - %d", fromValue, toValue));
     }
     
     public interface ContentGenerator<T>
@@ -134,10 +208,10 @@ public class MultipleItemsListView<T> extends VBox
         long count();
     }
     
-    public interface ListCellNodeRecicler<T, N>
+    public interface ListCellNodeRecicler<T>
     {
-        default ListCellContent<N> updateView(N oldNode) { return new ListCellContent<>(oldNode, ""); }
+        default ListCellContent updateView(Node oldNode, T item) { return new ListCellContent(oldNode, item.toString()); }
     }
     
-    public record ListCellContent<N>(N node, String text){}
+    public record ListCellContent(Node node, String text){}
 }

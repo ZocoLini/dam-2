@@ -11,6 +11,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TableColumn?>
+<?import org.lebastudios.fxcomponents.components.MultipleItemsListView?>
 <VBox xmlns="http://javafx.com/javafx" fx:id="root"
       xmlns:fx="http://javafx.com/fxml" spacing="10"
       fx:controller="org.lebastudios.aplicacioncompleja.GestionVacunacionesController">
@@ -18,6 +19,7 @@
         <Insets top="10" bottom="10" left="10" right="10" />
     </padding>
     <HBox spacing="10" alignment="CENTER_LEFT">
+        <MultipleItemsListView />
         <Label text="%word.propietario" />
         <ChoiceBox fx:id="propietarioChoiceBox" HBox.hgrow="ALWAYS" minWidth="250"/>
         <Label text="%word.perro" />

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import org.lebastudios.desktopapp.ui.MultipleItemsListView?>
+<?import org.lebastudios.fxcomponents.components.MultipleItemsListView?>
 <?import javafx.geometry.Insets?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="720.0"
       prefWidth="1080.0" minHeight="360"
