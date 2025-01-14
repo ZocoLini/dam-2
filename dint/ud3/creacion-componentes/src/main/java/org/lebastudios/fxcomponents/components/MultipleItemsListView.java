@@ -16,7 +16,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.function.Consumer;
 
+/**
+ * These components is a list view that can show a large amount of items in a paginated way. It also has a footer with 
+ * buttons to navigate between the pages and lets you define a list cell graphic node recicler to show the items the 
+ * efficient way.
+ * @param <T>
+ */
 public class MultipleItemsListView<T> extends VBox
 {
     @Getter private final ListView<T> listView;
@@ -30,10 +37,19 @@ public class MultipleItemsListView<T> extends VBox
     private int maxGroup;
     private Long qty;
 
+    @Setter private Consumer<T> onItemSelected;
+    
     private ContentGenerator<T> contentGenerator;
     @Setter private ListCellNodeRecicler<T> listCellNodeRecicler;
-    private int groupSize;
+    @Getter private int groupSize;
 
+    /**
+     * Main constructor of the class. It receives the list cell node recicler, the content generator and the group size.
+     * @param listCellNodeRecicler The node recicler defines how to reuse the graphic nodes of the list cells to
+     * avoid loading new ones
+     * @param contentGenerator The content generator defines how to generate the content of the list view
+     * @param groupSize The max size of the pages
+     */
     public MultipleItemsListView(ListCellNodeRecicler<T> listCellNodeRecicler, ContentGenerator<T> contentGenerator,
             int groupSize)
     {
@@ -81,6 +97,17 @@ public class MultipleItemsListView<T> extends VBox
             {
                 return new ListCell<>()
                 {
+                    {
+                        this.setOnMouseClicked(e ->
+                        {
+                            if (onItemSelected != null && !e.isConsumed())
+                            {
+                                e.consume();
+                                onItemSelected.accept(getItem());
+                            }
+                        });
+                    }
+                    
                     @Override
                     protected void updateItem(T item, boolean empty)
                     {
@@ -117,7 +144,8 @@ public class MultipleItemsListView<T> extends VBox
     
     public MultipleItemsListView()
     {
-        this(new ContentGenerator<T>() {
+        this(new ContentGenerator<>()
+        {
             @Override
             public List<T> generateContent(long from, long to)
             {
@@ -132,18 +160,29 @@ public class MultipleItemsListView<T> extends VBox
         });
     }
     
+    /**
+     * Set the content generator and calls the refresh method automatically
+     * @param contentGenerator the content generator
+     */
     public void setContentGenerator(ContentGenerator<T> contentGenerator)
     {
         this.contentGenerator = contentGenerator;
         refresh();
     }
 
+    /**
+     * Set the pagination size and calls the refresh method automatically
+     * @param groupSize the max size of the pages
+     */
     public void setGroupSize(int groupSize)
     {
         this.groupSize = groupSize;
         refresh();
     }
 
+    /**
+     * Refresh the content of the list view
+     */
     public void refresh()
     {
         refreshListView();
@@ -200,16 +239,36 @@ public class MultipleItemsListView<T> extends VBox
         final var fromValue = Math.min(from + 1, toValue);
         actualItemsLabel.setText(String.format("%d - %d", fromValue, toValue));
     }
-    
+
+    /**
+     * Interface to generate the content of the list view.
+     * @param <T> the type of the content defined in the list view
+     */
     public interface ContentGenerator<T>
     {
+        /**
+         * Generate the content of the list view. The 'from' and the 'to' are inclusive. 
+         * Ex.: For a groupSize of 500, the group 0 with 500 items has to be generated with from = 1 and to = 500.
+         * @param from The first item to be generated
+         * @param to The last item to be generated
+         * @return The list of items to be shown in the list view
+         */
         List<T> generateContent(long from, long to);
 
+        /**
+         * This method has to return the total number of items that can be generated.
+         */
         long count();
     }
     
     public interface ListCellNodeRecicler<T>
     {
+        /**
+         * This method is called in every update of the list view.
+         * @param oldNode The old node that was shown in the list view. It can be null if the cell was empty.
+         * @param item The item that has to be shown in the list cell
+         * @return The content of the list cell. It contains the grpahic node and the text to be shown in the cell.
+         */
         default ListCellContent updateView(Node oldNode, T item) { return new ListCellContent(oldNode, item.toString()); }
     }
     
