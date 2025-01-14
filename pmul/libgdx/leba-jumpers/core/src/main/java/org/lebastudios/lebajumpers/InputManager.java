@@ -18,42 +18,51 @@ public class InputManager extends InputAdapter
 
     public Runnable onDPress = () -> {};
     public Runnable onAPress = () -> {};
+    public Runnable onSpacePress = () -> {};
     public Runnable onDReleased = () -> {};
     public Runnable onAReleased = () -> {};
 
     @Override
     public boolean keyDown(int keycode)
     {
-        switch (keycode)
+        return switch (keycode)
         {
-            case Input.Keys.D: {
+            case Input.Keys.D ->
+            {
                 onDPress.run();
-                return true;
+                yield true;
             }
-            case Input.Keys.A: {
+            case Input.Keys.A ->
+            {
                 onAPress.run();
-                return true;
+                yield true;
             }
-        }
+            case Input.Keys.SPACE ->
+            {
+                onSpacePress.run();
+                yield true;
+            }
+            default -> false;
+        };
 
-        return false;
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        switch (keycode)
+        return switch (keycode)
         {
-            case Input.Keys.D: {
+            case Input.Keys.D ->
+            {
                 onDReleased.run();
-                return true;
+                yield true;
             }
-            case Input.Keys.A: {
+            case Input.Keys.A ->
+            {
                 onAReleased.run();
-                return true;
+                yield true;
             }
-        }
-
-        return false;
+            default -> false;
+        };
     }
 }
