@@ -14,7 +14,7 @@ public class Main
     public static void main(String[] args)
     {
         try (Connection con = DriverManager.getConnection(
-                String.format("jdbc:sqlserver://10.0.2.4\\MV-PROG:1433;database=%s;trustServerCertificate=true",
+                String.format("jdbc:sqlserver://localhost\\MV-PROG:1433;database=%s;trustServerCertificate=true",
                         DB_NAME),
                 DB_USER, DB_PASS))
         {
@@ -44,7 +44,7 @@ public class Main
 create table Vehiculo
 (
     id int identity(1, 1),
-    matricula cahr(7) not null,
+    matricula char(7) not null,
     marca varchar(50) not null,
     modelo varchar(50) not null,
     combustible char(1) not null,
