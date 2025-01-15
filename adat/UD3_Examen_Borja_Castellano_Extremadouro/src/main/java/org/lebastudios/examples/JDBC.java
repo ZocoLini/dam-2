@@ -2,10 +2,7 @@ package org.lebastudios.examples;
 
 import lombok.SneakyThrows;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class JDBC
 {
@@ -17,13 +14,22 @@ public class JDBC
         // Disable auto commit
         connection.setAutoCommit(false);
         
+        // Connection metadata
+        connection.getMetaData().getDatabaseProductName();
+        
+        connection.getTransactionIsolation();
+        
+        // Savepoints
+        Savepoint savepoint = connection.setSavepoint();
+        connection.rollback(savepoint);
+        
         // Callable Statements
         CallableStatement callableStatement = connection.prepareCall("{? = call sp_insertar_empleado()}",
                 ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Empleado", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         
-        // Prepared Statements metadata
+        // Prepared Statements metadata (Result set metadata)
         preparedStatement.getMetaData().getColumnLabel(2);
         
         ResultSet resultSet = preparedStatement.executeQuery();
