@@ -10,5 +10,15 @@
                 </tree>
             </field>
         </record>
+
+        <record id="lunes.action_window" model="ir.actions.act.window">
+            <field name="name">lunes window</field>
+            <field name="res_model">lunes.lunes</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="lunes.menu_root" name="lunes" />
+        <menuitem id="lunes.menu_1" name="MenuL1" parent="lunes.menu_root" />
+        <menuitem id="lunes.menu_1_list" name="MenuL2" parent="lunes.menu_1" action="lunes.action_window" />
     </data>
 </odoo>

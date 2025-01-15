@@ -16,7 +16,7 @@ public class MainStageController extends StageController<MainStageController>
     @Override
     public String getTitle()
     {
-        return "Xestión Clínica";
+        return "Creación de novos compoñentes";
     }
 
     @Override
