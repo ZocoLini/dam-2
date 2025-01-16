@@ -1,11 +1,6 @@
 package org.lebastudios.database;
 
-import org.lebastudios.sqlx.SQLx;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class HotelDAO 
 {
@@ -37,6 +32,19 @@ public class HotelDAO
                         resultSet.getShort(10)
                 );
             }
+        }
+    }
+    
+    public static String obtenerNombreSede(String nombreHotel, Connection connection) throws SQLException
+    {
+        try (CallableStatement callableStatement = connection.prepareCall("{call pr_getHotelSede(?, ?)}"))
+        {
+            callableStatement.setString(1, nombreHotel);
+            callableStatement.registerOutParameter(2, Types.VARCHAR);
+            
+            callableStatement.execute();
+            
+            return callableStatement.getString(2);
         }
     }
 }

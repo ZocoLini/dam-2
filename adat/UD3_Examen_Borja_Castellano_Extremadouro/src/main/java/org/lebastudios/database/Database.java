@@ -47,6 +47,7 @@ public class Database
             }
             catch (Exception ex)
             {
+                System.err.println("Error al realizar el rollback. Probablemente se ha cortado la conexion con la BD");
                 ex.printStackTrace();
             }
         }
@@ -58,63 +59,11 @@ public class Database
             }
             catch (Exception e)
             {
+                System.err.println("Error al realizar el rollback. Probablemente se ha cortado la conexion con la BD");
                 e.printStackTrace();
             }
         }
         
         return false;
-    }
-    
-    public <T> T connectQuery(Function<Connection, T> query)
-    {
-        Connection connection = null;
-
-        try
-        {
-            connection = getConnection();
-            return query.apply(connection);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-        finally
-        {
-            try
-            {
-                if (connection != null) connection.close();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void connectQuery(Consumer<Connection> query)
-    {
-        Connection connection = null;
-
-        try
-        {
-            connection = getConnection();
-            query.accept(connection);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (connection != null) connection.close();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }

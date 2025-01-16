@@ -88,7 +88,7 @@ public class Main
                 throw new RuntimeException(e);
             }
         });
-
+        
         Database.getInstance().connectTransaction(connection ->
         {
             try

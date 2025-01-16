@@ -12,7 +12,7 @@ public class Hotel extends Alojamiento
 {
     private short codHotel;
     private byte estrellas;
-    private short hotelSede;
+    private Short hotelSede;
 
     public Hotel(String nombre, String direccion, String localidad, String telefono, float precioHabitacion,
             float camaExtra, byte numHabitaciones, byte estrellas, short hotelSede)

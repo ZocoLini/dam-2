@@ -1,8 +1,10 @@
 package org.lebastudios.database;
 
-import org.lebastudios.sqlx.SQLx;
+import org.lebastudios.ej2.ConfirmationRequest;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlojamientoDAO
 {
@@ -19,7 +21,7 @@ public class AlojamientoDAO
         }
     }
 
-    private static short insert(Alojamiento alojamiento, Connection connection) throws SQLException
+    static short insert(Alojamiento alojamiento, Connection connection) throws SQLException
     {
         short result = getAlojaminetoId(alojamiento.getNombre(), connection);
 
@@ -87,15 +89,15 @@ public class AlojamientoDAO
         if (codAlojamiento == 0) return codAlojamiento;
 
         Hotel hotelSede = HotelDAO.select(hotel.getHotelSede(), connection);
-        
-        if (hotelSede == null) 
+
+        if (hotelSede == null)
         {
             System.err.printf("El hotel '%s' que se ha intentado insertar tiene como se al hotel numero '%d' pero " +
                     "este no existe en la base de datps", hotel.getNombre(), hotel.getHotelSede()
             );
             return 0;
         }
-        
+
         try (PreparedStatement preparedStatement = connection.prepareStatement("insert into HOTEL " +
                 "(cod_hotel, estrellas, hotelsede) values (?, ?, ?)"))
         {
@@ -128,122 +130,207 @@ public class AlojamientoDAO
         return codAlojamiento;
     }
 
-    public static Short existsHotel(String nombreAlojamiento, Connection connection) throws SQLException
-    {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("select cod_hotel " +
-                "from HOTEL where cod_hotel in (select codigo from ALOJAMIENTO a where a.nombre = ?)"))
-        {
-            preparedStatement.setString(1, nombreAlojamiento);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery())
-            {
-                if (resultSet.next())
-                {
-                    return resultSet.getShort(1);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-    }
-
-    public static void delete(String nombreAlojamiento, Connection connection) throws SQLException
+    public static boolean delete(String nombreAlojamiento, Connection connection) throws SQLException
     {
         short idAlojamiento = getAlojaminetoId(nombreAlojamiento, connection);
 
         if (idAlojamiento == 0)
         {
-            System.err.println("Se ha intentado eliminar un alojamineto que no existe en la base de datos");
-            return;
+            System.err.println("Se ha intentado eliminar un alojamiento que no existe en la base de datos");
+            return false;
         }
 
-        Alojamiento alojamiento = SQLx.query("select * from ALOJAMIENTO", connection, Alojamiento.class);
+        Alojamiento alojamiento = AlojamientoDAO.select(idAlojamiento, connection);
 
         if (alojamiento == null)
         {
             System.err.println("No se ha podido recuperar satisfactoriamente el alojamiento desde la base de datos");
-            return;
+            return false;
         }
 
-        CasaRural casaRural = SQLx.query("select * from CASARURAL where cod_casa = " + idAlojamiento, connection,
-                CasaRural.class);
+        CasaRural casaRural = CasaRuralDAO.select(idAlojamiento, connection);
 
         if (casaRural != null)
         {
             showInfo(casaRural, connection);
-            delete(casaRural, connection);
-        }
-        else
-        {
-            HotelSpa hotelSpa = SQLx.query("select * from HOTELSPA where cod_spa = " + idAlojamiento, connection,
-                    HotelSpa.class);
-
-            if (hotelSpa != null)
+            if (ConfirmationRequest.askConfirmation("Esta seguro de que desea borrar la Casa Rural?")) 
             {
-                showInfo(hotelSpa, connection);
-                delete(hotelSpa, connection);
+                return delete(casaRural, connection);
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
+        HotelSpa hotelSpa = HotelSpaDAO.select(idAlojamiento, connection);
+
+        if (hotelSpa != null)
+        {
+            showInfo(hotelSpa, connection);
+            if (ConfirmationRequest.askConfirmation("Esta seguro de que desea borrar el Hotel SPA?"))
+            {
+                return delete(hotelSpa, connection);
             }
             else
             {
-                Hotel hotel = SQLx.query("select * from HOTEL where cod_hotel = " + idAlojamiento, connection,
-                        Hotel.class);
-
-                showInfo(hotel, connection);
-                delete(hotel, connection);
+                return false;
             }
+        }
+
+        Hotel hotel = HotelDAO.select(idAlojamiento, connection);
+
+        showInfo(hotel, connection);
+        if (ConfirmationRequest.askConfirmation("Esta seguro de que desea borrar el Hotel?"))
+        {
+            return delete(hotel, connection);
+        }
+        else
+        {
+            return false;
         }
     }
 
-    private static void delete(Alojamiento alojamiento, Connection connection)
+    private static boolean delete(Alojamiento alojamiento, Connection connection) throws SQLException
     {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from ALOJAMIENTO_ACTIVIDAD where cod_alojamiento = ?"
+        ))
+        {
+            preparedStatement.setShort(1, alojamiento.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from ALOJAMIENTO where codigo = ?"
+        ))
+        {
+            preparedStatement.setShort(1, alojamiento.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        return true;
     }
 
-    private static void delete(CasaRural casaRural, Connection connection)
+    private static boolean delete(CasaRural casaRural, Connection connection) throws SQLException
     {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from CASARURAL where cod_casa = ?"
+        ))
+        {
+            preparedStatement.setShort(1, casaRural.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        return delete((Alojamiento) casaRural, connection);
     }
 
-    private static void delete(Hotel hotel, Connection connection)
+    private static boolean delete(Hotel hotel, Connection connection) throws SQLException
     {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "update HOTEL set hotelsede = null where hotelsede = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotel.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from HOTEL where cod_hotel = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotel.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        return delete((Alojamiento) hotel, connection);
     }
 
-    private static void delete(HotelSpa hotelSpa, Connection connection)
+    private static boolean delete(HotelSpa hotelSpa, Connection connection) throws SQLException
     {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from HOTELSPA_SERVICIOS where cod_spa = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotelSpa.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from HOTELSPA where cod_spa = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotelSpa.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+        
+        return delete((Hotel) hotelSpa, connection);
     }
 
     private static void showInfo(Hotel hotel, Connection connection)
     {
         StringBuilder stringBuilder = new StringBuilder();
 
-        Hotel hotelSede = null;
         try
         {
-            hotelSede = HotelDAO.select(hotel.getHotelSede(), connection);
+            String nombreSede = HotelDAO.obtenerNombreSede(hotel.getNombre(), connection);
+
+            String tipoHotel = hotel instanceof HotelSpa ? "HOTEL SPA" : "HOTEL";
+            
+            stringBuilder.append(tipoHotel).append(": ").append(hotel.getNombre())
+                    .append("\t").append("SEDE: ").append(nombreSede).append("\n");
+
+            System.out.println(stringBuilder);
+            showActividades(hotel.getNombre(), connection);
         }
         catch (SQLException e)
         {
-            throw new RuntimeException(e);
+            System.err.println("Error al intentar mostrar la información del hotel " + hotel.getNombre());
         }
-
-        stringBuilder.append("HOTEL: ").append(hotel.getNombre())
-                .append("\t").append("SEDE: ").append(hotelSede.getNombre()).append("\n");
-
-
     }
 
     private static void showInfo(HotelSpa hotelSpa, Connection connection)
     {
-
+        showInfo((Hotel) hotelSpa, connection);
     }
 
     private static void showInfo(CasaRural casaRural, Connection connection)
     {
+        StringBuilder stringBuilder = new StringBuilder();
 
+        String alquilerCompleto = casaRural.getAlquilerCompleta() == 'S' 
+                ? "SÍ"
+                : "NO";
+
+        stringBuilder.append("CASA RURAL: ").append(casaRural.getNombre())
+                .append("\t").append("Alquiler completo: ").append(alquilerCompleto).append("\n");
+
+        System.out.println(stringBuilder);
+        showActividades(casaRural.getNombre(), connection);
+    }
+
+    private static void showActividades(String nombreAlojamiento, Connection connection)
+    {
+        try
+        {
+            List<String> actividades = getNombreActividades(nombreAlojamiento, connection);
+
+            StringBuilder stringBuilder = new StringBuilder("ACTIVIDADES\n-------------------------\n");
+
+            actividades.forEach(nombre -> stringBuilder.append(nombre).append("\n"));
+
+            stringBuilder.append("-------------------------\n")
+                    .append(actividades.size()).append(" actividades").append("\n");
+
+            System.out.println(stringBuilder);
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println(
+                    "Error al mostrar el nombre de las actividades para el alojamiento " + nombreAlojamiento
+            );
+        }
     }
 
     public static Alojamiento select(short codigo, Connection connection) throws SQLException
@@ -273,5 +360,28 @@ public class AlojamientoDAO
                 );
             }
         }
+    }
+
+    private static List<String> getNombreActividades(String nombreAlojamiento, Connection connection)
+            throws SQLException
+    {
+        List<String> nombresActividades = new ArrayList<>();
+
+        try (CallableStatement callableStatement = connection.prepareCall("{call pr_showActividadesInfo(?)}"))
+        {
+            callableStatement.setString(1, nombreAlojamiento);
+
+            callableStatement.execute();
+
+            try (ResultSet resultSet = callableStatement.getResultSet())
+            {
+                while (resultSet.next())
+                {
+                    nombresActividades.add(resultSet.getString(1));
+                }
+            }
+        }
+
+        return nombresActividades;
     }
 }

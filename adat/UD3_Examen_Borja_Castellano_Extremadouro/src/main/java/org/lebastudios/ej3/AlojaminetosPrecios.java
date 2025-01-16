@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.lebastudios.database.Alojamiento;
 import org.lebastudios.database.AlojamientoDAO;
-import org.lebastudios.sqlx.SQLx;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
