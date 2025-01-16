@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 public class Database
 {
-    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;database=BDEmpresa;trustServerCertificate=true";
+    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;database=BDALOJAMIENTOS25;trustServerCertificate=true";
     private static final String DB_USER = "sa";
     private static final String DB_PASS = "abc123.";
     
@@ -22,7 +22,7 @@ public class Database
     
     private Database() {}
 
-    private Connection getConnection() throws SQLException
+    public Connection getConnection() throws SQLException
     {
         return java.sql.DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
     }
@@ -49,7 +49,6 @@ public class Database
             {
                 ex.printStackTrace();
             }
-            e.printStackTrace();
         }
         finally
         {

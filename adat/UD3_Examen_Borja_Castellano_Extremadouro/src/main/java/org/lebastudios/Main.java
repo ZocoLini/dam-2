@@ -1,6 +1,7 @@
 package org.lebastudios;
 
 import lombok.SneakyThrows;
+import org.lebastudios.database.Database;
 import org.lebastudios.examples.Lugar;
 import org.lebastudios.sqlx.SQLx;
 
@@ -12,11 +13,7 @@ public class Main
     @SneakyThrows
     public static void main(String[] args)
     {
-        Connection conn = DriverManager.getConnection(
-                "jdbc:sqlserver://localhost:1433;database=BDEmpresa;trustServerCertificate=true",
-                "sa",
-                "abc123."
-        );
+        Connection conn = Database.getInstance().getConnection();
 
         var lugar = SQLx.queryAll("select * from LUGAR", conn, Lugar.class);
         
