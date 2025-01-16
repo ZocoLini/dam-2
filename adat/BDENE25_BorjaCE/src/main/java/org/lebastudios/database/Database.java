@@ -27,6 +27,10 @@ public class Database
         return java.sql.DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
     }
 
+    /// Este metodo crea una onexion que pone en modo de commit manual y ejecuta la interfaz funcional que se le pasa 
+    /// por parametro pasandole esa misma conexion. Si la interfaz funcional se ejecuta sin problemas se hará commit 
+    /// a la conexion. En caso de que ocurra una excepción se hara rollback de la transaccion. Finalmente se cerrará la
+    /// conexión abierta
     public boolean connectTransaction(Consumer<Connection> consumer)
     {
         Connection connection = null;

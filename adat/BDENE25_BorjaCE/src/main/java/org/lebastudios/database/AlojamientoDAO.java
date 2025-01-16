@@ -65,6 +65,8 @@ public class AlojamientoDAO
 
     public static boolean delete(String nombreAlojamiento, Connection connection) throws SQLException
     {
+        // Usando un pocedimiento creado con anterioridad comprobamos si existe el alojamiento
+        
         short idAlojamiento = getAlojaminetoId(nombreAlojamiento, connection);
 
         if (idAlojamiento == 0)
@@ -73,6 +75,8 @@ public class AlojamientoDAO
             return false;
         }
 
+        // Una vez confirmamos su existencia objetemos el objeto Alojamiento desde la base de datos
+        
         Alojamiento alojamiento = AlojamientoDAO.select(idAlojamiento, connection);
 
         if (alojamiento == null)
@@ -81,6 +85,11 @@ public class AlojamientoDAO
             return false;
         }
 
+        // Ahora vamos a intentar ver que tipo de alojamiento es, para ello haremos un select de cada tipo y comprobamos
+        // si se nos devolvio un objeto diferente de null. Notese que debemos comprobar primero el HotelSPA antes que 
+        // el Hotel ya que la existencia de un HotelSPA implica la existencia de un Hotel pero en el sentido contrario
+        // la implicacion no es cierta.
+        
         CasaRural casaRural = CasaRuralDAO.select(idAlojamiento, connection);
 
         if (casaRural != null)

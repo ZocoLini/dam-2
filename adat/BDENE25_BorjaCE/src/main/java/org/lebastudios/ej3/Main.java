@@ -13,8 +13,8 @@ public class Main
     {
         try (FileReader json = new FileReader("AlojamientosPrecios.json"))
         {
-          AlojaminetosPrecios alojaminetosPrecios = new Gson().fromJson(json, AlojaminetosPrecios.class);
-          alojaminetosPrecios.realizarActualizaciones(Database.getInstance().getConnection());
+            AlojaminetosPrecios alojaminetosPrecios = new Gson().fromJson(json, AlojaminetosPrecios.class);
+            alojaminetosPrecios.realizarActualizaciones(Database.getInstance().getConnection());
         }
         catch (IOException e)
         {
@@ -22,7 +22,9 @@ public class Main
         }
         catch (SQLException e)
         {
-            System.err.println("Ha ocurrido un error al intentar realizar las actualizaciones a partir del archivo json");
+            System.err.println(
+                    "Ha ocurrido un error al intentar realizar las actualizaciones a partir del archivo json"
+            );
         }
     }
 }
