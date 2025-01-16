@@ -40,4 +40,50 @@ public class HotelSpaDAO
             }
         }
     }
+
+    public static short insert(HotelSpa hotelSpa, Connection connection) throws SQLException
+    {
+        short codAlojamiento = HotelDAO.insert(hotelSpa, connection);
+
+        if (codAlojamiento == 0) return codAlojamiento;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into HOTELSPA " +
+                "(cod_spa, gorro, capacidad) values (?, ?, ?)"))
+        {
+            preparedStatement.setShort(1, codAlojamiento);
+            preparedStatement.setString(2, String.valueOf(hotelSpa.getGorro()));
+            preparedStatement.setByte(3, hotelSpa.getCapacidad());
+
+            preparedStatement.executeUpdate();
+        }
+
+        return codAlojamiento;
+    }
+
+    public static boolean delete(HotelSpa hotelSpa, Connection connection) throws SQLException
+    {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from HOTELSPA_SERVICIOS where cod_spa = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotelSpa.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from HOTELSPA where cod_spa = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotelSpa.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+
+        return HotelDAO.delete(hotelSpa, connection);
+    }
+
+    public static void showInfo(HotelSpa hotelSpa, Connection connection)
+    {
+        HotelDAO.showInfo(hotelSpa, connection);
+    }
+
 }

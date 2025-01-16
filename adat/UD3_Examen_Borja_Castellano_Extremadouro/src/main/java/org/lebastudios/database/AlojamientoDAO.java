@@ -34,7 +34,6 @@ public class AlojamientoDAO
             );
             return 0;
         }
-        ;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement("insert into ALOJAMIENTO " +
                 "(nombre, direccion, localidad, telefono, precio_habitacion, cama_extra, numhabitaciones) " +
@@ -64,72 +63,6 @@ public class AlojamientoDAO
         }
     }
 
-    public static short insert(CasaRural casaRural, Connection connection) throws SQLException
-    {
-        short codAlojamiento = insert((Alojamiento) casaRural, connection);
-
-        if (codAlojamiento == 0) return codAlojamiento;
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into CASARURAL " +
-                "(cod_casa, alquiler_completa) VALUES (?, ?)"))
-        {
-            preparedStatement.setShort(1, codAlojamiento);
-            preparedStatement.setString(2, String.valueOf(casaRural.getAlquilerCompleta()));
-
-            preparedStatement.executeUpdate();
-        }
-
-        return codAlojamiento;
-    }
-
-    public static short insert(Hotel hotel, Connection connection) throws SQLException
-    {
-        short codAlojamiento = insert((Alojamiento) hotel, connection);
-
-        if (codAlojamiento == 0) return codAlojamiento;
-
-        Hotel hotelSede = HotelDAO.select(hotel.getHotelSede(), connection);
-
-        if (hotelSede == null)
-        {
-            System.err.printf("El hotel '%s' que se ha intentado insertar tiene como se al hotel numero '%d' pero " +
-                    "este no existe en la base de datps", hotel.getNombre(), hotel.getHotelSede()
-            );
-            return 0;
-        }
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into HOTEL " +
-                "(cod_hotel, estrellas, hotelsede) values (?, ?, ?)"))
-        {
-            preparedStatement.setShort(1, codAlojamiento);
-            preparedStatement.setByte(2, hotel.getEstrellas());
-            preparedStatement.setShort(3, hotel.getHotelSede());
-
-            preparedStatement.executeUpdate();
-        }
-
-        return codAlojamiento;
-    }
-
-    public static short insert(HotelSpa hotelSpa, Connection connection) throws SQLException
-    {
-        short codAlojamiento = insert((Hotel) hotelSpa, connection);
-
-        if (codAlojamiento == 0) return codAlojamiento;
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into HOTELSPA " +
-                "(cod_spa, gorro, capacidad) values (?, ?, ?)"))
-        {
-            preparedStatement.setShort(1, codAlojamiento);
-            preparedStatement.setString(2, String.valueOf(hotelSpa.getGorro()));
-            preparedStatement.setByte(3, hotelSpa.getCapacidad());
-
-            preparedStatement.executeUpdate();
-        }
-
-        return codAlojamiento;
-    }
-
     public static boolean delete(String nombreAlojamiento, Connection connection) throws SQLException
     {
         short idAlojamiento = getAlojaminetoId(nombreAlojamiento, connection);
@@ -152,10 +85,10 @@ public class AlojamientoDAO
 
         if (casaRural != null)
         {
-            showInfo(casaRural, connection);
+            CasaRuralDAO.showInfo(casaRural, connection);
             if (ConfirmationRequest.askConfirmation("Esta seguro de que desea borrar la Casa Rural?")) 
             {
-                return delete(casaRural, connection);
+                return CasaRuralDAO.delete(casaRural, connection);
             }
             else 
             {
@@ -167,10 +100,10 @@ public class AlojamientoDAO
 
         if (hotelSpa != null)
         {
-            showInfo(hotelSpa, connection);
+            HotelSpaDAO.showInfo(hotelSpa, connection);
             if (ConfirmationRequest.askConfirmation("Esta seguro de que desea borrar el Hotel SPA?"))
             {
-                return delete(hotelSpa, connection);
+                return HotelSpaDAO.delete(hotelSpa, connection);
             }
             else
             {
@@ -180,10 +113,10 @@ public class AlojamientoDAO
 
         Hotel hotel = HotelDAO.select(idAlojamiento, connection);
 
-        showInfo(hotel, connection);
+        HotelDAO.showInfo(hotel, connection);
         if (ConfirmationRequest.askConfirmation("Esta seguro de que desea borrar el Hotel?"))
         {
-            return delete(hotel, connection);
+            return HotelDAO.delete(hotel, connection);
         }
         else
         {
@@ -191,7 +124,7 @@ public class AlojamientoDAO
         }
     }
 
-    private static boolean delete(Alojamiento alojamiento, Connection connection) throws SQLException
+    public static boolean delete(Alojamiento alojamiento, Connection connection) throws SQLException
     {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "delete from ALOJAMIENTO_ACTIVIDAD where cod_alojamiento = ?"
@@ -212,104 +145,7 @@ public class AlojamientoDAO
         return true;
     }
 
-    private static boolean delete(CasaRural casaRural, Connection connection) throws SQLException
-    {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "delete from CASARURAL where cod_casa = ?"
-        ))
-        {
-            preparedStatement.setShort(1, casaRural.getCodigo());
-            preparedStatement.executeUpdate();
-        }
-        
-        return delete((Alojamiento) casaRural, connection);
-    }
-
-    private static boolean delete(Hotel hotel, Connection connection) throws SQLException
-    {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "update HOTEL set hotelsede = null where hotelsede = ?"
-        ))
-        {
-            preparedStatement.setShort(1, hotel.getCodigo());
-            preparedStatement.executeUpdate();
-        }
-        
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "delete from HOTEL where cod_hotel = ?"
-        ))
-        {
-            preparedStatement.setShort(1, hotel.getCodigo());
-            preparedStatement.executeUpdate();
-        }
-        
-        return delete((Alojamiento) hotel, connection);
-    }
-
-    private static boolean delete(HotelSpa hotelSpa, Connection connection) throws SQLException
-    {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "delete from HOTELSPA_SERVICIOS where cod_spa = ?"
-        ))
-        {
-            preparedStatement.setShort(1, hotelSpa.getCodigo());
-            preparedStatement.executeUpdate();
-        }
-        
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "delete from HOTELSPA where cod_spa = ?"
-        ))
-        {
-            preparedStatement.setShort(1, hotelSpa.getCodigo());
-            preparedStatement.executeUpdate();
-        }
-        
-        return delete((Hotel) hotelSpa, connection);
-    }
-
-    private static void showInfo(Hotel hotel, Connection connection)
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try
-        {
-            String nombreSede = HotelDAO.obtenerNombreSede(hotel.getNombre(), connection);
-
-            String tipoHotel = hotel instanceof HotelSpa ? "HOTEL SPA" : "HOTEL";
-            
-            stringBuilder.append(tipoHotel).append(": ").append(hotel.getNombre())
-                    .append("\t").append("SEDE: ").append(nombreSede).append("\n");
-
-            System.out.println(stringBuilder);
-            showActividades(hotel.getNombre(), connection);
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Error al intentar mostrar la información del hotel " + hotel.getNombre());
-        }
-    }
-
-    private static void showInfo(HotelSpa hotelSpa, Connection connection)
-    {
-        showInfo((Hotel) hotelSpa, connection);
-    }
-
-    private static void showInfo(CasaRural casaRural, Connection connection)
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        String alquilerCompleto = casaRural.getAlquilerCompleta() == 'S' 
-                ? "SÍ"
-                : "NO";
-
-        stringBuilder.append("CASA RURAL: ").append(casaRural.getNombre())
-                .append("\t").append("Alquiler completo: ").append(alquilerCompleto).append("\n");
-
-        System.out.println(stringBuilder);
-        showActividades(casaRural.getNombre(), connection);
-    }
-
-    private static void showActividades(String nombreAlojamiento, Connection connection)
+    static void showActividades(String nombreAlojamiento, Connection connection)
     {
         try
         {

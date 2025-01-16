@@ -36,4 +36,50 @@ public class CasaRuralDAO
             }
         }
     }
+
+    public static short insert(CasaRural casaRural, Connection connection) throws SQLException
+    {
+        short codAlojamiento = AlojamientoDAO.insert(casaRural, connection);
+
+        if (codAlojamiento == 0) return codAlojamiento;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into CASARURAL " +
+                "(cod_casa, alquiler_completa) VALUES (?, ?)"))
+        {
+            preparedStatement.setShort(1, codAlojamiento);
+            preparedStatement.setString(2, String.valueOf(casaRural.getAlquilerCompleta()));
+
+            preparedStatement.executeUpdate();
+        }
+
+        return codAlojamiento;
+    }
+
+    public static boolean delete(CasaRural casaRural, Connection connection) throws SQLException
+    {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from CASARURAL where cod_casa = ?"
+        ))
+        {
+            preparedStatement.setShort(1, casaRural.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+
+        return AlojamientoDAO.delete(casaRural, connection);
+    }
+
+    public static void showInfo(CasaRural casaRural, Connection connection)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        String alquilerCompleto = casaRural.getAlquilerCompleta() == 'S'
+                ? "SÍ"
+                : "NO";
+
+        stringBuilder.append("CASA RURAL: ").append(casaRural.getNombre())
+                .append("\t").append("Alquiler completo: ").append(alquilerCompleto).append("\n");
+
+        System.out.println(stringBuilder);
+        AlojamientoDAO.showActividades(casaRural.getNombre(), connection);
+    }
 }

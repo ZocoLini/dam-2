@@ -47,4 +47,76 @@ public class HotelDAO
             return callableStatement.getString(2);
         }
     }
+
+    public static short insert(Hotel hotel, Connection connection) throws SQLException
+    {
+        short codAlojamiento = AlojamientoDAO.insert(hotel, connection);
+
+        if (codAlojamiento == 0) return codAlojamiento;
+
+        Hotel hotelSede = HotelDAO.select(hotel.getHotelSede(), connection);
+
+        if (hotelSede == null)
+        {
+            System.err.printf("El hotel '%s' que se ha intentado insertar tiene como se al hotel numero '%d' pero " +
+                    "este no existe en la base de datos", hotel.getNombre(), hotel.getHotelSede()
+            );
+            return 0;
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into HOTEL " +
+                "(cod_hotel, estrellas, hotelsede) values (?, ?, ?)"))
+        {
+            preparedStatement.setShort(1, codAlojamiento);
+            preparedStatement.setByte(2, hotel.getEstrellas());
+            preparedStatement.setShort(3, hotel.getHotelSede());
+
+            preparedStatement.executeUpdate();
+        }
+
+        return codAlojamiento;
+    }
+
+    public static boolean delete(Hotel hotel, Connection connection) throws SQLException
+    {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "update HOTEL set hotelsede = null where hotelsede = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotel.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "delete from HOTEL where cod_hotel = ?"
+        ))
+        {
+            preparedStatement.setShort(1, hotel.getCodigo());
+            preparedStatement.executeUpdate();
+        }
+
+        return AlojamientoDAO.delete(hotel, connection);
+    }
+
+    public static void showInfo(Hotel hotel, Connection connection)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try
+        {
+            String nombreSede = HotelDAO.obtenerNombreSede(hotel.getNombre(), connection);
+
+            String tipoHotel = hotel instanceof HotelSpa ? "HOTEL SPA" : "HOTEL";
+
+            stringBuilder.append(tipoHotel).append(": ").append(hotel.getNombre())
+                    .append("\t").append("SEDE: ").append(nombreSede).append("\n");
+
+            System.out.println(stringBuilder);
+            AlojamientoDAO.showActividades(hotel.getNombre(), connection);
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Error al intentar mostrar la información del hotel " + hotel.getNombre());
+        }
+    }
 }
