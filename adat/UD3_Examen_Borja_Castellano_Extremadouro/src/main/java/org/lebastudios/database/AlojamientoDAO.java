@@ -23,11 +23,20 @@ public class AlojamientoDAO
     {
         short result = getAlojaminetoId(alojamiento.getNombre(), connection);
 
-        if (result != 0) return 0;
+        if (result != 0)
+        {
+            System.err.printf(
+                    "Se ha intentado insertar un alojamiento con nombre '%s' el cual ya está en uso en la base de " +
+                            "datos\n",
+                    alojamiento.getNombre()
+            );
+            return 0;
+        }
+        ;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement("insert into ALOJAMIENTO " +
                 "(nombre, direccion, localidad, telefono, precio_habitacion, cama_extra, numhabitaciones) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)"))
+                "VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
         {
             preparedStatement.setString(1, alojamiento.getNombre());
             preparedStatement.setString(2, alojamiento.getDireccion());
@@ -77,6 +86,16 @@ public class AlojamientoDAO
 
         if (codAlojamiento == 0) return codAlojamiento;
 
+        Hotel hotelSede = HotelDAO.select(hotel.getHotelSede(), connection);
+        
+        if (hotelSede == null) 
+        {
+            System.err.printf("El hotel '%s' que se ha intentado insertar tiene como se al hotel numero '%d' pero " +
+                    "este no existe en la base de datps", hotel.getNombre(), hotel.getHotelSede()
+            );
+            return 0;
+        }
+        
         try (PreparedStatement preparedStatement = connection.prepareStatement("insert into HOTEL " +
                 "(cod_hotel, estrellas, hotelsede) values (?, ?, ?)"))
         {
@@ -170,7 +189,7 @@ public class AlojamientoDAO
             {
                 Hotel hotel = SQLx.query("select * from HOTEL where cod_hotel = " + idAlojamiento, connection,
                         Hotel.class);
-                
+
                 showInfo(hotel, connection);
                 delete(hotel, connection);
             }
@@ -179,24 +198,24 @@ public class AlojamientoDAO
 
     private static void delete(Alojamiento alojamiento, Connection connection)
     {
-        
-    }   
-    
+
+    }
+
     private static void delete(CasaRural casaRural, Connection connection)
     {
-        
+
     }
-    
+
     private static void delete(Hotel hotel, Connection connection)
     {
-        
+
     }
-    
+
     private static void delete(HotelSpa hotelSpa, Connection connection)
     {
-        
+
     }
-    
+
     private static void showInfo(Hotel hotel, Connection connection)
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -213,8 +232,8 @@ public class AlojamientoDAO
 
         stringBuilder.append("HOTEL: ").append(hotel.getNombre())
                 .append("\t").append("SEDE: ").append(hotelSede.getNombre()).append("\n");
-        
-        
+
+
     }
 
     private static void showInfo(HotelSpa hotelSpa, Connection connection)
@@ -226,7 +245,7 @@ public class AlojamientoDAO
     {
 
     }
-    
+
     public static Alojamiento select(short codigo, Connection connection) throws SQLException
     {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
@@ -234,14 +253,14 @@ public class AlojamientoDAO
                         "from ALOJAMIENTO where codigo = ?"))
         {
             preparedStatement.setShort(1, codigo);
-            
+
             try (ResultSet resultSet = preparedStatement.executeQuery())
             {
-                if (!resultSet.next()) 
+                if (!resultSet.next())
                 {
                     return null;
                 }
-                
+
                 return new Alojamiento(
                         resultSet.getByte(1),
                         resultSet.getString(2),
