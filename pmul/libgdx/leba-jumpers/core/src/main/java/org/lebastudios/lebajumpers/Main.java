@@ -21,8 +21,8 @@ public class Main extends ApplicationAdapter
 
     private Animation<Texture> runAnimation;
     private Animation<Texture> idleAnimation;
-    private int direccion = 1;
-    private int celerity = 0;
+    private int direccion = 0;
+    private final static int celerity = 100;
 
     private float deltaTime = 0;
     private float stateTime = 0;
@@ -104,40 +104,24 @@ public class Main extends ApplicationAdapter
             pressedAtTime = true;
             timer.call();
         };
-        InputManager.getInstance().onAPress = () ->
-        {
-            direccion += -2;
-            celerity = 100;
-        };
-        InputManager.getInstance().onDPress = () ->
-        {
-            direccion += 2;
-            celerity = 100;
-        };
-        InputManager.getInstance().onAReleased = () ->
-        {
-            celerity = 0;
-        };
-        InputManager.getInstance().onDReleased = () ->
-        {
-            celerity = 0;
-        };
+        InputManager.getInstance().onAPress = () -> direccion = -1;
+        InputManager.getInstance().onDPress = () -> direccion = 1;
+        InputManager.getInstance().onAReleased = () -> direccion = Gdx.input.isKeyPressed(Input.Keys.D) ? 1 : 0;
+        InputManager.getInstance().onDReleased = () -> direccion = Gdx.input.isKeyPressed(Input.Keys.A) ? -1 : 0;
     }
+
+    private boolean flipped;
 
     @Override
     public void render()
     {
-        boolean flipped;
-
         if (direccion > 0)
         {
             flipped = false;
-            direccion = 1;
         }
-        else
+        else if (direccion < 0)
         {
             flipped = true;
-            direccion = -1;
         }
 
         float newElapsedTime = (System.currentTimeMillis() - startTime) / 1000f;
