@@ -1,14 +1,52 @@
 <odoo>
     <data>
-        <record id="lunes.list" model="ir.ui.view">
-            <field name="name">lunes list</field>
-            <field name="model">lunes.lunes</field>
+        <record id="myhostel.list" model="ir.ui.view">
+            <field name="name">hostel list</field>
+            <field name="model">myhostel.hostel</field>
             <field name="arch" type="xml" >
                 <tree>
                     <field name="nombre" />
-                    <field name="telefono" />
+                    <field name="codigo" />
+                    <field name="direccion1" />
+                    <field name="direccion2" />
                 </tree>
             </field>
         </record>
+
+        <record id="myhostel.form" model="ir.ui.view">
+            <field name="name">hostel form</field>
+            <field name="model">myhostel.hostel</field>
+            <field name="arch" type="xml" >
+                <form string="Hostel">
+                    <sheet>
+                        <div class="oe_title">
+                            <h3>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                           <field name="Nombre" placeholder="Nombre" />
+                                        </td>
+                                        <td style="padding-right:10px;">
+                                           <field name="Codigo" placeholder="Codigo" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h3>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="myhostel.action" model="ir.actions.act.window">
+            <field name="name">hostel window</field>
+            <field name="res_model">myhostel.hostel</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="myhostel.menu_root" name="hostel" />
+
+        <menuitem id="myhostel.type_menu" name="Hostel 2" parent="myhostel.menu_root"
+                  action="myhostel.action" />
     </data>
 </odoo>
