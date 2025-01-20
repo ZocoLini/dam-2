@@ -1,6 +1,5 @@
-package org.lebastudios.lebajumpers.framework;
+package org.lebastudios.lebajumpers.framework.gameobjects;
 
-import com.badlogic.gdx.utils.Array;
 import org.lebastudios.lebajumpers.framework.components.Component;
 import org.lebastudios.lebajumpers.framework.components.Transform;
 
@@ -10,12 +9,14 @@ import java.util.List;
 public abstract class GameObject
 {
     private final List<Component> components;
+    protected final Transform transform;
 
     public GameObject()
     {
         components = new ArrayList<>();
 
-        components.add(new Transform());
+        this.transform = new Transform();
+        components.add(transform);
     }
 
     public final boolean addComponent(Component component)
@@ -38,19 +39,21 @@ public abstract class GameObject
         return null;
     }
 
-    public abstract void onCreate();
+    public void onCreate() {}
 
-    public abstract void onUpdate();
+    public void onStart() {}
 
-    public abstract void onFixedUpdate();
+    public void onUpdate() {}
 
-    public abstract void onDestroy();
+    public void onFixedUpdate() {}
 
-    public abstract void onCollision2DEnter();
+    public void onDestroy() {}
 
-    public abstract void onCollision2DExit();
+    public void onCollision2DEnter() {}
 
-    public abstract void onTrigger2DEnter();
+    public void onCollision2DExit() {}
 
-    public abstract void onTrigger2DExit();
+    public void onTrigger2DEnter() {}
+
+    public void onTrigger2DExit() {}
 }

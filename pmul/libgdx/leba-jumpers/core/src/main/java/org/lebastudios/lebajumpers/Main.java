@@ -1,6 +1,8 @@
 package org.lebastudios.lebajumpers;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -119,9 +121,12 @@ public class Main extends ApplicationAdapter
         {
             flipped = false;
         }
-        else if (direccion < 0)
+        else
         {
-            flipped = true;
+            if (direccion < 0)
+            {
+                flipped = true;
+            }
         }
 
         float newElapsedTime = (System.currentTimeMillis() - startTime) / 1000f;
@@ -135,9 +140,9 @@ public class Main extends ApplicationAdapter
 
         switch (actualColor)
         {
-            case RED ->  ScreenUtils.clear(1, 0, 0, 1f);
-            case GREEN ->  ScreenUtils.clear(0, 1, 0, 1f);
-            case BLUE ->  ScreenUtils.clear(1, 0, 1, 1f);
+            case RED -> ScreenUtils.clear(1, 0, 0, 1f);
+            case GREEN -> ScreenUtils.clear(0, 1, 0, 1f);
+            case BLUE -> ScreenUtils.clear(1, 0, 1, 1f);
             default -> throw new IllegalStateException();
         }
 
@@ -150,7 +155,13 @@ public class Main extends ApplicationAdapter
         {
             x = x > 640 - keyFrame.getWidth() && direccion > 0 || x < 0 && direccion < 0 ? x : x + xIncrement;
 
-            batch.draw(keyFrame, x, 210, keyFrame.getWidth() * (flipped ? -1 : 1), keyFrame.getHeight());
+            batch.draw(
+                keyFrame,
+                flipped ? x + keyFrame.getWidth() / 2.0f : x,
+                210,
+                keyFrame.getWidth() * (flipped ? -1 : 1),
+                keyFrame.getHeight()
+            );
         }
 
         if (alive)

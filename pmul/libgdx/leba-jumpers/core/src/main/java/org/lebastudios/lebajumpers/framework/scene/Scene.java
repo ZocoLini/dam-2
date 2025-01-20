@@ -1,6 +1,6 @@
 package org.lebastudios.lebajumpers.framework.scene;
 
-import org.lebastudios.lebajumpers.framework.GameObject;
+import org.lebastudios.lebajumpers.framework.gameobjects.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
