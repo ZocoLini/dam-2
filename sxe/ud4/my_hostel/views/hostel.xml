@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="lunes.list" model="ir.ui.view">
+            <field name="name">lunes list</field>
+            <field name="model">lunes.lunes</field>
+            <field name="arch" type="xml" >
+                <tree>
+                    <field name="nombre" />
+                    <field name="telefono" />
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
