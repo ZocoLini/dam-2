@@ -33,15 +33,43 @@
                                 </table>
                             </h3>
                         </div>
+                        <group>
+                            <group>
+                                <label for="direccion1" string="Direccion"/>
+                                <div class="o_address_format">
+                                    <field name="direccion1" placeholder="Calle, avenida..." class="o-address_format" />
+                                    <field name="direccion2" placeholder="Calle, avenida..." class="o-address_format" />
+                                </div>
+                            </group>
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
+        <record id="myhostel.search" model="ir.ui.view">
+            <field name="name">hostel search</field>
+            <field name="model">myhostel.hostel</field>
+            <field name="arch" type="xml" >
+                <search>
+                    <field name="Nombre" />
+                    <field name="Codigo" />
+                    <field name="Direccion1" />
+                    <field name="Direccion2" />
+                </search>
+            </field>
+        </record>
+
         <record id="myhostel.action" model="ir.actions.act.window">
-            <field name="name">hostel window</field>
+            <field name="name">hostel action</field>
+            <field name="type">ir.actions.act_window</field>
             <field name="res_model">myhostel.hostel</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Hostel.
+                </p>
+            </field>
         </record>
 
         <menuitem id="myhostel.menu_root" name="hostel" />
