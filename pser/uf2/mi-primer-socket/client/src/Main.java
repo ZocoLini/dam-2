@@ -2,7 +2,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Main
@@ -13,22 +12,24 @@ public class Main
         {
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-            
+
             String msg = "";
-            
+
             while (!msg.equals("fin"))
             {
                 msg = new Scanner(System.in).nextLine();
+
+                if (socket.isClosed()) 
+                {
+                    System.out.println("Se ha cerrado la conexión");
+                    return;
+                }
                 
                 outputStream.writeUTF(msg);
                 String receivedMsg = inputStream.readUTF();
 
                 System.out.println(receivedMsg);
             }
-        }
-        catch (UnknownHostException e)
-        {
-            throw new RuntimeException(e);
         }
         catch (IOException e)
         {
