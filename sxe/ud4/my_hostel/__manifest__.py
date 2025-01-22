@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "depends": ["base"],
     "data": [
-        #"security/ir.model.access.csv",
+        "security/ir.model.access.csv",
         "views/hostel.xml"
     ],
     "installable": True
