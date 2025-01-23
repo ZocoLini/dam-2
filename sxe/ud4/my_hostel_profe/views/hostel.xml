@@ -10,6 +10,10 @@
                 <field name="Codigo"/>
                 <field name="Direccion1"/>
                 <field name="Direccion2"/>
+                <field name="dias"/>
+                <field name="abierto"/>
+                <field name="estado"/>
+                <field name="propietario"/>
             </tree>
         </field>
     </record>
