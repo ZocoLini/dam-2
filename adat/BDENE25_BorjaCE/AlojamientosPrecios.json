@@ -1,0 +1,52 @@
+{
+    "Actualizaciones": [
+        {
+            "nombre": "Muralla Romana",
+            "precio_habitacion": 185.00
+        },
+         {
+            "nombre": "El rinconcito",
+            "precio_habitacion": 60.00
+        },
+        {
+            "nombre": "Lucus Augusti",
+            "precio_habitacion": 110.00
+        },
+        {
+            "nombre": "Os carballos",
+            "precio_habitacion": 82.00
+        },
+        {
+            "nombre": "A pradeira",
+            "precio_habitacion": 60.00
+        },
+        {
+            "nombre": "A solaina",
+            "precio_habitacion": 76.00
+        },
+        {
+            "nombre": "Los olmos",
+            "precio_habitacion": 85.00
+        },
+        {
+            "nombre": "Lolailo",
+            "precio_habitacion": 68.00
+        },
+        {
+            "nombre": "Torres del mar",
+            "precio_habitacion": 190.00
+        },
+        {
+            "nombre": "Lerele",
+            "precio_habitacion": 125.00
+        },
+        {
+            "nombre": "Casa Maria",
+            "precio_habitacion": 60.00
+        }
+    ]
+}
+
+
+
+
