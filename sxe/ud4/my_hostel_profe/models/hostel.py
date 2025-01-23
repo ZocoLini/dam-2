@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class Hostel(models.Model):
@@ -14,3 +14,11 @@ class Hostel(models.Model):
     abierto = fields.Boolean(string="Abierto", readonly=True)
     estado = fields.Selection([{'0', 'Bueno'}, {'1', 'Regular'}, {'2', 'Malo'}], string="Estado", default='0')
     propietario = fields.Many2one('hr.employee', string="Propietario")
+
+    @api.depends('dias')
+    def _compute_urgente(self):
+        for record in self:
+            if record.dias > 7:
+                record.abierto = True
+            else:
+                record.abierto = False
