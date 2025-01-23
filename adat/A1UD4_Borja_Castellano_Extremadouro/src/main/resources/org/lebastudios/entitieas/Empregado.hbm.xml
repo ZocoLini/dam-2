@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="org.lebastudios.entities.Empregado" table="empregado">
+    <!-- Id -->
+    <id name="nss" type="string">
+      <column name="NSS"/>
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property name="nome" type="string">
+      <column name="Nome"/>
+    </property>
+    <property name="apelido1" type="string">
+      <column name="Apelido1"/>
+    </property>
+    <property name="apelido2" type="string">
+      <column name="Apelido2"/>
+    </property>
+    <property name="salario" type="float">
+      <column name="Salario"/>
+    </property>
+    <property name="dataNacemento" type="date">
+      <column name="DataNacemento"/>
+    </property>
+    <property name="sexo" type="char">
+      <column name="Sexo"/>
+    </property>
+
+    <!-- References -->
+
+    <!-- Referenced by -->
+  </class>
+</hibernate-mapping>
+        
