@@ -5,7 +5,7 @@
     <artifactId>A1UD4_Borja_Castellano_Extremadouro</artifactId>
     <version>1.0.0</version>
     <name>A1UD4_Borja_Castellano_Extremadouro</name>
-  
+
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>

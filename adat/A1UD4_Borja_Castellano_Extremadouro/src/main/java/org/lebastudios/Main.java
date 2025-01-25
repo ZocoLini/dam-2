@@ -10,7 +10,7 @@ public class Main
         Configuration configuration = new Configuration().configure();
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         sessionFactory.close();
-        
+
         System.out.println("Hello, World!");
     }
 }
