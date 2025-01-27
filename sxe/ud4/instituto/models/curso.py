@@ -2,7 +2,7 @@ from odoo import fields, models, api
 
 class Curso(models.Model):
     _name = "instituto.curso"
-    _description = "Information about hostel"
+    _description = "isntituto curso"
 
     Nombre = fields.Char(string="Nombre", required=True)
     Codigo = fields.Char(string="Codigo", required=True)
