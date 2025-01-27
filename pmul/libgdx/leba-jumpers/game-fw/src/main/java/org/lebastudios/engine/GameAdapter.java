@@ -20,11 +20,6 @@ public abstract class GameAdapter extends ApplicationAdapter
 
         Gdx.input.setInputProcessor(InputManager.getInstance());
 
-        final var mainCamera = getMainCamera();
-
-        mainCamera.position.set(mainCamera.viewportWidth / 2f, mainCamera.viewportHeight / 2f, 0);
-        mainCamera.update();
-
         scene.create();
     }
 
@@ -37,12 +32,6 @@ public abstract class GameAdapter extends ApplicationAdapter
     @Override
     public void resize(int width, int height)
     {
-        final var mainCamera = getMainCamera();
-
-        mainCamera.viewportWidth = 30f;
-        mainCamera.viewportHeight = 30f * height/width;
-        mainCamera.update();
-
         if (scene != null) scene.resize(width, height);
     }
 
@@ -59,10 +48,5 @@ public abstract class GameAdapter extends ApplicationAdapter
             this.scene.show();
             this.scene.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
-    }
-
-    private OrthographicCamera getMainCamera()
-    {
-        return scene.getCamera();
     }
 }

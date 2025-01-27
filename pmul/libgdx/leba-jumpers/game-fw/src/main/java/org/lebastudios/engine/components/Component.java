@@ -44,8 +44,10 @@ public abstract class Component
     public void onDisable() {}
     public void onEnable() {}
 
-    public void onDispose()
-    {
+    public void onDispose() {}
 
+    public boolean isEnabled()
+    {
+        return enabled;
     }
 }

@@ -8,12 +8,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class SpriteRenderer extends Component
 {
     private final String spriteName;
-    private final Sprite sprite;
+    private Sprite sprite;
 
     public SpriteRenderer(String spriteName)
     {
+        super();
         this.spriteName = spriteName;
+    }
 
+    @Override
+    public void onAwake()
+    {
         TextureRegion textureRegion = new TextureRegion();
         textureRegion.setRegion(new Texture("libgdx.png"));
 

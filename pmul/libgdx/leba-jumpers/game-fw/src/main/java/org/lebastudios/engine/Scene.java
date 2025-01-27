@@ -1,8 +1,6 @@
 package org.lebastudios.engine;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
@@ -23,6 +21,9 @@ public abstract class Scene implements Screen
     public Scene(SceneMetadata sceneMetadata)
     {
         this.metadata = sceneMetadata;
+
+        camera.setToOrtho(false, 400, 300);
+        camera.update();
     }
 
     public Scene()
@@ -81,11 +82,7 @@ public abstract class Scene implements Screen
     public void show() {}
 
     @Override
-    public void resize(int width, int height)
-    {
-        camera.setToOrtho(false, 300, 200);
-        camera.update();
-    }
+    public void resize(int width, int height) {}
 
     @Override
     public void pause() {}

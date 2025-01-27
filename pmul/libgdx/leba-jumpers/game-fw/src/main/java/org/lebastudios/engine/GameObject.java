@@ -61,6 +61,7 @@ public final class GameObject
     {
         for (Component component : components)
         {
+            if (!component.isEnabled()) continue;
             component.onUpdate(deltaTime);
         }
     }
@@ -68,6 +69,7 @@ public final class GameObject
     public void render(SpriteBatch batch) {
         for (Component component : components)
         {
+            if (!component.isEnabled()) continue;
             component.onRender(batch);
         }
     }
