@@ -5,7 +5,7 @@
     "version": "17.0.1.0.0",
     "author": "Borja Castellano Extremaoduro",
     "category": "Tools",
-    "website": "http://www.lebastudios.org",
+    "website": "https://www.lebastudios.org",
     "license": "AGPL-3",
     "depends": ["base"],
     "data": [
