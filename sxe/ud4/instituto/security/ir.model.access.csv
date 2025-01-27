@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_instituto_manager_id,access.instituto.manager,instituto.model_instituto_instituto,instituto.group_instituto_manager,1,1,1,1
-access_instituto_user_id,access.instituto.user,instituto.model_instituto_instituto,instituto.group_instituto_user,1,0,0,0
+access_instituto_manager_id,access.instituto.manager,instituto.model_instituto_curso,instituto.group_instituto_manager,1,1,1,1
+access_instituto_user_id,access.instituto.user,instituto.model_instituto_curso,instituto.group_instituto_user,1,0,0,0
