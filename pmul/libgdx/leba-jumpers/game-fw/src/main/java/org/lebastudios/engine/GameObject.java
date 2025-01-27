@@ -57,15 +57,25 @@ public final class GameObject
         }
     }
 
-    public void render(float deltaTime, SpriteBatch batch) {
+    public void update(float deltaTime)
+    {
         for (Component component : components)
         {
             component.onUpdate(deltaTime);
         }
+    }
 
+    public void render(SpriteBatch batch) {
         for (Component component : components)
         {
             component.onRender(batch);
+        }
+    }
+
+    public void dispose() {
+        for (Component component : components)
+        {
+            component.onDispose();
         }
     }
 

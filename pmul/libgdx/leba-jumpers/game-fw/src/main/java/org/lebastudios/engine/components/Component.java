@@ -43,4 +43,9 @@ public abstract class Component
 
     public void onDisable() {}
     public void onEnable() {}
+
+    public void onDispose()
+    {
+
+    }
 }

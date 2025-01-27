@@ -3,8 +3,10 @@ package org.lebastudios.engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import lombok.Getter;
 import org.lebastudios.engine.input.InputManager;
 
+@Getter
 public abstract class GameAdapter extends ApplicationAdapter
 {
     protected Scene scene;

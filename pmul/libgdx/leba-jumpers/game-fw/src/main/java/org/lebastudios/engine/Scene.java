@@ -1,7 +1,10 @@
 package org.lebastudios.engine;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +34,8 @@ public abstract class Scene implements Screen
     {
         setup();
 
+        batch.setProjectionMatrix(camera.combined);
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.create();
@@ -40,6 +45,8 @@ public abstract class Scene implements Screen
     @Override
     public final void render(float delta)
     {
+        ScreenUtils.clear(0, 0, 1, 1);
+
         updateAndRender(delta, batch);
     }
 
@@ -47,8 +54,17 @@ public abstract class Scene implements Screen
     {
         for (GameObject gameObject : gameObjects)
         {
-            gameObject.render(deltaTime, batch);
+            gameObject.update(deltaTime);
         }
+
+        batch.begin();
+
+        for (GameObject gameObject : gameObjects)
+        {
+            gameObject.render(batch);
+        }
+
+        batch.end();
     }
 
     public void addSceneObject(GameObject gameObject)
@@ -65,7 +81,11 @@ public abstract class Scene implements Screen
     public void show() {}
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height)
+    {
+        camera.setToOrtho(false, 300, 200);
+        camera.update();
+    }
 
     @Override
     public void pause() {}
@@ -77,7 +97,13 @@ public abstract class Scene implements Screen
     public void hide() {}
 
     @Override
-    public void dispose() {}
+    public void dispose()
+    {
+        for (GameObject gameObject : gameObjects)
+        {
+            gameObject.dispose();
+        }
+    }
 
     protected abstract void setup();
 

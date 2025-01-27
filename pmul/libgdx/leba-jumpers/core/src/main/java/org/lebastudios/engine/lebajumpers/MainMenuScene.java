@@ -14,5 +14,6 @@ public class MainMenuScene extends Scene
 
         character.addComponent(new SpriteRenderer("warrior.png"));
 
+        this.addSceneObject(character);
     }
 }
