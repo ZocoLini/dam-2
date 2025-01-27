@@ -1,8 +1,7 @@
 from odoo import fields, models, api
 
-
-class Hostel(models.Model):
-    _name = "hostel.hostel"
+class Curso(models.Model):
+    _name = "instituto.curso"
     _description = "Information about hostel"
 
     Nombre = fields.Char(string="Nombre", required=True)
@@ -22,9 +21,3 @@ class Hostel(models.Model):
                 record.abierto = True
             else:
                 record.abierto = False
-
-    @api.constraints('dias')
-    def _check_dias(self):
-        for record in self:
-            if record.alias > 7:
-                raise ValidationError("Validacion para el campo")
