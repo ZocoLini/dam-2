@@ -8,12 +8,12 @@
         <!-- Id -->
         <id name="numDepartamento" type="int">
             <column name="NumDepartamento"/>
-            <generator class="sequence-identity"/>
+            <generator class="assigned"/>
         </id>
 
         <!-- Properties -->
         <property name="nomeDepartamento" type="string">
-            <column name="NomeDepartamento"/>
+            <column name="NomeDepartamento" unique="true"/>
         </property>
 
         <!-- References -->

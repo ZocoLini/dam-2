@@ -14,7 +14,8 @@ create table Departamento
 (
     NumDepartamento  int(11)     not null,
     NomeDepartamento varchar(25) not null,
-    constraint PK_DEPARTAMENTO primary key (NumDepartamento)
+    constraint PK_DEPARTAMENTO primary key (NumDepartamento),
+    constraint UQ_NOME_DEPARTAMENTO unique (NomeDepartamento)
 );
 
 create table Proxecto
@@ -22,5 +23,6 @@ create table Proxecto
     NumProxecto  int(11)     not null,
     NomeProxecto varchar(25) not null,
     Lugar        varchar(25) not null,
-    constraint PK_PROXECTO primary key (NumProxecto)
+    constraint PK_PROXECTO primary key (NumProxecto),
+    constraint UQ_NOME_PROXECTO unique (NomeProxecto)
 );

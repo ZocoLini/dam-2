@@ -13,7 +13,7 @@
 
         <!-- Properties -->
         <property name="nomeProxecto" type="string">
-            <column name="NomeProxecto"/>
+            <column name="NomeProxecto" unique="true"/>
         </property>
         <property name="lugar" type="string">
             <column name="Lugar"/>
