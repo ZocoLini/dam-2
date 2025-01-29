@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.lebastudios</groupId>
+    <artifactId>jasper-reports</artifactId>
+    <version>0.1.0</version>
+    <name>jasper-reports</name>
+    <properties>
+
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+    </dependencies>
+</project>
