@@ -9,6 +9,8 @@
                 <field name="is_done"/>
                 <field name="description"/>
                 <field name="active"/>
+                <field name="nombre_profesor"/>
+                <field name="numero_horas"/>
             </tree>
         </field>
     </record>
@@ -57,6 +59,8 @@
                 <field name="is_done"/>
                 <field name="description"/>
                 <field name="active"/>
+                <field name="nombre_profesor"/>
+                <field name="numero_horas"/>
             </search>
         </field>
     </record>
