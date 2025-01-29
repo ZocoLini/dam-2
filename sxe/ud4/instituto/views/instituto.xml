@@ -5,19 +5,15 @@
         <field name="model">instituto.curso</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="Nombre"/>
-                <field name="Codigo"/>
-                <field name="Direccion1"/>
-                <field name="Direccion2"/>
-                <field name="dias"/>
-                <field name="abierto"/>
-                <field name="estado"/>
-                <field name="propietario"/>
+                <field name="name"/>
+                <field name="is_done"/>
+                <field name="description"/>
+                <field name="active"/>
             </tree>
         </field>
     </record>
 
-    <!-- Form View -->
+    <!-- Form View
     <record id="view_instituto_form_view" model="ir.ui.view">
         <field name="name">instituto.curso.form.view</field>
         <field name="model">instituto.curso</field>
@@ -49,6 +45,7 @@
             </form>
         </field>
     </record>
+    -->
 
     <!-- Search View -->
     <record id="view_instituto_search_view" model="ir.ui.view">
@@ -56,10 +53,10 @@
         <field name="model">instituto.curso</field>
         <field name="arch" type="xml">
             <search>
-                <field name="Nombre"/>
-                <field name="Codigo"/>
-                <field name="Direccion1"/>
-                <field name="Direccion2"/>
+                <field name="name"/>
+                <field name="is_done"/>
+                <field name="description"/>
+                <field name="active"/>
             </search>
         </field>
     </record>
