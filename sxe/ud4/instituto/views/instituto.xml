@@ -1,0 +1,85 @@
+<odoo>
+    <!-- Tree(list) View -->
+    <record id="view_instituto_tree_view" model="ir.ui.view">
+        <field name="name">instituto.curso.tree.view</field>
+        <field name="model">instituto.curso</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="Nombre"/>
+                <field name="Codigo"/>
+                <field name="Direccion1"/>
+                <field name="Direccion2"/>
+                <field name="dias"/>
+                <field name="abierto"/>
+                <field name="estado"/>
+                <field name="propietario"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_instituto_form_view" model="ir.ui.view">
+        <field name="name">instituto.curso.form.view</field>
+        <field name="model">instituto.curso</field>
+        <field name="arch" type="xml">
+            <form string="instituto">
+                <sheet>
+                    <div class="oe_title">
+                        <h3>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;"><field name="Nombre" required="1" 
+                                    placeholder="Nombre" /></td>
+                                    <td style="padding-right:10px;"><field name="Codigo" 
+                                    placeholder="Codigo" /></td>
+                                </tr>
+                            </table>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <label for="Direccion1" string="Direccion"/>
+                            <div class="o_address_format">
+                                <field name="Direccion1" placeholder="Calle, avenida..." class="o_address_street"/>
+                                <field name="Direccion2" placeholder="Calle, avenida..." class="o_address_street"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_instituto_search_view" model="ir.ui.view">
+        <field name="name">instituto Search</field>
+        <field name="model">instituto.curso</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="Nombre"/>
+                <field name="Codigo"/>
+                <field name="Direccion1"/>
+                <field name="Direccion2"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_instituto" model="ir.actions.act_window">
+        <field name="name">instituto</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">instituto.curso</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create instituto.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="instituto_main_menu" name="instituto" sequence="1"/>
+
+    <menuitem id="instituto_type_menu" name="instituto" parent="instituto_main_menu"
+        action="instituto.action_instituto" groups="instituto.group_instituto_manager"
+        sequence="1"/>
+
+</odoo>

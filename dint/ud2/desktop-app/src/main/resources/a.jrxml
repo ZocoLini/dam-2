@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="SampleReport" pageWidth="595" pageHeight="842" columnWidth="515"
+              leftMargin="40" rightMargin="40" topMargin="50" bottomMargin="50">
+
+    <!-- Parámetros (Opcionales: se usan para pasar valores al reporte) -->
+    <parameter name="ReportTitle" class="java.lang.String"/>
+
+    <!-- Campos (Datos que vienen del DataSource o Query) -->
+    <field name="Name" class="java.lang.String"/>
+    <field name="Age" class="java.lang.Integer"/>
+
+    <!-- Estilos (Definen la apariencia del reporte) -->
+    <style name="TitleStyle" fontName="Arial" fontSize="20" isBold="true"/>
+    <style name="DetailStyle" fontName="Arial" fontSize="12"/>
+
+    <!-- Diseño del reporte -->
+    <title>
+        <band height="50">
+            <textField>
+                <reportElement x="0" y="0" width="515" height="30" style="TitleStyle"/>
+                <textFieldExpression><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="20"/>
+                <text><![CDATA[Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="0" width="100" height="20"/>
+                <text><![CDATA[Age]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="20" style="DetailStyle"/>
+                <textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="100" height="20" style="DetailStyle"/>
+                <textFieldExpression><![CDATA[$F{Age}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+</jasperReport>
