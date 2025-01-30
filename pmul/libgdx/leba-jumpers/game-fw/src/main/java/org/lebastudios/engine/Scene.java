@@ -55,6 +55,11 @@ public abstract class Scene implements Screen
 
         for (GameObject gameObject : gameObjects)
         {
+            gameObject.physicsUpdate(delta);
+        }
+
+        for (GameObject gameObject : gameObjects)
+        {
             gameObject.update(delta);
         }
 

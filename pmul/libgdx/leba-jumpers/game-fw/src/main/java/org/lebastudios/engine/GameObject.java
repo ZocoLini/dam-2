@@ -60,6 +60,15 @@ public final class GameObject
         }
     }
 
+    public void physicsUpdate(float deltaTime)
+    {
+        for (Component component : components)
+        {
+            if (!component.isEnabled()) continue;
+            component.onPhysicsUpdate(deltaTime);
+        }
+    }
+
     public void update(float deltaTime)
     {
         for (Component component : components)

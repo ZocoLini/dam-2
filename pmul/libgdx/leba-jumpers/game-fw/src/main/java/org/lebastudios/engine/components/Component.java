@@ -49,12 +49,13 @@ public abstract class Component
 
     public void onAwake() {}
     public void onStart() {}
+    public void onPhysicsUpdate(float deltaTime) {}
     public void onUpdate(float deltaTime) {}
     public void onRender(SpriteBatch batch) {}
 
     public void onDestroy() {}
-
     public void onDisable() {}
+
     public void onEnable() {}
 
     public void onDispose() {}
