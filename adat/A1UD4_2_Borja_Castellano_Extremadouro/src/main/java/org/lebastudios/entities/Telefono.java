@@ -17,6 +17,6 @@ public class Telefono
 {
     @Column(name = "Numero")
     private String numero;
-    @Column(name = "Info")
+    @Column(name = "Info") 
     private String info;
 }
