@@ -12,7 +12,8 @@ public class MainMenuScene extends Scene
     {
         GameObject character = new GameObject(new Transform(0, 0, 0));
 
-        character.addComponent(new SpriteRenderer("warrior.png"));
+        character.addComponent(new SpriteRenderer("warrior/Individual Sprite/Attack/Warrior_Attack_1.png"));
+        character.addComponent(new FingerController());
 
         this.addSceneObject(character);
     }

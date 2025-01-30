@@ -13,10 +13,12 @@ public final class GameObject
 {
     private final GameObjectMetadata metadata;
     private final List<Component> components = new ArrayList<>();
+    @Getter private final Transform transform;
 
     public GameObject(Transform transform, GameObjectMetadata metadata)
     {
         this.metadata = metadata;
+        this.transform = transform;
         addComponent(transform);
     }
 
@@ -28,6 +30,7 @@ public final class GameObject
     public void addComponent(Component component)
     {
         components.add(component);
+        component.setGameObject(this);
 
         component.onStart();
     }

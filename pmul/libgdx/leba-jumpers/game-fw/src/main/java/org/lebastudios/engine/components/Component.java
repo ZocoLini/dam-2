@@ -1,10 +1,13 @@
 package org.lebastudios.engine.components;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import lombok.Setter;
+import org.lebastudios.engine.GameObject;
 
 public abstract class Component
 {
     private boolean enabled = true;
+    @Setter private GameObject gameObject;
 
     public Component()
     {
@@ -32,6 +35,11 @@ public abstract class Component
     public final void destroy()
     {
         onDestroy();
+    }
+
+    public final GameObject getGameObject()
+    {
+        return gameObject;
     }
 
     public void onAwake() {}

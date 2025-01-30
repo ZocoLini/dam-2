@@ -12,28 +12,31 @@ public class SpriteRenderer extends Component
 
     public SpriteRenderer(String spriteName)
     {
-        super();
         this.spriteName = spriteName;
     }
 
     @Override
-    public void onAwake()
+    public void onStart()
     {
         TextureRegion textureRegion = new TextureRegion();
-        textureRegion.setRegion(new Texture("libgdx.png"));
+        textureRegion.setRegion(new Texture(spriteName));
 
         sprite = new Sprite();
         sprite.setRegion(textureRegion);
 
-        sprite.setSize(300, 300);
+        sprite.setSize(sprite.getTexture().getWidth(), sprite.getTexture().getHeight());
         sprite.setOriginCenter();
-        sprite.setPosition(100, 50);
         sprite.setRotation(0);
     }
 
     @Override
     public void onRender(SpriteBatch batch)
     {
+        Transform transform = this.getGameObject().getTransform();
+
+        sprite.setPosition(transform.getPosition().x, transform.getPosition().y);
+        sprite.setScale(transform.getScale().x, transform.getScale().y);
+
         sprite.draw(batch);
     }
 
