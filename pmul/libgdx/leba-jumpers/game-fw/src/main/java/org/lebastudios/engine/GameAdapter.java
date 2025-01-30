@@ -8,7 +8,7 @@ import org.lebastudios.engine.input.InputManager;
 @Getter
 public abstract class GameAdapter extends Game
 {
-    protected abstract Scene createFirstScene();
+    protected abstract Scene getFirstScene();
 
     public GameAdapter()
     {
@@ -20,7 +20,7 @@ public abstract class GameAdapter extends Game
     {
         Gdx.input.setInputProcessor(InputManager.getInstance());
 
-        setScene(createFirstScene());
+        setScene(getFirstScene());
     }
 
     public final Scene getScene()

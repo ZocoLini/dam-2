@@ -22,7 +22,7 @@ public class InputManager implements InputProcessor
 
     private InputManager() {}
 
-    public void addKeyDown(int keycode, Runnable runnable)
+    public void addKeyDownListener(int keycode, Runnable runnable)
     {
         if (!onKeyDown.containsKey(keycode))
         {
@@ -34,7 +34,15 @@ public class InputManager implements InputProcessor
         }
     }
 
-    public void addKeyUp(int keycode, Runnable runnable)
+    public void addKeyDownListener(Runnable runnable, int... keycodes)
+    {
+        for (int keycode : keycodes)
+        {
+            addKeyDownListener(keycode, runnable);
+        }
+    }
+
+    public void addKeyUpListener(int keycode, Runnable runnable)
     {
         if (!onKeyUp.containsKey(keycode))
         {
@@ -43,6 +51,14 @@ public class InputManager implements InputProcessor
         else
         {
             onKeyUp.get(keycode).add(runnable);
+        }
+    }
+
+    public void addKeyUpListener(Runnable runnable, int... keycodes)
+    {
+        for (int keycode : keycodes)
+        {
+            addKeyUpListener(keycode, runnable);
         }
     }
 

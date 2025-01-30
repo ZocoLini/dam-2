@@ -1,10 +1,10 @@
-package org.lebastudios.lebajumpers.android;
+package org.lebastudios.moscas.android;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import org.lebastudios.lebajumpers.Main;
+import org.lebastudios.moscas.Main;
 
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication {

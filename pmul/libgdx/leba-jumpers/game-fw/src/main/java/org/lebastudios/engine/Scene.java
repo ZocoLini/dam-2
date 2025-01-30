@@ -21,9 +21,6 @@ public abstract class Scene implements Screen
     public Scene(SceneMetadata sceneMetadata)
     {
         this.metadata = sceneMetadata;
-
-        camera.setToOrtho(false, 400, 300);
-        camera.update();
     }
 
     public Scene()
@@ -34,8 +31,6 @@ public abstract class Scene implements Screen
     public final void create()
     {
         setup();
-
-        batch.setProjectionMatrix(camera.combined);
 
         for (GameObject gameObject : gameObjects)
         {
@@ -48,14 +43,9 @@ public abstract class Scene implements Screen
     {
         ScreenUtils.clear(0, 0, 1, 1);
 
-        updateAndRender(delta, batch);
-    }
-
-    private void updateAndRender(float deltaTime, SpriteBatch batch)
-    {
         for (GameObject gameObject : gameObjects)
         {
-            gameObject.update(deltaTime);
+            gameObject.update(delta);
         }
 
         batch.begin();
@@ -68,7 +58,7 @@ public abstract class Scene implements Screen
         batch.end();
     }
 
-    public void addSceneObject(GameObject gameObject)
+    public void addGameObject(GameObject gameObject)
     {
         gameObjects.add(gameObject);
     }
@@ -82,7 +72,13 @@ public abstract class Scene implements Screen
     public void show() {}
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        camera.setToOrtho(false, getCameraWidth(), getCameraHeight());
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
+        System.out.println("Resized to: " + width + "x" + height);
+    }
 
     @Override
     public void pause() {}
@@ -103,6 +99,8 @@ public abstract class Scene implements Screen
     }
 
     protected abstract void setup();
+    protected abstract float getCameraWidth();
+    protected abstract float getCameraHeight();
 
     @Getter
     @Setter

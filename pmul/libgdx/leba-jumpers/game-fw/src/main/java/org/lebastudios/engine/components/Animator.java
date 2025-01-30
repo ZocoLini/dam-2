@@ -8,9 +8,11 @@ import java.util.List;
 public class Animator extends Component
 {
     private float stateTime = 0;
-    private List<Animation<?>> animations = new ArrayList<>();
+    private final List<Animation<?>> animations = new ArrayList<>();
 
-    public void addAnimation() {}
+    public void addAnimation(Animation<?> animation) {
+        animations.add(animation);
+    }
 
     @Override
     public void onUpdate(float deltaTime)

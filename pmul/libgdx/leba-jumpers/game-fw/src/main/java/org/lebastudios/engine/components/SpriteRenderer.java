@@ -3,41 +3,50 @@ package org.lebastudios.engine.components;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import lombok.Getter;
+import lombok.Setter;
 
 public class SpriteRenderer extends Component
 {
-    private final String spriteName;
-    private Sprite sprite;
-
-    public SpriteRenderer(String spriteName)
-    {
-        this.spriteName = spriteName;
-    }
+    private Sprite sprite = new Sprite();
+    @Getter @Setter private boolean flipX;
+    @Getter @Setter private boolean flipY;
 
     @Override
     public void onStart()
     {
-        TextureRegion textureRegion = new TextureRegion();
-        textureRegion.setRegion(new Texture(spriteName));
-
-        sprite = new Sprite();
-        sprite.setRegion(textureRegion);
-
-        sprite.setSize(sprite.getTexture().getWidth(), sprite.getTexture().getHeight());
         sprite.setOriginCenter();
-        sprite.setRotation(0);
     }
 
     @Override
     public void onRender(SpriteBatch batch)
     {
+        // Cambiar la imagen si necesario
         Transform transform = this.getGameObject().getTransform();
 
         sprite.setPosition(transform.getPosition().x, transform.getPosition().y);
         sprite.setScale(transform.getScale().x, transform.getScale().y);
 
         sprite.draw(batch);
+    }
+
+    public void setSpriteTexture(Texture texture)
+    {
+        sprite.setRegion(texture);
+        sprite.setTexture(texture);
+        sprite.setSize(texture.getWidth(), texture.getHeight());
+    }
+
+    public void flipX(boolean flip)
+    {
+        this.flipX = flip;
+        sprite.flip(flipX, flipY);
+    }
+
+    public void flipY(boolean flip)
+    {
+        this.flipY = flip;
+        sprite.flip(flipX, flipY);
     }
 
     @Override

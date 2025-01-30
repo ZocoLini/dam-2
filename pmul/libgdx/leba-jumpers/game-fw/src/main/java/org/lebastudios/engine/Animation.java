@@ -1,5 +1,6 @@
 package org.lebastudios.engine;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.function.Consumer;
@@ -7,7 +8,7 @@ import java.util.function.Consumer;
 public class Animation<T> extends com.badlogic.gdx.graphics.g2d.Animation<T>
 {
     private Consumer<T> onUpdate = _ -> {};
-    @Setter private boolean looping;
+    @Setter @Getter private boolean looping;
 
     public Animation(Consumer<T> onUpdate, float frameDuration, T... keyFrames)
     {
