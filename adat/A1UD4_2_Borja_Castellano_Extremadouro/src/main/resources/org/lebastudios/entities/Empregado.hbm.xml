@@ -40,7 +40,8 @@
             <element column="Numero" type="string" />
         </set>
         -->
-        
+
+        <!--
         <set name="telefonos" table="telefonos" >
             <key>
                 <column name="NSS" not-null="true" /> 
@@ -50,7 +51,15 @@
                 <property name="info" column="Info" type="string" />
             </composite-element>
         </set>
-        
+        -->
+        <map name="telefonos" table="telefonos">
+            <key>
+                <column name="NSS"/>
+            </key>
+            <map-key type="string" column="Numero" />
+            <element column="informacion" type="string" />
+        </map>
+
         <!-- Referenced by -->
     </class>
 </hibernate-mapping>

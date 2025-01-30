@@ -6,15 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
 @Table(name = "empregado")
 public class Empregado
@@ -35,7 +34,13 @@ public class Empregado
     @Column(name = "Sexo")
     private Character sexo;
     
+    // @ElementCollection
+    // @CollectionTable(name = "telefonos", joinColumns = @JoinColumn(name = "NSS"))
+    // private Set<Telefono> telefonos = new HashSet<>();
+    
     @ElementCollection
     @CollectionTable(name = "telefonos", joinColumns = @JoinColumn(name = "NSS"))
-    private Set<Telefono> telefonos = new HashSet<>();
+    @MapKeyColumn(name = "Numero")
+    @Column(name = "Info")
+    private Map<String, String> telefonos = new HashMap<>();
 }
