@@ -1,6 +1,8 @@
 package org.lebastudios.engine;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ public abstract class Scene implements Screen
 {
     private SceneMetadata metadata;
     private final List<GameObject> gameObjects = new ArrayList<>();
-    @Getter private final Camera camera = new Camera();
+    @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
 
     public Scene(SceneMetadata sceneMetadata)
@@ -32,6 +34,12 @@ public abstract class Scene implements Screen
     {
         setup();
 
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new Camera(getCameraWidth(), getCameraHeight() * (h / w));
+        camera.position.set(0, 0, 0);
+        camera.update();
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.create();
@@ -41,6 +49,8 @@ public abstract class Scene implements Screen
     @Override
     public final void render(float delta)
     {
+        batch.setProjectionMatrix(camera.combined);
+
         ScreenUtils.clear(0, 0, 1, 1);
 
         for (GameObject gameObject : gameObjects)
@@ -72,12 +82,11 @@ public abstract class Scene implements Screen
     public void show() {}
 
     @Override
-    public void resize(int width, int height) {
-        camera.setToOrtho(false, getCameraWidth(), getCameraHeight());
+    public void resize(int width, int height)
+    {
+        camera.viewportWidth = getCameraWidth();
+        camera.viewportHeight = getCameraHeight() * height/width;
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
-
-        System.out.println("Resized to: " + width + "x" + height);
     }
 
     @Override
@@ -99,7 +108,9 @@ public abstract class Scene implements Screen
     }
 
     protected abstract void setup();
+
     protected abstract float getCameraWidth();
+
     protected abstract float getCameraHeight();
 
     @Getter

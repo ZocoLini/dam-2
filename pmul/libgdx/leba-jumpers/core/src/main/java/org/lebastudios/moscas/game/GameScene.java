@@ -1,5 +1,6 @@
 package org.lebastudios.moscas.game;
 
+import com.badlogic.gdx.graphics.Texture;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.components.SpriteRenderer;
@@ -13,7 +14,9 @@ public class GameScene extends Scene
     {
         GameObject character = new GameObject(new Transform(0, 0, 0));
 
-        character.addComponent(new SpriteRenderer());
+        SpriteRenderer spriteRenderer = new SpriteRenderer();
+        spriteRenderer.setSpriteTexture(new Texture("insects/insect_1.png"));
+        character.addComponent(spriteRenderer);
         character.addComponent(new MoscaController());
 
         this.addGameObject(character);

@@ -21,10 +21,12 @@ public class SpriteRenderer extends Component
     @Override
     public void onRender(SpriteBatch batch)
     {
+        if (sprite.getTexture() == null) return;
+
         // Cambiar la imagen si necesario
         Transform transform = this.getGameObject().getTransform();
 
-        sprite.setPosition(transform.getPosition().x, transform.getPosition().y);
+        sprite.setCenter(transform.getPosition().x, transform.getPosition().y);
         sprite.setScale(transform.getScale().x, transform.getScale().y);
 
         sprite.draw(batch);
