@@ -12,7 +12,7 @@ import org.lebastudios.engine.components.TextRenderer;
 import org.lebastudios.engine.components.Transform;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.moscas.InsectosGameAdapter;
-import org.lebastudios.moscas.config.ScreenConfig;
+import org.lebastudios.moscas.config.WorldConfig;
 import org.lebastudios.moscas.game.GameScene;
 import org.lebastudios.moscas.game.GameState;
 import org.lebastudios.moscas.persistence.GameData;
@@ -51,6 +51,7 @@ public class MainMenuScene extends Scene
         animation.setLooping(true);
         animator.addAnimation(animation);
         imagenInsectos.addComponent(animator);
+        imagenInsectos.addComponent(new ImageMovementController());
 
         this.addGameObject(imagenInsectos);
 
@@ -65,12 +66,12 @@ public class MainMenuScene extends Scene
     @Override
     protected float getCameraWidth()
     {
-        return ScreenConfig.WIDTH;
+        return WorldConfig.WIDTH;
     }
 
     @Override
     protected float getCameraHeight()
     {
-        return ScreenConfig.HEIGHT;
+        return WorldConfig.HEIGHT;
     }
 }

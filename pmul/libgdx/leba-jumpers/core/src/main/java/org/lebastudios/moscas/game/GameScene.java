@@ -5,7 +5,7 @@ import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.components.SpriteRenderer;
 import org.lebastudios.engine.components.Transform;
-import org.lebastudios.moscas.config.ScreenConfig;
+import org.lebastudios.moscas.config.WorldConfig;
 
 public class GameScene extends Scene
 {
@@ -25,12 +25,12 @@ public class GameScene extends Scene
     @Override
     protected float getCameraWidth()
     {
-        return ScreenConfig.WIDTH;
+        return WorldConfig.WIDTH;
     }
 
     @Override
     protected float getCameraHeight()
     {
-        return ScreenConfig.HEIGHT;
+        return WorldConfig.HEIGHT;
     }
 }
