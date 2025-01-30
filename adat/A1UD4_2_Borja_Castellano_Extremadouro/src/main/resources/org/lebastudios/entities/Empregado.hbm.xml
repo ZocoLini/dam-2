@@ -32,11 +32,23 @@
         </property>
 
         <!-- References -->
+        <!--
         <set name="telefonos" table="telefonos" >
             <key>
                 <column name="NSS" /> 
             </key>
             <element column="Numero" type="string" />
+        </set>
+        -->
+        
+        <set name="telefonos" table="telefonos" >
+            <key>
+                <column name="NSS" not-null="true" /> 
+            </key>
+            <composite-element class="org.lebastudios.entities.Telefono" >
+                <property name="numero" column="Numero" type="string" />
+                <property name="info" column="Info" type="string" />
+            </composite-element>
         </set>
         
         <!-- Referenced by -->

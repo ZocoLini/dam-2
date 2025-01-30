@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lebastudios</groupId>
-    <artifactId>A1UD4_Borja_Castellano_Extremadouro</artifactId>
+    <artifactId>A1UD4_2_Borja_Castellano_Extremadouro</artifactId>
     <version>1.0.0</version>
     <name>A1UD4_Borja_Castellano_Extremadouro</name>
 

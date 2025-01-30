@@ -12,12 +12,13 @@ create table empregado
 
 create table telefonos
 (
-    NSS varchar(15) not null,
-    Numero varchar(9) not null,
-    constraint FK_TELEFONO_EMPREGADO foreign key (NSS) references empregado(NSS),
+    NSS    varchar(15) not null,
+    Numero varchar(9)  not null,
+    Info   varchar(15) null,
+    constraint FK_TELEFONO_EMPREGADO foreign key (NSS) references empregado (NSS),
     constraint PK_TELEFONO primary key (Numero),
     constraint CK_TELEFONO_NUMEROS check ( Numero like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
-); 
+);
 
 create table Departamento
 (
