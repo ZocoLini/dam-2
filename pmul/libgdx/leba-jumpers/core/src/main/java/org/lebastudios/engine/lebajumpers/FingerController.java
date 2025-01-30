@@ -7,7 +7,7 @@ import org.lebastudios.engine.input.InputManager;
 public class FingerController extends Component
 {
     private int direccion = 0;
-    private int velocidad = 10;
+    private int velocidad = 60;
 
     @Override
     public void onStart()

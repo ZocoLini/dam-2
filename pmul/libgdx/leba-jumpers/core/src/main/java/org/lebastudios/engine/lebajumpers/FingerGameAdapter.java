@@ -8,6 +8,6 @@ public class FingerGameAdapter extends GameAdapter
     @Override
     protected Scene createFirstScene()
     {
-        return new MainMenuScene();
+        return new GameScene();
     }
 }
