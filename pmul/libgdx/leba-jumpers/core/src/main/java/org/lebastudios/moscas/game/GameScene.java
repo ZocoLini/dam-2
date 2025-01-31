@@ -5,8 +5,10 @@ import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.components.BoxCollider2D;
 import org.lebastudios.engine.components.SpriteRenderer;
+import org.lebastudios.engine.components.TextRenderer;
 import org.lebastudios.engine.components.Transform;
 import org.lebastudios.moscas.config.WorldConfig;
+import org.lebastudios.moscas.persistence.GameData;
 
 public class GameScene extends Scene
 {
@@ -19,7 +21,22 @@ public class GameScene extends Scene
         return instance;
     }
 
-    private GameScene() {}
+    private final TextRenderer insectsKilledTextRenderer;
+    private final TextRenderer recordTextRenderer;
+
+    private GameScene() {
+        GameObject recordText = new GameObject(new Transform(0, WorldConfig.HEIGHT / 2f - 25, 0), this);
+        recordTextRenderer = new TextRenderer();
+        recordText.addComponent(recordTextRenderer);
+
+        this.addGameObject(recordText);
+
+        GameObject insectsKilledText = new GameObject(new Transform(0, WorldConfig.HEIGHT / 2f - 50, 0), this);
+        insectsKilledTextRenderer = new TextRenderer();
+        insectsKilledText.addComponent(insectsKilledTextRenderer);
+
+        this.addGameObject(insectsKilledText);
+    }
 
     @Override
     protected void setup()
@@ -33,9 +50,17 @@ public class GameScene extends Scene
         collider2D.setHeigth(50);
         collider2D.setWidth(50);
         character.addComponent(collider2D);
-        character.addComponent(new MoscaController());
+        MoscaController moscaController = new MoscaController();
+        character.addComponent(moscaController);
 
         this.addGameObject(character);
+
+        insectsKilledTextRenderer.setText("");
+        moscaController.setInsectsKilledText(insectsKilledTextRenderer);
+
+        final var numInsectos = GameState.getInstance().getNumInsectos();
+        Integer recordSeconds = GameData.getInstance().getRecords().get(numInsectos);
+        recordTextRenderer.setText(recordSeconds == null ? "Sin record" : "Record: " + recordSeconds + "s");
     }
 
     @Override

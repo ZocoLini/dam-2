@@ -25,8 +25,6 @@ public abstract class Scene implements Screen
         this.metadata = sceneMetadata;
     }
 
-    // TODO: La camara no sacara de pantalla la escena por mucho que haga resize. Los limites del mundo siempre seran visibles
-
     public Scene()
     {
         this(new SceneMetadata(Scene.class.getSimpleName()));
@@ -36,9 +34,7 @@ public abstract class Scene implements Screen
     {
         setup();
 
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        camera = new Camera(getCameraWidth(), getCameraHeight() * (h / w));
+        camera = new Camera();
         camera.position.set(0, 0, 0);
         camera.update();
 
@@ -91,8 +87,20 @@ public abstract class Scene implements Screen
     @Override
     public void resize(int width, int height)
     {
-        camera.viewportWidth = getCameraWidth();
-        camera.viewportHeight = getCameraHeight() * height/width;
+        float aspectRatio = (float) height / width;
+        float desiredAspectRatio = getCameraHeight() / getCameraWidth();
+
+        if (aspectRatio < desiredAspectRatio)
+        {
+            camera.viewportWidth = getCameraWidth() / aspectRatio * desiredAspectRatio;
+            camera.viewportHeight = getCameraHeight();
+        }
+        else
+        {
+            camera.viewportWidth = getCameraWidth();
+            camera.viewportHeight = getCameraHeight() * aspectRatio / desiredAspectRatio;
+        }
+
         camera.update();
     }
 

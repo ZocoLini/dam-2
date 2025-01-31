@@ -45,14 +45,18 @@ public class SpriteRenderer extends Component
 
     public void flipX(boolean flip)
     {
+        if (this.flipX == flip) return;
+
         this.flipX = flip;
-        sprite.flip(flipX, flipY);
+        sprite.flip(true, false);
     }
 
     public void flipY(boolean flip)
     {
+        if (flipY == flip) return;
+
         this.flipY = flip;
-        sprite.flip(flipX, flipY);
+        sprite.flip(false, true);
     }
 
     @Override

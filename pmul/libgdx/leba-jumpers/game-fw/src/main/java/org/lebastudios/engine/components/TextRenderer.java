@@ -8,15 +8,9 @@ import lombok.Getter;
 
 public class TextRenderer extends Component
 {
-    @Getter private String text;
-    private BitmapFont font = new BitmapFont();
-    private GlyphLayout glyphLayout = new GlyphLayout();
-
-    @Override
-    public void onStart()
-    {
-        font.setColor(Color.BLACK);
-    }
+    @Getter private String text = "";
+    private final BitmapFont font = new BitmapFont();
+    private final GlyphLayout glyphLayout = new GlyphLayout();
 
     @Override
     public void onRender(SpriteBatch batch)

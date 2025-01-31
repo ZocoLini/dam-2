@@ -1,12 +1,15 @@
 package org.lebastudios.moscas.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import lombok.Setter;
 import org.lebastudios.engine.components.Component;
 import org.lebastudios.engine.components.SpriteRenderer;
+import org.lebastudios.engine.components.TextRenderer;
 import org.lebastudios.engine.components.Transform;
 import org.lebastudios.moscas.InsectosGameAdapter;
 import org.lebastudios.moscas.config.WorldConfig;
 import org.lebastudios.moscas.menu.MainMenuScene;
+import org.lebastudios.moscas.persistence.GameData;
 
 public class MoscaController extends Component
 {
@@ -15,6 +18,8 @@ public class MoscaController extends Component
     private Transform transform;
     private int timesClicked = 0;
     private SpriteRenderer spriteRenderer;
+    private float elapsedTime = 0;
+    @Setter private TextRenderer insectsKilledText;
 
     @Override
     public void onStart()
@@ -23,7 +28,6 @@ public class MoscaController extends Component
         spriteRenderer = this.getGameObject().getComponent(SpriteRenderer.class);
 
         changeDirection();
-        spriteRenderer.flipX(direccion < 0);
     }
 
     private void changeDirection()
@@ -34,9 +38,12 @@ public class MoscaController extends Component
     @Override
     public void onUpdate(float deltaTime)
     {
+        elapsedTime += deltaTime;
+
         if (transform.getPosition().x > WorldConfig.WIDTH / 2f) direccion = -1;
         if (transform.getPosition().x < - WorldConfig.WIDTH / 2f) direccion = 1;
 
+        spriteRenderer.flipX(direccion == -1);
 
         this.getGameObject().getTransform().translate(
             velocidad * direccion * deltaTime,
@@ -55,13 +62,13 @@ public class MoscaController extends Component
             spriteRenderer.setSpriteTexture(new Texture("insects/dead.png"));
             this.getGameObject().removeComponent(this);
             InsectosGameAdapter.getInstance().setScene(new MainMenuScene());
+            GameData.getInstance().registerNewScore((int) elapsedTime);
             return;
         }
 
         changeDirection();
 
-        spriteRenderer.flipX(direccion < 0);
-
+        insectsKilledText.setText(insectsKilledText.getText() + "  I");
         spriteRenderer.setSpriteTexture(new Texture("insects/insect_" + (timesClicked + 1) + ".png"));
     }
 }
