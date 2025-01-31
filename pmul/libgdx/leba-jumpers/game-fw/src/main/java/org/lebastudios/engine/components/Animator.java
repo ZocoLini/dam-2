@@ -1,14 +1,12 @@
 package org.lebastudios.engine.components;
 
+import com.badlogic.gdx.utils.Array;
 import org.lebastudios.engine.Animation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Animator extends Component
 {
     private float stateTime = 0;
-    private final List<Animation<?>> animations = new ArrayList<>();
+    private final Array<Animation<?>> animations = new Array<>(true, 2);
 
     public void addAnimation(Animation<?> animation) {
         animations.add(animation);
@@ -22,6 +20,15 @@ public class Animator extends Component
         for (var animation : animations)
         {
             animation.animate(stateTime);
+        }
+    }
+
+    @Override
+    public void onDispose()
+    {
+        for (var animation : animations)
+        {
+            animation.dispose();
         }
     }
 }

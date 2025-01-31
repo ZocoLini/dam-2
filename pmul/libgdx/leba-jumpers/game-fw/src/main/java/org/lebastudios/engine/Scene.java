@@ -123,6 +123,9 @@ public abstract class Scene implements Screen
     @Override
     public void dispose()
     {
+        batch.dispose();
+        shapeRenderer.dispose();
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.dispose();

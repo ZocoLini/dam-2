@@ -11,6 +11,7 @@ import org.lebastudios.engine.components.Animator;
 import org.lebastudios.engine.components.SpriteRenderer;
 import org.lebastudios.engine.components.TextRenderer;
 import org.lebastudios.engine.components.Transform;
+import org.lebastudios.engine.events.IEventMethod;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.moscas.InsectosGameAdapter;
 import org.lebastudios.moscas.config.WorldConfig;
@@ -20,6 +21,8 @@ import org.lebastudios.moscas.persistence.GameData;
 
 public class MainMenuScene extends Scene
 {
+    // TODO: Make this only get called once and the show method gets called every time the scene is set as the main one
+    //  also create factories for the game objects making the code more readable
     @Override
     protected void setup()
     {
@@ -56,20 +59,34 @@ public class MainMenuScene extends Scene
 
         this.addGameObject(imagenInsectos);
 
-        InputManager.getInstance().addKeyDownListener(Input.Keys.F, () -> Gdx.app.exit());
-        InputManager.getInstance().addKeyDownListener(Input.Keys.R, () -> GameData.getInstance().reset());
+        InputManager.getInstance().addKeyDownListener(Input.Keys.F, exitGameListener);
+        InputManager.getInstance().addKeyDownListener(Input.Keys.R, resetGameListener);
         InputManager.getInstance().addKeyDownListener(Input.Keys.NUM_9, startGameListener);
     }
 
-    private final Runnable startGameListener = new Runnable() {
+    private final IEventMethod startGameListener = new IEventMethod() {
         @Override
-        public void run()
+        public void invoke()
         {
             GameState.getInstance().setNumInsectos(9);
+
             InputManager.getInstance().removeKeyDownListener(Input.Keys.NUM_9, this);
+            InputManager.getInstance().removeKeyDownListener(Input.Keys.F, exitGameListener);
+            InputManager.getInstance().removeKeyDownListener(Input.Keys.R, resetGameListener);
+
             InsectosGameAdapter.getInstance().setScene(GameScene.getInstance());
         }
     };
+
+    private final IEventMethod exitGameListener = () -> Gdx.app.exit();
+
+    private final IEventMethod resetGameListener = () -> GameData.getInstance().reset();
+
+    @Override
+    public void hide()
+    {
+        dispose();
+    }
 
     @Override
     protected float getCameraWidth()

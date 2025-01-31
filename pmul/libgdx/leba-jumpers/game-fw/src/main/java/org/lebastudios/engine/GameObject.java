@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import lombok.Getter;
 import lombok.Setter;
+import org.lebastudios.engine.components.Collider2D;
 import org.lebastudios.engine.components.Component;
 import org.lebastudios.engine.components.Transform;
 
@@ -83,23 +84,23 @@ public final class GameObject
         }
     }
 
-    public void onTrigger2DEnter()
+    public void onTrigger2DEnter(Collider2D<?> collider2D)
     {
         for (Component component : components)
         {
-            component.onTrigger2DEnter();
+            component.onTrigger2DEnter(collider2D);
         }
     }
-    public void onTrigger2DExit() {
+    public void onTrigger2DExit(Collider2D<?> collider2D) {
         for (Component component : components)
         {
-            component.onTrigger2DExit();
+            component.onTrigger2DExit(collider2D);
         }
     }
-    public void onTrigger2DStays() {
+    public void onTrigger2DStays(Collider2D<?> collider2D) {
         for (Component component : components)
         {
-            component.onTrigger2DStays();
+            component.onTrigger2DStays(collider2D);
         }
     }
     public void onClicked() {

@@ -1,7 +1,10 @@
 package org.lebastudios.engine.input;
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.utils.Array;
+import org.lebastudios.engine.events.Event;
+import org.lebastudios.engine.events.Event4;
+import org.lebastudios.engine.events.IEventMethod;
+import org.lebastudios.engine.events.IEventMethod4;
 
 import java.util.HashMap;
 
@@ -16,32 +19,36 @@ public class InputManager implements InputProcessor
         return instance;
     }
 
-    private final HashMap<Integer, Array<Runnable>> onKeyDown = new HashMap<>();
-    private final HashMap<Integer, Array<Runnable>> onKeyUp = new HashMap<>();
-    private final Array<OnTouchDownListener> onTouchDown = new Array<>(false, 1);
+    // private final HashMap<Integer, Array<Runnable>> onKeyDown = new HashMap<>();
+    // private final HashMap<Integer, Array<Runnable>> onKeyUp = new HashMap<>();
+    // private final Array<OnTouchDownListener> onTouchDown = new Array<>(false, 1);
+
+    private final HashMap<Integer, Event> onKeyDown = new HashMap<>();
+    private final HashMap<Integer, Event> onKeyUp = new HashMap<>();
+    private final Event4<Integer, Integer, Integer, Integer> onTouchDown = new Event4<>();
 
     private InputManager() {}
 
-    public void addKeyDownListener(int keycode, Runnable runnable)
+    public void addKeyDownListener(int keycode, IEventMethod runnable)
     {
         if (!onKeyDown.containsKey(keycode))
         {
-            final var runnables = new Array<>(new Runnable[]{runnable});
-            runnables.ordered = false;
-            onKeyDown.put(keycode, runnables);
+            Event event = new Event();
+            event.addListener(runnable);
+            onKeyDown.put(keycode, event);
         }
         else
         {
-            onKeyDown.get(keycode).add(runnable);
+            onKeyDown.get(keycode).addListener(runnable);
         }
     }
 
-    public void removeKeyDownListener(int keycode, Runnable runnable)
+    public void removeKeyDownListener(int keycode, IEventMethod runnable)
     {
-        onKeyDown.get(keycode).removeValue(runnable, true);
+        onKeyDown.get(keycode).removeListener(runnable);
     }
 
-    public void addKeyDownListener(Runnable runnable, int... keycodes)
+    public void addKeyDownListener(IEventMethod runnable, int... keycodes)
     {
         for (int keycode : keycodes)
         {
@@ -49,26 +56,26 @@ public class InputManager implements InputProcessor
         }
     }
 
-    public void addKeyUpListener(int keycode, Runnable runnable)
+    public void addKeyUpListener(int keycode, IEventMethod runnable)
     {
         if (!onKeyUp.containsKey(keycode))
         {
-            final var runnables = new Array<>(new Runnable[]{runnable});
-            runnables.ordered = false;
-            onKeyUp.put(keycode, runnables);
+            Event event = new Event();
+            event.addListener(runnable);
+            onKeyUp.put(keycode, event);
         }
         else
         {
-            onKeyUp.get(keycode).add(runnable);
+            onKeyUp.get(keycode).addListener(runnable);
         }
     }
 
-    public void removeKeyUpListener(int keycode, Runnable runnable)
+    public void removeKeyUpListener(int keycode, IEventMethod runnable)
     {
-        onKeyUp.get(keycode).removeValue(runnable, true);
+        onKeyUp.get(keycode).removeListener(runnable);
     }
 
-    public void addKeyUpListener(Runnable runnable, int... keycodes)
+    public void addKeyUpListener(IEventMethod runnable, int... keycodes)
     {
         for (int keycode : keycodes)
         {
@@ -76,9 +83,9 @@ public class InputManager implements InputProcessor
         }
     }
 
-    public void addTouchDownListener(OnTouchDownListener touchDownListener)
+    public void addTouchDownListener(IEventMethod4<Integer, Integer, Integer, Integer> touchDownListener)
     {
-        onTouchDown.add(touchDownListener);
+        onTouchDown.addListener(touchDownListener);
     }
 
     @Override
@@ -86,10 +93,7 @@ public class InputManager implements InputProcessor
     {
         if (onKeyDown.containsKey(keycode))
         {
-            for (Runnable runnable : onKeyDown.get(keycode))
-            {
-                runnable.run();
-            }
+            onKeyDown.get(keycode).invoke();
 
             return true;
         }
@@ -102,10 +106,7 @@ public class InputManager implements InputProcessor
     {
         if (onKeyUp.containsKey(keycode))
         {
-            for (Runnable runnable : onKeyUp.get(keycode))
-            {
-                runnable.run();
-            }
+            onKeyUp.get(keycode).invoke();
 
             return true;
         }
@@ -122,10 +123,7 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        for (var touchDowm : onTouchDown)
-        {
-            touchDowm.onTouchDown(screenX, screenY, pointer, button);
-        }
+        onTouchDown.invoke(screenX, screenY, pointer, button);
 
         return true;
     }
@@ -158,10 +156,5 @@ public class InputManager implements InputProcessor
     public boolean scrolled(float amountX, float amountY)
     {
         return false;
-    }
-
-    public interface OnTouchDownListener
-    {
-        void onTouchDown(int screenX, int screenY, int pointer, int button);
     }
 }

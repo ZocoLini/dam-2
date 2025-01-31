@@ -58,9 +58,9 @@ public abstract class Component
     public void onDisable() {}
     public void onEnable() {}
 
-    public void onTrigger2DEnter() {}
-    public void onTrigger2DExit() {}
-    public void onTrigger2DStays() {}
+    public void onTrigger2DEnter(Collider2D<?> collider2D) {}
+    public void onTrigger2DExit(Collider2D<?> collider2D) {}
+    public void onTrigger2DStays(Collider2D<?> collider2D) {}
     public void onClicked() {}
 
     public void onDispose() {}

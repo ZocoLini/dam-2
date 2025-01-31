@@ -8,14 +8,19 @@ import org.lebastudios.engine.Camera;
 import org.lebastudios.engine.GameAdapter;
 import org.lebastudios.engine.input.InputManager;
 
+import java.util.HashMap;
+
 @Getter
 @Setter
-public class BoxCollider2D extends Component
+public class BoxCollider2D extends Collider2D<BoxCollider2D>
 {
-    private boolean isTrigger;
+    // TODO: Implement collision resolution
+    //  this.getGameObject().onCollision2DEnter(collider);
+    private boolean isTrigger = true;
     private Rectangle rectangle;
     @Setter @Getter private float width;
     @Setter @Getter private float heigth;
+    private HashMap<BoxCollider2D, Boolean> trackedCollidersState = new HashMap<>();
 
     @Override
     public void onStart()
@@ -32,6 +37,11 @@ public class BoxCollider2D extends Component
                 this.getGameObject().onClicked();
             }
         });
+    }
+
+    public void trackCollider(BoxCollider2D collider)
+    {
+        trackedCollidersState.put(collider, false);
     }
 
     @Override
@@ -60,10 +70,41 @@ public class BoxCollider2D extends Component
             );
             this.getGameObject().getScene().getShapeRenderer().end();
         }
+
+        for (var colliderStateEntry : trackedCollidersState.entrySet())
+        {
+            if (colliderStateEntry.getValue())
+            {
+                if (!colliderStateEntry.getKey().collides(this))
+                {
+                    colliderStateEntry.getKey().getGameObject().onTrigger2DExit(this);
+                    colliderStateEntry.setValue(false);
+                }
+                else
+                {
+                    colliderStateEntry.getKey().getGameObject().onTrigger2DStays(this);
+                }
+            }
+            else
+            {
+                if (colliderStateEntry.getKey().collides(this))
+                {
+                    colliderStateEntry.getKey().getGameObject().onTrigger2DEnter(this);
+                    colliderStateEntry.setValue(true);
+                }
+            }
+        }
     }
 
+    @Override
     public boolean collides(float x, float y)
     {
         return rectangle.contains(x, y);
+    }
+
+    @Override
+    public boolean collides(BoxCollider2D other)
+    {
+        return rectangle.overlaps(other.getRectangle());
     }
 }
