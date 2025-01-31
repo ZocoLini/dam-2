@@ -19,6 +19,7 @@ public class InputManager implements InputProcessor
 
     private final HashMap<Integer, List<Runnable>> onKeyDown = new HashMap<>();
     private final HashMap<Integer, List<Runnable>> onKeyUp = new HashMap<>();
+    private final List<OnTouchDownListener> onTouchDown = new ArrayList<>();
 
     private InputManager() {}
 
@@ -62,6 +63,11 @@ public class InputManager implements InputProcessor
         }
     }
 
+    public void addTouchDownListener(OnTouchDownListener touchDownListener)
+    {
+        onTouchDown.add(touchDownListener);
+    }
+
     @Override
     public boolean keyDown(int keycode)
     {
@@ -103,7 +109,12 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        return false;
+        for (var touchDowm : onTouchDown)
+        {
+            touchDowm.onTouchDown(screenX, screenY, pointer, button);
+        }
+
+        return true;
     }
 
     @Override
@@ -134,5 +145,10 @@ public class InputManager implements InputProcessor
     public boolean scrolled(float amountX, float amountY)
     {
         return false;
+    }
+
+    public interface OnTouchDownListener
+    {
+        void onTouchDown(int screenX, int screenY, int pointer, int button);
     }
 }

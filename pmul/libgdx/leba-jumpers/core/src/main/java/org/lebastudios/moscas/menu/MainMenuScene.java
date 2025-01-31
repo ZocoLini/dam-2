@@ -3,6 +3,7 @@ package org.lebastudios.moscas.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import org.lebastudios.engine.Animation;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
@@ -22,7 +23,7 @@ public class MainMenuScene extends Scene
     @Override
     protected void setup()
     {
-        GameObject title = new GameObject(new Transform(0, 10, 0));
+        GameObject title = new GameObject(new Transform(0, getCameraHeight() / 2 - 100, 0), this);
         TextRenderer titleRenderer = new TextRenderer();
         titleRenderer.setText("Moscas");
 
@@ -30,7 +31,8 @@ public class MainMenuScene extends Scene
 
         this.addGameObject(title);
 
-        GameObject imagenInsectos = new GameObject(new Transform(0, 0, 0));
+        GameObject imagenInsectos = new GameObject(new Transform(0, 0, 0), this);
+        imagenInsectos.getTransform().setScale(new Vector3(1, 1, 1));
         SpriteRenderer spriteRenderer = new SpriteRenderer();
         imagenInsectos.addComponent(spriteRenderer);
 
@@ -51,7 +53,6 @@ public class MainMenuScene extends Scene
         animation.setLooping(true);
         animator.addAnimation(animation);
         imagenInsectos.addComponent(animator);
-        imagenInsectos.addComponent(new ImageMovementController());
 
         this.addGameObject(imagenInsectos);
 

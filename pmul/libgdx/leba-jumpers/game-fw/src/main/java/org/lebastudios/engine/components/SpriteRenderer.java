@@ -23,10 +23,13 @@ public class SpriteRenderer extends Component
     {
         if (sprite.getTexture() == null) return;
 
-        // Cambiar la imagen si necesario
         Transform transform = this.getGameObject().getTransform();
 
-        sprite.setCenter(transform.getPosition().x, transform.getPosition().y);
+        // TODO: No se centra cuando se cambia la escala de 1 a algo mayor
+        sprite.setCenter(
+            transform.getPosition().x * transform.getScale().x,
+            transform.getPosition().y * transform.getScale().y
+        );
         sprite.setScale(transform.getScale().x, transform.getScale().y);
 
         sprite.draw(batch);

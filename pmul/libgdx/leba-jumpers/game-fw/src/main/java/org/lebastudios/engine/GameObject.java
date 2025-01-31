@@ -14,25 +14,25 @@ public final class GameObject
     private final GameObjectMetadata metadata;
     private final List<Component> components = new ArrayList<>();
     @Getter private final Transform transform;
+    @Getter private final Scene scene;
 
-    public GameObject(Transform transform, GameObjectMetadata metadata)
+    public GameObject(Transform transform, GameObjectMetadata metadata, Scene scene)
     {
         this.metadata = metadata;
         this.transform = transform;
+        this.scene = scene;
         addComponent(transform);
     }
 
-    public GameObject(Transform transform)
+    public GameObject(Transform transform, Scene scene)
     {
-        this(transform, new GameObjectMetadata());
+        this(transform, new GameObjectMetadata(), scene);
     }
 
     public void addComponent(Component component)
     {
         components.add(component);
         component.setGameObject(this);
-
-        component.onStart();
     }
 
     public void removeComponent(Component component)
@@ -83,6 +83,32 @@ public final class GameObject
         {
             if (!component.isEnabled()) continue;
             component.onRender(batch);
+        }
+    }
+
+    public void onTrigger2DEnter()
+    {
+        for (Component component : components)
+        {
+            component.onTrigger2DEnter();
+        }
+    }
+    public void onTrigger2DExit() {
+        for (Component component : components)
+        {
+            component.onTrigger2DExit();
+        }
+    }
+    public void onTrigger2DStays() {
+        for (Component component : components)
+        {
+            component.onTrigger2DStays();
+        }
+    }
+    public void onClicked() {
+        for (Component component : components)
+        {
+            component.onClicked();
         }
     }
 

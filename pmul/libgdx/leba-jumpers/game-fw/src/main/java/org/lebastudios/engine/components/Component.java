@@ -54,9 +54,14 @@ public abstract class Component
     public void onRender(SpriteBatch batch) {}
 
     public void onDestroy() {}
-    public void onDisable() {}
 
+    public void onDisable() {}
     public void onEnable() {}
+
+    public void onTrigger2DEnter() {}
+    public void onTrigger2DExit() {}
+    public void onTrigger2DStays() {}
+    public void onClicked() {}
 
     public void onDispose() {}
 }

@@ -2,13 +2,15 @@ package org.lebastudios.engine.components;
 
 import com.badlogic.gdx.math.Vector3;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class Transform extends Component
 {
-    private final Vector3 position;
-    private final Vector3 rotation;
-    private final Vector3 scale;
+    private Vector3 position;
+    private Vector3 rotation;
+    private Vector3 scale;
 
     public Transform(float x, float y, float z)
     {
