@@ -25,6 +25,8 @@ public abstract class Scene implements Screen
         this.metadata = sceneMetadata;
     }
 
+    // TODO: La camara no sacara de pantalla la escena por mucho que haga resize. Los limites del mundo siempre seran visibles
+
     public Scene()
     {
         this(new SceneMetadata(Scene.class.getSimpleName()));
