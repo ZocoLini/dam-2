@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 import lombok.Getter;
 import lombok.Setter;
 import org.lebastudios.engine.Camera;
+import org.lebastudios.engine.GameAdapter;
 import org.lebastudios.engine.input.InputManager;
 
 @Getter
@@ -47,6 +48,18 @@ public class BoxCollider2D extends Component
             width * transform.getScale().x,
             heigth * transform.getScale().y
         );
+
+        if (GameAdapter.DEBUG)
+        {
+            this.getGameObject().getScene().getShapeRenderer().begin();
+            this.getGameObject().getScene().getShapeRenderer().rect(
+                rectangle.x,
+                rectangle.y,
+                rectangle.width,
+                rectangle.height
+            );
+            this.getGameObject().getScene().getShapeRenderer().end();
+        }
     }
 
     public boolean collides(float x, float y)

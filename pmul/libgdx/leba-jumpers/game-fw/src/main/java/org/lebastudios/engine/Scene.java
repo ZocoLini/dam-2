@@ -1,24 +1,22 @@
 package org.lebastudios.engine;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Scene implements Screen
 {
-    private SceneMetadata metadata;
-    private final List<GameObject> gameObjects = new ArrayList<>();
+    private final SceneMetadata metadata;
+    private final Array<GameObject> gameObjects = new Array<>();
     @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
+    @Getter private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public Scene(SceneMetadata sceneMetadata)
     {
@@ -38,6 +36,8 @@ public abstract class Scene implements Screen
         camera.position.set(0, 0, 0);
         camera.update();
 
+        shapeRenderer.setAutoShapeType(true);
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.create();
@@ -48,6 +48,7 @@ public abstract class Scene implements Screen
     public final void render(float delta)
     {
         batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
 
         ScreenUtils.clear(0, 0, 1, 1);
 
@@ -74,11 +75,17 @@ public abstract class Scene implements Screen
     public void addGameObject(GameObject gameObject)
     {
         gameObjects.add(gameObject);
+        gameObject.setScene(this);
     }
 
     public void removeSceneObject(GameObject gameObject)
     {
-        gameObjects.remove(gameObject);
+        if (gameObjects.removeValue(gameObject, true))
+        {
+            gameObject.setScene(null);
+            gameObject.dispose();
+        }
+
     }
 
     @Override

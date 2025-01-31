@@ -23,7 +23,7 @@ public class MainMenuScene extends Scene
     @Override
     protected void setup()
     {
-        GameObject title = new GameObject(new Transform(0, getCameraHeight() / 2 - 100, 0), this);
+        GameObject title = new GameObject(new Transform(0, getCameraHeight() / 2 - 100, 0));
         TextRenderer titleRenderer = new TextRenderer();
         titleRenderer.setText("Moscas");
 
@@ -31,7 +31,7 @@ public class MainMenuScene extends Scene
 
         this.addGameObject(title);
 
-        GameObject imagenInsectos = new GameObject(new Transform(0, 0, 0), this);
+        GameObject imagenInsectos = new GameObject(new Transform(0, 0, 0));
         imagenInsectos.getTransform().setScale(new Vector3(1, 1, 1));
         SpriteRenderer spriteRenderer = new SpriteRenderer();
         imagenInsectos.addComponent(spriteRenderer);

@@ -7,27 +7,23 @@ import lombok.Setter;
 import org.lebastudios.engine.components.Component;
 import org.lebastudios.engine.components.Transform;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public final class GameObject
 {
     private final GameObjectMetadata metadata;
-    private final List<Component> components = new CopyOnWriteArrayList<>();
+    private final Array<Component> components = new Array<>();
     @Getter private final Transform transform;
-    @Getter private final Scene scene;
+    @Setter @Getter private Scene scene;
 
-    public GameObject(Transform transform, GameObjectMetadata metadata, Scene scene)
+    public GameObject(Transform transform, GameObjectMetadata metadata)
     {
         this.metadata = metadata;
         this.transform = transform;
-        this.scene = scene;
         addComponent(transform);
     }
 
-    public GameObject(Transform transform, Scene scene)
+    public GameObject(Transform transform)
     {
-        this(transform, new GameObjectMetadata(), scene);
+        this(transform, new GameObjectMetadata());
     }
 
     public void addComponent(Component component)
@@ -38,7 +34,7 @@ public final class GameObject
 
     public void removeComponent(Component component)
     {
-        components.remove(component);
+        components.removeValue(component, true);
     }
 
     public <T extends Component> T getComponent(Class<T> type)
@@ -111,6 +107,16 @@ public final class GameObject
         {
             component.onClicked();
         }
+    }
+
+    public void destroy()
+    {
+        for (Component component : components)
+        {
+            component.onDestroy();
+        }
+
+        this.scene.removeSceneObject(this);
     }
 
     public void dispose() {

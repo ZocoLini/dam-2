@@ -25,7 +25,6 @@ public class GameData
 
     private void load()
     {
-        // TODO: Load records from a file
         records = new HashMap<>(9);
     }
 

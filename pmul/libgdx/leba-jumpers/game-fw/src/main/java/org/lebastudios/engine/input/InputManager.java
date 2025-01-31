@@ -1,11 +1,9 @@
 package org.lebastudios.engine.input;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.utils.Array;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class InputManager implements InputProcessor
 {
@@ -18,9 +16,9 @@ public class InputManager implements InputProcessor
         return instance;
     }
 
-    private final HashMap<Integer, CopyOnWriteArrayList<Runnable>> onKeyDown = new HashMap<>();
-    private final HashMap<Integer, CopyOnWriteArrayList<Runnable>> onKeyUp = new HashMap<>();
-    private final CopyOnWriteArrayList<OnTouchDownListener> onTouchDown = new CopyOnWriteArrayList<>();
+    private final HashMap<Integer, Array<Runnable>> onKeyDown = new HashMap<>();
+    private final HashMap<Integer, Array<Runnable>> onKeyUp = new HashMap<>();
+    private final Array<OnTouchDownListener> onTouchDown = new Array<>(false, 1);
 
     private InputManager() {}
 
@@ -28,7 +26,9 @@ public class InputManager implements InputProcessor
     {
         if (!onKeyDown.containsKey(keycode))
         {
-            onKeyDown.put(keycode, new CopyOnWriteArrayList<>(List.of(runnable)));
+            final var runnables = new Array<>(new Runnable[]{runnable});
+            runnables.ordered = false;
+            onKeyDown.put(keycode, runnables);
         }
         else
         {
@@ -38,7 +38,7 @@ public class InputManager implements InputProcessor
 
     public void removeKeyDownListener(int keycode, Runnable runnable)
     {
-        onKeyDown.get(keycode).remove(runnable);
+        onKeyDown.get(keycode).removeValue(runnable, true);
     }
 
     public void addKeyDownListener(Runnable runnable, int... keycodes)
@@ -53,7 +53,9 @@ public class InputManager implements InputProcessor
     {
         if (!onKeyUp.containsKey(keycode))
         {
-            onKeyUp.put(keycode, new CopyOnWriteArrayList<>(List.of(runnable)));
+            final var runnables = new Array<>(new Runnable[]{runnable});
+            runnables.ordered = false;
+            onKeyUp.put(keycode, runnables);
         }
         else
         {
@@ -63,7 +65,7 @@ public class InputManager implements InputProcessor
 
     public void removeKeyUpListener(int keycode, Runnable runnable)
     {
-        onKeyUp.get(keycode).remove(runnable);
+        onKeyUp.get(keycode).removeValue(runnable, true);
     }
 
     public void addKeyUpListener(Runnable runnable, int... keycodes)

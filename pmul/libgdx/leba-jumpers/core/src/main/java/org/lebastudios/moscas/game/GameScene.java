@@ -25,13 +25,13 @@ public class GameScene extends Scene
     private final TextRenderer recordTextRenderer;
 
     private GameScene() {
-        GameObject recordText = new GameObject(new Transform(0, WorldConfig.HEIGHT / 2f - 25, 0), this);
+        GameObject recordText = new GameObject(new Transform(0, WorldConfig.HEIGHT / 2f - 25, 0));
         recordTextRenderer = new TextRenderer();
         recordText.addComponent(recordTextRenderer);
 
         this.addGameObject(recordText);
 
-        GameObject insectsKilledText = new GameObject(new Transform(0, WorldConfig.HEIGHT / 2f - 50, 0), this);
+        GameObject insectsKilledText = new GameObject(new Transform(0, WorldConfig.HEIGHT / 2f - 50, 0));
         insectsKilledTextRenderer = new TextRenderer();
         insectsKilledText.addComponent(insectsKilledTextRenderer);
 
@@ -41,7 +41,7 @@ public class GameScene extends Scene
     @Override
     protected void setup()
     {
-        GameObject character = new GameObject(new Transform(0, 0, 0), this);
+        GameObject character = new GameObject(new Transform(0, 0, 0));
 
         SpriteRenderer spriteRenderer = new SpriteRenderer();
         spriteRenderer.setSpriteTexture(new Texture("insects/insect_1.png"));
