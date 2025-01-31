@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class InputManager implements InputProcessor
 {
@@ -17,9 +18,9 @@ public class InputManager implements InputProcessor
         return instance;
     }
 
-    private final HashMap<Integer, List<Runnable>> onKeyDown = new HashMap<>();
-    private final HashMap<Integer, List<Runnable>> onKeyUp = new HashMap<>();
-    private final List<OnTouchDownListener> onTouchDown = new ArrayList<>();
+    private final HashMap<Integer, CopyOnWriteArrayList<Runnable>> onKeyDown = new HashMap<>();
+    private final HashMap<Integer, CopyOnWriteArrayList<Runnable>> onKeyUp = new HashMap<>();
+    private final CopyOnWriteArrayList<OnTouchDownListener> onTouchDown = new CopyOnWriteArrayList<>();
 
     private InputManager() {}
 
@@ -27,12 +28,17 @@ public class InputManager implements InputProcessor
     {
         if (!onKeyDown.containsKey(keycode))
         {
-            onKeyDown.put(keycode, new ArrayList<>(List.of(runnable)));
+            onKeyDown.put(keycode, new CopyOnWriteArrayList<>(List.of(runnable)));
         }
         else
         {
             onKeyDown.get(keycode).add(runnable);
         }
+    }
+
+    public void removeKeyDownListener(int keycode, Runnable runnable)
+    {
+        onKeyDown.get(keycode).remove(runnable);
     }
 
     public void addKeyDownListener(Runnable runnable, int... keycodes)
@@ -47,12 +53,17 @@ public class InputManager implements InputProcessor
     {
         if (!onKeyUp.containsKey(keycode))
         {
-            onKeyUp.put(keycode, new ArrayList<>(List.of(runnable)));
+            onKeyUp.put(keycode, new CopyOnWriteArrayList<>(List.of(runnable)));
         }
         else
         {
             onKeyUp.get(keycode).add(runnable);
         }
+    }
+
+    public void removeKeyUpListener(int keycode, Runnable runnable)
+    {
+        onKeyUp.get(keycode).remove(runnable);
     }
 
     public void addKeyUpListener(Runnable runnable, int... keycodes)

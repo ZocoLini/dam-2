@@ -19,9 +19,16 @@ public class MoscaController extends Component
     @Override
     public void onStart()
     {
-        direccion = Math.random() > 0.5f ? 1 : -1;
         transform = this.getGameObject().getTransform();
         spriteRenderer = this.getGameObject().getComponent(SpriteRenderer.class);
+
+        changeDirection();
+        spriteRenderer.flipX(direccion < 0);
+    }
+
+    private void changeDirection()
+    {
+        direccion = Math.random() > 0.5f ? 1 : -1;
     }
 
     @Override
@@ -45,12 +52,15 @@ public class MoscaController extends Component
 
         if (GameState.getInstance().getNumInsectos() <= timesClicked)
         {
-            System.out.println("Terminada run");
             spriteRenderer.setSpriteTexture(new Texture("insects/dead.png"));
             this.getGameObject().removeComponent(this);
             InsectosGameAdapter.getInstance().setScene(new MainMenuScene());
             return;
         }
+
+        changeDirection();
+
+        spriteRenderer.flipX(direccion < 0);
 
         spriteRenderer.setSpriteTexture(new Texture("insects/insect_" + (timesClicked + 1) + ".png"));
     }

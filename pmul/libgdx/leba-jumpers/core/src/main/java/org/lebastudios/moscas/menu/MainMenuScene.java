@@ -58,11 +58,18 @@ public class MainMenuScene extends Scene
 
         InputManager.getInstance().addKeyDownListener(Input.Keys.F, () -> Gdx.app.exit());
         InputManager.getInstance().addKeyDownListener(Input.Keys.R, () -> GameData.getInstance().reset());
-        InputManager.getInstance().addKeyDownListener(Input.Keys.NUM_9, () -> {
-            GameState.getInstance().setNumInsectos(9);
-            InsectosGameAdapter.getInstance().setScene(GameScene.getInstance());
-        });
+        InputManager.getInstance().addKeyDownListener(Input.Keys.NUM_9, startGameListener);
     }
+
+    private final Runnable startGameListener = new Runnable() {
+        @Override
+        public void run()
+        {
+            GameState.getInstance().setNumInsectos(9);
+            InputManager.getInstance().removeKeyDownListener(Input.Keys.NUM_9, this);
+            InsectosGameAdapter.getInstance().setScene(GameScene.getInstance());
+        }
+    };
 
     @Override
     protected float getCameraWidth()

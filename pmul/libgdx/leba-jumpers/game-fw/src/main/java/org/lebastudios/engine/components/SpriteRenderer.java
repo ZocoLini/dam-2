@@ -8,7 +8,7 @@ import lombok.Setter;
 
 public class SpriteRenderer extends Component
 {
-    private Sprite sprite = new Sprite();
+    private final Sprite sprite = new Sprite();
     @Getter @Setter private boolean flipX;
     @Getter @Setter private boolean flipY;
 
@@ -39,6 +39,7 @@ public class SpriteRenderer extends Component
     {
         sprite.setRegion(texture);
         sprite.setTexture(texture);
+        sprite.flip(flipX, flipY);
         sprite.setSize(texture.getWidth(), texture.getHeight());
     }
 
