@@ -1,34 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20"
-              rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c9cd0ca-bf79-482f-9138-2c32519809d7">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <background>
-        <band splitType="Stretch"/>
-    </background>
-    <title>
-        <band height="79" splitType="Stretch"/>
-    </title>
-    <pageHeader>
-        <band height="35" splitType="Stretch"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61" splitType="Stretch"/>
-    </columnHeader>
-    <detail>
-        <band height="125" splitType="Stretch"/>
-    </detail>
-    <columnFooter>
-        <band height="45" splitType="Stretch"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54" splitType="Stretch"/>
-    </pageFooter>
-    <summary>
-        <band height="42" splitType="Stretch"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="300" pageHeight="842" columnWidth="290" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="20" uuid="9c9cd0ca-bf79-482f-9138-2c32519809d7">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from tcabsfacturas inner join clinica.tlinsfacturas t on tcabsfacturas.id_factura = t.id_factura]]>
+	</queryString>
+	<field name="id_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numfactura" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datafactura" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_iva" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="enderezo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="poboacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="provincia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod_postal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_linea_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod_produto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="produto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="notas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidade" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prezo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dto" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ive" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalProducto" class="java.lang.Float">
+		<variableExpression><![CDATA[$F{cantidade} * $F{prezo}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="169" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="290" height="13" uuid="07f939ce-0ce0-4e36-8eec-bf5180872151"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[**Centro Veterinario DAM2**]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="290" height="13" uuid="3f9aba9d-9722-4ef8-85a2-9a607c6898c4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Chan do Monte 23 - Marín]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="290" height="13" uuid="3f9aba9d-9722-4ef8-85a2-9a607c6898c4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[A súa mascota nas mellores mans]]></text>
+			</staticText>
+			<image>
+				<reportElement x="90" y="45" width="112" height="61" uuid="a5d4e1ee-757a-4937-9322-e13cd02186c1"/>
+				<imageExpression><![CDATA[".\\logoclinicafac.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="116" width="290" height="13" uuid="aa90ef02-67c1-4270-879c-7515a2b457b8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CIF A28425270]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="290" height="13" uuid="10e22f65-432b-47de-8250-4b2bd020dd21"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Telf Directo Tenda 6755343763]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="143" width="290" height="13" uuid="be127deb-5e0f-484a-b2ef-5975441f8070"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Telf Atención ao Cliente 900123123]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="156" width="290" height="13" uuid="61b62d94-2c78-4253-bf00-d4643eb89de4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[******************************************]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="4" width="100" height="14" uuid="2ab86a69-643f-42fb-b49b-58ac95441cbd"/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="4" width="100" height="14" uuid="ecc402d3-f9fb-4ae8-a2a5-8b07510c2d28"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="17" width="286" height="14" uuid="7f92fa4e-d8ca-4ff5-ab63-8bc7b2a42e91"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[=============================================================================]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="100" height="14" uuid="3ed5616f-55b7-4feb-8488-63e3c685f8f1"/>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="17" y="15" width="185" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="432d968b-c8f4-4b00-9eea-470c5a1f0206">
+					<printWhenExpression><![CDATA[$F{cantidade} > 1]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cantidade} + " x (" + $F{prezo} + ")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="0" width="186" height="14" uuid="8b1c218c-3d92-41c6-aa42-cdf53d66f359">
+					<printWhenExpression><![CDATA[$F{cantidade} == 1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalProducto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="103" y="15" width="186" height="14" isRemoveLineWhenBlank="true" uuid="5f7b348a-3d7c-4082-b32e-cb24ed143ba1">
+					<printWhenExpression><![CDATA[$F{cantidade} > 1
+]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalProducto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>
