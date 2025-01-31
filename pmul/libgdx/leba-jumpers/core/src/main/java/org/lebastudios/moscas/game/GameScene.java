@@ -10,6 +10,17 @@ import org.lebastudios.moscas.config.WorldConfig;
 
 public class GameScene extends Scene
 {
+    private static GameScene instance;
+
+    public static GameScene getInstance()
+    {
+        if (instance == null) instance = new GameScene();
+
+        return instance;
+    }
+
+    private GameScene() {}
+
     @Override
     protected void setup()
     {

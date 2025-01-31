@@ -24,12 +24,10 @@ public class BoxCollider2D extends Component
 
         InputManager.getInstance().addTouchDownListener((screenX, screenY, pointer, button) ->
         {
-            System.out.println(123);
             final var unprojected = camera.unproject(new Vector3(screenX, screenY, 0));
 
             if (collides(unprojected.x, unprojected.y))
             {
-                System.out.println(123);
                 this.getGameObject().onClicked();
             }
         });

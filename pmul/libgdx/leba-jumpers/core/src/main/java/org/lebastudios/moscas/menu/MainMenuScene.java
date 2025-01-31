@@ -60,7 +60,7 @@ public class MainMenuScene extends Scene
         InputManager.getInstance().addKeyDownListener(Input.Keys.R, () -> GameData.getInstance().reset());
         InputManager.getInstance().addKeyDownListener(Input.Keys.NUM_9, () -> {
             GameState.getInstance().setNumInsectos(9);
-            InsectosGameAdapter.getInstance().setScene(new GameScene());
+            InsectosGameAdapter.getInstance().setScene(GameScene.getInstance());
         });
     }
 

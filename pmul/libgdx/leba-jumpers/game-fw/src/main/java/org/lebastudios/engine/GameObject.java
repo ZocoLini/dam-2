@@ -1,18 +1,19 @@
 package org.lebastudios.engine;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import lombok.Getter;
 import lombok.Setter;
 import org.lebastudios.engine.components.Component;
 import org.lebastudios.engine.components.Transform;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class GameObject
 {
     private final GameObjectMetadata metadata;
-    private final List<Component> components = new ArrayList<>();
+    private final List<Component> components = new CopyOnWriteArrayList<>();
     @Getter private final Transform transform;
     @Getter private final Scene scene;
 
