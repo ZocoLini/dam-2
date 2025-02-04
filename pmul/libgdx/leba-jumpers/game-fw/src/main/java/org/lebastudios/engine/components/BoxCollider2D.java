@@ -61,14 +61,12 @@ public class BoxCollider2D extends Collider2D<BoxCollider2D>
 
         if (GameAdapter.DEBUG)
         {
-            this.getGameObject().getScene().getShapeRenderer().begin();
             this.getGameObject().getScene().getShapeRenderer().rect(
                 rectangle.x,
                 rectangle.y,
                 rectangle.width,
                 rectangle.height
             );
-            this.getGameObject().getScene().getShapeRenderer().end();
         }
 
         for (var colliderStateEntry : trackedCollidersState.entrySet())

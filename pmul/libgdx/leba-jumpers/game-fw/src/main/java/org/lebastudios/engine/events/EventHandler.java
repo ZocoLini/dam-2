@@ -50,7 +50,6 @@ public abstract class EventHandler<T>
         {
             weakListeners.removeIf(w -> w.get() == listener);
         }
-        ;
     }
 
     public synchronized void clearListeners()

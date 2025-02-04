@@ -63,12 +63,14 @@ public abstract class Scene implements Screen
         }
 
         batch.begin();
+        shapeRenderer.begin();
 
         for (GameObject gameObject : gameObjects)
         {
             gameObject.render(batch);
         }
 
+        shapeRenderer.end();
         batch.end();
     }
 

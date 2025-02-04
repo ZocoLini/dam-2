@@ -2,6 +2,7 @@ package org.lebastudios.moscas.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import org.lebastudios.finger.FingerGameAdapter;
 import org.lebastudios.moscas.InsectosGameAdapter;
 
 /** Launches the desktop (LWJGL3) application. */
@@ -12,7 +13,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new InsectosGameAdapter(), getDefaultConfiguration());
+        return new Lwjgl3Application(new FingerGameAdapter(), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
