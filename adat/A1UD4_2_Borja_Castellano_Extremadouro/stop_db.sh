@@ -1,3 +1,3 @@
 #!/bin/bash
 
-podman stop mysql-adat
+docker stop mysql-adat

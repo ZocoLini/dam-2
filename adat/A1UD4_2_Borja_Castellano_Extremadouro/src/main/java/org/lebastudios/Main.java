@@ -6,7 +6,9 @@ import org.hibernate.cfg.Configuration;
 import org.lebastudios.entities.Departamento;
 import org.lebastudios.entities.Empregado;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 public class Main
@@ -19,7 +21,7 @@ public class Main
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Set<String> telefonos = Set.of("981123456", "981654321");
+        Map<String, String> telefonos = Map.of("981123456", "Num1", "981654321", "Num2");
         Empregado empregado = new Empregado(
                 "PEpe",
                 "Juanillo",
@@ -28,7 +30,8 @@ public class Main
                 1.234f,
                 new Date(1234556677),
                 'H',
-                telefonos
+                telefonos,
+                new ArrayList<>()
         );
         
         session.persist(empregado);

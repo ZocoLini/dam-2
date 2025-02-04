@@ -10,6 +10,22 @@ create table empregado
     constraint PK_EMPREGADO primary key (NSS)
 );
 
+create table familiar
+(
+    NSS_Empregado varchar(15) not null,
+    Numero        int         not null,
+    NSS           varchar(15) not null,
+    Nome          varchar(25) not null,
+    Apelido1      varchar(25) not null,
+    Apelido2      varchar(25) not null,
+    DataNacemento date        not null,
+    Parentesco    varchar(20) not null,
+    Sexo          char(1)     not null,
+    constraint PK_FAMILIAR primary key (NSS, Numero),
+    constraint FK_FAMILIAR_EMPREGADO foreign key (NSS_Empregado) references empregado (NSS),
+    constraint UQ_FAMILIAR_NSS unique (NSS)
+);
+
 create table telefonos
 (
     NSS    varchar(15) not null,

@@ -60,6 +60,21 @@
             <element column="informacion" type="string" />
         </map>
 
+        <list name="familiares" table="familiar">
+            <key>
+                <column name="NSS_Empregado" not-null="true" />
+            </key>
+            <list-index column="Numero" base="0"/>
+            <composite-element class="org.lebastudios.entities.Familiar">
+                <property name="nome" column="Nome" type="string" not-null="true" />
+                <property name="apelido1" column="Apelido1" type="string" not-null="true" />
+                <property name="apelido2" column="Apelido2" type="string" not-null="true" />
+                <property name="dataNacemento" column="DataNacemento" type="date" not-null="true" />
+                <property name="parentesco" column="Parentesco" type="string" not-null="true" />
+                <property name="sexo" column="Sexo" type="char" not-null="true" />
+            </composite-element>
+        </list>
+        
         <!-- Referenced by -->
     </class>
 </hibernate-mapping>

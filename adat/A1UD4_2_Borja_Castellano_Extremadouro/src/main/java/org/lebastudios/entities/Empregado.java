@@ -43,4 +43,6 @@ public class Empregado
     @MapKeyColumn(name = "Numero")
     @Column(name = "Info")
     private Map<String, String> telefonos = new HashMap<>();
+    
+    private List<Familiar> familiares = new ArrayList<>();
 }
