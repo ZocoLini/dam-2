@@ -1,1 +1,1 @@
-from . import curso
+from . import vehiculo

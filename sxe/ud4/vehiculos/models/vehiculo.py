@@ -1,8 +1,8 @@
 from odoo import fields, models, api
 
-class Curso(models.Model):
-    _name = "instituto.curso"
-    _description = "isntituto curso"
+class Vehiculo(models.Model):
+    _name = "cars.vehiculo"
+    _description = "Vehiculo del Modulo Cars"
 
     name = fields.Char(string='Titulo', required=True)
     is_done = fields.Boolean(string='Done')

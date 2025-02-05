@@ -1,8 +1,8 @@
 <odoo>
     <!-- Tree(list) View -->
-    <record id="view_instituto_tree_view" model="ir.ui.view">
-        <field name="name">instituto.curso.tree.view</field>
-        <field name="model">instituto.curso</field>
+    <record id="view_cars_tree_view" model="ir.ui.view">
+        <field name="name">cars.vehiculo.tree.view</field>
+        <field name="model">cars.vehiculo</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -16,11 +16,11 @@
     </record>
 
     <!-- Form View
-    <record id="view_instituto_form_view" model="ir.ui.view">
-        <field name="name">instituto.curso.form.view</field>
-        <field name="model">instituto.curso</field>
+    <record id="view_cars_form_view" model="ir.ui.view">
+        <field name="name">cars.vehiculo.form.view</field>
+        <field name="model">cars.vehiculo</field>
         <field name="arch" type="xml">
-            <form string="instituto">
+            <form string="cars">
                 <sheet>
                     <div class="oe_title">
                         <h3>
@@ -50,9 +50,9 @@
     -->
 
     <!-- Search View -->
-    <record id="view_instituto_search_view" model="ir.ui.view">
-        <field name="name">instituto Search</field>
-        <field name="model">instituto.curso</field>
+    <record id="view_cars_search_view" model="ir.ui.view">
+        <field name="name">cars Search</field>
+        <field name="model">cars.vehiculo</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
@@ -65,22 +65,22 @@
         </field>
     </record>
 
-    <record id="action_instituto" model="ir.actions.act_window">
-        <field name="name">instituto</field>
+    <record id="action_cars" model="ir.actions.act_window">
+        <field name="name">cars</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">instituto.curso</field>
+        <field name="res_model">cars.vehiculo</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                Create instituto.
+                Create cars.
             </p>
         </field>
     </record>
 
-    <menuitem id="instituto_main_menu" name="instituto" sequence="1"/>
+    <menuitem id="cars_main_menu" name="cars" sequence="1"/>
 
-    <menuitem id="instituto_type_menu" name="instituto" parent="instituto_main_menu"
-        action="instituto.action_instituto" groups="instituto.group_instituto_manager"
+    <menuitem id="cars_type_menu" name="cars" parent="cars_main_menu"
+        action="cars.action_cars" groups="cars.group_cars_manager"
         sequence="1"/>
 
 </odoo>

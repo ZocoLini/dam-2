@@ -1,7 +1,7 @@
 {
-    "name": "instituto APLICACION",  # Module title
-    "summary": "Manage Hostel easily",  # Module subtitle phrase
-    "description": "Efficiently manage the entire residential facility in the school.",  # Supports reStructuredText(RST) format (description is Deprecated)
+    "name": "Cars",  # Module title
+    "summary": "Herramienta para gestionar coches",  # Module subtitle phrase
+    "description": "Description",  # Supports reStructuredText(RST) format (description is Deprecated)
     "version": "17.0.1.0.0",
     "author": "Borja Castellano Extremaoduro",
     "category": "Tools",
@@ -9,9 +9,9 @@
     "license": "AGPL-3",
     "depends": ["base"],
     "data": [
-    	"security/instituto_security.xml",
+    	"security/cars_security.xml",
         "security/ir.model.access.csv",
-        "views/instituto.xml",
+        "views/cars.xml",
 	],
     "installable": True,
 }
