@@ -1,20 +1,16 @@
-from odoo import fields, models, api
+from odoo import fields, models
+
 
 class Vehiculo(models.Model):
     _name = "cars.vehiculo"
     _description = "Vehiculo del Modulo Cars"
 
-    name = fields.Char(string='Titulo', required=True)
-    is_done = fields.Boolean(string='Done')
-    description = fields.Text(string = 'Descripción')
-    active = fields.Boolean(string='Active')
-
-    nombre_profesor = fields.Text(string='Nombre del profesor')
-    numero_horas = fields.Integer(string='Número de horas')
-
-    def _compute_urgente(self):
-        for record in self:
-            if record.dias > 7:
-                record.abierto = True
-            else:
-                record.abierto = False
+    modelo = fields.Char(string='Modelo', required=True)
+    combustible = fields.Selection([
+        ('diesel', 'Diesel'),
+        ('gasolina', 'Gasolina'),
+        ('hibrido', 'Hibrido'),
+        ('electrico', 'Electrico'),
+    ], string='Combustible', required=True)
+    fechaCompra = fields.Date(string='Fecha de Compra')
+    matricula = fields.Char(string='Matricula', required=True)

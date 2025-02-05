@@ -11,7 +11,7 @@
     "data": [
     	"security/cars_security.xml",
         "security/ir.model.access.csv",
-        "views/cars.xml",
+        "views/vehiculo.xml",
 	],
     "installable": True,
 }
