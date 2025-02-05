@@ -9,6 +9,7 @@
                 <field name="combustible"/>
                 <field name="fechaCompra"/>
                 <field name="matricula"/>
+                <field name="trabajador"/>
             </tree>
         </field>
     </record>
@@ -57,6 +58,7 @@
                 <field name="combustible"/>
                 <field name="fechaCompra"/>
                 <field name="matricula"/>
+                <field name="trabajador"/>
             </search>
         </field>
     </record>

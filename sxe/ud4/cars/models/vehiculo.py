@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class Vehiculo(models.Model):
@@ -13,4 +14,11 @@ class Vehiculo(models.Model):
         ('electrico', 'Electrico'),
     ], string='Combustible', required=True)
     fechaCompra = fields.Date(string='Fecha de Compra')
-    matricula = fields.Char(string='Matricula', required=True)
+    matricula = fields.Char(string='Matricula',  required=True)
+    trabajador = fields.Many2many('res.partner', string='Trabajador')
+
+    @api.constrains('matricula')
+    def _check_matricula_length(self):
+        for record in self:
+            if record.matricula and len(record.matricula) != 7:
+                raise ValidationError("La matrícula debe tener exactamente 7 caracteres.")
