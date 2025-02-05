@@ -3,8 +3,7 @@ package org.lebastudios;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.lebastudios.entities.Departamento;
-import org.lebastudios.entities.Empregado;
+import org.lebastudios.entities.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +15,11 @@ public class Main
     public static void main(String[] args)
     {
         Configuration configuration = new Configuration().configure();
+        
+        configuration.addAnnotatedClass(Empregado.class);
+        configuration.addAnnotatedClass(Proxecto.class);
+        configuration.addAnnotatedClass(Departamento.class);
+        
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
         Session session = sessionFactory.openSession();
