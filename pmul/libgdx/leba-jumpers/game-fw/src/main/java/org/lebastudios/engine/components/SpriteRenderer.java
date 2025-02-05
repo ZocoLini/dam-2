@@ -3,38 +3,60 @@ package org.lebastudios.engine.components;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import lombok.Getter;
+import lombok.Setter;
 
 public class SpriteRenderer extends Component
 {
-    private final String spriteName;
-    private Sprite sprite;
-
-    public SpriteRenderer(String spriteName)
-    {
-        super();
-        this.spriteName = spriteName;
-    }
+    private final Sprite sprite = new Sprite();
+    @Getter @Setter private boolean flipX;
+    @Getter @Setter private boolean flipY;
 
     @Override
-    public void onAwake()
+    public void onStart()
     {
-        TextureRegion textureRegion = new TextureRegion();
-        textureRegion.setRegion(new Texture("libgdx.png"));
-
-        sprite = new Sprite();
-        sprite.setRegion(textureRegion);
-
-        sprite.setSize(300, 300);
         sprite.setOriginCenter();
-        sprite.setPosition(100, 50);
-        sprite.setRotation(0);
     }
 
     @Override
     public void onRender(SpriteBatch batch)
     {
+        if (sprite.getTexture() == null) return;
+
+        Transform transform = this.getGameObject().getTransform();
+
+        // TODO: No se centra cuando se cambia la escala de 1 a algo mayor
+        sprite.setCenter(
+            transform.getPosition().x * transform.getScale().x,
+            transform.getPosition().y * transform.getScale().y
+        );
+        sprite.setScale(transform.getScale().x, transform.getScale().y);
+
         sprite.draw(batch);
+    }
+
+    public void setSpriteTexture(Texture texture)
+    {
+        sprite.setRegion(texture);
+        sprite.setTexture(texture);
+        sprite.flip(flipX, flipY);
+        sprite.setSize(texture.getWidth(), texture.getHeight());
+    }
+
+    public void flipX(boolean flip)
+    {
+        if (this.flipX == flip) return;
+
+        this.flipX = flip;
+        sprite.flip(true, false);
+    }
+
+    public void flipY(boolean flip)
+    {
+        if (flipY == flip) return;
+
+        this.flipY = flip;
+        sprite.flip(false, true);
     }
 
     @Override

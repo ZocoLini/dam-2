@@ -1,10 +1,12 @@
 package org.lebastudios.engine.input;
 
 import com.badlogic.gdx.InputProcessor;
+import org.lebastudios.engine.events.Event;
+import org.lebastudios.engine.events.Event4;
+import org.lebastudios.engine.events.IEventMethod;
+import org.lebastudios.engine.events.IEventMethod4;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class InputManager implements InputProcessor
 {
@@ -17,33 +19,73 @@ public class InputManager implements InputProcessor
         return instance;
     }
 
-    private final HashMap<Integer, List<Runnable>> onKeyDown = new HashMap<>();
-    private final HashMap<Integer, List<Runnable>> onKeyUp = new HashMap<>();
+    // private final HashMap<Integer, Array<Runnable>> onKeyDown = new HashMap<>();
+    // private final HashMap<Integer, Array<Runnable>> onKeyUp = new HashMap<>();
+    // private final Array<OnTouchDownListener> onTouchDown = new Array<>(false, 1);
+
+    private final HashMap<Integer, Event> onKeyDown = new HashMap<>();
+    private final HashMap<Integer, Event> onKeyUp = new HashMap<>();
+    private final Event4<Integer, Integer, Integer, Integer> onTouchDown = new Event4<>();
 
     private InputManager() {}
 
-    public void addKeyDown(int keycode, Runnable runnable)
+    public void addKeyDownListener(int keycode, IEventMethod runnable)
     {
         if (!onKeyDown.containsKey(keycode))
         {
-            onKeyDown.put(keycode, new ArrayList<>(List.of(runnable)));
+            Event event = new Event();
+            event.addListener(runnable);
+            onKeyDown.put(keycode, event);
         }
         else
         {
-            onKeyDown.get(keycode).add(runnable);
+            onKeyDown.get(keycode).addListener(runnable);
         }
     }
 
-    public void addKeyUp(int keycode, Runnable runnable)
+    public void removeKeyDownListener(int keycode, IEventMethod runnable)
+    {
+        onKeyDown.get(keycode).removeListener(runnable);
+    }
+
+    public void addKeyDownListener(IEventMethod runnable, int... keycodes)
+    {
+        for (int keycode : keycodes)
+        {
+            addKeyDownListener(keycode, runnable);
+        }
+    }
+
+    public void addKeyUpListener(int keycode, IEventMethod runnable)
     {
         if (!onKeyUp.containsKey(keycode))
         {
-            onKeyUp.put(keycode, new ArrayList<>(List.of(runnable)));
+            Event event = new Event();
+            event.addListener(runnable);
+            onKeyUp.put(keycode, event);
         }
         else
         {
-            onKeyUp.get(keycode).add(runnable);
+            onKeyUp.get(keycode).addListener(runnable);
         }
+    }
+
+    public void removeKeyUpListener(int keycode, IEventMethod runnable)
+    {
+        onKeyUp.get(keycode).removeListener(runnable);
+    }
+
+    public void addKeyUpListener(IEventMethod runnable, int... keycodes)
+    {
+        for (int keycode : keycodes)
+        {
+            addKeyUpListener(keycode, runnable);
+        }
+    }
+
+    public void addTouchDownListener(IEventMethod4<Integer, Integer, Integer, Integer> touchDownListener)
+    {
+        onTouchDown.addListener(touchDownListener);
     }
 
     @Override
@@ -51,10 +93,7 @@ public class InputManager implements InputProcessor
     {
         if (onKeyDown.containsKey(keycode))
         {
-            for (Runnable runnable : onKeyDown.get(keycode))
-            {
-                runnable.run();
-            }
+            onKeyDown.get(keycode).invoke();
 
             return true;
         }
@@ -67,10 +106,7 @@ public class InputManager implements InputProcessor
     {
         if (onKeyUp.containsKey(keycode))
         {
-            for (Runnable runnable : onKeyUp.get(keycode))
-            {
-                runnable.run();
-            }
+            onKeyUp.get(keycode).invoke();
 
             return true;
         }
@@ -87,7 +123,9 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        return false;
+        onTouchDown.invoke(screenX, screenY, pointer, button);
+
+        return true;
     }
 
     @Override

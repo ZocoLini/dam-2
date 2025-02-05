@@ -2,28 +2,25 @@ package org.lebastudios.engine;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Scene implements Screen
 {
-    private SceneMetadata metadata;
-    private final List<GameObject> gameObjects = new ArrayList<>();
-    @Getter private final Camera camera = new Camera();
+    private final SceneMetadata metadata;
+    private final Array<GameObject> gameObjects = new Array<>();
+    @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
+    @Getter private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public Scene(SceneMetadata sceneMetadata)
     {
         this.metadata = sceneMetadata;
-
-        camera.setToOrtho(false, 400, 300);
-        camera.update();
     }
 
     public Scene()
@@ -35,7 +32,11 @@ public abstract class Scene implements Screen
     {
         setup();
 
-        batch.setProjectionMatrix(camera.combined);
+        camera = new Camera();
+        camera.position.set(0, 0, 0);
+        camera.update();
+
+        shapeRenderer.setAutoShapeType(true);
 
         for (GameObject gameObject : gameObjects)
         {
@@ -46,43 +47,71 @@ public abstract class Scene implements Screen
     @Override
     public final void render(float delta)
     {
+        batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
+
         ScreenUtils.clear(0, 0, 1, 1);
 
-        updateAndRender(delta, batch);
-    }
-
-    private void updateAndRender(float deltaTime, SpriteBatch batch)
-    {
         for (GameObject gameObject : gameObjects)
         {
-            gameObject.update(deltaTime);
+            gameObject.physicsUpdate(delta);
+        }
+
+        for (GameObject gameObject : gameObjects)
+        {
+            gameObject.update(delta);
         }
 
         batch.begin();
+        shapeRenderer.begin();
 
         for (GameObject gameObject : gameObjects)
         {
             gameObject.render(batch);
         }
 
+        shapeRenderer.end();
         batch.end();
     }
 
-    public void addSceneObject(GameObject gameObject)
+    public void addGameObject(GameObject gameObject)
     {
         gameObjects.add(gameObject);
+        gameObject.setScene(this);
     }
 
     public void removeSceneObject(GameObject gameObject)
     {
-        gameObjects.remove(gameObject);
+        if (gameObjects.removeValue(gameObject, true))
+        {
+            gameObject.setScene(null);
+            gameObject.dispose();
+        }
+
     }
 
     @Override
     public void show() {}
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height)
+    {
+        float aspectRatio = (float) height / width;
+        float desiredAspectRatio = getCameraHeight() / getCameraWidth();
+
+        if (aspectRatio < desiredAspectRatio)
+        {
+            camera.viewportWidth = getCameraWidth() / aspectRatio * desiredAspectRatio;
+            camera.viewportHeight = getCameraHeight();
+        }
+        else
+        {
+            camera.viewportWidth = getCameraWidth();
+            camera.viewportHeight = getCameraHeight() * aspectRatio / desiredAspectRatio;
+        }
+
+        camera.update();
+    }
 
     @Override
     public void pause() {}
@@ -96,6 +125,9 @@ public abstract class Scene implements Screen
     @Override
     public void dispose()
     {
+        batch.dispose();
+        shapeRenderer.dispose();
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.dispose();
@@ -103,6 +135,10 @@ public abstract class Scene implements Screen
     }
 
     protected abstract void setup();
+
+    protected abstract float getCameraWidth();
+
+    protected abstract float getCameraHeight();
 
     @Getter
     @Setter

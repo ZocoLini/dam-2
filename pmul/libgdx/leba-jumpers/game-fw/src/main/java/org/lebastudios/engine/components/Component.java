@@ -1,10 +1,14 @@
 package org.lebastudios.engine.components;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import lombok.Getter;
+import lombok.Setter;
+import org.lebastudios.engine.GameObject;
 
 public abstract class Component
 {
-    private boolean enabled = true;
+    @Getter private boolean enabled = true;
+    @Setter private GameObject gameObject;
 
     public Component()
     {
@@ -34,8 +38,18 @@ public abstract class Component
         onDestroy();
     }
 
+    public final GameObject getGameObject()
+    {
+        return gameObject;
+    }
+    public final Transform getTransform()
+    {
+        return getGameObject().getTransform();
+    }
+
     public void onAwake() {}
     public void onStart() {}
+    public void onPhysicsUpdate(float deltaTime) {}
     public void onUpdate(float deltaTime) {}
     public void onRender(SpriteBatch batch) {}
 
@@ -44,10 +58,10 @@ public abstract class Component
     public void onDisable() {}
     public void onEnable() {}
 
-    public void onDispose() {}
+    public void onTrigger2DEnter(Collider2D<?> collider2D) {}
+    public void onTrigger2DExit(Collider2D<?> collider2D) {}
+    public void onTrigger2DStays(Collider2D<?> collider2D) {}
+    public void onClicked() {}
 
-    public boolean isEnabled()
-    {
-        return enabled;
-    }
+    public void onDispose() {}
 }

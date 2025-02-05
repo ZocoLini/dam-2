@@ -1,52 +1,40 @@
 package org.lebastudios.engine;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.Collections;
 import lombok.Getter;
 import org.lebastudios.engine.input.InputManager;
 
 @Getter
-public abstract class GameAdapter extends ApplicationAdapter
+public abstract class GameAdapter extends Game
 {
-    protected Scene scene;
+    protected abstract Scene getFirstScene();
+    public static final boolean DEBUG = false;
 
-    protected abstract Scene createFirstScene();
+    public GameAdapter()
+    {
+        super();
+    }
 
     @Override
     public void create()
     {
-        scene = createFirstScene();
-
         Gdx.input.setInputProcessor(InputManager.getInstance());
+        Collections.allocateIterators = true;
 
-        scene.create();
-    }
-
-    @Override
-    public void render()
-    {
-        scene.render(Gdx.graphics.getDeltaTime());
-    }
-
-    @Override
-    public void resize(int width, int height)
-    {
-        if (scene != null) scene.resize(width, height);
+        setScene(getFirstScene());
     }
 
     public final Scene getScene()
     {
-        return scene;
+        return (Scene) super.screen;
     }
 
     public final void setScene(Scene scene)
     {
-        if (this.scene != null) this.scene.hide();
-        this.scene = scene;
-        if (this.scene != null) {
-            this.scene.show();
-            this.scene.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        }
+        scene.create();
+
+        super.setScreen(scene);
     }
 }
