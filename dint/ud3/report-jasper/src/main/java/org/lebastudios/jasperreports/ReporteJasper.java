@@ -6,6 +6,8 @@ package org.lebastudios.jasperreports;
 
 import net.sf.jasperreports.engine.*;
 
+import java.util.HashMap;
+
 /**
  * @author bcastextr
  */
@@ -21,7 +23,10 @@ public class ReporteJasper
                 ReporteJasper.class.getResourceAsStream("first-report.jrxml")
         );
         
-        JasperPrint print = JasperFillManager.fillReport(report, null);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("WHERE", "where f.id_factura = 13");
+        
+        JasperPrint print = JasperFillManager.fillReport(report, params);
     }
 
 }
