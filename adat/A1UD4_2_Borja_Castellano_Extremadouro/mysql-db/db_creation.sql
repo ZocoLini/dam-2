@@ -10,6 +10,14 @@ create table empregado
     constraint PK_EMPREGADO primary key (NSS)
 );
 
+create table aficion
+(
+    NSS_Empregado varchar(15) not null,
+    Aficion varchar(50) not null,
+    constraint PK_AFICION primary key (NSS_Empregado, Aficion),
+    constraint FK_AFICION_EMPREGADO foreign key (NSS_Empregado) references empregado(NSS)
+);
+
 create table vehiculos
 (
     Nss_Empregado varchar(10) not null,
@@ -53,6 +61,16 @@ create table Departamento
     NomeDepartamento varchar(25) not null,
     constraint PK_DEPARTAMENTO primary key (NumDepartamento),
     constraint UQ_NOME_DEPARTAMENTO unique (NomeDepartamento)
+);
+
+create table lugar
+(
+    id int not null,
+    Num_Departamento int not null,
+    Lugar varchar(15),
+    constraint PK_LUGAR primary key (id),
+    constraint FK_LUGAR_DEPARTAMENTO foreign key (Num_Departamento) references Departamento(NumDepartamento),
+    constraint UQ_LUGAR_DEPARTAMENTO unique (Num_Departamento, Lugar)
 );
 
 create table Proxecto

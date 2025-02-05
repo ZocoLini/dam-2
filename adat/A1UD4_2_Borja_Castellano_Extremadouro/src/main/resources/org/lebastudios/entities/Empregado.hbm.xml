@@ -74,6 +74,23 @@
                 <property name="sexo" column="Sexo" type="char" not-null="true" />
             </composite-element>
         </list>
+
+        <bag name="aficiones" table="aficion"> 
+            <key>
+                <column name="NSS_Empregado"/>
+            </key>
+            <element column="Aficion" type="string" not-null="true" />
+        </bag>
+        
+        <idbag name="lugares" table="lugar">
+            <collection-id column="id" type="int">
+                <generator class="increment"/>
+            </collection-id>
+            <key>
+                <column name="Num_Departamento" not-null="true"/>
+            </key>
+            <element column="Lugar" type="string" not-null="true" />
+        </idbag>
         
         <!-- Referenced by -->
     </class>
