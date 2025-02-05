@@ -14,9 +14,9 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <!-- Mapping files -->
-        <!--<mapping resource="org/lebastudios/entities/Departamento.hbm.xml"/>-->
-        <!--<mapping resource="org/lebastudios/entities/Proxecto.hbm.xml"/>-->
-        <!--<mapping resource="org/lebastudios/entities/Empregado.hbm.xml"/>-->
+        <mapping resource="org/lebastudios/entities/Departamento.hbm.xml"/>
+        <mapping resource="org/lebastudios/entities/Proxecto.hbm.xml"/>
+        <mapping resource="org/lebastudios/entities/Empregado.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>

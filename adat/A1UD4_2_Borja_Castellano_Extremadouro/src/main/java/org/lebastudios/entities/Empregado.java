@@ -50,4 +50,11 @@ public class Empregado
     @OrderColumn(name = "Numero")
     @ListIndexBase(value = 1)
     private List<Familiar> familiares = new ArrayList<>();
+    
+    @ElementCollection
+    @CollectionTable(name = "aficion", joinColumns = @JoinColumn(name = "NSS_Empregado"))
+    @Column(name = "Aficion", nullable = false)
+    private Collection<String> aficiones = new ArrayList<>();
+    
+    private Collection<String> lugares = new ArrayList<>();
 }

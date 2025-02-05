@@ -5,10 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.lebastudios.entities.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Main
 {
@@ -25,7 +23,16 @@ public class Main
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Map<String, String> telefonos = Map.of("981123456", "Num1", "981654321", "Num2");
+        Map<String, String> telefonos = Map.of("98112356", "Num1", "91654321", "Num2");
+        Familiar familiar = new Familiar(
+                "sdfgsdfg",
+                "PEpe",
+                "JIJI",
+                "Pepe",
+                "Pepe",
+                new Date(LocalDate.now().toEpochDay()),
+                'M'
+        );
         Empregado empregado = new Empregado(
                 "PEpe",
                 "Juanillo",
@@ -35,7 +42,9 @@ public class Main
                 new Date(1234556677),
                 'H',
                 telefonos,
-                new ArrayList<>()
+                List.of(familiar),
+                List.of(),
+                List.of()
         );
         
         session.persist(empregado);
