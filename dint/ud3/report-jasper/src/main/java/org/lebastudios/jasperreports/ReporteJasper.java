@@ -6,6 +6,11 @@ package org.lebastudios.jasperreports;
 
 import net.sf.jasperreports.engine.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
+
 /**
  * @author bcastextr
  */
@@ -15,13 +20,18 @@ public class ReporteJasper
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws JRException
+    public static void main(String[] args) throws JRException, SQLException
     {
-        JasperReport report = JasperCompileManager.compileReport(
-                ReporteJasper.class.getResourceAsStream("first-report.jrxml")
-        );
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinica", "root", "abc123.");
         
-        JasperPrint print = JasperFillManager.fillReport(report, null);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("WHERE", "where f.id_factura = 13");
+
+        JasperPrint print = JasperFillManager.fillReport(
+                ReporteJasper.class.getResourceAsStream("first-report.jasper"),
+                params,
+                conn
+        );
     }
 
 }
