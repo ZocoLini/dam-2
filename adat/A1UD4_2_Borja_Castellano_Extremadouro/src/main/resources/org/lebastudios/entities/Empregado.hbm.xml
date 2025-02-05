@@ -57,7 +57,7 @@
                 <column name="NSS"/>
             </key>
             <map-key type="string" column="Numero" />
-            <element column="informacion" type="string" />
+            <element column="Info" type="string" />
         </map>
 
         <list name="familiares" table="familiar">

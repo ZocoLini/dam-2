@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ListIndexBase;
 
 import javax.persistence.*;
 import java.util.*;
@@ -44,5 +45,9 @@ public class Empregado
     @Column(name = "Info")
     private Map<String, String> telefonos = new HashMap<>();
     
+    @ElementCollection
+    @CollectionTable(name = "familiar", joinColumns = @JoinColumn(name = "NSS_Empregado"))
+    @OrderColumn(name = "Numero")
+    @ListIndexBase(value = 1)
     private List<Familiar> familiares = new ArrayList<>();
 }

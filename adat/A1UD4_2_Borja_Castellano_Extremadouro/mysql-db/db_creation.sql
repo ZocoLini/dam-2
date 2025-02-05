@@ -44,8 +44,7 @@ create table telefonos
     Numero varchar(9)  not null,
     Info   varchar(15) null,
     constraint FK_TELEFONO_EMPREGADO foreign key (NSS) references empregado (NSS),
-    constraint PK_TELEFONO primary key (Numero),
-    constraint CK_TELEFONO_NUMEROS check ( Numero like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+    constraint PK_TELEFONO primary key (Numero)
 );
 
 create table Departamento
