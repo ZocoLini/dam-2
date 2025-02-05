@@ -56,5 +56,9 @@ public class Empregado
     @Column(name = "Aficion", nullable = false)
     private Collection<String> aficiones = new ArrayList<>();
     
+    @ElementCollection
+    @CollectionTable(name = "lugar", joinColumns = @JoinColumn(name = "Num_Departamento"))
+    @Column(name = "Lugar", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Collection<String> lugares = new ArrayList<>();
 }
