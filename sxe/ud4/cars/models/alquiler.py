@@ -6,6 +6,7 @@ class Alquiler(models.Model):
     _description = 'Alquileres de Vehiculos'
 
     trabajador = fields.Many2one('res.partner', string='Trabajador', required=True)
+
     tel_movil = fields.Char(string='Telefono Movil', readonly=True)
     ciudad = fields.Char(string='Ciudad', required=True)
     codigo_postal = fields.Char(string='Codigo', required=True)
