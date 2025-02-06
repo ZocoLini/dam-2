@@ -15,7 +15,6 @@ class Vehiculo(models.Model):
     ], string='Combustible', required=True)
     fechaCompra = fields.Date(string='Fecha de Compra')
     matricula = fields.Char(string='Matricula',  required=True)
-    trabajador = fields.Many2many('res.partner', string='Trabajador')
 
     @api.constrains('matricula')
     def _check_matricula_length(self):

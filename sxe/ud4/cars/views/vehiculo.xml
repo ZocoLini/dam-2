@@ -14,6 +14,23 @@
         </field>
     </record>
 
+    <record id="view_alquileres_tree_view" model="ir.ui.view">
+        <field name="name">cars.alquiler.tree.view</field>
+        <field name="model">cars.alquiler</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="trabajador"/>
+                <field name="tel_movil"/>
+                <field name="ciudad"/>
+                <field name="codigo_postal"/>
+                <field name="num_dias_alquilado"/>
+                <field name="estado_actual"/>
+                <field name="devuelto"/>
+                <field name="coche"/>
+            </tree>
+        </field>
+    </record>
+
     <!-- Form View
     <record id="view_cars_form_view" model="ir.ui.view">
         <field name="name">cars.vehiculo.form.view</field>
@@ -75,9 +92,9 @@
         </field>
     </record>
 
-    <menuitem id="cars_main_menu" name="cars" sequence="1"/>
+    <menuitem id="cars_main_menu" name="Cars" sequence="1"/>
 
-    <menuitem id="cars_type_menu" name="cars" parent="cars_main_menu"
+    <menuitem id="cars_type_menu" name="Coche" parent="cars_main_menu"
         action="cars.action_cars" groups="cars.group_cars_manager"
         sequence="1"/>
 
