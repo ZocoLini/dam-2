@@ -2,8 +2,9 @@ package org.lebastudios.engine.events;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
 
 /**
  * This class is used for the event system. Defines the methods that all AppEvents must have.
@@ -13,8 +14,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public abstract class EventHandler<T>
 {
-    private final List<T> listeners = new CopyOnWriteArrayList<>();
-    private final List<WeakReference<T>> weakListeners = new CopyOnWriteArrayList<>();
+    private final Set<T> listeners = new HashSet<>();
+    private final Set<WeakReference<T>> weakListeners = new HashSet<>();
 
     public synchronized void addListener(T listener)
     {

@@ -1,4 +1,4 @@
-package org.lebastudios.finger;
+package org.lebastudios.finger.game;
 
 import org.lebastudios.engine.GameAdapter;
 import org.lebastudios.engine.Scene;
