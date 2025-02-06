@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ListIndexBase;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.*;
 
 
@@ -34,6 +35,8 @@ public class Empregado
     private Date dataNacemento;
     @Column(name = "Sexo")
     private Character sexo;
+    @Embedded
+    private Enderezo enderezo;
     
     // @ElementCollection
     // @CollectionTable(name = "telefonos", joinColumns = @JoinColumn(name = "NSS"))
@@ -57,8 +60,9 @@ public class Empregado
     private Collection<String> aficiones = new ArrayList<>();
     
     @ElementCollection
-    @CollectionTable(name = "lugar", joinColumns = @JoinColumn(name = "Num_Departamento"))
-    @Column(name = "Lugar", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Collection<String> lugares = new ArrayList<>();
+    @CollectionTable(name = "horas_extras", joinColumns = @JoinColumn(name = "NSS_Empregado"))
+    @MapKeyColumn(name = "Data")
+    @Column(name = "Horas")
+    @org.hibernate.annotations.OrderBy(clause = "Data")
+    private SortedMap<Date, Float> horasExtras = new TreeMap<>();
 }

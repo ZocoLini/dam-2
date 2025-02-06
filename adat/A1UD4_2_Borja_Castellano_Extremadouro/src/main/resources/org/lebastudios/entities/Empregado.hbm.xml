@@ -30,7 +30,13 @@
         <property name="sexo" type="char">
             <column name="Sexo"/>
         </property>
-
+        <component name="enderezo" class="org.lebastudios.entities.Enderezo" lazy="true">
+            <property name="rua" column="Rua" type="string" />
+            <property name="cp" column="CP" type="string" />
+            <property name="localidade" column="Localidad" type="string" />
+            <property name="provincia" column="Provincia" type="string" />
+        </component>
+        
         <!-- References -->
         <!--
         <set name="telefonos" table="telefonos" >
@@ -52,6 +58,9 @@
             </composite-element>
         </set>
         -->
+        
+        
+        <!-- Referenced by -->
         <map name="telefonos" table="telefonos">
             <key>
                 <column name="NSS"/>
@@ -66,6 +75,7 @@
             </key>
             <list-index column="Numero" base="0"/>
             <composite-element class="org.lebastudios.entities.Familiar">
+                <property name="nss" column="NSS" type="string" not-null="true" />
                 <property name="nome" column="Nome" type="string" not-null="true" />
                 <property name="apelido1" column="Apelido1" type="string" not-null="true" />
                 <property name="apelido2" column="Apelido2" type="string" not-null="true" />
@@ -75,24 +85,20 @@
             </composite-element>
         </list>
 
-        <bag name="aficiones" table="aficion"> 
+        <bag name="aficiones" table="aficion">
             <key>
                 <column name="NSS_Empregado"/>
             </key>
             <element column="Aficion" type="string" not-null="true" />
         </bag>
         
-        <idbag name="lugares" table="lugar">
-            <collection-id column="id" type="int">
-                <generator class="increment"/>
-            </collection-id>
+        <map name="horasExtras" table="horas_extras" sort="natural">
             <key>
-                <column name="Num_Departamento" not-null="true"/>
+                <column name="NSS_Empregado" sql-type="int" not-null="true"/>
             </key>
-            <element column="Lugar" type="string" not-null="true" />
-        </idbag>
-        
-        <!-- Referenced by -->
+            <map-key type="date" column="Data" />
+            <element column="Horas" type="float" />
+        </map>
     </class>
 </hibernate-mapping>
         
