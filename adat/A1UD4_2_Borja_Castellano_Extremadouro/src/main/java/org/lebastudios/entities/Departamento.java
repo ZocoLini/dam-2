@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Setter
 @Getter
@@ -25,4 +27,10 @@ public class Departamento
     @Column(name = "NomeDepartamento")
     private String nomeDepartamento;
 
+    @ElementCollection
+    @CollectionTable(name = "lugar", joinColumns = @JoinColumn(name = "Num_Departamento"))
+    @Column(name = "Lugar", nullable = false)
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @CollectionId(columns = @Column(name = "id"), generator = "increment", type = @Type(type = "int"))
+    private Collection<String> lugares = new ArrayList<>();
 }

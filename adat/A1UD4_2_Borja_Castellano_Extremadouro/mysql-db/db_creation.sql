@@ -7,15 +7,19 @@ create table empregado
     Salario       float       not null,
     DataNacemento date        not null,
     Sexo          char(1)     not null,
+    Rua           varchar(30) null,
+    CP            char(5)     null,
+    Localidad     varchar(30) null,
+    Provincia     varchar(30) null,
     constraint PK_EMPREGADO primary key (NSS)
 );
 
 create table aficion
 (
     NSS_Empregado varchar(15) not null,
-    Aficion varchar(50) not null,
+    Aficion       varchar(50) not null,
     constraint PK_AFICION primary key (NSS_Empregado, Aficion),
-    constraint FK_AFICION_EMPREGADO foreign key (NSS_Empregado) references empregado(NSS)
+    constraint FK_AFICION_EMPREGADO foreign key (NSS_Empregado) references empregado (NSS)
 );
 
 create table vehiculos
@@ -65,12 +69,21 @@ create table Departamento
 
 create table lugar
 (
-    id int not null,
+    id               int not null,
     Num_Departamento int not null,
-    Lugar varchar(15),
+    Lugar            varchar(15),
     constraint PK_LUGAR primary key (id),
-    constraint FK_LUGAR_DEPARTAMENTO foreign key (Num_Departamento) references Departamento(NumDepartamento),
+    constraint FK_LUGAR_DEPARTAMENTO foreign key (Num_Departamento) references Departamento (NumDepartamento),
     constraint UQ_LUGAR_DEPARTAMENTO unique (Num_Departamento, Lugar)
+);
+
+create table horas_extras
+(
+    NSS_Empregado varchar(15) not null,
+    Data          date        not null,
+    Horas         float       not null,
+    constraint PK_HORAS_EXTRAS primary key (NSS_Empregado, Data),
+    constraint FK_HORAS_EXTRAS_EMPREGADO foreign key (NSS_Empregado) references empregado (NSS)
 );
 
 create table Proxecto

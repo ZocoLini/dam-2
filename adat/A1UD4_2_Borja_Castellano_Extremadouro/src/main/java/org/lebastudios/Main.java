@@ -5,8 +5,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.lebastudios.entities.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Main
 {
@@ -14,9 +17,9 @@ public class Main
     {
         Configuration configuration = new Configuration().configure();
         
-        configuration.addAnnotatedClass(Empregado.class);
-        configuration.addAnnotatedClass(Proxecto.class);
-        configuration.addAnnotatedClass(Departamento.class);
+        // configuration.addAnnotatedClass(Empregado.class);
+        // configuration.addAnnotatedClass(Proxecto.class);
+        // configuration.addAnnotatedClass(Departamento.class);
         
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
@@ -33,6 +36,16 @@ public class Main
                 new Date(LocalDate.now().toEpochDay()),
                 'M'
         );
+        
+        TreeMap<Date, Float> horasExtras = new TreeMap<>(
+                Map.of(
+                        Date.valueOf(LocalDate.now().minusDays(1)),
+                        1.2f,
+                        Date.valueOf(LocalDate.now().minusDays(2)),
+                        2.3f
+                )
+        );
+        
         Empregado empregado = new Empregado(
                 "PEpe",
                 "Juanillo",
@@ -44,7 +57,7 @@ public class Main
                 telefonos,
                 List.of(familiar),
                 List.of(),
-                List.of()
+                horasExtras
         );
         
         session.persist(empregado);
