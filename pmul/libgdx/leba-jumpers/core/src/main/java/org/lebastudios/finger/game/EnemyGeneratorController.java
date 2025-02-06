@@ -45,7 +45,7 @@ public class EnemyGeneratorController extends Component
         float height = (float) (Math.random() * WorldConfig.HEIGHT - WorldConfig.HEIGHT / 2f);
         final var enemyTransform = new Transform(WorldConfig.WIDTH / 2f, height, 0);
 
-        GameObject enemy = new EnemyFactory().createEnemy(enemyTransform);
+        GameObject enemy = EnemyFactory.createEnemy(enemyTransform);
 
         enemies.add(enemy);
 
@@ -54,7 +54,7 @@ public class EnemyGeneratorController extends Component
 
     private static class EnemyFactory
     {
-        public GameObject createEnemy(Transform transform)
+        public static GameObject createEnemy(Transform transform)
         {
             GameObject enemy = new GameObject(transform);
             enemy.getMetadata().setTag("Enemy");
@@ -66,8 +66,6 @@ public class EnemyGeneratorController extends Component
             CircleCollider2D circleCollider2D = new CircleCollider2D();
             circleCollider2D.setRadius(6.5f);
             enemy.addComponent(circleCollider2D);
-
-            colliders.add(circleCollider2D);
 
             enemy.addComponent(new EnemyController());
             enemy.addComponent(new TextRenderer());
