@@ -3,6 +3,11 @@ eclipse.project.name = appName + '-game-fw'
 
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  testImplementation "org.junit.jupiter:junit-jupiter:5.9.3"
   compileOnly 'org.projectlombok:lombok:1.18.36'
   annotationProcessor 'org.projectlombok:lombok:1.18.36'
+}
+
+test {
+  useJUnitPlatform()
 }

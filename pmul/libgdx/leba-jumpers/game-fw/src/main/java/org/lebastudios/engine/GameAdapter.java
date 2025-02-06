@@ -10,7 +10,7 @@ import org.lebastudios.engine.input.InputManager;
 public abstract class GameAdapter extends Game
 {
     protected abstract Scene getFirstScene();
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public GameAdapter()
     {

@@ -10,10 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Scene implements Screen
 {
     private final SceneMetadata metadata;
-    private final Array<GameObject> gameObjects = new Array<>();
+    private final List<GameObject> gameObjects = new ArrayList<>();
+    private final List<GameObject> gameObjectsToAdd = new ArrayList<>();
+    private final List<GameObject> gameObjectsToRemove = new ArrayList<>();
     @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
     @Getter private final ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -37,6 +42,8 @@ public abstract class Scene implements Screen
         camera.update();
 
         shapeRenderer.setAutoShapeType(true);
+
+        updateGameObjectList();
 
         for (GameObject gameObject : gameObjects)
         {
@@ -62,6 +69,8 @@ public abstract class Scene implements Screen
             gameObject.update(delta);
         }
 
+        updateGameObjectList();
+
         batch.begin();
         shapeRenderer.begin();
 
@@ -74,20 +83,38 @@ public abstract class Scene implements Screen
         batch.end();
     }
 
-    public void addGameObject(GameObject gameObject)
+    public synchronized void addGameObject(GameObject gameObject)
     {
-        gameObjects.add(gameObject);
-        gameObject.setScene(this);
+        gameObjectsToAdd.add(gameObject);
     }
 
-    public void removeSceneObject(GameObject gameObject)
+    public synchronized void removeSceneObject(GameObject gameObject)
     {
-        if (gameObjects.removeValue(gameObject, true))
+        gameObjectsToRemove.add(gameObject);
+    }
+
+    private void updateGameObjectList()
+    {
+        if (gameObjectsToRemove.isEmpty() && gameObjectsToAdd.isEmpty()) return;
+
+        for (GameObject gameObject : gameObjectsToRemove)
         {
-            gameObject.setScene(null);
-            gameObject.dispose();
+            if (gameObjects.remove(gameObject))
+            {
+                gameObject.setScene(null);
+                gameObject.dispose();
+            }
         }
 
+        for (GameObject gameObject : gameObjectsToAdd)
+        {
+            gameObjects.add(gameObject);
+            gameObject.setScene(this);
+            gameObject.create();
+        }
+
+        gameObjectsToAdd.clear();
+        gameObjectsToRemove.clear();
     }
 
     @Override
@@ -125,8 +152,17 @@ public abstract class Scene implements Screen
     @Override
     public void dispose()
     {
+        Thread updatingGameObjectsList = new Thread(this::updateGameObjectList);
+        updatingGameObjectsList.start();
+
         batch.dispose();
         shapeRenderer.dispose();
+
+        try
+        {
+            updatingGameObjectsList.join();
+        }
+        catch (InterruptedException _) {System.err.println("Error updating the scene gameObjects");}
 
         for (GameObject gameObject : gameObjects)
         {

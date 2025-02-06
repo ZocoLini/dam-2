@@ -10,7 +10,7 @@ import org.lebastudios.engine.components.Transform;
 
 public final class GameObject
 {
-    private final GameObjectMetadata metadata;
+    @Getter private final GameObjectMetadata metadata;
     private final Array<Component> components = new Array<>();
     @Getter private final Transform transform;
     @Setter @Getter private Scene scene;
@@ -84,20 +84,20 @@ public final class GameObject
         }
     }
 
-    public void onTrigger2DEnter(Collider2D<?> collider2D)
+    public void onTrigger2DEnter(Collider2D collider2D)
     {
         for (Component component : components)
         {
             component.onTrigger2DEnter(collider2D);
         }
     }
-    public void onTrigger2DExit(Collider2D<?> collider2D) {
+    public void onTrigger2DExit(Collider2D collider2D) {
         for (Component component : components)
         {
             component.onTrigger2DExit(collider2D);
         }
     }
-    public void onTrigger2DStays(Collider2D<?> collider2D) {
+    public void onTrigger2DStays(Collider2D collider2D) {
         for (Component component : components)
         {
             component.onTrigger2DStays(collider2D);
@@ -118,6 +118,11 @@ public final class GameObject
         }
 
         this.scene.removeSceneObject(this);
+    }
+
+    public void instantiate(GameObject gameObject)
+    {
+        this.scene.addGameObject(gameObject);
     }
 
     public void dispose() {
