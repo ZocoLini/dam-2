@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lombok.Getter;
 import lombok.Setter;
 import org.lebastudios.engine.GameObject;
+import org.lebastudios.engine.coroutine.IEnumerator;
 
 public abstract class Component
 {
@@ -42,9 +43,15 @@ public abstract class Component
     {
         return gameObject;
     }
+
     public final Transform getTransform()
     {
         return getGameObject().getTransform();
+    }
+
+    public final void startCoroutine(IEnumerator coroutine)
+    {
+        getGameObject().getScene().startCoroutine(coroutine);
     }
 
     public void onAwake() {}
