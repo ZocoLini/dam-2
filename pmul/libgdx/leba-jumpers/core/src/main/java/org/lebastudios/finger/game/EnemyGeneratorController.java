@@ -1,21 +1,14 @@
 package org.lebastudios.finger.game;
 
-import lombok.Getter;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.components.*;
 import org.lebastudios.finger.config.WorldConfig;
-
-import java.util.ArrayList;
 
 
 public class EnemyGeneratorController extends Component
 {
     private float timeElapsed = 0;
-    private float generattionEnemyRate = 2;
-    // TODO: Esto debe ser un array y deberia haber otro para los colliders
-    //  Tambien buscar una manera de hacer el trackeo y automaticamente quitar los elementos eliminados del tracking
-    @Getter private static final ArrayList<GameObject> enemies = new ArrayList<>();
-    @Getter private static final ArrayList<Collider2D> colliders = new ArrayList<>();
+    private float generationEnemyRate = 2;
     private final GameObject finger;
 
     public EnemyGeneratorController(GameObject finger)
@@ -28,7 +21,7 @@ public class EnemyGeneratorController extends Component
     {
         timeElapsed += deltaTime;
 
-        if (timeElapsed >= generattionEnemyRate)
+        if (timeElapsed >= generationEnemyRate)
         {
             this.getGameObject().getScene().addGameObject(getAvailableEnemy());
             timeElapsed = 0;
@@ -45,16 +38,12 @@ public class EnemyGeneratorController extends Component
         float height = (float) (Math.random() * WorldConfig.HEIGHT - WorldConfig.HEIGHT / 2f);
         final var enemyTransform = new Transform(WorldConfig.WIDTH / 2f, height, 0);
 
-        GameObject enemy = new EnemyFactory().createEnemy(enemyTransform);
-
-        enemies.add(enemy);
-
-        return enemy;
+        return new EnemyFactory().createEnemy(enemyTransform, finger);
     }
 
     private static class EnemyFactory
     {
-        public GameObject createEnemy(Transform transform)
+        public GameObject createEnemy(Transform transform, GameObject finger)
         {
             GameObject enemy = new GameObject(transform);
             enemy.getMetadata().setTag("Enemy");
@@ -65,9 +54,8 @@ public class EnemyGeneratorController extends Component
 
             CircleCollider2D circleCollider2D = new CircleCollider2D();
             circleCollider2D.setRadius(6.5f);
+            circleCollider2D.trackCollider(finger.getComponent(Collider2D.class));
             enemy.addComponent(circleCollider2D);
-
-            colliders.add(circleCollider2D);
 
             enemy.addComponent(new EnemyController());
             enemy.addComponent(new TextRenderer());
