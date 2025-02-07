@@ -2,6 +2,8 @@ package org.lebastudios.engine.components;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import lombok.Getter;
+import lombok.Setter;
 import org.lebastudios.engine.Camera;
 import org.lebastudios.engine.input.InputManager;
 
@@ -12,6 +14,7 @@ import java.util.HashMap;
 //  this.getGameObject().onCollision2DEnter(collider);
 public abstract class Collider2D extends Component
 {
+    @Getter @Setter protected String layer = "Default";
     protected boolean isTrigger = true;
     protected HashMap<Collider2D, Boolean> trackedCollidersState = new HashMap<>();
 

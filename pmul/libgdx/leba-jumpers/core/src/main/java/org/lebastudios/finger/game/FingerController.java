@@ -124,8 +124,6 @@ public class FingerController extends Component
             circleCollider2D.setRadius(4.5f);
             bullet.addComponent(circleCollider2D);
 
-            circleCollider2D.trackCollider(EnemyGeneratorController.getColliders());
-
             bullet.addComponent(new BulletController());
             return bullet;
         }
