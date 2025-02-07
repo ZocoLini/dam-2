@@ -33,14 +33,10 @@ public class EnemyController extends Component
     @Override
     public void onTrigger2DEnter(Collider2D other)
     {
-        if (true)
-        {
-            System.out.println("Enter");
-        }
-
         if (other.getGameObject().getMetadata().getTag().equals("Bullet"))
         {
             life--;
+            other.getGameObject().destroy();
 
             if (life <= 0)
             {
@@ -48,17 +44,5 @@ public class EnemyController extends Component
             }
         }
 
-    }
-
-    @Override
-    public void onTrigger2DStays(Collider2D collider2D)
-    {
-        System.out.println("Stay");
-    }
-
-    @Override
-    public void onTrigger2DExit(Collider2D collider2D)
-    {
-        System.out.println("Exit");
     }
 }

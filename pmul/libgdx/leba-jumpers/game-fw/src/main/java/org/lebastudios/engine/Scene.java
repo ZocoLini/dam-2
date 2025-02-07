@@ -9,8 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.lebastudios.engine.coroutine.IEnumerator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Scene implements Screen
@@ -19,6 +21,9 @@ public abstract class Scene implements Screen
     private final List<GameObject> gameObjects = new ArrayList<>();
     private final List<GameObject> gameObjectsToAdd = new ArrayList<>();
     private final List<GameObject> gameObjectsToRemove = new ArrayList<>();
+
+    private final List<IEnumerator> coroutines = new ArrayList<>();
+
     @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
     @Getter private final ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -67,6 +72,18 @@ public abstract class Scene implements Screen
         for (GameObject gameObject : gameObjects)
         {
             gameObject.update(delta);
+        }
+
+        Iterator<IEnumerator> iterator = coroutines.iterator();
+
+        while (iterator.hasNext())
+        {
+            IEnumerator coroutine = iterator.next();
+
+            if (!coroutine.moveNext(delta)) continue;
+            if (coroutine.getAction().get()) continue;
+
+            iterator.remove();
         }
 
         updateGameObjectList();
@@ -175,6 +192,11 @@ public abstract class Scene implements Screen
     protected abstract float getCameraWidth();
 
     protected abstract float getCameraHeight();
+
+    public void startCoroutine(IEnumerator coroutine)
+    {
+        coroutines.add(coroutine);
+    }
 
     @Getter
     @Setter
