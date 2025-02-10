@@ -32,7 +32,7 @@ public class Physics2D
 
         public boolean canCollide(String layer1, String layer2)
         {
-            return canCollide(layers.ind(layer1), layers.indexOf(layer2));
+            return false;
         }
 
         public boolean canCollide(int layer1, int layer2)
