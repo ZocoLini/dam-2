@@ -26,7 +26,7 @@ public class ReporteJasper
         
         HashMap<String, Object> params = new HashMap<>();
         params.put("WHERE", "where f.id_factura = 13");
-
+        
         JasperPrint print = JasperFillManager.fillReport(
                 ReporteJasper.class.getResourceAsStream("first-report.jasper"),
                 params,
