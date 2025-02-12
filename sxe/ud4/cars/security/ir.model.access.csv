@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cars_manager_id,access.cars.manager,cars.model_cars_vehiculo,cars.group_cars_manager,1,1,1,1
+access_cars_user_id,access.cars.user,cars.model_cars_vehiculo,cars.group_cars_user,1,0,0,0

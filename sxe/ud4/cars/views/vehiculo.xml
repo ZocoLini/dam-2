@@ -1,0 +1,101 @@
+<odoo>
+    <!-- Tree(list) View -->
+    <record id="view_cars_tree_view" model="ir.ui.view">
+        <field name="name">cars.vehiculo.tree.view</field>
+        <field name="model">cars.vehiculo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="modelo"/>
+                <field name="combustible"/>
+                <field name="fechaCompra"/>
+                <field name="matricula"/>
+                <field name="trabajador"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_alquileres_tree_view" model="ir.ui.view">
+        <field name="name">cars.alquiler.tree.view</field>
+        <field name="model">cars.alquiler</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="trabajador"/>
+                <field name="tel_movil"/>
+                <field name="ciudad"/>
+                <field name="codigo_postal"/>
+                <field name="num_dias_alquilado"/>
+                <field name="estado_actual"/>
+                <field name="devuelto"/>
+                <field name="coche"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View
+    <record id="view_cars_form_view" model="ir.ui.view">
+        <field name="name">cars.vehiculo.form.view</field>
+        <field name="model">cars.vehiculo</field>
+        <field name="arch" type="xml">
+            <form string="cars">
+                <sheet>
+                    <div class="oe_title">
+                        <h3>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;"><field name="Nombre" required="1" 
+                                    placeholder="Nombre" /></td>
+                                    <td style="padding-right:10px;"><field name="Codigo" 
+                                    placeholder="Codigo" /></td>
+                                </tr>
+                            </table>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <label for="Direccion1" string="Direccion"/>
+                            <div class="o_address_format">
+                                <field name="Direccion1" placeholder="Calle, avenida..." class="o_address_street"/>
+                                <field name="Direccion2" placeholder="Calle, avenida..." class="o_address_street"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    -->
+
+    <!-- Search View -->
+    <record id="view_cars_search_view" model="ir.ui.view">
+        <field name="name">cars Search</field>
+        <field name="model">cars.vehiculo</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="modelo"/>
+                <field name="combustible"/>
+                <field name="fechaCompra"/>
+                <field name="matricula"/>
+                <field name="trabajador"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cars" model="ir.actions.act_window">
+        <field name="name">cars</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cars.vehiculo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create cars.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="cars_main_menu" name="Cars" sequence="1"/>
+
+    <menuitem id="cars_type_menu" name="Coche" parent="cars_main_menu"
+        action="cars.action_cars" groups="cars.group_cars_manager"
+        sequence="1"/>
+
+</odoo>
