@@ -10,6 +10,18 @@ create table empregado
     constraint PK_EMPREGADO primary key (NSS)
 );
 
+create table vehiculos
+(
+    Nss_Empregado varchar(10) not null,
+    Matricula varchar(8) not null,
+    Marca varchar(30) not null,
+    Modelo varchar(30) not null,
+    DataCompra date not null,
+    constraint PK_VEHICULO primary key (Nss_Empregado),
+    constraint FK_VEHICULO_EMPREGADO foreign key (Nss_Empregado) references empregado(NSS),
+    constraint UQ_VEHICULO_MATRICULA unique (Matricula)
+)
+
 create table familiar
 (
     NSS_Empregado varchar(15) not null,
