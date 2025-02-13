@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -28,5 +30,9 @@ public class Proxecto
     
     @Column(name = "Lugar")
     private String lugar;
+    
+    private Departamento departamento;
+    
+    private Set<Empregado> empleados = new HashSet<>(); 
 
 }

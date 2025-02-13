@@ -21,6 +21,13 @@
 
         <!-- References -->
 
+        <set name="empleados" table="empregado-proxecto" inverse="true">
+            <key>
+                <column name="NumProxecto" not-null="true" />
+            </key>
+            <many-to-many class="org.lebastudios.entities.Empregado" column="NssEmpregado" />
+        </set>
+        
         <!-- Referenced by -->
     </class>
 </hibernate-mapping>
