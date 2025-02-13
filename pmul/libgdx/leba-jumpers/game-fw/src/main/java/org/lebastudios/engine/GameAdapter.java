@@ -23,7 +23,13 @@ public abstract class GameAdapter extends Game
         Gdx.input.setInputProcessor(InputManager.getInstance());
         Collections.allocateIterators = true;
 
+        onCreate();
+
         setScene(getFirstScene());
+    }
+
+    protected void onCreate()
+    {
     }
 
     public final Scene getScene()

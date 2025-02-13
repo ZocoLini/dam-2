@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.lebastudios.engine.Camera;
 import org.lebastudios.engine.input.InputManager;
+import org.lebastudios.engine.physics.Physics2D;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 // TODO: Implement collision resolution
 //  this.getGameObject().onCollision2DEnter(collider);
@@ -16,14 +19,13 @@ public abstract class Collider2D extends Component
 {
     @Getter @Setter protected String layer = "Default";
     protected boolean isTrigger = true;
-    protected HashMap<Collider2D, Boolean> trackedCollidersState = new HashMap<>();
 
     @Override
     public void onStart()
     {
         final Camera camera = this.getGameObject().getScene().getCamera();
 
-        InputManager.getInstance().addTouchDownListener((screenX, screenY, pointer, button) ->
+        InputManager.getInstance().addTouchDownListener((screenX, screenY, _, _) ->
         {
             final var unprojected = camera.unproject(new Vector3(screenX, screenY, 0));
 
@@ -32,62 +34,6 @@ public abstract class Collider2D extends Component
                 this.getGameObject().onClicked();
             }
         });
-    }
-
-    @Override
-    public void onPhysicsUpdate(float deltaTime)
-    {
-        for (var otherStateEntry : trackedCollidersState.entrySet())
-        {
-            final var other = otherStateEntry.getKey();
-            final var otherState = otherStateEntry.getValue();
-
-            if (otherState)
-            {
-                if (!this.collides(other))
-                {
-                    other.getGameObject().onTrigger2DExit(this);
-                    this.getGameObject().onTrigger2DExit(other);
-                    otherStateEntry.setValue(false);
-                }
-                else
-                {
-                    other.getGameObject().onTrigger2DStays(this);
-                    this.getGameObject().onTrigger2DStays(other);
-                }
-            }
-            else
-            {
-                if (this.collides(other))
-                {
-                    other.getGameObject().onTrigger2DEnter(this);
-                    this.getGameObject().onTrigger2DEnter(other);
-                    otherStateEntry.setValue(true);
-                }
-            }
-        }
-    }
-
-    public void trackCollider(Collider2D... colliders)
-    {
-        for (var collider : colliders)
-        {
-            trackedCollidersState.put(collider, false);
-        }
-    }
-
-    public void trackCollider(Collection<Collider2D> colliders)
-    {
-        for (var collider : colliders)
-        {
-            trackedCollidersState.put(collider, false);
-        }
-    }
-
-    @Override
-    public void onDispose()
-    {
-        super.onDispose();
     }
 
     public boolean collides(Vector2 point) { return collides(point.x, point.y); }

@@ -54,10 +54,8 @@ public class EnemyGeneratorController extends Component
 
             CircleCollider2D circleCollider2D = new CircleCollider2D();
             circleCollider2D.setRadius(6.5f);
-            circleCollider2D.trackCollider(finger.getComponent(Collider2D.class));
+            circleCollider2D.setLayer("Enemy");
             enemy.addComponent(circleCollider2D);
-
-            colliders.add(circleCollider2D);
 
             enemy.addComponent(new EnemyController());
             enemy.addComponent(new TextRenderer());

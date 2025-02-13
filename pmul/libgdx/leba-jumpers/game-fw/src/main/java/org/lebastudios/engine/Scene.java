@@ -3,26 +3,43 @@ package org.lebastudios.engine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.lebastudios.engine.coroutine.IEnumerator;
+import org.lebastudios.engine.util.LazyArrayList;
+import org.lebastudios.engine.util.Tuple2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class Scene implements Screen
 {
     private final SceneMetadata metadata;
-    private final List<GameObject> gameObjects = new ArrayList<>();
-    private final List<GameObject> gameObjectsToAdd = new ArrayList<>();
-    private final List<GameObject> gameObjectsToRemove = new ArrayList<>();
+
+    private final LazyArrayList<GameObject> gameObjects = new LazyArrayList<>();
+
+    private final HashMap<Tuple2<GameObject, GameObject>, Boolean> collidersState = new HashMap<>();
 
     private final List<IEnumerator> coroutines = new ArrayList<>();
+
+    private final Consumer<GameObject> removeConsumer = gameObject -> {
+        collidersState.entrySet().removeIf(entry -> entry.getKey().contains(gameObject));
+
+        gameObject.setScene(null);
+        gameObject.dispose();
+    };
+    private final Consumer<GameObject> addConsumer = gameObject -> {
+        // TODO: Create the cartesian product of the colliders to add
+
+        gameObject.setScene(this);
+        gameObject.create();
+    };
 
     @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
@@ -48,7 +65,7 @@ public abstract class Scene implements Screen
 
         shapeRenderer.setAutoShapeType(true);
 
-        updateGameObjectList();
+        gameObjects.update(addConsumer, removeConsumer);
 
         for (GameObject gameObject : gameObjects)
         {
@@ -86,7 +103,7 @@ public abstract class Scene implements Screen
             iterator.remove();
         }
 
-        updateGameObjectList();
+        gameObjects.update(addConsumer, removeConsumer);
 
         batch.begin();
         shapeRenderer.begin();
@@ -100,38 +117,52 @@ public abstract class Scene implements Screen
         batch.end();
     }
 
-    public synchronized void addGameObject(GameObject gameObject)
+    private void checkCollision()
     {
-        gameObjectsToAdd.add(gameObject);
-    }
-
-    public synchronized void removeSceneObject(GameObject gameObject)
-    {
-        gameObjectsToRemove.add(gameObject);
-    }
-
-    private void updateGameObjectList()
-    {
-        if (gameObjectsToRemove.isEmpty() && gameObjectsToAdd.isEmpty()) return;
-
-        for (GameObject gameObject : gameObjectsToRemove)
+        /*
+        for (List<Collider2D> goColliders : colliders)
         {
-            if (gameObjects.remove(gameObject))
+            final var other = otherStateEntry.getKey();
+
+            if (!Physics2D.getCollisionMatrix().canCollide(other.layer, this.layer)) continue;
+
+            final var otherState = otherStateEntry.getValue();
+
+            if (otherState)
             {
-                gameObject.setScene(null);
-                gameObject.dispose();
+                if (!this.collides(other))
+                {
+                    other.getGameObject().onTrigger2DExit(this);
+                    this.getGameObject().onTrigger2DExit(other);
+                    otherStateEntry.setValue(false);
+                }
+                else
+                {
+                    other.getGameObject().onTrigger2DStays(this);
+                    this.getGameObject().onTrigger2DStays(other);
+                }
+            }
+            else
+            {
+                if (this.collides(other))
+                {
+                    other.getGameObject().onTrigger2DEnter(this);
+                    this.getGameObject().onTrigger2DEnter(other);
+                    otherStateEntry.setValue(true);
+                }
             }
         }
+         */
+    }
 
-        for (GameObject gameObject : gameObjectsToAdd)
-        {
-            gameObjects.add(gameObject);
-            gameObject.setScene(this);
-            gameObject.create();
-        }
+    public synchronized void addGameObject(GameObject gameObject)
+    {
+        gameObjects.addLazy(gameObject);
+    }
 
-        gameObjectsToAdd.clear();
-        gameObjectsToRemove.clear();
+    public synchronized void removeGameObject(GameObject gameObject)
+    {
+        gameObjects.removeLazy(gameObject);
     }
 
     @Override
@@ -169,7 +200,7 @@ public abstract class Scene implements Screen
     @Override
     public void dispose()
     {
-        Thread updatingGameObjectsList = new Thread(this::updateGameObjectList);
+        Thread updatingGameObjectsList = new Thread(() -> gameObjects.update(addConsumer, removeConsumer));
         updatingGameObjectsList.start();
 
         batch.dispose();

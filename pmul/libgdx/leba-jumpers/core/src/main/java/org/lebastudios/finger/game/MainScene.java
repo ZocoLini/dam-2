@@ -22,6 +22,7 @@ public class MainScene extends Scene
         BoxCollider2D boxCollider2D = new BoxCollider2D();
         boxCollider2D.setWidth(20);
         boxCollider2D.setHeigth(20);
+        boxCollider2D.setLayer("Player");
         finger.addComponent(boxCollider2D);
 
         GameObject enemyGenerator = new GameObject(new Transform(0, 0, 0));
