@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.components.*;
+import org.lebastudios.engine.coroutine.WaitForSeconds;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.finger.config.WorldConfig;
+
+import java.util.function.Supplier;
 
 public class FingerController extends Component
 {
@@ -72,11 +75,23 @@ public class FingerController extends Component
 
     private void shoot()
     {
-        for (int i = 0; i < numDisparos; i++)
-        {
-            GameObject bullet = BulletFactory.createBullet(this.transform);
-            this.getGameObject().getScene().addGameObject(bullet);
-        }
+        this.startCoroutine(new WaitForSeconds(0.25f) {
+            int i = 0;
+
+            @Override
+            public Supplier<Boolean> getAction()
+            {
+                return () ->
+                {
+                    i++;
+
+                    GameObject bullet = BulletFactory.createBullet(FingerController.this.transform);
+                    FingerController.this.getGameObject().getScene().addGameObject(bullet);
+
+                    return i < FingerController.this.numDisparos;
+                };
+            }
+        });
     }
 
     @Override
@@ -109,7 +124,7 @@ public class FingerController extends Component
             circleCollider2D.setRadius(4.5f);
             bullet.addComponent(circleCollider2D);
 
-            circleCollider2D.trackCollider(EnemyGeneratorController.getEnemies().stream().map(go -> (Collider2D) go.getComponent(CircleCollider2D.class)).toList());
+            circleCollider2D.trackCollider(EnemyGeneratorController.getColliders());
 
             bullet.addComponent(new BulletController());
             return bullet;
