@@ -1,21 +1,17 @@
 {
-    "name": "Hostel Management",  # Module title
-    "summary": "Manage Hostel easily",  # Module subtitle phrase
-    "description": "Efficiently manage the entire residential facility in the school.",  # Supports reStructuredText(RST) format (description is Deprecated)
+    "name": "The Round Table Software Managment",
+    "summary": "Manage users, plugins and licenses related to TRT",
+    "description": "Module to manage users, plugins and licenses related to The Round Table software",
     "version": "17.0.1.0.0",
-    "author": "Juanma. Serpent Consulting Services Pvt. Ltd.",
+    "author": "LebaStudios Software Solutions",
     "category": "Tools",
-    "website": "http://www.serpentcs.com",
+    "website": "https://www.lebastudios.org",
     "license": "AGPL-3",
     "depends": ["base"],
     "data": [
-    	"security/hostel_security.xml",
+    	"security/trt_security.xml",
         "security/ir.model.access.csv",
-        "views/hostel.xml",
+        "views/trt.xml",
 	],
-    # This demo data files will be loaded if db initialize with demo data (commented because file is not added in this example)
-    # 'demo': [
-    #     'demo.xml'
-    # ],
     "installable": True,
 }
