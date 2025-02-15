@@ -1,7 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_trt_manager_id,access.trt.manager,my_trt.model_trt_license,my_trt.group_trt_manager,1,1,1,1
-access_trt_user_id,access.trt.user,my_trt.model_trt_license,my_trt.group_trt_user,1,0,0,0
-access_trt_manager_id,access.trt.manager,my_trt.model_trt_user,my_trt.group_trt_manager,1,1,1,1
-access_trt_user_id,access.trt.user,my_trt.model_trt_user,my_trt.group_trt_user,1,0,0,0
-access_trt_manager_id,access.trt.manager,my_trt.model_trt_plugin,my_trt.group_trt_manager,1,1,1,1
-access_trt_user_id,access.trt.user,my_trt.model_trt_plugin,my_trt.group_trt_user,1,0,0,0
+access_trt_manager_id,access.trt.manager,trt.model_trt_license,trt.group_trt_manager,1,1,1,1
+access_trt_user_id,access.trt.user,trt.model_trt_license,trt.group_trt_user,1,0,0,0
+access_trt_manager_id,access.trt.manager,trt.model_trt_user,trt.group_trt_manager,1,1,1,1
+access_trt_user_id,access.trt.user,trt.model_trt_user,trt.group_trt_user,1,0,0,0
+access_trt_manager_id,access.trt.manager,trt.model_trt_plugin,trt.group_trt_manager,1,1,1,1
+access_trt_user_id,access.trt.user,trt.model_trt_plugin,trt.group_trt_user,1,0,0,0
