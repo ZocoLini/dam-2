@@ -6,7 +6,7 @@
         <field name="model">trt.license</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="number"/>
+                <field name="name"/>
                 <field name="type"/>
                 <field name="user"/>
                 <field name="plugins"/>
@@ -33,7 +33,7 @@
         <field name="model">trt.user</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="email"/>
+                <field name="name"/>
                 <field name="password"/>
                 <field name="licenses"/>
             </tree>
@@ -46,7 +46,7 @@
         <field name="model">trt.license</field>
         <field name="arch" type="xml">
             <search>
-                <field name="number"/>
+                <field name="name"/>
                 <field name="type"/>
                 <field name="user"/>
                 <field name="plugins"/>
@@ -71,7 +71,7 @@
         <field name="model">trt.user</field>
         <field name="arch" type="xml">
             <search>
-                <field name="email"/>
+                <field name="name"/>
                 <field name="password"/>
                 <field name="licenses"/>
             </search>
