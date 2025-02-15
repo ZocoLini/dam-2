@@ -35,21 +35,45 @@
             <tree>
                 <field name="email"/>
                 <field name="password"/>
-                <field name="license"/>
+                <field name="licenses"/>
             </tree>
         </field>
     </record>
 
     <!-- Search View -->
-    <record id="view_hostel_search_view" model="ir.ui.view">
-        <field name="name">Hostel Search</field>
-        <field name="model">hostel.hostel</field>
+    <record id="view_license_search_view" model="ir.ui.view">
+        <field name="name">trt.license.search.view</field>
+        <field name="model">trt.license</field>
         <field name="arch" type="xml">
             <search>
-                <field name="Nombre"/>
-                <field name="Codigo"/>
-                <field name="Direccion1"/>
-                <field name="Direccion2"/>
+                <field name="number"/>
+                <field name="type"/>
+                <field name="user"/>
+                <field name="plugins"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_plugin_search_view" model="ir.ui.view">
+        <field name="name">trt.plugin.search.view</field>
+        <field name="model">trt.plugin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="is_monthly"/>
+                <field name="price"/>
+                <field name="repository"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_user_search_view" model="ir.ui.view">
+        <field name="name">trt.user.search.view</field>
+        <field name="model">trt.user</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="email"/>
+                <field name="password"/>
+                <field name="licenses"/>
             </search>
         </field>
     </record>
