@@ -2,7 +2,7 @@
     "name": "The Round Table Software Managment",
     "summary": "Manage users, plugins and licenses related to TRT",
     "description": "Module to manage users, plugins and licenses related to The Round Table software",
-    "version": "17.0.1.0.2",
+    "version": "17.0.1.0.3",
     "author": "LebaStudios Software Solutions",
     "category": "Tools",
     "website": "https://www.lebastudios.org",

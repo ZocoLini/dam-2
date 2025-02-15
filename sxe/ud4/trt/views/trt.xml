@@ -152,15 +152,15 @@
 
     <menuitem id="trt_main_menu" name="TRT" sequence="1"/>
 
-    <menuitem id="trt_type_menu" name="Plugin" parent="trt_main_menu"
+    <menuitem id="trt_plugin_menu" name="Plugin" parent="trt_main_menu"
         action="trt.action_plugin" groups="trt.group_trt_manager"
         sequence="1"/>
 
-    <menuitem id="trt_type_menu" name="License" parent="trt_main_menu"
+    <menuitem id="trt_license_menu" name="License" parent="trt_main_menu"
         action="trt.action_license" groups="trt.group_trt_manager"
         sequence="1"/>
 
-    <menuitem id="trt_type_menu" name="User" parent="trt_main_menu"
+    <menuitem id="trt_user_menu" name="User" parent="trt_main_menu"
         action="trt.action_user" groups="trt.group_trt_manager"
         sequence="1"/>
 </odoo>
