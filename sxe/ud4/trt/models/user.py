@@ -7,13 +7,6 @@ class License(models.Model):
 
     email = fields.Char(string="Email", required=True)
     password = fields.Char(string="Password", required=True)
-    name = fields.Char(string="Name", required=True)
-    last_name = fields.Char(string="Last Name", required=True)
-    phone = fields.Char(string="Phone", required=True)
-    address = fields.Char(string="Address", required=True)
-    city = fields.Char(string="City", required=True)
-    country = fields.Char(string="Country", required=True)
-    zip = fields.Char(string="Zip", required=True)
 
     licenses = fields.One2many('trt.license', 'user', string="Licenses")
 
