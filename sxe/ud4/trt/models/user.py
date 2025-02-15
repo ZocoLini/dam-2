@@ -5,7 +5,7 @@ class License(models.Model):
     _name = "trt.user"
     _description = "The Round Table user"
 
-    email = fields.Char(string="Email", required=True)
+    name = fields.Char(string="Email", required=True)
     password = fields.Char(string="Password", required=True)
 
     licenses = fields.One2many('trt.license', 'user', string="Licenses")
