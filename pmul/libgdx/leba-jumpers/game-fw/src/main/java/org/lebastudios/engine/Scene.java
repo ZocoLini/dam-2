@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.lebastudios.engine.coroutine.IEnumerator;
 import org.lebastudios.engine.util.LazyArrayList;
-import org.lebastudios.engine.util.Tuple2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,18 +23,35 @@ public abstract class Scene implements Screen
 
     private final LazyArrayList<GameObject> gameObjects = new LazyArrayList<>();
 
-    private final HashMap<Tuple2<GameObject, GameObject>, Boolean> collidersState = new HashMap<>();
+    private final HashMap<GameObject, HashMap<GameObject, Boolean>> collidersState = new HashMap<>();
 
     private final List<IEnumerator> coroutines = new ArrayList<>();
 
     private final Consumer<GameObject> removeConsumer = gameObject -> {
-        collidersState.entrySet().removeIf(entry -> entry.getKey().contains(gameObject));
+        collidersState.entrySet().removeIf(entry ->
+        {
+            if (entry.getKey() == gameObject)
+            {
+                return true;
+            }
+
+            entry.getValue().remove(gameObject);
+            return false;
+        });
 
         gameObject.setScene(null);
         gameObject.dispose();
     };
     private final Consumer<GameObject> addConsumer = gameObject -> {
-        // TODO: Create the cartesian product of the colliders to add
+        collidersState.put(gameObject, new HashMap<>());
+        var thisGameObjectCollisionsState = collidersState.get(gameObject);
+
+        gameObjects.forEach(go ->
+        {
+            if (go == gameObject) return;
+
+            thisGameObjectCollisionsState.put(go, false);
+        });
 
         gameObject.setScene(this);
         gameObject.create();
@@ -117,42 +133,9 @@ public abstract class Scene implements Screen
         batch.end();
     }
 
-    private void checkCollision()
+    public HashMap<GameObject, Boolean> getCollidersState(GameObject gameObject)
     {
-        /*
-        for (List<Collider2D> goColliders : colliders)
-        {
-            final var other = otherStateEntry.getKey();
-
-            if (!Physics2D.getCollisionMatrix().canCollide(other.layer, this.layer)) continue;
-
-            final var otherState = otherStateEntry.getValue();
-
-            if (otherState)
-            {
-                if (!this.collides(other))
-                {
-                    other.getGameObject().onTrigger2DExit(this);
-                    this.getGameObject().onTrigger2DExit(other);
-                    otherStateEntry.setValue(false);
-                }
-                else
-                {
-                    other.getGameObject().onTrigger2DStays(this);
-                    this.getGameObject().onTrigger2DStays(other);
-                }
-            }
-            else
-            {
-                if (this.collides(other))
-                {
-                    other.getGameObject().onTrigger2DEnter(this);
-                    this.getGameObject().onTrigger2DEnter(other);
-                    otherStateEntry.setValue(true);
-                }
-            }
-        }
-         */
+        return collidersState.get(gameObject);
     }
 
     public synchronized void addGameObject(GameObject gameObject)

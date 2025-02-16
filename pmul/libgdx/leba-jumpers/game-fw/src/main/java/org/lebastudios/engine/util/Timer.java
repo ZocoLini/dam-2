@@ -1,4 +1,4 @@
-package org.lebastudios.engine;
+package org.lebastudios.engine.util;
 
 public class Timer
 {
