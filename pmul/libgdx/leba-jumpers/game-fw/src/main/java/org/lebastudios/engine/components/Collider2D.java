@@ -46,6 +46,9 @@ public abstract class Collider2D extends Component
         for (var colliderState : collidersState.entrySet())
         {
             GameObject other = colliderState.getKey();
+
+            if (!other.isEnabled()) continue gameObjectsLoop;
+
             boolean state = colliderState.getValue();
 
             boolean exited = false;

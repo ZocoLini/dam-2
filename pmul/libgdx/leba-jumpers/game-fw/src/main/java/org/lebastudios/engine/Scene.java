@@ -43,6 +43,21 @@ public abstract class Scene implements Screen
         gameObject.dispose();
     };
     private final Consumer<GameObject> addConsumer = gameObject -> {
+
+        if (gameObject.getScene() != null)
+        {
+            if (gameObject.getScene() == this)
+            {
+                System.out.println("[WARNING] GameObject already in scene");
+            }
+            else
+            {
+                System.out.println("[ERROR] GameObject already in another scene");
+            }
+
+            return;
+        }
+
         collidersState.put(gameObject, new HashMap<>());
         var thisGameObjectCollisionsState = collidersState.get(gameObject);
 

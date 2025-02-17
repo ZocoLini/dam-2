@@ -26,7 +26,7 @@ public class MainScene extends Scene
         finger.addComponent(boxCollider2D);
 
         GameObject enemyGenerator = new GameObject(new Transform(0, 0, 0));
-        enemyGenerator.addComponent(new EnemyGeneratorController(finger));
+        enemyGenerator.addComponent(new EnemyGeneratorController());
 
         this.addGameObject(finger);
         this.addGameObject(enemyGenerator);

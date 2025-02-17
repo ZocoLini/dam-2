@@ -19,6 +19,7 @@ public final class GameObject
     @Getter private final LazyArrayList<Collider2D> colliders = new LazyArrayList<>();
     @Getter private final Transform transform;
     @Setter @Getter private Scene scene;
+    @Getter private boolean enabled = true;
 
     public GameObject(Transform transform, GameObjectMetadata metadata)
     {
@@ -91,6 +92,8 @@ public final class GameObject
 
     public void physicsUpdate(float deltaTime)
     {
+        if (!enabled) return;
+
         this.colliders.update();
 
         for (Component component : components)
@@ -102,6 +105,8 @@ public final class GameObject
 
     public void update(float deltaTime)
     {
+        if (!enabled) return;
+
         for (Component component : components)
         {
             if (!component.isEnabled()) continue;
@@ -111,6 +116,8 @@ public final class GameObject
 
     public void render(SpriteBatch batch)
     {
+        if (!enabled) return;
+
         for (Component component : components)
         {
             if (!component.isEnabled()) continue;
@@ -120,6 +127,8 @@ public final class GameObject
 
     public void onTrigger2DEnter(Collider2D collider2D)
     {
+        if (!enabled) return;
+
         for (Component component : components)
         {
             component.onTrigger2DEnter(collider2D);
@@ -128,6 +137,8 @@ public final class GameObject
 
     public void onTrigger2DExit(Collider2D collider2D)
     {
+        if (!enabled) return;
+
         for (Component component : components)
         {
             component.onTrigger2DExit(collider2D);
@@ -136,6 +147,8 @@ public final class GameObject
 
     public void onTrigger2DStays(Collider2D collider2D)
     {
+        if (!enabled) return;
+
         for (Component component : components)
         {
             component.onTrigger2DStays(collider2D);
@@ -144,9 +157,33 @@ public final class GameObject
 
     public void onClicked()
     {
+        if (!enabled) return;
+
         for (Component component : components)
         {
             component.onClicked();
+        }
+    }
+
+    public void setEnabled(boolean enabled)
+    {
+        if (this.enabled == enabled) return;
+
+        this.enabled = enabled;
+
+        if (enabled)
+        {
+            for (Component component : components)
+            {
+                component.enable();
+            }
+        }
+        else
+        {
+            for (Component component : components)
+            {
+                component.disable();
+            }
         }
     }
 

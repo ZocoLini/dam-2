@@ -100,7 +100,7 @@ public class FingerController extends Component
         if (other.getGameObject().getMetadata().getTag().equals("Enemy"))
         {
             life--;
-            other.getGameObject().destroy();
+            other.getGameObject().setEnabled(false);
 
             if (life == 0)
             {

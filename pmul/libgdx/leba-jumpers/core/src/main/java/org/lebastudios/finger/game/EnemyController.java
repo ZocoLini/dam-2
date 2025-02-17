@@ -13,9 +13,14 @@ public class EnemyController extends Component
     @Override
     public void onStart()
     {
-        life = (int) (Math.random() * 5 + 3);
+        reasignLife();
 
         textRenderer = this.getGameObject().getComponent(TextRenderer.class);
+    }
+
+    public void reasignLife()
+    {
+        life = (int) (Math.random() * 5 + 3);
     }
 
     @Override
@@ -33,32 +38,15 @@ public class EnemyController extends Component
     @Override
     public void onTrigger2DEnter(Collider2D other)
     {
-        if (true)
-        {
-            System.out.println("Enter");
-        }
-
         if (other.getGameObject().getMetadata().getTag().equals("Bullet"))
         {
             life--;
 
             if (life <= 0)
             {
-                this.getGameObject().destroy();
+                this.getGameObject().setEnabled(false);
             }
         }
 
-    }
-
-    @Override
-    public void onTrigger2DStays(Collider2D collider2D)
-    {
-        System.out.println("Stay");
-    }
-
-    @Override
-    public void onTrigger2DExit(Collider2D collider2D)
-    {
-        System.out.println("Exit");
     }
 }
