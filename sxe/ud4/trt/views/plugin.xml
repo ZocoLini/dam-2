@@ -13,7 +13,6 @@
         </field>
     </record>
 
-    <!--
     <record id="view_plugin_form_view" model="ir.ui.view">
         <field name="name">trt.plugin.form.view</field>
         <field name="model">trt.plugin</field>
@@ -39,7 +38,6 @@
             </form>
         </field>
     </record>
-    -->
 
     <record id="view_plugin_search_view" model="ir.ui.view">
         <field name="name">trt.plugin.search.view</field>
