@@ -11,7 +11,7 @@
     "data": [
     	"security/trt_security.xml",
         "security/ir.model.access.csv",
-        "views/root.xml",
+        "views/trt.xml",
         "views/license.xml",
         "views/plugin.xml",
         "views/user.xml",
