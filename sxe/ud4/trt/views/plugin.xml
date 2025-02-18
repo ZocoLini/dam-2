@@ -13,6 +13,32 @@
         </field>
     </record>
 
+    <record id="view_plugin_form_view" model="ir.ui.view">
+        <field name="name">trt.plugin.form.view</field>
+        <field name="model">trt.plugin</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <notebook>
+                        <page string="General">
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="repository"/>
+                            </group>
+                        </page>
+                        <page string="Pricing">
+                            <group>
+                                <field name="is_monthly"/>
+                                <field name="price"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="view_plugin_search_view" model="ir.ui.view">
         <field name="name">trt.plugin.search.view</field>
         <field name="model">trt.plugin</field>
