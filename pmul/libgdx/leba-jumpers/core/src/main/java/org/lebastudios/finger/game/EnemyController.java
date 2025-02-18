@@ -41,6 +41,7 @@ public class EnemyController extends Component
         if (other.getGameObject().getMetadata().getTag().equals("Bullet"))
         {
             life--;
+            other.getGameObject().setEnabled(false);
 
             if (life <= 0)
             {

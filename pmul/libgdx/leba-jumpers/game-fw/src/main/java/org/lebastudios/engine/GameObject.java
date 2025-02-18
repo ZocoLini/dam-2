@@ -87,6 +87,11 @@ public final class GameObject
         for (Component component : components)
         {
             component.onStart();
+
+            if (enabled)
+            {
+                component.enable();
+            }
         }
     }
 

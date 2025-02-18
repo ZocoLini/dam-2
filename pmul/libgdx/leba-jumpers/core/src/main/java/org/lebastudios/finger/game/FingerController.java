@@ -2,12 +2,16 @@ package org.lebastudios.finger.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector3;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.components.*;
 import org.lebastudios.engine.coroutine.WaitForSeconds;
 import org.lebastudios.engine.input.InputManager;
+import org.lebastudios.engine.util.Pool;
 import org.lebastudios.finger.config.WorldConfig;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.function.Supplier;
 
 public class FingerController extends Component
@@ -16,9 +20,11 @@ public class FingerController extends Component
     private int superSpaces = 3;
     private int direccion = 0;
     private float velocidad = 60;
-    private int numDisparos = 3;
+    private int limiteBalas = 3;
 
     private Transform transform;
+    private final Pool<GameObject> bulletPool = new Pool<>(this::createBullet);
+    private final HashSet<GameObject> spwnedBullets = new HashSet<>();
 
     @Override
     public void onStart()
@@ -63,6 +69,20 @@ public class FingerController extends Component
     @Override
     public void onUpdate(float deltaTime)
     {
+        Iterator<GameObject> bulletsIter = spwnedBullets.iterator();
+
+        while (bulletsIter.hasNext())
+        {
+            GameObject bullet = bulletsIter.next();
+
+            if (!bullet.isEnabled() || Math.abs(bullet.getTransform().getPosition().x) > WorldConfig.WIDTH / 2f)
+            {
+                bullet.setEnabled(false);
+                bulletsIter.remove();
+                bulletPool.release(bullet);
+            }
+        }
+
         if (transform.getPosition().y >= WorldConfig.HEIGHT / 2f && direccion == 1) return;
         if (transform.getPosition().y <= -WorldConfig.HEIGHT / 2f && direccion == -1) return;
 
@@ -83,12 +103,21 @@ public class FingerController extends Component
             {
                 return () ->
                 {
+                    if (spwnedBullets.size() >= limiteBalas) return false;
                     i++;
 
-                    GameObject bullet = BulletFactory.createBullet(FingerController.this.transform);
-                    FingerController.this.getGameObject().getScene().addGameObject(bullet);
+                    System.out.println(123);
 
-                    return i < FingerController.this.numDisparos;
+                    GameObject bullet = bulletPool.request();
+                    spwnedBullets.add(bullet);
+                    bullet.setEnabled(true);
+                    bullet.getTransform().setPosition(new Vector3(
+                        FingerController.this.getTransform().getPosition().x,
+                        FingerController.this.getTransform().getPosition().y,
+                        0)
+                    );
+
+                    return i < FingerController.this.limiteBalas;
                 };
             }
         });
@@ -99,7 +128,6 @@ public class FingerController extends Component
     {
         if (other.getGameObject().getMetadata().getTag().equals("Enemy"))
         {
-            life--;
             other.getGameObject().setEnabled(false);
 
             if (life == 0)
@@ -109,24 +137,24 @@ public class FingerController extends Component
         }
     }
 
-    private static class BulletFactory
+    public GameObject createBullet()
     {
-        public static GameObject createBullet(Transform transform)
-        {
-            GameObject bullet = new GameObject(new Transform(transform.getPosition().x, transform.getPosition().y, 0));
-            bullet.getMetadata().setTag("Bullet");
+        GameObject bullet = new GameObject(new Transform(0, 0, 0));
+        bullet.getMetadata().setTag("Bullet");
 
-            CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(4);
-            bullet.addComponent(circleShape);
+        CircleShape circleShape = new CircleShape();
+        circleShape.setRadius(4);
+        bullet.addComponent(circleShape);
 
-            CircleCollider2D circleCollider2D = new CircleCollider2D();
-            circleCollider2D.setRadius(4.5f);
-            circleCollider2D.setLayer("Bullet");
-            bullet.addComponent(circleCollider2D);
+        CircleCollider2D circleCollider2D = new CircleCollider2D();
+        circleCollider2D.setRadius(4.5f);
+        circleCollider2D.setLayer("Bullet");
+        bullet.addComponent(circleCollider2D);
 
-            bullet.addComponent(new BulletController());
-            return bullet;
-        }
+        bullet.addComponent(new BulletController());
+
+        FingerController.this.getGameObject().getScene().addGameObject(bullet);
+
+        return bullet;
     }
 }

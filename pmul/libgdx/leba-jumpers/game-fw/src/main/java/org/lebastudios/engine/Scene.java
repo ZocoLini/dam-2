@@ -97,11 +97,6 @@ public abstract class Scene implements Screen
         shapeRenderer.setAutoShapeType(true);
 
         gameObjects.update(addConsumer, removeConsumer);
-
-        for (GameObject gameObject : gameObjects)
-        {
-            gameObject.create();
-        }
     }
 
     @Override
