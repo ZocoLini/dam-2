@@ -19,7 +19,7 @@ class Plugin(models.Model):
         for record in self:
             record.is_monthly = record.price > 0
 
-    @api.constraints('price')
+    @api.constrains('price')
     def _check_min_price(self):
         for record in self:
             if record.price < 0:
