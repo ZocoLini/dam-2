@@ -8,7 +8,7 @@ class Plugin(models.Model):
 
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
-    is_monthly = fields.Boolean(string="Monthly", compute='_compute_is_monthly', store=False)
+    is_monthly = fields.Boolean(string="Monthly", readonly=True, compute='_compute_is_monthly', store=False)
     price = fields.Float(string="Price", required=True)
     repository = fields.Char(string="Repository")
 
