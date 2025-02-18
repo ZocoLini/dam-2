@@ -14,7 +14,7 @@
         "views/trt.xml",
         "views/license.xml",
         "views/plugin.xml",
-        "views/user.xml",
+        "views/user.xml"
 	],
     "installable": True,
 }
