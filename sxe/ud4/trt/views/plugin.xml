@@ -1,0 +1,46 @@
+<odoo>
+    <record id="view_plugin_tree_view" model="ir.ui.view">
+        <field name="name">trt.plugin.tree.view</field>
+        <field name="model">trt.plugin</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="is_monthly"/>
+                <field name="price"/>
+                <field name="repository"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_plugin_search_view" model="ir.ui.view">
+        <field name="name">trt.plugin.search.view</field>
+        <field name="model">trt.plugin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="is_monthly"/>
+                <field name="price"/>
+                <field name="repository"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_plugin" model="ir.actions.act_window">
+        <field name="name">Plugin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">trt.plugin</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create Plugin.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="trt_plugin_menu" name="Plugin" parent="trt_main_menu"
+        action="trt.action_plugin" groups="trt.group_trt_manager"
+        sequence="1"/>
+
+</odoo>

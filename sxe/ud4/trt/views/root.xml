@@ -1,0 +1,38 @@
+<odoo>
+    <menuitem id="trt_main_menu" name="TRT" sequence="1"/>
+
+    <!--
+    <record id="view_hostel_form_view" model="ir.ui.view">
+        <field name="name">hostel.hostel.form.view</field>
+        <field name="model">hostel.hostel</field>
+        <field name="arch" type="xml">
+            <form string="Hostel">
+                <sheet>
+                    <div class="oe_title">
+                        <h3>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;"><field name="Nombre" required="1" 
+                                    placeholder="Nombre" /></td>
+                                    <td style="padding-right:10px;"><field name="Codigo" 
+                                    placeholder="Codigo" /></td>
+                                </tr>
+                            </table>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <label for="Direccion1" string="Direccion"/>
+                            <div class="o_address_format">
+                                <field name="Direccion1" placeholder="Calle, avenida..." class="o_address_street"/>
+                                <field name="Direccion2" placeholder="Calle, avenida..." class="o_address_street"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    -->
+
+</odoo>
