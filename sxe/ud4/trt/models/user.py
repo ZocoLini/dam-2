@@ -1,11 +1,8 @@
-import random
-import string
-
 from odoo import fields, models, api
 
-def _generate_license_number():
-    random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
-    return f"LIC-{random_part}"
+## def _generate_license_number():
+##     random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+##     return f"LIC-{random_part}"
 
 
 class License(models.Model):
