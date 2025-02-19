@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!--
         <record id="destinos_form_view" model="ir.ui.view">
             <field name="name">destinos.form</field>
             <field name="model">viajes.destinos</field>
@@ -10,24 +9,26 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="matricula" />
-                                <field name="origen" />
-                                <field name="destino" />
-                                <field name="fecha_vuelo" />
+                                <field name="matricula"/>
+                                <field name="origen"/>
+                                <field name="destino"/>
+                                <field name="fecha_vuelo"/>
                             </group>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-        -->
 
         <record id="destinos_tree_view" model="ir.ui.view">
             <field name="name">destinos.tree</field>
             <field name="model">viajes.destinos</field>
             <field name="arch" type="xml">
                 <tree string="destinos">
-
+                    <field name="matricula"/>
+                    <field name="origen"/>
+                    <field name="destino"/>
+                    <field name="fecha_vuelo"/>
                 </tree>
             </field>
         </record>

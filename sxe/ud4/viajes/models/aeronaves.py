@@ -1,10 +1,11 @@
 from odoo import fields, models, api
+from odoo.api import ondelete
 from odoo.exceptions import ValidationError
 
 
 class Aeronaves(models.Model):
-    _name = 'viajes.aeronaves'
-    _description = 'Aviones para volar'
+    _name = "viajes.aeronaves"
+    _description = "Aviones para volar"
 
     name = fields.Char(string="Nombre", required=True)
     matricula = fields.Char(string="Matricula", required=True)
@@ -13,7 +14,7 @@ class Aeronaves(models.Model):
     hangar = fields.Selection([{'0', 'Londres'}, {'1', 'Bruselas'}, {'2', 'Luton'}], string="Hangar del avion",
                               required=True)
 
-    destinos = fields.Many2one('viajes.destinos', string="Destinos", required=True, ondelete='cascade')
+    destinos = fields.Many2one('viajes.destinos', string="Destinos", ondelete='cascade')
 
     @api.constrains('matricula')
     def _check_matriula_len(self):
