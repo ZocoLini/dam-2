@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!--
         <record id="aeronaves_form_view" model="ir.ui.view">
             <field name="name">aeronaves.form</field>
             <field name="model">viajes.aeronaves</field>
             <field name="arch" type="xml">
-                <form string="aeronaves">
+                <form>
                     <sheet>
                         <group>
-                            <group>
-                              
-                                                   
-                            </group>
+                            <field name="name"/>
+                            <field name="matricula"/>
+                            <field name="fecha_compra"/>
+                            <field name="km_actuales"/>
+                            <field name="hangar"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
+-->
         <record id="aeronaves_tree_view" model="ir.ui.view">
             <field name="name">aeronaves.tree</field>
             <field name="model">viajes.aeronaves</field>
             <field name="arch" type="xml">
-                <tree string="aeronaves">
-                       
-                     
-                                      
+                <tree>
+
+
                 </tree>
             </field>
         </record>
-   
+
         <record id="aeronaves_act_window" model="ir.actions.act_window">
             <field name="name">aeronaves.window</field>
             <field name="type">ir.actions.act_window</field>
@@ -38,9 +39,7 @@
         </record>
 
         <menuitem name="Viajes" id="viajes_menu_root"/>
-        <!--
         <menuitem name="Aeronaves" id="aeronaves_menu" parent="viajes_menu_root" action="aeronaves_act_window"/>
         <menuitem name="Destinos" id="destinos_menu" parent="viajes_menu_root" action="destinos_act_window"/>
-        -->
     </data>
 </odoo>
