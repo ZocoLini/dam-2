@@ -47,10 +47,10 @@ public abstract class Collider2D extends Component
     @Override
     public void onPhysicsUpdate(float deltaTime)
     {
-        var collidersState = this.getGameObject().getScene().getCollidersState(this.getGameObject());
+        var collisionsStates = this.getGameObject().getScene().getCollisionsStates(this.getGameObject());
 
         gameObjectsLoop:
-        for (var colliderState : collidersState.entrySet())
+        for (var colliderState : collisionsStates.entrySet())
         {
             GameObject other = colliderState.getKey();
 

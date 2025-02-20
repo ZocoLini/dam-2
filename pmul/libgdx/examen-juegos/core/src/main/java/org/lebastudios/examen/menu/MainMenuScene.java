@@ -1,6 +1,10 @@
 package org.lebastudios.examen.menu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.components.*;
@@ -36,6 +40,11 @@ public class MainMenuScene extends Scene
         circleCollider2D.setRadius(30);
         title.addComponent(circleCollider2D);
 
+        TextureAtlas atals = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
+        TextureRegion region = atals.findRegion("player");
+        SpriteRenderer spriteRenderer = new SpriteRenderer();
+        spriteRenderer.setSpriteTexture(region.getTexture());
+
         title.addComponent(new Component() {
             @Override
             public void onClicked()
@@ -43,6 +52,10 @@ public class MainMenuScene extends Scene
                 System.out.println("Clicked");
             }
         });
+
+        Preferences pref = Gdx.app.getPreferences("Examen");
+        pref.putInteger("score", 0);
+        pref.flush();
 
         this.addGameObject(title);
     }

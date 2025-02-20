@@ -23,12 +23,12 @@ public abstract class Scene implements Screen
 
     private final LazyArrayList<GameObject> gameObjects = new LazyArrayList<>();
 
-    private final HashMap<GameObject, HashMap<GameObject, Boolean>> collidersState = new HashMap<>();
+    private final HashMap<GameObject, HashMap<GameObject, Boolean>> collisionsStates = new HashMap<>();
 
     private final List<IEnumerator> coroutines = new ArrayList<>();
 
     private final Consumer<GameObject> removeConsumer = gameObject -> {
-        collidersState.entrySet().removeIf(entry ->
+        collisionsStates.entrySet().removeIf(entry ->
         {
             if (entry.getKey() == gameObject)
             {
@@ -58,8 +58,8 @@ public abstract class Scene implements Screen
             return;
         }
 
-        collidersState.put(gameObject, new HashMap<>());
-        var thisGameObjectCollisionsState = collidersState.get(gameObject);
+        collisionsStates.put(gameObject, new HashMap<>());
+        var thisGameObjectCollisionsState = collisionsStates.get(gameObject);
 
         gameObjects.forEach(go ->
         {
@@ -140,9 +140,9 @@ public abstract class Scene implements Screen
         shapeRenderer.end();
     }
 
-    public HashMap<GameObject, Boolean> getCollidersState(GameObject gameObject)
+    public HashMap<GameObject, Boolean> getCollisionsStates(GameObject gameObject)
     {
-        return collidersState.get(gameObject);
+        return collisionsStates.get(gameObject);
     }
 
     public synchronized void addGameObject(GameObject gameObject)
