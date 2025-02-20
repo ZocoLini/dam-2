@@ -4,15 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import lombok.Getter;
 import lombok.Setter;
-import org.lebastudios.engine.Camera;
+import org.lebastudios.engine.camera.Camera;
 import org.lebastudios.engine.GameObject;
+import org.lebastudios.engine.events.IEventMethod4;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.engine.physics.Physics2D;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 // TODO: Implement collision resolution
 //  this.getGameObject().onCollision2DEnter(collider);
@@ -21,20 +17,31 @@ public abstract class Collider2D extends Component
     @Getter @Setter protected String layer = "Default";
     protected boolean isTrigger = true;
 
+    private Camera camera;
+
+    private final IEventMethod4<Integer, Integer, Integer, Integer> onTouchListener = (screenX, screenY, _, _) ->
+    {
+        if (!this.getGameObject().isEnabled()) return;
+
+        final var unprojected = camera.unproject(new Vector3(screenX, screenY, 0));
+
+        if (collides(unprojected.x, unprojected.y))
+        {
+            this.getGameObject().onClicked();
+        }
+    };
+
     @Override
     public void onStart()
     {
-        final Camera camera = this.getGameObject().getScene().getCamera();
+        camera = this.getGameObject().getScene().getCamera();
+        InputManager.getInstance().addTouchDownListener(onTouchListener);
+    }
 
-        InputManager.getInstance().addTouchDownListener((screenX, screenY, _, _) ->
-        {
-            final var unprojected = camera.unproject(new Vector3(screenX, screenY, 0));
-
-            if (collides(unprojected.x, unprojected.y))
-            {
-                this.getGameObject().onClicked();
-            }
-        });
+    @Override
+    public void onDestroy()
+    {
+        InputManager.getInstance().removeTouchDownListener(onTouchListener);
     }
 
     @Override

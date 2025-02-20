@@ -1,4 +1,4 @@
-package org.lebastudios.examen.menu;
+package org.lebastudios.examen.game;
 
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
@@ -7,14 +7,14 @@ import org.lebastudios.engine.components.TextRenderer;
 import org.lebastudios.engine.components.Transform;
 import org.lebastudios.examen.world.WorldConfig;
 
-public class MainMenu extends Scene
+public class GameScene extends Scene
 {
     @Override
     protected void setup()
     {
         GameObject title = new GameObject(new Transform(0, 0, 0));
         TextRenderer textRenderer = new TextRenderer();
-        textRenderer.setText("Main Menu");
+        textRenderer.setText("Game");
         title.addComponent(textRenderer);
 
         CircleShape circleShape = new CircleShape();
@@ -25,13 +25,13 @@ public class MainMenu extends Scene
     }
 
     @Override
-    protected float getCameraWidth()
+    public float getCameraWidth()
     {
         return WorldConfig.WORLD_WIDTH;
     }
 
     @Override
-    protected float getCameraHeight()
+    public float getCameraHeight()
     {
         return WorldConfig.WORLD_HEIGHT;
     }

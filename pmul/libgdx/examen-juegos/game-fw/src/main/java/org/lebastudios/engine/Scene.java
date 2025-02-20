@@ -3,11 +3,11 @@ package org.lebastudios.engine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.lebastudios.engine.camera.Camera;
 import org.lebastudios.engine.coroutine.IEnumerator;
 import org.lebastudios.engine.util.LazyArrayList;
 
@@ -90,7 +90,7 @@ public abstract class Scene implements Screen
     {
         setup();
 
-        camera = new Camera();
+        camera = new Camera(this);
         camera.position.set(0, 0, 0);
         camera.update();
 
@@ -102,11 +102,6 @@ public abstract class Scene implements Screen
     @Override
     public final void render(float delta)
     {
-        batch.setProjectionMatrix(camera.combined);
-        shapeRenderer.setProjectionMatrix(camera.combined);
-
-        ScreenUtils.clear(0, 0, 1, 1);
-
         for (GameObject gameObject : gameObjects)
         {
             gameObject.physicsUpdate(delta);
@@ -130,6 +125,8 @@ public abstract class Scene implements Screen
         }
 
         gameObjects.update(addConsumer, removeConsumer);
+
+        camera.onRender(this);
 
         shapeRenderer.begin();
         batch.begin();
@@ -164,21 +161,10 @@ public abstract class Scene implements Screen
     @Override
     public void resize(int width, int height)
     {
-        float aspectRatio = (float) height / width;
-        float desiredAspectRatio = getCameraHeight() / getCameraWidth();
+        camera.onResize(width, height, this);
 
-        if (aspectRatio < desiredAspectRatio)
-        {
-            camera.viewportWidth = getCameraWidth() / aspectRatio * desiredAspectRatio;
-            camera.viewportHeight = getCameraHeight();
-        }
-        else
-        {
-            camera.viewportWidth = getCameraWidth();
-            camera.viewportHeight = getCameraHeight() * aspectRatio / desiredAspectRatio;
-        }
-
-        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
     }
 
     @Override
@@ -213,9 +199,9 @@ public abstract class Scene implements Screen
 
     protected abstract void setup();
 
-    protected abstract float getCameraWidth();
+    public abstract float getCameraWidth();
 
-    protected abstract float getCameraHeight();
+    public abstract float getCameraHeight();
 
     public void startCoroutine(IEnumerator coroutine)
     {

@@ -88,6 +88,11 @@ public class InputManager implements InputProcessor
         onTouchDown.addListener(touchDownListener);
     }
 
+    public void removeTouchDownListener(IEventMethod4<Integer, Integer, Integer, Integer> touchDownListener)
+    {
+        onTouchDown.removeListener(touchDownListener);
+    }
+
     @Override
     public boolean keyDown(int keycode)
     {
