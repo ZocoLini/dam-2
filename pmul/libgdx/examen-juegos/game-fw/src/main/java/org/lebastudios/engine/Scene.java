@@ -131,16 +131,16 @@ public abstract class Scene implements Screen
 
         gameObjects.update(addConsumer, removeConsumer);
 
-        batch.begin();
         shapeRenderer.begin();
+        batch.begin();
 
         for (GameObject gameObject : gameObjects)
         {
             gameObject.render(batch);
         }
 
-        shapeRenderer.end();
         batch.end();
+        shapeRenderer.end();
     }
 
     public HashMap<GameObject, Boolean> getCollidersState(GameObject gameObject)

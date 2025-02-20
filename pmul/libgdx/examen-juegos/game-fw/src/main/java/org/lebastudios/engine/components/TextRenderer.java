@@ -1,6 +1,5 @@
 package org.lebastudios.engine.components;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +16,7 @@ public class TextRenderer extends Component
     {
         font.draw(batch, glyphLayout,
             getGameObject().getTransform().getPosition().x - glyphLayout.width / 2,
-            getGameObject().getTransform().getPosition().y - glyphLayout.height / 2
+            getGameObject().getTransform().getPosition().y - glyphLayout.height / 2 + glyphLayout.height
         );
     }
 
