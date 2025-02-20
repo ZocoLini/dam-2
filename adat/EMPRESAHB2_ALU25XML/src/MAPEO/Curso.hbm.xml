@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="POJOS.Curso" table="CURSO" schema="dbo" catalog="EMPRESAHB2_25">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="Nome" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="horas" type="java.lang.Integer">
+            <column name="Horas" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

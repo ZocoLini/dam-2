@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="EMPRESAHB2_23" match-schema="dbo"/>
+  <table-filter match-name="EDICION"/>
+  <table-filter match-name="TELEFONO"/>
+  <table-filter match-name="EMPREGADOTEMPORAL"/>
+  <table-filter match-name="EMPREGADO_PROXECTO"/>
+  <table-filter match-name="EDICIONCURSO_EMPREGADO"/>
+  <table-filter match-name="EMPREGADOFIXO"/>
+  <table-filter match-name="CURSO"/>
+  <table-filter match-name="PROXECTO"/>
+  <table-filter match-name="DEPARTAMENTO"/>
+  <table-filter match-name="EMPREGADO"/>
+  <table-filter match-name="VEHICULO"/>
+  <table-filter match-name="HORASEXTRAS"/>
+  <table-filter match-name="LUGAR"/>
+  <table-filter match-name="FAMILIAR"/>
+</hibernate-reverse-engineering>

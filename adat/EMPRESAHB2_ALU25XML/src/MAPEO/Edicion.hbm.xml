@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-feb-2023 8:57:24 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="POJOS.Edicion" table="EDICION" schema="dbo" catalog="EMPRESAHB2_25">
+        <composite-id name="id" class="POJOS.EdicionId">
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="numero" type="int">
+                <column name="Numero" />
+            </key-property>
+        </composite-id>
+      
+        <property name="data" type="date">
+            <column name="Data" length="10" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="25" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

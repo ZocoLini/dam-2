@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-feb-2023 8:57:24 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="POJOS.EmpregadoProxecto" table="EMPREGADO_PROXECTO" schema="dbo" catalog="EMPRESAHB2_25">
+        <composite-id name="id" class="POJOS.EmpregadoProxectoId">
+            <key-property name="nssempregado" type="string">
+                <column name="NSSEmpregado" length="15" />
+            </key-property>
+            <key-property name="numProxecto" type="int">
+                <column name="NumProxecto" />
+            </key-property>
+        </composite-id>
+         <property name="horas" type="java.lang.Integer">
+            <column name="Horas" />
+        </property>
+        
+       
+    </class>
+</hibernate-mapping>

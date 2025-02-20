@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-feb-2023 8:57:24 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="POJOS.Proxecto" table="PROXECTO" schema="dbo" catalog="EMPRESAHB2_25">
+        <id name="numProxecto" type="int">
+            <column name="NumProxecto" />
+            <generator class="assigned" />
+        </id>
+        
+        <property name="nomeProxecto" type="string">
+            <column name="NomeProxecto" length="25" not-null="true" unique="true" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="25" not-null="true" />
+        </property>
+      
+    </class>
+</hibernate-mapping>
