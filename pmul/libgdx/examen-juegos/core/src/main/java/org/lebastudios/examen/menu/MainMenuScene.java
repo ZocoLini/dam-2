@@ -32,7 +32,7 @@ public class MainMenuScene extends Scene
         title.addComponent(textRenderer);
 
         BoxShape boxShape = new BoxShape();
-        boxShape.setWidth(200);
+        boxShape.setWidth(900);
         boxShape.setHeight(50);
         title.addComponent(boxShape);
 
@@ -40,10 +40,10 @@ public class MainMenuScene extends Scene
         circleCollider2D.setRadius(30);
         title.addComponent(circleCollider2D);
 
-        TextureAtlas atals = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
-        TextureRegion region = atals.findRegion("player");
-        SpriteRenderer spriteRenderer = new SpriteRenderer();
-        spriteRenderer.setSpriteTexture(region.getTexture());
+        // TextureAtlas atals = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
+        // TextureRegion region = atals.findRegion("player");
+        // SpriteRenderer spriteRenderer = new SpriteRenderer();
+        // spriteRenderer.setSpriteTexture(region.getTexture());
 
         title.addComponent(new Component() {
             @Override

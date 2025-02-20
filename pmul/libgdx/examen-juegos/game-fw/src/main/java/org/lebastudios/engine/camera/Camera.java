@@ -10,7 +10,7 @@ import org.lebastudios.engine.Scene;
 
 public class Camera extends OrthographicCamera
 {
-    @Setter private Vector3 backgroundColor = new Vector3(0, 0, 1);
+    @Setter private Vector3 backgroundColor = new Vector3(0, 0, 0);
     @Setter private float alpha = 1;
 
     private final Viewport viewport;
