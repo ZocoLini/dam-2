@@ -1,8 +1,9 @@
-package org.lebastudios.finger.game;
+package org.lebastudios.finger;
 
 import org.lebastudios.engine.GameAdapter;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.physics.Physics2D;
+import org.lebastudios.finger.game.MainScene;
 
 public class FingerGameAdapter extends GameAdapter
 {

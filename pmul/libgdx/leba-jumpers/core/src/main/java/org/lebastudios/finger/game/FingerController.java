@@ -106,16 +106,14 @@ public class FingerController extends Component
                     if (spwnedBullets.size() >= limiteBalas) return false;
                     i++;
 
-                    System.out.println(123);
-
                     GameObject bullet = bulletPool.request();
                     spwnedBullets.add(bullet);
-                    bullet.setEnabled(true);
                     bullet.getTransform().setPosition(new Vector3(
                         FingerController.this.getTransform().getPosition().x,
                         FingerController.this.getTransform().getPosition().y,
                         0)
                     );
+                    bullet.setEnabled(true);
 
                     return i < FingerController.this.limiteBalas;
                 };
