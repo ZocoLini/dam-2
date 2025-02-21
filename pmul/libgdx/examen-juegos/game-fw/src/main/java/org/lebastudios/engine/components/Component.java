@@ -6,9 +6,6 @@ import lombok.Setter;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.coroutine.IEnumerator;
 
-import java.util.List;
-import java.util.Set;
-
 public abstract class Component
 {
     @Getter private boolean enabled = true;

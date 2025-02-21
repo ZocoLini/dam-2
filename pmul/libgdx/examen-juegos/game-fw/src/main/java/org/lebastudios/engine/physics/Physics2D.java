@@ -3,7 +3,7 @@ package org.lebastudios.engine.physics;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.HashMap;
 
 public class Physics2D
 {

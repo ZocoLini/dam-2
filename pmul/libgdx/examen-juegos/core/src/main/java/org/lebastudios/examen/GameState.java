@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import lombok.Getter;
 import lombok.Setter;
-import org.lebastudios.engine.Scene;
 import org.lebastudios.examen.game.GameScene;
-import org.lebastudios.examen.menu.MainMenuScene;
 
 
 public class GameState
