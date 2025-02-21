@@ -6,14 +6,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
 public class BoxShape extends Component
 {
-    private float width;
-    private float height;
-    private boolean filled = false;
-    private Color color = Color.BLACK;
+    @Setter @Getter private float width;
+    @Setter @Getter private float height;
+    @Setter @Getter private boolean filled = false;
+    @Setter @Getter private Color color = Color.BLACK;
 
     private ShapeRenderer shapeRenderer;
 

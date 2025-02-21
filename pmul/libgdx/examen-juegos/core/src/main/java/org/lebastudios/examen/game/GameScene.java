@@ -1,10 +1,13 @@
 package org.lebastudios.examen.game;
 
+import com.badlogic.gdx.graphics.Color;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
+import org.lebastudios.engine.components.CircleCollider2D;
 import org.lebastudios.engine.components.CircleShape;
 import org.lebastudios.engine.components.TextRenderer;
 import org.lebastudios.engine.components.Transform;
+import org.lebastudios.engine.physics.Physics2D;
 import org.lebastudios.examen.world.WorldConfig;
 
 public class GameScene extends Scene
@@ -12,16 +15,33 @@ public class GameScene extends Scene
     @Override
     protected void setup()
     {
-        GameObject title = new GameObject(new Transform(0, 0, 0));
-        TextRenderer textRenderer = new TextRenderer();
-        textRenderer.setText("Game");
-        title.addComponent(textRenderer);
+        Physics2D.getCollisionMatrix().addLayer("enemy");
+        Physics2D.getCollisionMatrix().addLayer("player");
+
+        Physics2D.getCollisionMatrix().setCollision("enemy", "player", true);
+
+        GameObject player = new GameObject(new Transform(0, 0, 0));
+        player.getMetadata().setName("player");
 
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(50);
-        title.addComponent(circleShape);
+        circleShape.setColor(Color.WHITE);
+        circleShape.setRadius(10);
+        circleShape.setFilled(true);
+        player.addComponent(circleShape);
 
-        this.addGameObject(title);
+        CircleCollider2D circleCollider2D = new CircleCollider2D();
+        circleCollider2D.setRadius(8);
+        circleCollider2D.setLayer("player");
+        player.addComponent(circleShape);
+
+        player.addComponent(new PlayerController());
+
+        this.addGameObject(player);
+
+        GameObject enemyGenerator = new GameObject(new Transform(0, 0, 0));
+        enemyGenerator.addComponent(new EnemyGeneratorController());
+
+        this.addGameObject(enemyGenerator);
     }
 
     @Override
