@@ -27,7 +27,8 @@ public abstract class Scene implements Screen
 
     private final List<IEnumerator> coroutines = new ArrayList<>();
 
-    private final Consumer<GameObject> removeConsumer = gameObject -> {
+    private final Consumer<GameObject> removeConsumer = gameObject ->
+    {
         collisionsStates.entrySet().removeIf(entry ->
         {
             if (entry.getKey() == gameObject)
@@ -42,7 +43,8 @@ public abstract class Scene implements Screen
         gameObject.setScene(null);
         gameObject.dispose();
     };
-    private final Consumer<GameObject> addConsumer = gameObject -> {
+    private final Consumer<GameObject> addConsumer = gameObject ->
+    {
 
         if (gameObject.getScene() != null)
         {
@@ -76,9 +78,12 @@ public abstract class Scene implements Screen
     @Getter private final SpriteBatch batch = new SpriteBatch();
     @Getter private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
+    private boolean paused = true;
+
     public Scene(SceneMetadata sceneMetadata)
     {
         this.metadata = sceneMetadata;
+        create();
     }
 
     public Scene()
@@ -100,8 +105,10 @@ public abstract class Scene implements Screen
     }
 
     @Override
-    public final void render(float delta)
+    public void render(float delta)
     {
+        if (paused) return;
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.physicsUpdate(delta);
@@ -156,7 +163,10 @@ public abstract class Scene implements Screen
     }
 
     @Override
-    public void show() {}
+    public void show()
+    {
+        paused = false;
+    }
 
     @Override
     public void resize(int width, int height)
@@ -168,13 +178,22 @@ public abstract class Scene implements Screen
     }
 
     @Override
-    public void pause() {}
+    public void pause()
+    {
+        paused = true;
+    }
 
     @Override
-    public void resume() {}
+    public void resume()
+    {
+        paused = false;
+    }
 
     @Override
-    public void hide() {}
+    public void hide()
+    {
+        paused = true;
+    }
 
     @Override
     public void dispose()

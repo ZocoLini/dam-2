@@ -18,6 +18,11 @@ public class ExamenGameAdapter extends GameAdapter
     @Override
     protected void onCreate()
     {
+        Physics2D.getCollisionMatrix().addLayer("enemy");
+        Physics2D.getCollisionMatrix().addLayer("player");
+
+        Physics2D.getCollisionMatrix().setCollision("enemy", "player", true);
+
         GameAdapter.DEBUG = true;
     }
 

@@ -62,7 +62,7 @@ public class EnemyGeneratorController extends Component
             default -> throw new RuntimeException("[ERROR] El número generado no es valido");
         };
 
-        float ySide = (float) (Math.random() * WorldConfig.WORLD_HEIGHT) - WorldConfig.WORLD_HEIGHT / 2f;
+        float ySide = (float) (Math.random() * WorldConfig.WORLD_HEIGHT) - (WorldConfig.WORLD_HEIGHT / 2f - GameScene.INFO_DISPLAY_HEIGTH);
 
         enemy.getTransform().setPosition(new Vector3(
             WorldConfig.WORLD_WIDTH / 2f * xSide,

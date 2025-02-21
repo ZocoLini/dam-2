@@ -25,6 +25,7 @@ public class GameState
     }
 
     @Setter @Getter private int difficulty = 1;
+    @Getter private float gameTimeElapsed = 0;
 
     public float getScoreActualDifficulty()
     {
@@ -40,5 +41,15 @@ public class GameState
         }
 
         preferences.putFloat("record-" + difficulty, score);
+    }
+
+    public void addTime(float time)
+    {
+        gameTimeElapsed += time;
+    }
+
+    public void resetGameState()
+    {
+        gameTimeElapsed = 0;
     }
 }

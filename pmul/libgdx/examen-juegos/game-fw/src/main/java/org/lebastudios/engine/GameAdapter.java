@@ -39,8 +39,6 @@ public abstract class GameAdapter extends Game
 
     public final void setScene(Scene scene)
     {
-        scene.create();
-
         super.setScreen(scene);
     }
 }
