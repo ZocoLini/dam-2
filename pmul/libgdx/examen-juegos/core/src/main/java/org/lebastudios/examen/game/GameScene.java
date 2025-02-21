@@ -5,11 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.components.*;
+import org.lebastudios.engine.coroutine.WaitForSeconds;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.examen.ExamenGameAdapter;
 import org.lebastudios.examen.GameState;
 import org.lebastudios.examen.menu.MainMenuScene;
 import org.lebastudios.examen.world.WorldConfig;
+
+import java.util.function.Supplier;
 
 public class GameScene extends Scene
 {
@@ -118,7 +121,8 @@ public class GameScene extends Scene
         record.setText(String.format("RECORD: %ds", (int) GameState.getInstance().getScoreActualDifficulty()));
         info.addComponent(record);
 
-        info.addComponent(new Component() {
+        info.addComponent(new Component()
+        {
             @Override
             public void onUpdate(float deltaTime)
             {
@@ -126,6 +130,30 @@ public class GameScene extends Scene
                 {
                     info.removeComponent(this);
                     record.setText("Nuevo Record!");
+
+                    // Parpadeo con nuevo record
+                    this.getGameObject().getScene().startCoroutine(new WaitForSeconds(0.2f)
+                    {
+                        int i = 0;
+
+                        @Override
+                        public Supplier<Boolean> getAction()
+                        {
+                            return () ->
+                            {
+                                if (record.isEnabled())
+                                {
+                                    record.disable();
+                                }
+                                else
+                                {
+                                    record.enable();
+                                }
+
+                                return ++i < 6;
+                            };
+                        }
+                    });
                 }
             }
         });
