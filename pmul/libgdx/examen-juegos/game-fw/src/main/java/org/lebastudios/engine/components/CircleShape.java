@@ -7,6 +7,7 @@ import lombok.Setter;
 public class CircleShape extends Component
 {
     @Setter @Getter private float radius;
+    @Setter @Getter private boolean filled;
 
     @Override
     public void onRender(SpriteBatch batch)

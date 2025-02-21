@@ -19,10 +19,6 @@ public class InputManager implements InputProcessor
         return instance;
     }
 
-    // private final HashMap<Integer, Array<Runnable>> onKeyDown = new HashMap<>();
-    // private final HashMap<Integer, Array<Runnable>> onKeyUp = new HashMap<>();
-    // private final Array<OnTouchDownListener> onTouchDown = new Array<>(false, 1);
-
     private final HashMap<Integer, Event> onKeyDown = new HashMap<>();
     private final HashMap<Integer, Event> onKeyUp = new HashMap<>();
     private final Event4<Integer, Integer, Integer, Integer> onTouchDown = new Event4<>();
@@ -53,6 +49,19 @@ public class InputManager implements InputProcessor
         for (int keycode : keycodes)
         {
             addKeyDownListener(keycode, runnable);
+        }
+    }
+
+    public void clearKeyDownListeners()
+    {
+        onKeyDown.clear();
+    }
+
+    public void removeKeyDownListener(IEventMethod runnable, int... keycodes)
+    {
+        for (int keycode : keycodes)
+        {
+            onKeyDown.get(keycode).removeListener(runnable);
         }
     }
 
