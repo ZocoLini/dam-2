@@ -79,7 +79,7 @@ public class GameScene extends Scene
         info.addComponent(boxShape);
 
         TextRenderer timePlayed = new TextRenderer();
-        timePlayed.setOffset(new Vector2(-100, 0));
+        timePlayed.setOffset(new Vector2(-150, 0));
         info.addComponent(timePlayed);
         info.addComponent(new Component()
         {
@@ -107,14 +107,14 @@ public class GameScene extends Scene
                 colisiones.setText(
                     String.format(
                         "COLISIONES: %d de %d",
-                        playerController.getLife() - maxColisiones, maxColisiones
+                        maxColisiones - playerController.getLife(), maxColisiones
                     )
                 );
             }
         });
 
         TextRenderer record = new TextRenderer();
-        record.setOffset(new Vector2(100, 0));
+        record.setOffset(new Vector2(150, 0));
         record.setText(String.format("RECORD: %ds", (int) GameState.getInstance().getScoreActualDifficulty()));
         info.addComponent(record);
 

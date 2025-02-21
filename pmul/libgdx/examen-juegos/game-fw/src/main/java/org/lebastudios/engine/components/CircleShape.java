@@ -24,9 +24,14 @@ public class CircleShape extends Component
     @Override
     public void onRender(SpriteBatch batch)
     {
+        batch.end();
         if (filled)
         {
             shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+        }
+        else
+        {
+            shapeRenderer.set(ShapeRenderer.ShapeType.Point);
         }
 
         shapeRenderer.setColor(color);
@@ -37,9 +42,9 @@ public class CircleShape extends Component
             radius
         );
 
-        if (filled)
-        {
-            shapeRenderer.set(ShapeRenderer.ShapeType.Line);
-        }
+        shapeRenderer.end();
+        shapeRenderer.begin();
+
+        batch.begin();
     }
 }

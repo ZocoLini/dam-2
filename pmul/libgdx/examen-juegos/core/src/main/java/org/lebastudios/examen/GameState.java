@@ -35,17 +35,6 @@ public class GameState
         return preferences.getFloat("record-" + difficulty, 0);
     }
 
-    public void setScoreActualDifficulty(float score)
-    {
-        if (score < 0)
-        {
-            System.out.println("[WARNING] Tryied to save a negative score");
-            return;
-        }
-
-        preferences.putFloat("record-" + difficulty, score);
-    }
-
     public void addTime(float time)
     {
         gameTimeElapsed += time;
@@ -54,6 +43,16 @@ public class GameState
     public void resetGameState()
     {
         gameTimeElapsed = 0;
+    }
+
+    public void clearRecords()
+    {
+        for (int i = 1; i < 10; i++)
+        {
+            preferences.putFloat("record-" + difficulty, 0);
+        }
+
+        preferences.flush();
     }
 
     public void finishRun()

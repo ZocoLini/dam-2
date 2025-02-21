@@ -21,11 +21,18 @@ public abstract class EnemyController extends Component
     {
         textRenderer = this.getGameObject().getComponent(TextRenderer.class);
         resetState();
+
+        if (rebota())
+        {
+            textRenderer.setText(rebotes + "");
+        }
     }
 
     public void resetState()
     {
         rebotes = ((int) (Math.random() * (MAX_REBOTES - 1))) + 1;
+
+        if (rebotes == 1) pintarRojo();
     }
 
     @Override
@@ -39,10 +46,7 @@ public abstract class EnemyController extends Component
             direccion *= -1;
             textRenderer.setText(rebotes + "");
 
-            if (rebotes == 1)
-            {
-                pintarRojo();
-            }
+            if (rebotes == 1) pintarRojo();
         }
         else
         {

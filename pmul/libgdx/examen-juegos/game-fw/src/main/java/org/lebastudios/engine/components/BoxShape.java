@@ -24,13 +24,14 @@ public class BoxShape extends Component
     @Override
     public void onRender(SpriteBatch batch)
     {
+        batch.end();
         if (filled)
         {
             shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
         }
         else
         {
-            shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.set(ShapeRenderer.ShapeType.Point);
         }
 
         shapeRenderer.setColor(color);
@@ -41,5 +42,10 @@ public class BoxShape extends Component
             width,
             height
         );
+
+        shapeRenderer.end();
+        shapeRenderer.begin();
+
+        batch.begin();
     }
 }

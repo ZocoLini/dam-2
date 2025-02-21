@@ -135,7 +135,7 @@ public abstract class Scene implements Screen
 
         camera.onRender(this);
 
-        shapeRenderer.begin();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         batch.begin();
 
         for (GameObject gameObject : gameObjects)
