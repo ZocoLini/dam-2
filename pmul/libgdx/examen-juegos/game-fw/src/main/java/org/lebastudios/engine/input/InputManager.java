@@ -1,10 +1,12 @@
 package org.lebastudios.engine.input;
 
 import com.badlogic.gdx.InputProcessor;
+import lombok.Getter;
 import org.lebastudios.engine.events.Event;
 import org.lebastudios.engine.events.Event4;
 import org.lebastudios.engine.events.IEventMethod;
 import org.lebastudios.engine.events.IEventMethod4;
+import org.lebastudios.engine.util.LazyArrayList;
 
 import java.util.HashMap;
 
@@ -22,6 +24,7 @@ public class InputManager implements InputProcessor
     private final HashMap<Integer, Event> onKeyDown = new HashMap<>();
     private final HashMap<Integer, Event> onKeyUp = new HashMap<>();
     private final Event4<Integer, Integer, Integer, Integer> onTouchDown = new Event4<>();
+    @Getter private final LazyArrayList<IEventMethod> onAnyKeyDown = new LazyArrayList<>();
 
     private InputManager() {}
 
@@ -105,6 +108,9 @@ public class InputManager implements InputProcessor
     @Override
     public boolean keyDown(int keycode)
     {
+        onAnyKeyDown.update();
+        onAnyKeyDown.forEach(IEventMethod::invoke);
+
         if (onKeyDown.containsKey(keycode))
         {
             onKeyDown.get(keycode).invoke();

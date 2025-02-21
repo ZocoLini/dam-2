@@ -143,8 +143,8 @@ public abstract class Scene implements Screen
             gameObject.render(batch);
         }
 
-        batch.end();
         shapeRenderer.end();
+        batch.end();
     }
 
     public HashMap<GameObject, Boolean> getCollisionsStates(GameObject gameObject)

@@ -78,6 +78,7 @@ public class EnemyGeneratorController extends Component
         enemyController.resetState();
 
         enemiesInstantiated.add(enemy);
-        this.getGameObject().instantiate(enemy);
+
+        if (enemy.getScene() == null) this.getGameObject().instantiate(enemy);
     }
 }

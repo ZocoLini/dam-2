@@ -9,6 +9,7 @@ import org.lebastudios.engine.components.Collider2D;
 import org.lebastudios.engine.components.Component;
 import org.lebastudios.engine.events.IEventMethod;
 import org.lebastudios.engine.input.InputManager;
+import org.lebastudios.examen.ExamenGameAdapter;
 import org.lebastudios.examen.GameState;
 import org.lebastudios.examen.world.WorldConfig;
 
@@ -34,7 +35,7 @@ public class PlayerController extends Component
         updateShape();
     };
 
-    private int direccion;
+    private int direccion = 0;
     private int sizeIncrementDirection = 1;
     private final float SIZE_INCREMENT_SPEED = 20f;
     private float actualSize;
@@ -61,11 +62,14 @@ public class PlayerController extends Component
 
         // TODO: Remove this listener when is the moment
         InputManager.getInstance().addKeyDownListener(onGoDownKeyDown, Input.Keys.S, Input.Keys.DOWN);
-        InputManager.getInstance().addKeyDownListener(onGoDownKeyUp, Input.Keys.W, Input.Keys.UP);
-        InputManager.getInstance().addKeyUpListener(onGoUpKeyDown, Input.Keys.S, Input.Keys.DOWN);
+        InputManager.getInstance().addKeyDownListener(onGoUpKeyDown, Input.Keys.W, Input.Keys.UP);
+        InputManager.getInstance().addKeyUpListener(onGoDownKeyUp, Input.Keys.S, Input.Keys.DOWN);
         InputManager.getInstance().addKeyUpListener(onGoUpKeyUp, Input.Keys.W, Input.Keys.UP);
 
         InputManager.getInstance().addKeyDownListener(Input.Keys.SPACE, spaceAction);
+
+        InputManager.getInstance().addKeyDownListener(Input.Keys.P,
+            () -> ExamenGameAdapter.getInstance().setScene(new PauseScene()));
     }
 
     private void updateShape()
@@ -110,7 +114,7 @@ public class PlayerController extends Component
 
         if (life < 0)
         {
-            System.out.println("GameOver");
+            GameState.getInstance().finishRun();
         }
     }
 }

@@ -107,6 +107,14 @@ public class GameScene extends Scene
     }
 
     @Override
+    public void dispose()
+    {
+        instance = null;
+
+        super.dispose();
+    }
+
+    @Override
     public float getCameraWidth()
     {
         return WorldConfig.WORLD_WIDTH;

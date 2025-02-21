@@ -21,14 +21,17 @@ public class MainMenuScene extends Scene
     private final Consumer<Integer> enterGame = (difficulty) ->
     {
         GameState.getInstance().setDifficulty(difficulty);
-        ExamenGameAdapter.getInstance().setScene(new GameScene());
+        GameState.getInstance().resetGameState();
 
         InputManager.getInstance().clearKeyDownListeners();
+
+        ExamenGameAdapter.getInstance().setScene(new GameScene());
     };
 
     @Override
     protected void setup()
     {
+        InputManager.getInstance().addKeyDownListener(() -> GameState.getInstance().resetGameState(), Input.Keys.R);
         InputManager.getInstance().addKeyDownListener(() -> enterGame.accept(1), Input.Keys.NUM_1, Input.Keys.NUMPAD_1);
         InputManager.getInstance().addKeyDownListener(() -> enterGame.accept(2), Input.Keys.NUM_2, Input.Keys.NUMPAD_2);
         InputManager.getInstance().addKeyDownListener(() -> enterGame.accept(3), Input.Keys.NUM_3, Input.Keys.NUMPAD_3);
@@ -73,6 +76,7 @@ public class MainMenuScene extends Scene
     @Override
     public void hide()
     {
+        super.hide();
         this.dispose();
     }
 

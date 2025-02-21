@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import lombok.Setter;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.components.*;
-import org.lebastudios.examen.GameState;
 import org.lebastudios.examen.world.WorldConfig;
 
 @Setter
 public abstract class EnemyController extends Component
 {
+    private static final int MAX_REBOTES = 5;
     private static final float CELERITY = 60;
     private int direccion = 0;
     protected int rebotes;
@@ -25,7 +25,7 @@ public abstract class EnemyController extends Component
 
     public void resetState()
     {
-        rebotes = ((int) (Math.random() * (GameState.getInstance().getDifficulty() - 1))) + 1;
+        rebotes = ((int) (Math.random() * (MAX_REBOTES - 1))) + 1;
     }
 
     @Override
@@ -33,10 +33,16 @@ public abstract class EnemyController extends Component
     {
         this.getTransform().translate(direccion * CELERITY * deltaTime, 0, 0);
 
-        if (Math.abs(this.getTransform().getPosition().x) > WorldConfig.WORLD_WIDTH / 2f && rebotes > 1)
+        if (rebota() && Math.abs(this.getTransform().getPosition().x) > WorldConfig.WORLD_WIDTH / 2f && rebotes > 1)
         {
             rebotes--;
             direccion *= -1;
+            textRenderer.setText(rebotes + "");
+
+            if (rebotes == 1)
+            {
+                pintarRojo();
+            }
         }
         else
         {
@@ -46,6 +52,9 @@ public abstract class EnemyController extends Component
             }
         }
     }
+
+    public boolean rebota() { return true; }
+    public abstract void pintarRojo();
 
     public static GameObject createCircleEnemy()
     {
@@ -60,7 +69,7 @@ public abstract class EnemyController extends Component
         CircleShape circleShape = new CircleShape();
         circleShape.setRadius(17);
         circleShape.setFilled(true);
-        circleShape.setColor(Color.RED);
+        circleShape.setColor(Color.WHITE);
         enemy.addComponent(circleShape);
 
         TextRenderer lifes = new TextRenderer();
@@ -86,7 +95,7 @@ public abstract class EnemyController extends Component
         boxShape.setWidth(17);
         boxShape.setHeight(17);
         boxShape.setFilled(true);
-        boxShape.setColor(Color.RED);
+        boxShape.setColor(Color.WHITE);
         enemy.addComponent(boxShape);
 
         TextRenderer lifes = new TextRenderer();
@@ -109,13 +118,13 @@ public abstract class EnemyController extends Component
         enemy.addComponent(boxCollider2D);
 
         LineShape lineShape = new LineShape();
-        lineShape.setColor(Color.RED);
+        lineShape.setColor(Color.WHITE);
         lineShape.setStart(new Vector2(0, -17));
         lineShape.setEnd(new Vector2(0, 17));
         enemy.addComponent(lineShape);
 
         lineShape = new LineShape();
-        lineShape.setColor(Color.RED);
+        lineShape.setColor(Color.WHITE);
         lineShape.setStart(new Vector2(-17, 0));
         lineShape.setEnd(new Vector2(17, 0));
         enemy.addComponent(lineShape);

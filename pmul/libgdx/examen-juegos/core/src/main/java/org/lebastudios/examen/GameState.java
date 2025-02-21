@@ -52,4 +52,16 @@ public class GameState
     {
         gameTimeElapsed = 0;
     }
+
+    public void finishRun()
+    {
+        float actualRecord = getScoreActualDifficulty();
+        float newTime = gameTimeElapsed;
+
+        if (newTime > actualRecord)
+        {
+            preferences.putFloat("record-" + difficulty, newTime);
+            preferences.flush();
+        }
+    }
 }

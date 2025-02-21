@@ -1,5 +1,6 @@
 package org.lebastudios.engine.components;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,12 @@ public class TextRenderer extends Component
 
     private final BitmapFont font = new BitmapFont();
     private final GlyphLayout glyphLayout = new GlyphLayout();
+
+    @Override
+    public void onStart()
+    {
+        font.setColor(Color.WHITE);
+    }
 
     @Override
     public void onRender(SpriteBatch batch)
