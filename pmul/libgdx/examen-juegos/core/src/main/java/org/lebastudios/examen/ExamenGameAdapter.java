@@ -23,7 +23,7 @@ public class ExamenGameAdapter extends GameAdapter
 
         Physics2D.getCollisionMatrix().setCollision("enemy", "player", true);
 
-        GameAdapter.DEBUG = true;
+        GameAdapter.DEBUG = false;
     }
 
     @Override

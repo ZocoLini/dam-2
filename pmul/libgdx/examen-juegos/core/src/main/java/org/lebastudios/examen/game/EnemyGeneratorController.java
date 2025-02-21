@@ -1,6 +1,5 @@
 package org.lebastudios.examen.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector3;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.components.Component;
@@ -12,7 +11,7 @@ import java.util.Iterator;
 
 public class EnemyGeneratorController extends Component
 {
-    private static final float ENEMY_GEN_TIME = 2;
+    private static final float ENEMY_GEN_TIME = 0.25f;
 
     private final HashSet<GameObject> enemiesInstantiated = new HashSet<>();
 
@@ -62,7 +61,8 @@ public class EnemyGeneratorController extends Component
             default -> throw new RuntimeException("[ERROR] El número generado no es valido");
         };
 
-        float ySide = (float) (Math.random() * WorldConfig.WORLD_HEIGHT) - (WorldConfig.WORLD_HEIGHT / 2f - GameScene.INFO_DISPLAY_HEIGTH);
+        float ySide = (float) (Math.random() * WorldConfig.WORLD_HEIGHT) -
+            (WorldConfig.WORLD_HEIGHT / 2f - GameScene.INFO_DISPLAY_HEIGTH);
 
         enemy.getTransform().setPosition(new Vector3(
             WorldConfig.WORLD_WIDTH / 2f * xSide,
@@ -72,13 +72,19 @@ public class EnemyGeneratorController extends Component
 
         final var enemyController = enemy.getComponent(EnemyController.class);
 
-        if (enemyController == null) throw new IllegalStateException("EnemyController should be added to the enemy gameobject");
+        if (enemyController == null)
+        {throw new IllegalStateException("EnemyController should be added to the enemy gameobject");}
 
         enemyController.setDireccion(xSide * -1);
         enemyController.resetState();
 
         enemiesInstantiated.add(enemy);
 
-        if (enemy.getScene() == null) this.getGameObject().instantiate(enemy);
+
+        if (enemy.getScene() == null)
+        {
+            this.getGameObject().instantiate(enemy);
+            enemy.update(0);
+        }
     }
 }

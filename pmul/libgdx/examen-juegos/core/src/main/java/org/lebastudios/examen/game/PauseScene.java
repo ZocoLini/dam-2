@@ -18,6 +18,7 @@ public class PauseScene extends Scene
         GameObject pause = new GameObject(new Transform(0, 0, 0));
         TextRenderer textRenderer = new TextRenderer();
         textRenderer.setText("PAUSE");
+        pause.addComponent(textRenderer);
 
         this.addGameObject(pause);
     }

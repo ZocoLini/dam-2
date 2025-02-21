@@ -1,13 +1,14 @@
 package org.lebastudios.examen.game;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.Scene;
 import org.lebastudios.engine.components.*;
-import org.lebastudios.engine.physics.Physics2D;
+import org.lebastudios.engine.input.InputManager;
+import org.lebastudios.examen.ExamenGameAdapter;
 import org.lebastudios.examen.GameState;
+import org.lebastudios.examen.menu.MainMenuScene;
 import org.lebastudios.examen.world.WorldConfig;
 
 public class GameScene extends Scene
@@ -38,6 +39,18 @@ public class GameScene extends Scene
         circleShape.setFilled(true);
         player.addComponent(circleShape);
 
+        BoxShape boxShape = new BoxShape();
+        boxShape.setColor(Color.WHITE);
+        boxShape.setFilled(true);
+        player.addComponent(boxShape);
+
+        for (int i = 0; i < 2; i++)
+        {
+            LineShape lineShape = new LineShape();
+            lineShape.setColor(Color.WHITE);
+            player.addComponent(lineShape);
+        }
+
         CircleCollider2D circleCollider2D = new CircleCollider2D();
         circleCollider2D.setLayer("player");
         player.addComponent(circleCollider2D);
@@ -54,11 +67,11 @@ public class GameScene extends Scene
 
         GameObject info = new GameObject(new Transform(
             0,
-            - WorldConfig.WORLD_HEIGHT /2f + INFO_DISPLAY_HEIGTH / 2f,
+            -WorldConfig.WORLD_HEIGHT / 2f + INFO_DISPLAY_HEIGTH / 2f,
             0)
         );
 
-        BoxShape boxShape = new BoxShape();
+        boxShape = new BoxShape();
         boxShape.setWidth(WorldConfig.WORLD_WIDTH);
         boxShape.setHeight(INFO_DISPLAY_HEIGTH);
         boxShape.setFilled(true);
@@ -68,7 +81,8 @@ public class GameScene extends Scene
         TextRenderer timePlayed = new TextRenderer();
         timePlayed.setOffset(new Vector2(-100, 0));
         info.addComponent(timePlayed);
-        info.addComponent(new Component() {
+        info.addComponent(new Component()
+        {
             @Override
             public void onUpdate(float deltaTime)
             {
@@ -83,7 +97,8 @@ public class GameScene extends Scene
 
         TextRenderer colisiones = new TextRenderer();
         info.addComponent(colisiones);
-        info.addComponent(new Component() {
+        info.addComponent(new Component()
+        {
             private final int maxColisiones = GameState.getInstance().getDifficulty();
 
             @Override
@@ -103,15 +118,29 @@ public class GameScene extends Scene
         record.setText(String.format("RECORD: %ds", (int) GameState.getInstance().getScoreActualDifficulty()));
         info.addComponent(record);
 
+        info.addComponent(new Component() {
+            @Override
+            public void onUpdate(float deltaTime)
+            {
+                if (GameState.getInstance().getGameTimeElapsed() > GameState.getInstance().getScoreActualDifficulty())
+                {
+                    info.removeComponent(this);
+                    record.setText("Nuevo Record!");
+                }
+            }
+        });
+
         this.addGameObject(info);
     }
 
-    @Override
-    public void dispose()
+    public void goToMainMenu()
     {
+        InputManager.getInstance().clearKeyDownListeners();
+        InputManager.getInstance().clearKeyUpListeners();
+
         instance = null;
 
-        super.dispose();
+        ExamenGameAdapter.getInstance().setScene(new MainMenuScene());
     }
 
     @Override

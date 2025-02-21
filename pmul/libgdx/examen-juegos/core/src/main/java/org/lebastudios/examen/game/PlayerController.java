@@ -2,16 +2,16 @@ package org.lebastudios.examen.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import lombok.Getter;
-import org.lebastudios.engine.components.CircleCollider2D;
-import org.lebastudios.engine.components.CircleShape;
-import org.lebastudios.engine.components.Collider2D;
-import org.lebastudios.engine.components.Component;
+import org.lebastudios.engine.components.*;
 import org.lebastudios.engine.events.IEventMethod;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.examen.ExamenGameAdapter;
 import org.lebastudios.examen.GameState;
 import org.lebastudios.examen.world.WorldConfig;
+
+import java.util.List;
 
 public class PlayerController extends Component
 {
@@ -35,13 +35,28 @@ public class PlayerController extends Component
         updateShape();
     };
 
+    private void updateShape() {
+        PlayerController.this.boxShape.disable();
+        PlayerController.this.circleShape.disable();
+        PlayerController.this.lineShapes.forEach(LineShape::disable);
+
+        switch (PlayerController.this.actualShape)
+        {
+            case BoxEnemyController.GO_NAME -> PlayerController.this.boxShape.enable();
+            case CircleEnemyController.GO_NAME -> PlayerController.this.circleShape.enable();
+            case CrossEnemyController.GO_NAME -> PlayerController.this.lineShapes.forEach(LineShape::enable);
+        }
+    }
+
     private int direccion = 0;
     private int sizeIncrementDirection = 1;
-    private final float SIZE_INCREMENT_SPEED = 20f;
+    private static final float SIZE_INCREMENT_SPEED = 5;
     private float actualSize;
 
     private CircleCollider2D collider2D;
     private CircleShape circleShape;
+    private BoxShape boxShape;
+    private List<LineShape> lineShapes;
 
     private static final float CELERITY = 75;
     private static final int MAX_RADIUS = 50;
@@ -55,12 +70,13 @@ public class PlayerController extends Component
     {
         collider2D = this.getGameObject().getComponent(CircleCollider2D.class);
         circleShape = this.getGameObject().getComponent(CircleShape.class);
+        boxShape = this.getGameObject().getComponent(BoxShape.class);
+        lineShapes = this.getGameObject().getComponents(LineShape.class);
 
-        actualSize = MIN_RADIUS;
-        collider2D.setRadius(actualSize);
-        circleShape.setRadius(actualSize);
+        updateShape();
 
-        // TODO: Remove this listener when is the moment
+        updateSize(MIN_RADIUS + 1);
+
         InputManager.getInstance().addKeyDownListener(onGoDownKeyDown, Input.Keys.S, Input.Keys.DOWN);
         InputManager.getInstance().addKeyDownListener(onGoUpKeyDown, Input.Keys.W, Input.Keys.UP);
         InputManager.getInstance().addKeyUpListener(onGoDownKeyUp, Input.Keys.S, Input.Keys.DOWN);
@@ -70,11 +86,6 @@ public class PlayerController extends Component
 
         InputManager.getInstance().addKeyDownListener(Input.Keys.P,
             () -> ExamenGameAdapter.getInstance().setScene(new PauseScene()));
-    }
-
-    private void updateShape()
-    {
-
     }
 
     @Override
@@ -87,22 +98,36 @@ public class PlayerController extends Component
             sizeIncrementDirection *= -1;
         }
 
-        actualSize += SIZE_INCREMENT_SPEED * deltaTime * sizeIncrementDirection;
+        updateSize(actualSize + SIZE_INCREMENT_SPEED * deltaTime * sizeIncrementDirection);
 
-        circleShape.setRadius(actualSize);
-        collider2D.setRadius(actualSize);
-
-        if (this.getTransform().getPosition().y > WorldConfig.WORLD_HEIGHT / 2f) return;
-        if (this.getTransform().getPosition().y < - WorldConfig.WORLD_HEIGHT / 2f + GameScene.INFO_DISPLAY_HEIGTH)
-        {
-
-        }
+        if (this.getTransform().getPosition().y > WorldConfig.WORLD_HEIGHT / 2f && direccion > 0) return;
+        if (this.getTransform().getPosition().y < -WorldConfig.WORLD_HEIGHT / 2f + GameScene.INFO_DISPLAY_HEIGTH && direccion < 0) return;
 
         this.getTransform().translate(
             0,
             CELERITY * direccion * deltaTime,
             0
         );
+    }
+
+    private void updateSize(float newSize)
+    {
+        actualSize = newSize;
+
+        collider2D.setRadius(actualSize / 2f);
+
+        circleShape.setRadius(actualSize / 2f);
+
+        boxShape.setHeight(actualSize);
+        boxShape.setWidth(actualSize);
+
+        float half = actualSize / 2f;
+
+        lineShapes.get(0).setStart(new Vector2(-half, 0));
+        lineShapes.get(0).setEnd(new Vector2(half, 0));
+
+        lineShapes.get(1).setStart(new Vector2(0, half));
+        lineShapes.get(1).setEnd(new Vector2(0, -half));
     }
 
     @Override
@@ -112,7 +137,7 @@ public class PlayerController extends Component
 
         life--;
 
-        if (life < 0)
+        if (life <= 0)
         {
             GameState.getInstance().finishRun();
         }

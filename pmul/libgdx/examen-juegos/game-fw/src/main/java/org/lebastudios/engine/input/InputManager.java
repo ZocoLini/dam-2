@@ -60,6 +60,11 @@ public class InputManager implements InputProcessor
         onKeyDown.clear();
     }
 
+    public void clearKeyUpListeners()
+    {
+        onKeyUp.clear();
+    }
+
     public void removeKeyDownListener(IEventMethod runnable, int... keycodes)
     {
         for (int keycode : keycodes)

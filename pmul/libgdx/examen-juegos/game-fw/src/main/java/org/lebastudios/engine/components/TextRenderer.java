@@ -25,10 +25,10 @@ public class TextRenderer extends Component
     @Override
     public void onRender(SpriteBatch batch)
     {
-        font.draw(batch, glyphLayout,
-            getGameObject().getTransform().getPosition().x - glyphLayout.width / 2 + offset.x,
-            getGameObject().getTransform().getPosition().y - glyphLayout.height / 2 + glyphLayout.height + offset.y
-        );
+        float x = getGameObject().getTransform().getPosition().x - glyphLayout.width / 2 + offset.x;
+        float y = getGameObject().getTransform().getPosition().y - glyphLayout.height / 2 + glyphLayout.height + offset.y;
+
+        font.draw(batch, glyphLayout, x, y);
     }
 
     public void setText(String text)

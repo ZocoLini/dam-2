@@ -28,6 +28,10 @@ public class BoxShape extends Component
         {
             shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
         }
+        else
+        {
+            shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+        }
 
         shapeRenderer.setColor(color);
 
@@ -37,10 +41,5 @@ public class BoxShape extends Component
             width,
             height
         );
-
-        if (filled)
-        {
-            shapeRenderer.set(ShapeRenderer.ShapeType.Line);
-        }
     }
 }
