@@ -49,7 +49,7 @@ public class GameState
     {
         for (int i = 1; i < 10; i++)
         {
-            preferences.putFloat("record-" + difficulty, 0);
+            preferences.putFloat("record-" + i, 0);
         }
 
         preferences.flush();
