@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import lombok.Getter;
 import org.lebastudios.engine.components.*;
+import org.lebastudios.engine.coroutine.WaitForSeconds;
 import org.lebastudios.engine.events.IEventMethod;
 import org.lebastudios.engine.input.InputManager;
 import org.lebastudios.examen.ExamenGameAdapter;
@@ -12,6 +13,7 @@ import org.lebastudios.examen.GameState;
 import org.lebastudios.examen.world.WorldConfig;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class PlayerController extends Component
 {
