@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<GridPane xmlns="http://javafx.com/javafx" fx:id="root"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="org.lebastudios.aplicacioncompleja.formularios.FormularioNuevaRazaController"
+          hgap="10" vgap="5">
+    <padding>
+        <Insets top="10" left="10" right="10" bottom="10" />
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints prefWidth="100"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints prefWidth="100"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+
+    <Label text="%word.raza" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField maxWidth="Infinity" fx:id="razaField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <VBox maxHeight="Infinity" maxWidth="Infinity" spacing="10"
+          GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.rowSpan="2" >
+        <Button maxWidth="Infinity" text="%word.guardar" onAction="#buttonSaveAction" />
+        <Button maxWidth="Infinity" text="%word.cerrar" defaultButton="true" onAction="#buttonCloseAction"/>
+    </VBox>
+
+
+</GridPane>

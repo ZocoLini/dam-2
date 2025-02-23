@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:id="root"
+            fx:controller="org.lebastudios.aplicacioncompleja.MainStageController">
+    <top>
+        <MenuBar>
+            <Menu text="%word.opciones">
+                <Menu text="%word.altas">
+                    <MenuItem text="%phrase.perrosrazas" onAction="#openMenuPerrosRazas"/>
+                    <MenuItem text="%word.propietarios" onAction="#openMenuPropietarios"/>
+                </Menu>
+                <SeparatorMenuItem />
+                <MenuItem text="%phrase.listadopropietarios" onAction="#openMenuGestionPropietarios" />
+                <SeparatorMenuItem />
+                <MenuItem text="%phrase.nuevacitaperruqueria" onAction="#openFormularioCitaPerruqueria"/>
+                <MenuItem text="%phrase.listacitasperruqueria" onAction="#openMenuCitaPerruqueria" />
+                <SeparatorMenuItem />
+                <MenuItem text="%phrase.facturacion" onAction="#openMenuImpresionFacturas" />
+                <SeparatorMenuItem />
+                <MenuItem text="%word.salir" onAction="#menuSalir"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    
+    <center>
+        <fx:include source="gestion-vacunaciones.fxml" />
+    </center>
+</BorderPane>

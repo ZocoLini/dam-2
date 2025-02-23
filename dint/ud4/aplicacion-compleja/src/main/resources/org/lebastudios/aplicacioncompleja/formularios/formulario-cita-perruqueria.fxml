@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx" fx:id="root"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.lebastudios.aplicacioncompleja.formularios.FormularioCitaPerruceriaController"
+      spacing="10">
+    <padding>
+        <Insets bottom="15" left="15" right="15" top="15"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="%word.propietario" />
+        <ChoiceBox fx:id="propietarioChoiceBox" maxWidth="Infinity" HBox.hgrow="ALWAYS" minWidth="200"/>
+        <Label text="%word.perro" />
+        <ChoiceBox maxWidth="Infinity" fx:id="perroChoiceBox" HBox.hgrow="ALWAYS" minWidth="150" />
+    </HBox>
+    
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+        
+        <Label text="%word.fecha" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <DatePicker fx:id="fechaDatePicker" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <RadioButton fx:id="hora10" text="10:00h" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <RadioButton fx:id="hora11" text="11:00h" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <RadioButton fx:id="hora12" text="12:00h" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+        
+        <RadioButton fx:id="hora16" text="16:00h" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <RadioButton fx:id="hora17" text="17:00h" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+    </GridPane>
+    
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button fx:id="reservarButton" text="%word.reservar" onAction="#reservarButtonAction" />
+        <Button text="%word.cerrar" onAction="#cerrarButtonAction" />
+    </HBox>
+</VBox>

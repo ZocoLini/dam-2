@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<GridPane xmlns="http://javafx.com/javafx" fx:id="root"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="org.lebastudios.aplicacioncompleja.formularios.FormularioNuevoPropietarioController"
+          hgap="10" vgap="5">
+    <padding>
+        <Insets top="10" left="10" right="10" bottom="10" />
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints prefWidth="125"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints prefWidth="125"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+    </columnConstraints>
+    
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+
+    <Label text="%word.dni" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField maxWidth="Infinity" fx:id="dniField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label text="%word.nombre" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+    <TextField maxWidth="Infinity" fx:id="nameField" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+    
+    <Label text="%word.apellido1" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField maxWidth="Infinity" fx:id="apellido1Field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="%word.apellido2" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+    <TextField maxWidth="Infinity" fx:id="apellido2Field" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+    
+    <Label text="%word.telefono" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <TextField maxWidth="Infinity" fx:id="telefonoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Label text="%word.email" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <TextField maxWidth="Infinity" fx:id="emailField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+    
+    <HBox alignment="CENTER" spacing="10" maxWidth="Infinity"
+          GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="6">
+        <Button text="%word.guardar" onAction="#buttonSaveAction"/>
+        <Button defaultButton="true" text="%word.cerrar" onAction="#buttonCloseAction"/>
+    </HBox>
+    
+</GridPane>
