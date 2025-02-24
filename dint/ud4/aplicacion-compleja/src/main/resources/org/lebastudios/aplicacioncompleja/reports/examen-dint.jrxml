@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="940c9b01-bb5b-4476-893a-e5e7486c3a4f">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="clinica" uuid="da6cf9d0-42eb-4818-bf5a-7d74b35572f6">
+		<queryString language="SQL">
+			<![CDATA[select *, cans.nome as can FROM propietarios LEFT JOIN cans ON propietarios.dni=cans.dnipropietario ORDER BY dni, cans.nome]]>
+		</queryString>
+		<field name="dni" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="nome" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="ap1" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="ap2" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="tlf" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="eMail" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="chip" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="codRaza" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="dniPropietario" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="can" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="order-by" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select *, cans.nome as can FROM propietarios LEFT JOIN cans ON propietarios.dni=cans.dnipropietario $P!{order-by}]]>
+	</queryString>
+	<field name="dni" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ap1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ap2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tlf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="eMail" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="chip" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codRaza" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dniPropietario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="can" class="java.lang.String"/>
+	<variable name="count_perros" class="java.lang.String" calculation="Count">
+		<variableExpression><![CDATA[$F{can}]]></variableExpression>
+	</variable>
+	<group name="perros" keepTogether="true">
+		<groupExpression><![CDATA[$F{dniPropietario}]]></groupExpression>
+		<groupHeader>
+			<band height="38">
+				<textField>
+					<reportElement x="26" y="15" width="100" height="20" uuid="0d90782b-f84d-47e7-9005-5cb4dc3111f1"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["DNI: " + $F{dni}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="146" y="15" width="282" height="20" uuid="45782be7-61e0-4e0b-87a8-8aba94f5c1c2"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nome} + " " + $F{ap1} + " " + $F{ap2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="428" y="15" width="100" height="20" uuid="cdf388a5-2517-47b6-9547-d1be62639be6"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tlf}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<printWhenExpression><![CDATA[$F{can} != null]]></printWhenExpression>
+				<textField>
+					<reportElement x="428" y="1" width="100" height="20" uuid="8645e63b-f6c0-46e4-9e70-2e7cf6c561e3"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{perros_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="328" y="1" width="100" height="20" uuid="39347210-1902-4d55-878b-ce1c53f18ecb"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[nº cans:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="126" height="79" uuid="a5d4e1ee-757a-4937-9322-e13cd02186c1"/>
+				<imageExpression><![CDATA["D:\\bcastextr\\dam-2\\dint\\ud4\\aplicacion-compleja\\src\\main\\resources\\org\\lebastudios\\aplicacioncompleja\\reports\\logoclinicafac.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="162" y="23" width="366" height="36" uuid="b8b32032-b4be-4092-987d-d1a4de127ec6"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Listado de propietartios e cans]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="79" width="555" height="1" uuid="e8ef8bbe-494f-4929-b55c-ea7ff0c85dc6"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{can} != null]]></printWhenExpression>
+			<textField>
+				<reportElement x="146" y="0" width="100" height="20" uuid="7372b80f-7f01-409a-8fbd-9e0e30acab73"/>
+				<textFieldExpression><![CDATA[$F{can}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="275" y="0" width="100" height="20" uuid="79bd9456-8228-4d25-bc04-53cadd7988e8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[chip]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="428" y="0" width="100" height="20" uuid="4f1e6276-da07-4bfd-952a-8782c1988182"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{chip}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="146" y="19" width="382" height="1" uuid="4a0883bb-8b6b-4ff6-9883-c9d1ebad3dca"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

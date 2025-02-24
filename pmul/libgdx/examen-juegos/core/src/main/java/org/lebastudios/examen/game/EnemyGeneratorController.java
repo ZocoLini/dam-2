@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 import org.lebastudios.engine.GameObject;
 import org.lebastudios.engine.components.Component;
 import org.lebastudios.engine.util.Pool;
+import org.lebastudios.examen.ExamenGameAdapter;
 import org.lebastudios.examen.world.WorldConfig;
 
 import java.util.HashSet;
@@ -42,7 +43,7 @@ public class EnemyGeneratorController extends Component
 
             if (!enemy.isEnabled())
             {
-                System.out.println("[INFO] Enemy disabled found, saved for recycling");
+                if (ExamenGameAdapter.DEBUG) System.out.println("[INFO] Enemy disabled found, saved for recycling");
                 iterator.remove();
                 enemiesRecicler.release(enemy);
             }

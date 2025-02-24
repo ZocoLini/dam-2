@@ -75,6 +75,7 @@ public abstract class Scene implements Screen
     @Getter private Camera camera;
     @Getter private final SpriteBatch batch = new SpriteBatch();
     @Getter private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private Camera camera1;
 
     public Scene(SceneMetadata sceneMetadata)
     {
