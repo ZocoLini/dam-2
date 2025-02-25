@@ -9,7 +9,7 @@ class License(models.Model):
     # Default: Default type, pays monthly based on plugins price
     # Life-Time: Pays once the license and can use any plugin for life
     # Student: Special type for students, free to use any plugin but requires verification and renewal every year
-    type = fields.Selection([{'0', 'Default'}, {'1', 'LifeTime'}, {'2', 'Student'}], string="Type", default='0', required=True)
+    type = fields.Selection([{'0', 'Default'}, {'1', 'LifeTime'}, {'2', 'Student'}], string="Type", required=True)
 
     user = fields.Many2one('trt.user', string="User", required=True)
     plugins = fields.Many2many('trt.plugin', string="Plugins")
