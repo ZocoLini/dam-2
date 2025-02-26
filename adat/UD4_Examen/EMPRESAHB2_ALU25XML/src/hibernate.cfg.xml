@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost;databaseName=EMPRESAHB2_25</property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password">abc123.</property>
+    <mapping resource="MAPEO/Proxecto.hbm.xml"/>
+    <mapping resource="MAPEO/Curso.hbm.xml"/>
+    <mapping resource="MAPEO/Edicion.hbm.xml"/>
+    <mapping resource="MAPEO/EmpregadoProxecto.hbm.xml"/>
+    <mapping resource="MAPEO/Vehiculo.hbm.xml"/>
+    <mapping resource="MAPEO/Empregado.hbm.xml"/>
+    <mapping resource="MAPEO/Departamento.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

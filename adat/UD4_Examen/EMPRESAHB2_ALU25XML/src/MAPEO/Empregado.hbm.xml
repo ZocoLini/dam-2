@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-feb-2023 8:57:24 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class catalog="EMPRESAHB2_25" name="POJOS.Empregado" schema="dbo" table="EMPREGADO">
+        <id name="nss" type="string">
+            <column length="15" name="NSS"/>
+            <generator class="assigned"/>
+        </id>
+
+        <property name="nome" type="string">
+            <column length="25" name="Nome" not-null="true"/>
+        </property>
+        <property name="apelido1" type="string">
+            <column length="25" name="Apelido1" not-null="true"/>
+        </property>
+        <property name="apelido2" type="string">
+            <column length="25" name="Apelido2"/>
+        </property>
+        <property name="rua" type="string">
+            <column length="30" name="Rua"/>
+        </property>
+        <property name="numeroCalle" type="java.lang.Integer">
+            <column name="Numero_Calle"/>
+        </property>
+        <property name="piso" type="string">
+            <column length="4" name="Piso"/>
+        </property>
+        <property name="cp" type="string">
+            <column length="5" name="CP"/>
+        </property>
+        <property name="localidade" type="string">
+            <column length="25" name="Localidade"/>
+        </property>
+        <property name="provincia" type="string">
+            <column length="15" name="Provincia"/>
+        </property>
+        <property name="dataNacemento" type="timestamp">
+            <column length="23" name="DataNacemento"/>
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column length="1" name="Sexo"/>
+        </property>
+
+        <!-- Mapeo del supervisor -->
+        <many-to-one name="supervisor" class="POJOS.Empregado" fetch="select">
+            <column name="NSSSupervisa" length="15"/>
+        </many-to-one>
+
+        <!-- Mapeo de los supervisados -->
+        <set name="empregadosSupervisados" table="EMPREGADO" lazy="true" inverse="true">
+            <key>
+                <column name="NSS" length="15" not-null="true"/>
+            </key>
+            <one-to-many class="POJOS.Empregado"/>
+        </set>
+
+        <!-- Mapeo de la relación con proxecto mediante una tabla intermedia -->
+        <set name="proxectos" fetch="select" table="EMPREGADO_PROXECTO" inverse="true">
+            <key>
+                <column name="NumProxecto" not-null="true"/>
+            </key>
+            <one-to-many class="POJOS.EmpregadoProxecto"/>
+        </set>
+
+        <!-- Mapeo de la herencia hacia EmpregadoFixo -->
+        <joined-subclass name="POJOS.Empregadofixo" table="EMPREGADOFIXO">
+            <key>
+                <column name="NSS"/>
+            </key>
+            <property name="salario" type="java.lang.Double">
+                <column name="Salario"/>
+            </property>
+            <property name="dataAlta" type="java.sql.Date">
+                <column name="DataAlta"/>
+            </property>
+            <property name="categoria" type="string">
+                <column length="20" name="Categoria"/>
+            </property>
+
+            <!-- Mapeo de la relación uno a muchos con Edicion -->
+            <set name="edicions" table="EDICION" lazy="true" inverse="true">
+                <key>
+                    <column name="Profesor" length="15" not-null="true"/>
+                </key>
+                <one-to-many class="POJOS.Edicion"/>
+            </set>
+        </joined-subclass>
+
+        <!-- Mapeo de la herencia hacia EmpregadoTemporal -->
+        <joined-subclass name="POJOS.Empregadotemporal" table="EMPREGADOTEMPORAL">
+            <key>
+                <column name="NSS"/>
+            </key>
+            <property name="dataInicio" type="java.sql.Date">
+                <column name="DataInicio"/>
+            </property>
+            <property name="dataFin" type="java.sql.Date">
+                <column name="DataFin"/>
+            </property>
+            <property name="costeHora" type="java.lang.Double">
+                <column name="CosteHora"/>
+            </property>
+            <property name="numHoras" type="java.lang.Double">
+                <column name="NumHoras"/>
+            </property>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>

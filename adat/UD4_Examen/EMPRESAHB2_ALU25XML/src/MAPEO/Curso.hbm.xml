@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="POJOS.Curso" table="CURSO" schema="dbo" catalog="EMPRESAHB2_25">
+        <id name="codigo" type="int">
+            <column name="Codigo"/>
+            <generator class="identity"/>
+        </id>
+        <property name="nome" type="string">
+            <column name="Nome" length="30" not-null="true" unique="true"/>
+        </property>
+        <property name="horas" type="java.lang.Integer">
+            <column name="Horas"/>
+        </property>
+
+        <!-- Mapeo de las ediciones de un curso -->
+        <list name="ediciones" table="EDICION" cascade="all-delete-orphan" inverse="true">
+            <!-- Clave foránea de EDICION a CURSO -->
+            <key column="Codigo" not-null="true"/>
+            <!-- Clave primaria que identifica a cada CURSO de una EDICION -->
+            <list-index column="Numero" base="1"/>  <!-- base="1" hace que la clave la genere automáticamente hibernate, y hace que empiece en uno -->
+            <!-- Un curso tiene many ediciones -->
+            <one-to-many class="POJOS.Edicion"/>
+        </list>
+    </class>
+</hibernate-mapping>

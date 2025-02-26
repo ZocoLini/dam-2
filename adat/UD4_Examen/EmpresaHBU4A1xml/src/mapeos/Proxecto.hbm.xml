@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23 ene. 2025 9:18:23 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Proxecto" table="PROXECTO" schema="dbo" catalog="EmpresaHB">
+        <id name="numProxecto" type="int">
+            <column name="Num_proxecto" />
+            <generator class="increment" />
+        </id>
+        <property name="nomeProxecto" type="string">
+            <column name="Nome_proxecto" length="25" not-null="true" unique="true" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="25" not-null="true" />
+        </property>
+
+        <!-- Mapeo del departamento que controla el proxecto -->
+        <many-to-one name="departamentoControla" class="pojos.Departamento" fetch="select">
+            <column name="Num_depart_controla" not-null="true"/>
+        </many-to-one>
+
+        <!-- Mapeo de los empregados que participan en el proxecto -->
+        <set name="participantes" table="EMPREGADO_PROXECTO" inverse="true" fetch="select" lazy="true">
+            <key>
+                <column name="Num_proxecto" not-null="true"/>
+            </key>
+            <many-to-many class="pojos.Empregado" column="NSS_Empregado"/>
+        </set>
+    </class>
+</hibernate-mapping>

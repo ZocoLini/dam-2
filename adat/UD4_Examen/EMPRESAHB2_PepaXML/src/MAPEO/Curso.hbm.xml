@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-feb-2023 8:57:24 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="POJOS.Curso" table="CURSO" schema="dbo" catalog="EMPRESAHB2_25">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="Nome" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="horas" type="java.lang.Integer">
+            <column name="Horas" />
+        </property>
+        <!--mapeo de las ediciones de un curso -->
+        <list  name="edicions" cascade="all,delete-orphan">
+            <key>
+                <column name="Codigo" not-null="true"/>
+            </key>
+            <list-index base="1" column="Numero"/>
+            <one-to-many class="POJOS.Edicion"/>
+        </list>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test_db</property>
+        <property name="hibernate.connection.username">test_user</property>
+        <property name="hibernate.connection.password">abc123.</property>
+
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+
+        <!-- Mapping files -->
+        <mapping resource="org/lebastudios/example/entities/Departamento.hbm.xml"/>
+        <mapping resource="org/lebastudios/example/entities/Proxecto.hbm.xml"/>
+        <mapping resource="org/lebastudios/example/entities/Empregado.hbm.xml"/>
+    </session-factory>
+
+</hibernate-configuration>
+            
