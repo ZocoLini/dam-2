@@ -1,6 +1,45 @@
 <?php
 // require 'conexionBD.php';
 
+require 'Database.php';
+require 'Router.php';
+
+// Instancia del enrutador
+$router = new Router();
+
+// Definir rutas
+$router->add('GET', '/', function() {
+    if (!isset($_GET['nombre'])) {
+        http_response_code(400);
+        header('Content-Type: application/json');
+        echo json_encode(["error" => "Campo obligatorio faltante"]);
+    } else {
+        echo "Hola, " . $_GET['nombre'] . ".";
+    }
+});
+
+$router->add('GET', 'usuarios/{id}', 'devolverCliente');
+
+$router->add('POST', 'usuarios', function(/* PARAMETROS $asd */) {
+    echo "Creando un nuevo usuario";
+});
+
+$router->dispatch();
+
+function devolverCliente($id)
+{
+    $db = Database::getInstance();
+    $con = $db->getConnection();
+    $sql = 'SELECT * FROM clientes where id = ?';
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(1, $id);
+    $stmt->execute();
+    http_response_code(200);
+    header('Content-Type: application/json');
+    echo json_encode($stmt->fetch(PDO::FETCH_OBJ), JSON_UNESCAPED_UNICODE);
+}
+
+/*
 $db = Database::getInstance();
 $con = $db->getConnection();
 
@@ -9,6 +48,21 @@ $uri = $_SERVER['PATH_INFO'] ?? 'test';
 
 $pathInfo = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 $rutas = $pathInfo == '' ? [] : explode('/', $pathInfo);
+
+// REGEX de ejemplo:
+//$rutas = preg_split('/\//', $pathInfo, -1, PREG_SPLIT_NO_EMPTY);
+
+$email = "usuario@ejemplo.com";
+
+// Expresión regular con dos grupos: (usuario)@(dominio)
+$pattern = "/^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/";
+
+if (preg_match($pattern, $email, $matches)) {
+    echo "Usuario: " . $matches[1] . PHP_EOL;  // usuario
+    echo "Dominio: " . $matches[2] . PHP_EOL;  // ejemplo.com
+} else {
+    echo "Formato de email inválido.";
+}
 
 switch (count($rutas)) {
     case 0:
@@ -71,3 +125,4 @@ function insertarCliente($con,$nombre,$apellidos,$codProvincia,$vip) {
     $stmt->bindValue(4,$vip);
     $stmt->execute();
 }
+*/
