@@ -16,18 +16,21 @@
         <property name="seudonimo" type="string">
             <column name="Seudonimo" length="50" not-null="true" unique="true" />
         </property>
-        <property name="direccion" type="string">
-            <column name="Direccion" length="150" />
-        </property>
-        <property name="email" type="string">
-            <column name="Email" length="150" not-null="true" />
-        </property>
-        <property name="telefonoFijo" type="string">
-            <column name="TelefonoFijo"  length="20" />
-        </property>
-        <property name="telefonoMovil" type="string">
-            <column name="TelefonoMovil" length="20" />
-        </property>
+        
+        <component class="org.lebastudios.examen.models.InformacionContacto" name="infoContacto">
+            <property name="direccion" type="string">
+                <column name="Direccion" length="150" />
+            </property>
+            <property name="email" type="string">
+                <column name="Email" length="150" not-null="true" />
+            </property>
+            <property name="telFijo" type="string">
+                <column name="TelefonoFijo"  length="20" />
+            </property>
+            <property name="telMovil" type="string">
+                <column name="TelefonoMovil" length="20" />
+            </property>
+        </component>
         
         <bag name="fotografias" table="Fotografia">
             <key>
@@ -55,5 +58,24 @@
                 <column name="IdEvento" />
             </many-to-many>
         </set>
+        
+        <one-to-one name="licencia" class="org.lebastudios.examen.models.Licencia" cascade="all" />
+        
+        <map name="idiomas" table="Idioma">
+            <key column="IdFotografo" not-null="true"/>
+            <map-key type="string" column="Idioma" length="30"/>
+            <element column="Nivel" type="string" length="30"/>
+        </map>
+        
+        <set name="influenciaA" table="Fotografo" inverse="true">
+            <key>
+                <column name="IdFotografo" />
+            </key>
+            <one-to-many class="org.lebastudios.examen.models.Fotografo" />
+        </set>
+        
+        <many-to-one name="influenciadoPor" class="org.lebastudios.examen.models.Fotografo">
+            <column name="IdInfluencer" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

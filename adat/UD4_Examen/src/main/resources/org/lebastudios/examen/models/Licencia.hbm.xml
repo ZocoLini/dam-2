@@ -18,5 +18,7 @@
         <property name="fechaVencimiento" type="date">
             <column name="FechaVencimiento" length="10" />
         </property>
+        
+        <one-to-one name="fotografo" class="org.lebastudios.examen.models.Fotografo" constrained="true" />
     </class>
 </hibernate-mapping>
