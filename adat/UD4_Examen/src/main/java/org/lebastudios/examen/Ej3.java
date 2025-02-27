@@ -10,9 +10,12 @@ public class Ej3
         Database.getInstance().init();
         
         String pseudonimoFotografo = "Carlios";
-        int idEvento = 4;
-
-        EventoDAO.suscribirFotogrado(pseudonimoFotografo, idEvento);
+        int idEvento = 8;
+        
+        Database.getInstance().connectTransaction(session ->
+        {
+            EventoDAO.suscribirFotografo(pseudonimoFotografo, idEvento, session);
+        });
         
         Database.getInstance().close();
     }

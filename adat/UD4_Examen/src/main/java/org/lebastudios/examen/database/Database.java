@@ -57,15 +57,10 @@ public class Database
     
     public void connectTransaction(Consumer<Session> action)
     {
-        connectTransactionWithBool(action);
-    }
-    
-    public boolean connectTransactionWithBool(Consumer<Session> action)
-    {
         if (sessionFactory == null) throw new IllegalStateException("Database not initialized");
 
         Session session = sessionFactory.openSession();
-                
+
         try
         {
             session.getTransaction().begin();
@@ -84,14 +79,11 @@ public class Database
             {
                 session.getTransaction().rollback();
             }
-            return false;
         }
         finally
         {
             session.close();
         }
-        
-        return true;
     }
 
     public void connectQuery(Consumer<Session> action)

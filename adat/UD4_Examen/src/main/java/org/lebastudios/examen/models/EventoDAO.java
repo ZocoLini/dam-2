@@ -6,28 +6,24 @@ import org.lebastudios.examen.database.Database;
 
 public class EventoDAO
 {
-    public static void suscribirFotogrado(String pseudonimo, int codEvento)
+    public static void suscribirFotografo(String pseudonimo, int codEvento, Session session)
     {
-        Session session = Database.getInstance().getSession();
+        long count = (Long) Database.getInstance().getSession().createQuery(
+                        "select count(*) from Evento e join e.fotografos f " +
+                                "where f.seudonimo = :pseudonimo and e.idEvento = :codEvento"
+                ).setString("pseudonimo", pseudonimo)
+                .setInteger("codEvento", codEvento)
+                .uniqueResult();
 
-        Evento evento = (Evento) session.get(Evento.class, codEvento);
-
-        boolean found = false;
-        for (var fotografo : evento.getFotografos())
+        if (count != 0)
         {
-            if (fotografo.getSeudonimo().equals(pseudonimo))
-            {
-                System.out.printf("El fotografo %s ya se encuentra en el evento %s\n", pseudonimo,
-                        evento.getNombreEvento());
-
-                found = true;
-                break;
-            }
+            System.out.printf("El fotografo %s ya se encuentra en el evento con codigo %d\n", pseudonimo,
+                    codEvento);
+            return;
         }
 
-        if (found) return;
-
         Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
+        Evento evento = (Evento) session.get(Evento.class, codEvento);
 
         if (fotografo == null)
         {
@@ -37,11 +33,7 @@ public class EventoDAO
 
         try
         {
-            session.beginTransaction();
-
             evento.getFotografos().add(fotografo);
-            
-            session.getTransaction().commit();
             System.out.printf(
                     "Se ha insertado el fotografo con pseudonimo %s en el evento con id %d\n", pseudonimo, codEvento
             );
@@ -51,7 +43,5 @@ public class EventoDAO
             System.err.println("no se ha podido insertar el fotografo en el evento");
             session.getTransaction().rollback();
         }
-        
-        session.close();
     }
 }
