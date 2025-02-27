@@ -1,50 +1,57 @@
 package org.lebastudios.examen.models;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.lebastudios.examen.database.Database;
 
 public class EventoDAO
 {
     public static void suscribirFotogrado(String pseudonimo, int codEvento)
     {
-        boolean encontrado = Database.getInstance().connectQuery(session ->
+        Session session = Database.getInstance().getSession();
+
+        Evento evento = (Evento) session.get(Evento.class, codEvento);
+
+        boolean found = false;
+        for (var fotografo : evento.getFotografos())
         {
-            Evento evento = (Evento) session.get(Evento.class, codEvento);
-
-            boolean found = false;
-            for (var fotografo : evento.getFotografos())
+            if (fotografo.getSeudonimo().equals(pseudonimo))
             {
-                if (fotografo.getSeudonimo().equals(pseudonimo))
-                {
-                    System.out.printf("El fotografo %s ya se encuentra en el evento %s\n", pseudonimo,
-                            evento.getNombreEvento());
+                System.out.printf("El fotografo %s ya se encuentra en el evento %s\n", pseudonimo,
+                        evento.getNombreEvento());
 
-                    found = true;
-                    break;
-                }
+                found = true;
+                break;
             }
+        }
 
-            return found;
-        });
+        if (found) return;
 
-        if (encontrado) return;
+        Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
 
-        Database.getInstance().connectTransaction(session ->
+        if (fotografo == null)
         {
-            Evento evento = (Evento) session.get(Evento.class, codEvento);
-            Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
+            System.out.println("No existe ningun fotografo con pseudonimo " + pseudonimo);
+            return;
+        }
 
-            if (fotografo == null)
-            {
-                System.out.println("No existe ningun fotografo con pseudonimo " + pseudonimo);
-                session.getTransaction().rollback();
-                return;
-            }
+        try
+        {
+            session.beginTransaction();
 
             evento.getFotografos().add(fotografo);
-
+            
+            session.getTransaction().commit();
             System.out.printf(
                     "Se ha insertado el fotografo con pseudonimo %s en el evento con id %d\n", pseudonimo, codEvento
             );
-        });
+        }
+        catch (HibernateException exception)
+        {
+            System.err.println("no se ha podido insertar el fotografo en el evento");
+            session.getTransaction().rollback();
+        }
+        
+        session.close();
     }
 }
