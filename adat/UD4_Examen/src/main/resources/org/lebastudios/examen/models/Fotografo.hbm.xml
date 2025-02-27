@@ -5,7 +5,7 @@
     <class name="org.lebastudios.examen.models.Fotografo" table="Fotografo" schema="dbo" catalog="FOTOGRAFIAHB25" optimistic-lock="version">
         <id name="idFotografo" type="int">
             <column name="IdFotografo" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>       
         <property name="nombre" type="string">
             <column name="Nombre" length="100" not-null="true" />
@@ -75,7 +75,7 @@
         </set>
         
         <many-to-one name="influenciadoPor" class="org.lebastudios.examen.models.Fotografo">
-            <column name="IdInfluencer" />
+            <column name="IdInfluencer" not-null="false"/>
         </many-to-one>
     </class>
 </hibernate-mapping>

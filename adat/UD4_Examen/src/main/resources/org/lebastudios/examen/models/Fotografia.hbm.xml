@@ -6,7 +6,7 @@
     <class name="org.lebastudios.examen.models.Fotografia" table="Fotografia" schema="dbo" catalog="FOTOGRAFIAHB25" optimistic-lock="version">
         <id name="idFotografia" type="int">
             <column name="IdFotografia" />
-            <generator class="increment" />
+            <generator class="identity" />
         </id>
          <property name="titulo" type="string">
             <column name="Titulo" length="40" not-null="true" />

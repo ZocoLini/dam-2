@@ -31,13 +31,12 @@ public class EventoDAO
         Database.getInstance().connectTransaction(session ->
         {
             Evento evento = (Evento) session.get(Evento.class, codEvento);
-            Fotografo fotografo = (Fotografo) session.createQuery("from Fotografo f where f.seudonimo = :pseudonimo")
-                    .setString("pseudonimo", pseudonimo)
-                    .uniqueResult();
+            Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
 
             if (fotografo == null)
             {
                 System.out.println("No existe ningun fotografo con pseudonimo " + pseudonimo);
+                session.getTransaction().rollback();
                 return;
             }
 
