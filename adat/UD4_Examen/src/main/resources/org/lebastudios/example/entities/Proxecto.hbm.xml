@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.example.entities.Proxecto" table="Proxecto">
+        <!-- Id -->
+        <id name="numProxecto" type="int">
+            <column name="NumProxecto"/>
+            <generator class="assigned"/>
+        </id>
+
+        <!-- Properties -->
+        <property name="nomeProxecto" type="string">
+            <column name="NomeProxecto" unique="true"/>
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar"/>
+        </property>
+
+        <!-- References -->
+
+        <set name="empleados" table="empregado-proxecto" inverse="true">
+            <key>
+                <column name="NumProxecto" not-null="true" />
+            </key>
+            <many-to-many class="org.lebastudios.example.entities.Empregado" column="NssEmpregado" />
+        </set>
+        
+        <!-- Referenced by -->
+    </class>
+</hibernate-mapping>
+        

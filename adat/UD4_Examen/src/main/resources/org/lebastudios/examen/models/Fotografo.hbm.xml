@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.lebastudios.examen.models.Fotografo" table="Fotografo" schema="dbo" catalog="FOTOGRAFIAHB25" optimistic-lock="version">
+        <id name="idFotografo" type="int">
+            <column name="IdFotografo" />
+            <generator class="assigned" />
+        </id>       
+        <property name="nombre" type="string">
+            <column name="Nombre" length="100" not-null="true" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="Apellidos" length="100" not-null="true" />
+        </property>
+        <property name="seudonimo" type="string">
+            <column name="Seudonimo" length="50" not-null="true" unique="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="Direccion" length="150" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="150" not-null="true" />
+        </property>
+        <property name="telefonoFijo" type="string">
+            <column name="TelefonoFijo"  length="20" />
+        </property>
+        <property name="telefonoMovil" type="string">
+            <column name="TelefonoMovil" length="20" />
+        </property>
+        
+        <bag name="fotografias" table="Fotografia">
+            <key>
+                <column name="IdFotografia" not-null="true"/>
+            </key>
+            <one-to-many class="org.lebastudios.examen.models.Fotografia" />
+        </bag>
+        <list name="materiales" table="Material">
+            <key>
+                <column name="IdFotografo" not-null="true" />
+            </key>
+            <list-index column="Numero" base="1"/>
+            <composite-element class="org.lebastudios.examen.models.Material">
+                <property name="numeroSerie" column="NumeroSerie" type="string" not-null="true" />
+                <property name="material" column="Material" type="string" not-null="true" />
+                <property name="marca" column="Marca" type="string" not-null="true" />
+                <property name="modelo" column="Modelo" type="string" not-null="true" />
+            </composite-element>
+        </list>
+        <set name="eventos" table="FotografoEvento" inverse="true">
+            <key>
+                <column name="IdFotografo" not-null="true"/>
+            </key>
+            <many-to-many class="org.lebastudios.examen.models.Evento">
+                <column name="IdEvento" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

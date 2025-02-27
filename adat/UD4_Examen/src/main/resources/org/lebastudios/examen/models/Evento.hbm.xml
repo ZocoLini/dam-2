@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.examen.models.Evento" table="Evento" schema="dbo" catalog="FOTOGRAFIAHB25" optimistic-lock="version">
+        <id name="idEvento" type="int">
+            <column name="IdEvento" />
+            <generator class="increment" />
+        </id>
+        <property name="nombreEvento" type="string">
+            <column name="NombreEvento" length="40" not-null="true" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="Ciudad" length="30" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="Fecha" length="10" not-null="true" />
+        </property>
+        <property name="tipoEvento" type="string">
+            <column name="TipoEvento" length="20" not-null="true" />
+        </property>
+        <set name="fotografos" table="FotografoEvento" inverse="false">
+            <key>
+                <column name="IdEvento" not-null="true" />
+            </key>
+            <many-to-many class="org.lebastudios.examen.models.Fotografo" >
+                <column name="IdFotografo" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

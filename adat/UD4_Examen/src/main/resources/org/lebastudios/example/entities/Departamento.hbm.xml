@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.example.entities.Departamento" table="Departamento">
+        <!-- Id -->
+        <id name="numDepartamento" type="int">
+            <column name="NumDepartamento"/>
+            <generator class="assigned"/>
+        </id>
+
+        <!-- Properties -->
+        <property name="nomeDepartamento" type="string">
+            <column name="NomeDepartamento" unique="true"/>
+        </property>
+
+        <!-- References -->
+        
+        <!-- Referenced by -->
+        <idbag name="lugares" table="lugar">
+            <collection-id column="id" type="int">
+                <generator class="increment"/>
+            </collection-id>
+            <key>
+                <column name="Num_Departamento" sql-type="int" not-null="true"/>
+            </key>
+            <element column="Lugar" type="string" not-null="true" />
+        </idbag>
+    </class>
+</hibernate-mapping>
+        
