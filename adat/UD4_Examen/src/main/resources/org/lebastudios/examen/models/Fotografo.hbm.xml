@@ -32,9 +32,9 @@
             </property>
         </component>
         
-        <bag name="fotografias" table="Fotografia">
+        <bag name="fotografias" table="Fotografia" inverse="true">
             <key>
-                <column name="IdFotografia" not-null="true"/>
+                <column name="IdFotografo" not-null="true"/>
             </key>
             <one-to-many class="org.lebastudios.examen.models.Fotografia" />
         </bag>
