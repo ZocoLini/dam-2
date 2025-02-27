@@ -1,0 +1,7 @@
+GET http://localhost:80/clientes/index.php/clientes
+
+###
+POST http://localhost:80/clientes/index.php/insertarCliente
+Content-Type: application/x-www-form-urlencoded
+
+nombre=Manuel&apellidos=Martinez&codProvincia=3&vip=1
