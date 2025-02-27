@@ -105,26 +105,4 @@ public class Database
             session.close();
         }
     }
-
-    public <R> R connectQuery(Function<Session, R> action)
-    {
-        if (sessionFactory == null) throw new IllegalStateException("Database not initialized");
-
-        Session session = sessionFactory.openSession();
-        
-        // Ejemplo de uso de la sesión para interactuar con la base de datos
-        try 
-        {
-            return action.apply(session);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-        finally
-        {
-            session.close();
-        }
-    }
 }

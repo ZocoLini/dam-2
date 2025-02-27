@@ -34,7 +34,6 @@ public class FotografoDAO
     {
         Fotografo fotografo = (Fotografo) session.get(Fotografo.class, idFotografo);
 
-        // TODO: Error de clave duplicada al intentar eliminar??
         if (fotografo == null)
         {
             System.err.println("No se ha encontrado fotografo con id: " + idFotografo);

@@ -11,7 +11,7 @@ public class Ej2
 
         Database.getInstance().connectTransaction(session ->
         {
-            FotografoDAO.eliminarMaterial(1, "CAM-1001", session);
+            FotografoDAO.eliminarMaterial(1, "TRI-3001", session);
         });
         
         Database.getInstance().close();

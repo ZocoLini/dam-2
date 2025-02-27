@@ -1,12 +1,16 @@
 package org.lebastudios.examen.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Fotografia implements java.io.Serializable {
 
     private int idFotografia;
@@ -14,13 +18,4 @@ public class Fotografia implements java.io.Serializable {
     private Date fechaCaptura;
     private Character color;
     private Fotografo fotografo;
-
-    public Fotografia() {}
-
-    public Fotografia(int idFotografia, String titulo, Date fechaCaptura) {
-        this.idFotografia = idFotografia;
-
-        this.titulo = titulo;
-        this.fechaCaptura = fechaCaptura;
-    }
 }
