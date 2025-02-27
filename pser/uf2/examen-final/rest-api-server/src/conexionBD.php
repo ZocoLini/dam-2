@@ -10,4 +10,3 @@ try {
 } catch (PDOException $ex) {
     exit('No se ha podido conectar con la BD:<br>' . $ex->getMessage());
 }
-?>

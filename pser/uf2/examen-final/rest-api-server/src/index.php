@@ -1,35 +1,14 @@
 <?php
-require 'conexionBD.php';
+// require 'conexionBD.php';
+
+$db = Database::getInstance();
+$con = $db->getConnection();
 
 $verbo = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['PATH_INFO'] ?? 'test';
 
 $pathInfo = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 $rutas = $pathInfo == '' ? [] : explode('/', $pathInfo);
-function devolverClientes($con) {
-    $sql = 'SELECT * FROM clientes';
-    $cursor = $con->query($sql);
-    $clientes = $cursor->fetchAll(PDO::FETCH_OBJ);
-    return $clientes;
-}
-
-function devolverProvincias($con) {
-    $sql = 'SELECT * FROM provincias';
-    $cursor = $con->query($sql);
-    $provincias = $cursor->fetchAll(PDO::FETCH_OBJ);
-    return $provincias;
-}
-
-function insertarCliente($con,$nombre,$apellidos,$codProvincia,$vip) {
-    //$sql = 'SELECT * FROM clientes c INNER JOIN PROVINCIAS p ON c.codProvincia = p.codProvincia WHERE p.nomProvincia = ?';
-    $sql = 'INSERT INTO clientes (nombre,apellidos,codProvincia,vip) VALUES (?,?,?,?)';
-    $stmt = $con->prepare($sql);
-    $stmt->bindValue(1,$nombre);
-    $stmt->bindValue(2,$apellidos);
-    $stmt->bindValue(3,$codProvincia);
-    $stmt->bindValue(4,$vip);
-    $stmt->execute();
-}
 
 switch (count($rutas)) {
     case 0:
@@ -67,4 +46,28 @@ switch (count($rutas)) {
         http_response_code(404);
         break;
 }
-?>
+
+function devolverClientes($con) {
+    $sql = 'SELECT * FROM clientes';
+    $cursor = $con->query($sql);
+    $clientes = $cursor->fetchAll(PDO::FETCH_OBJ);
+    return $clientes;
+}
+
+function devolverProvincias($con) {
+    $sql = 'SELECT * FROM provincias';
+    $cursor = $con->query($sql);
+    $provincias = $cursor->fetchAll(PDO::FETCH_OBJ);
+    return $provincias;
+}
+
+function insertarCliente($con,$nombre,$apellidos,$codProvincia,$vip) {
+    //$sql = 'SELECT * FROM clientes c INNER JOIN PROVINCIAS p ON c.codProvincia = p.codProvincia WHERE p.nomProvincia = ?';
+    $sql = 'INSERT INTO clientes (nombre,apellidos,codProvincia,vip) VALUES (?,?,?,?)';
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(1,$nombre);
+    $stmt->bindValue(2,$apellidos);
+    $stmt->bindValue(3,$codProvincia);
+    $stmt->bindValue(4,$vip);
+    $stmt->execute();
+}
