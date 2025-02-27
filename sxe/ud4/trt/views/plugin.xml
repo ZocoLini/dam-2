@@ -23,14 +23,14 @@
                         <page string="General">
                             <group>
                                 <field name="name"/>
-                                <field name="description"/>
-                                <field name="repository"/>
+                                <field name="description" widget="text"/>
+                                <field name="repository" widget="url"/>
                             </group>
                         </page>
                         <page string="Pricing">
                             <group>
-                                <field name="is_monthly"/>
-                                <field name="price"/>
+                                <field name="is_monthly" widget="boolean_toggle"/>
+                                <field name="price" widget="monetary"/>
                             </group>
                         </page>
                     </notebook>
