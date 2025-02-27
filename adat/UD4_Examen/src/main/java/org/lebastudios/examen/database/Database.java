@@ -53,6 +53,8 @@ public class Database
         }
     }
 
+    public Session getSession() { return sessionFactory.openSession(); }
+    
     public void connectTransaction(Consumer<Session> action)
     {
         connectTransactionWithBool(action);

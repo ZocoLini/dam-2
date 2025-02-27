@@ -1,5 +1,6 @@
 package org.lebastudios.examen.models;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.lebastudios.examen.database.Database;
 
@@ -58,10 +59,10 @@ public class FotografoDAO
             equipoEncontrao = true;
             break;
         }
-
+        
         if (!equipoEncontrao)
         {
-            System.out.printf("El equipo con número de serie %s no existe", numeroSerie);
+            System.out.printf("El equipo con número de serie %s no existe\n", numeroSerie);
         }
     }
 
@@ -69,30 +70,32 @@ public class FotografoDAO
             String nombre, String apellidos, String pseudonimo, InformacionContacto infoContacto,
             Licencia licencia, Map<String, String> idiomas, String pseudonimoInfluecer)
     {
-        Database.getInstance().connectTransaction(session ->
-        {
-            Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
+        Session session = Database.getInstance().getSession();
 
-            if (fotografo != null)
+        Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
+
+        if (fotografo != null)
+        {
+            System.out.printf("Ya existe un fotografo con pseudonimo %s\n", pseudonimo);
+            return;
+        }
+
+        Fotografo influencer = null;
+
+        if (pseudonimoInfluecer != null)
+        {
+            influencer = FotografoDAO.getByPseudonimo(pseudonimoInfluecer, session);
+
+            if (influencer == null)
             {
-                System.out.printf("Ya existe un fotografo con pseudonimo %s\n", pseudonimo);
-                session.getTransaction().rollback();
+                System.out.printf("No existe ningun influencer con pseudonimo %s\n", pseudonimoInfluecer);
                 return;
             }
+        }
 
-            Fotografo influencer = null;
-
-            if (pseudonimoInfluecer != null)
-            {
-                influencer = FotografoDAO.getByPseudonimo(pseudonimoInfluecer, session);
-
-                if (influencer == null)
-                {
-                    System.out.printf("No existe ningun influencer con pseudonimo %s\n", pseudonimoInfluecer);
-                    session.getTransaction().rollback();
-                    return;
-                }
-            }
+        try
+        {
+            session.getTransaction().begin();
 
             Fotografo newFotografo = new Fotografo();
             newFotografo.setNombre(nombre);
@@ -105,7 +108,15 @@ public class FotografoDAO
 
             licencia.setFotografo(newFotografo);
             session.persist(newFotografo);
+
+            session.getTransaction().commit();
+            
             System.out.println("Se ha insertado el nuevo fotografo en la base de datos");
-        });
+        }
+        catch (HibernateException exception)
+        {
+            System.err.println("Se ha hecho rollback de la transaccion");
+            session.getTransaction().rollback();
+        }
     }
 }
