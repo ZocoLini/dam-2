@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:id="root"
+      fx:controller="org.lebastudios.aplicacioncompleja.formularios.FormularioReportPropietariosController"
+      prefHeight="400.0" prefWidth="600.0" spacing="5">
+    <padding>
+        <Insets top="5" left="5" bottom="5" right="5" />
+    </padding>
+    
+    <Label text="Propietarios" />
+    
+    <TableView VBox.vgrow="ALWAYS"  fx:id="propietarioTableView">
+        <columns>
+            <TableColumn text="Nome" />
+            <TableColumn text="DNI" />
+        </columns>
+    </TableView>
+    
+    <HBox alignment="CENTER_RIGHT">
+        <Button onAction="#showReport" text="Mostrar reporte" defaultButton="true"/>
+    </HBox>
+</VBox>

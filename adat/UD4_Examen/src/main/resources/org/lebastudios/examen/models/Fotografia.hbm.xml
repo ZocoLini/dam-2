@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.examen.models.Fotografia" table="Fotografia" schema="dbo" catalog="FOTOGRAFIAHB25" optimistic-lock="version">
+        <id name="idFotografia" type="int">
+            <column name="IdFotografia" />
+            <generator class="identity" />
+        </id>
+         <property name="titulo" type="string">
+            <column name="Titulo" length="40" not-null="true" />
+        </property>
+        <property name="fechaCaptura" type="date">
+            <column name="FechaCaptura" length="10" not-null="true" />
+        </property>
+        <property name="color" type="java.lang.Character">
+            <column name="Color" length="1" />
+        </property>
+        <many-to-one name="fotografo" class="org.lebastudios.examen.models.Fotografo">
+            <column name="IdFotografo" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

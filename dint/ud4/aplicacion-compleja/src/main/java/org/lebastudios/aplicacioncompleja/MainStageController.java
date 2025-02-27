@@ -9,6 +9,7 @@ import org.lebastudios.aplicacioncompleja.events.AppLifeCicleEvents;
 import org.lebastudios.aplicacioncompleja.facturacion.FacturacionStageController;
 import org.lebastudios.aplicacioncompleja.formularios.FormularioCitaPerruceriaController;
 import org.lebastudios.aplicacioncompleja.formularios.FormularioNuevoPropietarioController;
+import org.lebastudios.aplicacioncompleja.formularios.FormularioReportPropietariosController;
 import org.lebastudios.aplicacioncompleja.formularios.StageAltaRazaPerroController;
 import org.lebastudios.aplicacioncompleja.perruqueria.VisorCitasPerruqueriaStageController;
 import org.lebastudios.aplicacioncompleja.propietarios.PropietariosStageController;
@@ -75,5 +76,10 @@ public class MainStageController extends StageController<MainStageController>
     @FXML private void openMenuGestionPropietarios(ActionEvent actionEvent)
     {
         new PropietariosStageController().instantiate();
+    }
+
+    @FXML private void openMantenimientoPropietarios(ActionEvent actionEvent) 
+    {
+        new FormularioReportPropietariosController().instantiate();
     }
 }

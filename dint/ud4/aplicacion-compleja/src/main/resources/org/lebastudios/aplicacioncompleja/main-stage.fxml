@@ -17,6 +17,7 @@
                 </Menu>
                 <SeparatorMenuItem />
                 <MenuItem text="%phrase.listadopropietarios" onAction="#openMenuGestionPropietarios" />
+                <MenuItem text="Mantenimiento propietarios" onAction="#openMantenimientoPropietarios" />
                 <SeparatorMenuItem />
                 <MenuItem text="%phrase.nuevacitaperruqueria" onAction="#openFormularioCitaPerruqueria"/>
                 <MenuItem text="%phrase.listacitasperruqueria" onAction="#openMenuCitaPerruqueria" />
