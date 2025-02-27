@@ -38,6 +38,8 @@
             </key>
             <one-to-many class="org.lebastudios.examen.models.Fotografia" />
         </bag>
+        
+        <!-- Mapeo como lista de Materiales, donde este es un componente -->
         <list name="materiales" table="Material">
             <key>
                 <column name="IdFotografo" not-null="true" />
@@ -61,12 +63,14 @@
         
         <one-to-one name="licencia" class="org.lebastudios.examen.models.Licencia" cascade="all" />
         
+        <!-- Mapeo de los idiomas como un mapa donde la clave es el nombre del idioma y el valor es el nivel en este -->
         <map name="idiomas" table="Idioma">
             <key column="IdFotografo" not-null="true"/>
             <map-key type="string" column="Idioma" length="30"/>
             <element column="Nivel" type="string" length="30"/>
         </map>
         
+        <!-- Mapeo de la relacion reflexiva de Fotografo con razón de influencia -->
         <set name="influenciaA" table="Fotografo" inverse="true">
             <key>
                 <column name="IdFotografo" />

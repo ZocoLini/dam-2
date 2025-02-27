@@ -19,6 +19,15 @@ public class FotografoDAO
                 .uniqueResult();
     }
 
+    public static boolean existeFotografoPorPseudonimo(String pseudonimo, Session session)
+    {
+        long count = (Long) session.createQuery("select count(*) from Fotografo f where f.seudonimo = :pseudonimo")
+                .setString("pseudonimo", pseudonimo)
+                .list().get(0);
+        
+        return count != 0;
+    }
+    
     public static List<FotografoSimplificado> queryFotografoSimplicado(Session session)
     {
         return (List<FotografoSimplificado>) session.createQuery(
@@ -40,6 +49,8 @@ public class FotografoDAO
             return;
         }
 
+        // Usamos un iterador para recorrer los materiales del fotografo. Si encontramos un material con el numero de 
+        // de serie dado, lo eliminamos usando it.remove() y dejamos de recorrer la lista
         boolean equipoEncontrao = false;
 
         Iterator<Material> it = fotografo.getMateriales().iterator();
@@ -71,9 +82,8 @@ public class FotografoDAO
     {
         Session session = Database.getInstance().getSession();
 
-        Fotografo fotografo = FotografoDAO.getByPseudonimo(pseudonimo, session);
-
-        if (fotografo != null)
+        // Comporbamos que no exista ya un fotografo con ese pseudonimo
+        if (FotografoDAO.existeFotografoPorPseudonimo(pseudonimo, session))
         {
             System.out.printf("Ya existe un fotografo con pseudonimo %s\n", pseudonimo);
             return;

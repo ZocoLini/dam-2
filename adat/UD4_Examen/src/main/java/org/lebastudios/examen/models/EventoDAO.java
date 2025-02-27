@@ -8,6 +8,7 @@ public class EventoDAO
 {
     public static void suscribirFotografo(String pseudonimo, int codEvento, Session session)
     {
+        // Obtenemos 0 si el fotografo no se encuentra en el evento o 1 si si se encuentra
         long count = (Long) Database.getInstance().getSession().createQuery(
                         "select count(*) from Evento e join e.fotografos f " +
                                 "where f.seudonimo = :pseudonimo and e.idEvento = :codEvento"
@@ -30,9 +31,10 @@ public class EventoDAO
             System.out.println("No existe ningun fotografo con pseudonimo " + pseudonimo);
             return;
         }
-
+        
         try
         {
+            // Añadimos el fotografo al evento. El commit se ejecuta automaticamente
             evento.getFotografos().add(fotografo);
             System.out.printf(
                     "Se ha insertado el fotografo con pseudonimo %s en el evento con id %d\n", pseudonimo, codEvento

@@ -55,6 +55,8 @@ public class Database
 
     public Session getSession() { return sessionFactory.openSession(); }
     
+    // Inicia una transaccion, ejecuta una interfaz funcional que use la session y posteriormente 
+    // hace commit o rollback si no se ha hecho ya
     public void connectTransaction(Consumer<Session> action)
     {
         if (sessionFactory == null) throw new IllegalStateException("Database not initialized");

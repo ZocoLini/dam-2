@@ -28,6 +28,7 @@ public class Licencia implements java.io.Serializable {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    // Creamos una licencia que inicia la fecha de hoy y finaliza en 3 años
     public static Licencia defaultLicencia()
     {
         LocalDateTime now = LocalDateTime.now();

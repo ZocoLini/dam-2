@@ -20,6 +20,8 @@
         <property name="tipoEvento" type="string">
             <column name="TipoEvento" length="20" not-null="true" />
         </property>
+        
+        <!-- Mapeamos la relacion Many to Many con fotógrafo -->
         <set name="fotografos" table="FotografoEvento" inverse="false">
             <key>
                 <column name="IdEvento" not-null="true" />

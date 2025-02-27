@@ -13,8 +13,8 @@ public class Ej4
     {
         Database.getInstance().init();
 
-        String pseudonimo = "ps4";
-        String pseudonimoSinInfluencer = "sinInfluencer4";
+        String pseudonimo = "ps5";
+        String pseudonimoSinInfluencer = "sinInfluencer5";
         
         // Insercion correcta con influencer
         FotografoDAO.insert(

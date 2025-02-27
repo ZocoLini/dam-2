@@ -20,6 +20,5 @@
         <many-to-one name="fotografo" class="org.lebastudios.examen.models.Fotografo">
             <column name="IdFotografo" not-null="true" />
         </many-to-one>
-         
     </class>
 </hibernate-mapping>
