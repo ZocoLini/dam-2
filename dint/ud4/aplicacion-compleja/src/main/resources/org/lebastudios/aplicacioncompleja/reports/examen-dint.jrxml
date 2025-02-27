@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="940c9b01-bb5b-4476-893a-e5e7486c3a4f">
-	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.zoom" value="1.4641000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="clinica" uuid="da6cf9d0-42eb-4818-bf5a-7d74b35572f6">
@@ -101,7 +101,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="24">
+			<band height="23">
 				<printWhenExpression><![CDATA[$F{can} != null]]></printWhenExpression>
 				<textField>
 					<reportElement x="428" y="1" width="100" height="20" uuid="8645e63b-f6c0-46e4-9e70-2e7cf6c561e3"/>
@@ -169,7 +169,16 @@
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band height="62" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="46" width="555" height="1" uuid="55d91320-7a87-4bd5-baa2-45c86ccdfd94"/>
+			</line>
+			<textField>
+				<reportElement x="455" y="42" width="100" height="20" uuid="22dcccc1-8caa-426a-b58a-763210b6a3f0"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["páx: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
