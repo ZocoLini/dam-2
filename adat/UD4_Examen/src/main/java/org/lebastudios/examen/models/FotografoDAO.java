@@ -21,19 +21,12 @@ public class FotografoDAO
     public static List<FotografoSimplificado> queryFotografoSimplicado(Session session)
     {
         return (List<FotografoSimplificado>) session.createQuery(
-                        "select f.id, (f.nombre||' '||f.apellidos) as nombre, f.fotografias.size as numFotografias " +
+                        "select new org.lebastudios.examen.models.FotografoSimplificado(" +
+                                "f.id, (f.nombre||' '||f.apellidos) as nombre, f.fotografias.size as numFotografias" +
+                                ") " +
                                 "from Fotografo f " +
                                 "order by numFotografias, nombre")
-                .list().stream().map(a ->
-                {
-                    Object[] row = (Object[]) a;
-
-                    return new FotografoSimplificado(
-                            (Integer) row[0],
-                            (String) row[1],
-                            (Integer) row[2]
-                    );
-                }).collect(Collectors.toList());
+                .list();
     }
 
     public static void eliminarMaterial(int idFotografo, String numeroSerie, Session session)
