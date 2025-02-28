@@ -270,7 +270,7 @@ public class Main
     {
         if (!mostrarTelefonosEnElServer()) return null;
 
-        System.out.println("Seleccione alguno de los operadores anteriores (-1 para cancelar):");
+        System.out.println("Seleccione alguno de los telefonos anteriores (-1 para cancelar):");
         String num = new Scanner(System.in).nextLine();
 
         if (!num.matches("\\d+"))
