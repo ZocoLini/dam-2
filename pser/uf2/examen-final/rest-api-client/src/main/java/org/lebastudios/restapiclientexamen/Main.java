@@ -1,11 +1,16 @@
 package org.lebastudios.restapiclientexamen;
 
+import org.lebastudios.restapiclientexamen.httpbodies.Pepe;
+import org.lebastudios.restapiclientexamen.httpbodies.URLEncoder;
+
 import java.util.Scanner;
 
 public class Main
 {
     public static void main(String[] args)
     {
+        System.out.println(URLEncoder.encode(new Pepe("ad", "bn")));
+        
         appMenu();
     }
     

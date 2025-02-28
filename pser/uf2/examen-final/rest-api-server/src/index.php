@@ -18,15 +18,13 @@ $router->add('GET', '/', function() {
     }
 });
 
-$router->add('GET', 'usuarios/{id}', 'devolverCliente');
+$router->add("PUT", "usuarios/{id}", function ($id) {
+    parse_str(file_get_contents('php://input',true), $datos);
 
-$router->add('POST', 'usuarios', function(/* PARAMETROS $asd */) {
-    echo "Creando un nuevo usuario";
+    response_json($datos);
 });
 
-$router->dispatch();
-
-function devolverCliente($id)
+$router->add('GET', 'usuarios/{id}', function ($id)
 {
     $db = Database::getInstance();
     $con = $db->getConnection();
@@ -37,6 +35,15 @@ function devolverCliente($id)
     http_response_code(200);
     header('Content-Type: application/json');
     echo json_encode($stmt->fetch(PDO::FETCH_OBJ), JSON_UNESCAPED_UNICODE);
+});
+
+$router->dispatch();
+
+function response_json($data)
+{
+    http_response_code(200);
+    header('Content-Type: application/json');
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
 }
 
 /*

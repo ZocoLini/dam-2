@@ -1,0 +1,8 @@
+GET http://localhost:80/examen-final/index.php/usuarios/1
+
+###
+
+PUT http://localhost:80/examen-final/index.php/usuarios/5
+Content-Type: application/x-www-form-urlencoded
+
+nombre=Hola&funciona=si
