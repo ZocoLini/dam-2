@@ -13,13 +13,15 @@ public class Traspaso
     @IgnoreURLEncode
     private int id;
     private String telefono;
+    @IgnoreURLEncode
     private int viejaOperadora;
     private int nuevaOperadora;
+    private String motivo;
 
-    public Traspaso(String telefono, int viejaOperadora, int nuevaOperadora)
+    public Traspaso(String telefono, int nuevaOperadora, String motivo)
     {
         this.telefono = telefono;
-        this.viejaOperadora = viejaOperadora;
         this.nuevaOperadora = nuevaOperadora;
+        this.motivo = motivo;
     }
 }

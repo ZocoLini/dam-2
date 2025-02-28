@@ -5,12 +5,13 @@ GET http://localhost:80/examen-final/index.php/telefonos?codOperador=1
 POST http://localhost:80/examen-final/index.php/telefonos
 Content-Type: application/x-www-form-urlencoded
 
-telefono=681240207&codOperador=1&titular=Borja
+telefono=123&codOperador=1&titular=Borja
 ###
 GET http://localhost:80/examen-final/index.php/telefonos?titular=pepe
 ###
-
-PUT http://localhost:80/examen-final/index.php/usuarios/5
+PUT http://localhost:80/examen-final/index.php/traspasos
 Content-Type: application/x-www-form-urlencoded
 
-nombre=Hola&funciona=si
+motivo=prueba&telefono=600000000&nuevaOperadora=1
+###
+GET http://localhost:80/examen-final/index.php/traspasos

@@ -3,6 +3,7 @@ package org.lebastudios.restapiclientexamen.http;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.sun.net.httpserver.Headers;
 import org.lebastudios.restapiclientexamen.httpbodies.URLEncoder;
 
 import java.io.IOException;
@@ -61,15 +62,19 @@ public class HttpMethods
     {
         try (HttpClient client = Client.defaultClient())
         {
+            final var body = URLEncoder.encode(bodyObject);
+
+            System.out.println(body);
+            
             HttpRequest reques = HttpRequest.newBuilder().POST(
-                            HttpRequest.BodyPublishers.ofString(URLEncoder.encode(bodyObject))
+                            HttpRequest.BodyPublishers.ofString(body)
                     ).uri(URI.create(BASE_REST_API_URI + uri))
+                    .header("Content-Type", "application/x-www-form-urlencoded")
                     .build();
 
-            // TODO: Meter el header de url enconded
+            final var response = client.send(reques, HttpResponse.BodyHandlers.ofString());
+            int statusCode = response.statusCode();
             
-            int statusCode = client.send(reques, HttpResponse.BodyHandlers.ofString()).statusCode();
-
             return statusCode == 200;
         }
         catch (IOException | InterruptedException e)
@@ -86,10 +91,9 @@ public class HttpMethods
             HttpRequest reques = HttpRequest.newBuilder().PUT(
                             HttpRequest.BodyPublishers.ofString(URLEncoder.encode(bodyObject))
                     ).uri(URI.create(BASE_REST_API_URI + uri))
+                    .header("Content-Type", "application/x-www-form-urlencoded")
                     .build();
-
-            // TODO: Meter el header de url enconded
-
+            
             int statusCode = client.send(reques, HttpResponse.BodyHandlers.ofString()).statusCode();
 
             return statusCode == 200;

@@ -4,8 +4,6 @@ import org.lebastudios.restapiclientexamen.entities.Operador;
 import org.lebastudios.restapiclientexamen.entities.Telefono;
 import org.lebastudios.restapiclientexamen.entities.Traspaso;
 import org.lebastudios.restapiclientexamen.http.HttpMethods;
-import org.lebastudios.restapiclientexamen.httpbodies.Pepe;
-import org.lebastudios.restapiclientexamen.httpbodies.URLEncoder;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,8 +12,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println(URLEncoder.encode(new Pepe("ad", "bn")));
-
         appMenu();
     }
 
@@ -67,15 +63,9 @@ public class Main
 
     private static void mostrarHistorialDeCambios()
     {
-        System.out.println("Introduza el número de telefono del que quiere ver su historial de traspasos");
-        String numeroDelTelefono = new Scanner(System.in).nextLine();
+        String numeroDelTelefono = preguntarNumeroTelefonoValido();
 
-        if (!numeroDelTelefono.matches("\\d{0,9}"))
-        {
-            System.out.println("El numero de telefnono ha de estar compuesto de 9 o menos caracteres numéricos");
-            pause();
-            return;
-        }
+        if (numeroDelTelefono == null) return;
         
         Traspaso[] traspasos = HttpMethods.get("traspasos?telefono=" + numeroDelTelefono, Traspaso[].class);
 
@@ -95,8 +85,8 @@ public class Main
             System.out.println("Telefonos");
             Arrays.stream(traspasos).forEach(traspaso ->
             {
-                System.out.printf("Numero: %-9s   Operadora Vieja: %d\tOperadora Nueva: %d\n", traspaso.getTelefono(),
-                        traspaso.getViejaOperadora(), traspaso.getNuevaOperadora()
+                System.out.printf("Numero: %-9s   Operadora Vieja: %d\tOperadora Nueva: %d\tMotivo: %s\n", traspaso.getTelefono(),
+                        traspaso.getViejaOperadora(), traspaso.getNuevaOperadora(), traspaso.getMotivo()
                 );
             });
         }
@@ -106,15 +96,9 @@ public class Main
 
     private static void cambiarDeOperador() 
     {
-        System.out.println("Introduzca el número del nuevo telefono que quiere cambiar de operadora: ");
-        String numeroDelTelefono = new Scanner(System.in).nextLine();
+        String numeroDelTelefono = preguntarNumeroTelefonoValido();
 
-        if (!numeroDelTelefono.matches("\\d{0,9}"))
-        {
-            System.out.println("El numero de telefnono ha de estar compuesto de 9 o menos caracteres numéricos");
-            pause();
-            return;
-        }
+        if (numeroDelTelefono == null) return;
         
         Telefono[] telefonos = HttpMethods.get("telefonos?telefono=" + numeroDelTelefono, Telefono[].class);
         
@@ -139,9 +123,10 @@ public class Main
         
         if (codNuevaOperadora == -1) return;
 
-        Traspaso traspaso = new Traspaso();
-        traspaso.setTelefono(numeroDelTelefono);
-        traspaso.setNuevaOperadora(codNuevaOperadora);
+        System.out.println("Motivo del traspaso: ");
+        String motivo = new Scanner(System.in).nextLine();
+        
+        Traspaso traspaso = new Traspaso(numeroDelTelefono, codNuevaOperadora, motivo);
         
         boolean exito = HttpMethods.put("traspasos", traspaso);
 
@@ -176,7 +161,7 @@ public class Main
             System.out.println("Telefonos");
             Arrays.stream(telefonos).forEach(tel ->
             {
-                System.out.printf("Numero: %s - Operadora: %d\n", tel.getNumero(), tel.getCodOperador());
+                System.out.printf("Numero: %s - Operadora: %d\n", tel.getTelefono(), tel.getCodOperador());
             });
         }
         
@@ -238,7 +223,7 @@ public class Main
         System.out.println("Telefonos");
         Arrays.stream(telefonos).forEach(tel ->
         {
-            System.out.printf("Numero: %s - %s (Operadora: %d)\n", tel.getNumero(), tel.getTitular(),
+            System.out.printf("Numero: %s - %s (Operadora: %d)\n", tel.getTelefono(), tel.getTitular(),
                     tel.getCodOperador());
         });
 
@@ -264,7 +249,7 @@ public class Main
         System.out.println("Seleccione alguno de los operadores anteriores (-1 para cancelar):");
         String num = new Scanner(System.in).nextLine();
         
-        if (num.matches("\\d+")) 
+        if (!num.matches("\\d+")) 
         {
             System.err.println("El numero introducido no es válido.");
             pause();
@@ -272,5 +257,40 @@ public class Main
         }
         
         return Integer.parseInt(num);
+    }
+    
+    private static String preguntarNumeroTelefonoValido()
+    {
+        if (!mostrarTelefonosEnElServer()) return null;
+
+        System.out.println("Seleccione alguno de los operadores anteriores (-1 para cancelar):");
+        String num = new Scanner(System.in).nextLine();
+
+        if (!num.matches("\\d+"))
+        {
+            System.err.println("El numero introducido no es válido.");
+            pause();
+            return null;
+        }
+
+        return num;
+    }
+
+    private static boolean mostrarTelefonosEnElServer()
+    {
+        Telefono[] telefonos = HttpMethods.get("telefonos", Telefono[].class);
+
+        if (telefonos == null)
+        {
+            System.err.println("Error en la petición al servidor");
+            pause();
+            return false;
+        }
+
+        Arrays.stream(telefonos).forEach(tel ->
+        {
+            System.out.printf("Telefono: %s  Operadora: %d  Titular: %s\n", tel.getTelefono(), tel.getCodOperador(), tel.getTitular());
+        });
+        return true;
     }
 }
