@@ -8,6 +8,47 @@ require 'Router.php';
 $router = new Router();
 
 // Definir rutas
+// GETTERS de las tablas 
+$router->add('GET', "operadores", function () {
+    $where = "";
+    
+    response_query("select codOperador, nombre from operadores where 1" . $where);
+});
+
+$router->add('GET', "telefonos", function () {
+    $where = "";
+    
+    if (isset($_GET['titular']))
+    {
+        $where = $where . " titular = " . $_GET['titular'];
+    }
+    
+    response_query("select telefono, codOperador, titular from telefonos where 1" . $where);
+});
+
+// POSTS n las tablas
+$router->add("POST", "telefonos", function () {
+    
+});
+
+$router->dispatch();
+
+function response_json($data)
+{
+    http_response_code(200);
+    header('Content-Type: application/json');
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+}
+
+function response_query($sql)
+{
+    $db = Database::getInstance();
+    $con = $db->getConnection();
+    $cursor = $con->query($sql);
+    response_json($cursor->fetchAll(PDO::FETCH_OBJ));
+}
+
+/*
 $router->add('GET', '/', function() {
     if (!isset($_GET['nombre'])) {
         http_response_code(400);
@@ -37,16 +78,6 @@ $router->add('GET', 'usuarios/{id}', function ($id)
     echo json_encode($stmt->fetch(PDO::FETCH_OBJ), JSON_UNESCAPED_UNICODE);
 });
 
-$router->dispatch();
-
-function response_json($data)
-{
-    http_response_code(200);
-    header('Content-Type: application/json');
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
-}
-
-/*
 $db = Database::getInstance();
 $con = $db->getConnection();
 

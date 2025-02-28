@@ -1,4 +1,4 @@
-package org.lebastudios.restapiclientexamen;
+package org.lebastudios.restapiclientexamen.http;
 
 import java.net.http.HttpClient;
 

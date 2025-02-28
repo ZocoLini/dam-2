@@ -1,4 +1,4 @@
-GET http://localhost:80/examen-final/index.php/usuarios/1
+GET http://localhost:80/examen-final/index.php/operadores
 
 ###
 

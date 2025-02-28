@@ -8,7 +8,7 @@ class Database
     private $servidorBD = 'localhost';
     private $usuarioBD = 'root';
     private $passwordBD = '';
-    private $nombreBD = 'clientes';
+    private $nombreBD = 'telefonos';
 
     private function __construct()
     {
