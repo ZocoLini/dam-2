@@ -14,6 +14,8 @@ public class URLEncoder
 
             for (Field field : clazz.getDeclaredFields())
             {
+                if (field.getAnnotation(IgnoreURLEncode.class) != null) continue;
+                
                 String fieldName = field.getName();
                 field.setAccessible(true);
                 Object fieldValue = field.get(object);

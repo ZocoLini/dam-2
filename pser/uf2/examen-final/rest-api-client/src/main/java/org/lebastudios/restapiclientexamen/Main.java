@@ -2,6 +2,7 @@ package org.lebastudios.restapiclientexamen;
 
 import org.lebastudios.restapiclientexamen.entities.Operador;
 import org.lebastudios.restapiclientexamen.entities.Telefono;
+import org.lebastudios.restapiclientexamen.entities.Traspaso;
 import org.lebastudios.restapiclientexamen.http.HttpMethods;
 import org.lebastudios.restapiclientexamen.httpbodies.Pepe;
 import org.lebastudios.restapiclientexamen.httpbodies.URLEncoder;
@@ -66,9 +67,90 @@ public class Main
 
     private static void mostrarHistorialDeCambios()
     {
+        System.out.println("Introduza el número de telefono del que quiere ver su historial de traspasos");
+        String numeroDelTelefono = new Scanner(System.in).nextLine();
+
+        if (!numeroDelTelefono.matches("\\d{0,9}"))
+        {
+            System.out.println("El numero de telefnono ha de estar compuesto de 9 o menos caracteres numéricos");
+            pause();
+            return;
+        }
+        
+        Traspaso[] traspasos = HttpMethods.get("traspasos?telefono=" + numeroDelTelefono, Traspaso[].class);
+
+        if (traspasos == null)
+        {
+            System.err.println("Error en la petición al servidor");
+            pause();
+            return;
+        }
+        
+        if (traspasos.length == 0)
+        {
+            System.out.println("Este telefono aun no ha sido traspasado entre operadoras o no existe");
+        }
+        else
+        {
+            System.out.println("Telefonos");
+            Arrays.stream(traspasos).forEach(traspaso ->
+            {
+                System.out.printf("Numero: %-9s   Operadora Vieja: %d\tOperadora Nueva: %d\n", traspaso.getTelefono(),
+                        traspaso.getViejaOperadora(), traspaso.getNuevaOperadora()
+                );
+            });
+        }
+        
+        pause();
     }
 
-    private static void cambiarDeOperador() {}
+    private static void cambiarDeOperador() 
+    {
+        System.out.println("Introduzca el número del nuevo telefono que quiere cambiar de operadora: ");
+        String numeroDelTelefono = new Scanner(System.in).nextLine();
+
+        if (!numeroDelTelefono.matches("\\d{0,9}"))
+        {
+            System.out.println("El numero de telefnono ha de estar compuesto de 9 o menos caracteres numéricos");
+            pause();
+            return;
+        }
+        
+        Telefono[] telefonos = HttpMethods.get("telefonos?telefono=" + numeroDelTelefono, Telefono[].class);
+        
+        if (telefonos == null) 
+        {
+            System.err.println("Error al intentar encontrar el telefono en l base de datos");
+            pause();
+            return;
+        }
+        
+        if (telefonos.length == 0) 
+        {
+            System.err.println("El numero de telefonos no se encuentra en la base de datos");
+            pause();
+            return;
+        }
+
+        System.out.println("Ahora va a tener que indicar la nueva operadora de este telefono");
+        pause();
+        
+        int codNuevaOperadora = obtenerNumeroDeOperadoraPorTeclado();
+        
+        if (codNuevaOperadora == -1) return;
+
+        Traspaso traspaso = new Traspaso();
+        traspaso.setTelefono(numeroDelTelefono);
+        traspaso.setNuevaOperadora(codNuevaOperadora);
+        
+        boolean exito = HttpMethods.put("traspasos", traspaso);
+
+        System.out.println(exito
+                ? "El teléfono ha sido traspasado a otra operadora satisfactoriamente"
+                : "Error durante el traspaso del telefono a la nueva operadora");
+
+        pause();
+    }
 
     private static void visualizarTelefonoDeUnTitular() 
     {
@@ -140,23 +222,10 @@ public class Main
 
     private static void obtenerDatosDeUnOperador()
     {
-        Operador[] operadores = HttpMethods.get("operadores", Operador[].class);
+        int codOperador = obtenerNumeroDeOperadoraPorTeclado();
 
-        if (operadores == null)
-        {
-            System.err.println("Error en la petición al servidor");
-            pause();
-            return;
-        }
-
-        Arrays.stream(operadores).forEach(operador ->
-        {
-            System.out.printf("%d - %s\n", operador.getCodOperador(), operador.getNombre());
-        });
-
-        System.out.println("Seleccione alguno de los operadores anteriores:");
-        int codOperador = new Scanner(System.in).nextInt();
-
+        if (codOperador == -1) return;
+        
         Telefono[] telefonos = HttpMethods.get("telefonos?codOperador=" + codOperador, Telefono[].class);
 
         if (telefonos == null)
@@ -174,5 +243,34 @@ public class Main
         });
 
         pause();
+    }
+    
+    private static int obtenerNumeroDeOperadoraPorTeclado()
+    {
+        Operador[] operadores = HttpMethods.get("operadores", Operador[].class);
+
+        if (operadores == null)
+        {
+            System.err.println("Error en la petición al servidor");
+            pause();
+            return - 1;
+        }
+
+        Arrays.stream(operadores).forEach(operador ->
+        {
+            System.out.printf("%d - %s\n", operador.getCodOperador(), operador.getNombre());
+        });
+
+        System.out.println("Seleccione alguno de los operadores anteriores (-1 para cancelar):");
+        String num = new Scanner(System.in).nextLine();
+        
+        if (num.matches("\\d+")) 
+        {
+            System.err.println("El numero introducido no es válido.");
+            pause();
+            return -1;
+        }
+        
+        return Integer.parseInt(num);
     }
 }

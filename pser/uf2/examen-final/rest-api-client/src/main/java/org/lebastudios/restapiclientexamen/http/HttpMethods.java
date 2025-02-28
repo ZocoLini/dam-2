@@ -78,4 +78,26 @@ public class HttpMethods
             return false;
         }
     }
+
+    public static boolean put(String uri, Object bodyObject)
+    {
+        try (HttpClient client = Client.defaultClient())
+        {
+            HttpRequest reques = HttpRequest.newBuilder().PUT(
+                            HttpRequest.BodyPublishers.ofString(URLEncoder.encode(bodyObject))
+                    ).uri(URI.create(BASE_REST_API_URI + uri))
+                    .build();
+
+            // TODO: Meter el header de url enconded
+
+            int statusCode = client.send(reques, HttpResponse.BodyHandlers.ofString()).statusCode();
+
+            return statusCode == 200;
+        }
+        catch (IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

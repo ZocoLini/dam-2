@@ -54,6 +54,50 @@ $router->add("POST", "telefonos", function () {
     }
 });
 
+$router->add("PUT", "traspasos", function () {
+    if (!isset($_POST['telefono']) || !isset($_POST['nuevaOperadora']) )
+    {
+        http_send_status(400);
+        return;
+    }
+
+    $db = Database::getInstance();
+    $con = $db->getConnection();
+    
+    $sql = "select t.codOperador from telefonos t where t.telefono = ?";
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(1, $_POST['telefono']);
+    $viejaOperadora =  $stmt->fetch(PDO::FETCH_OBJ)['codOperador'];
+    
+    $sql = "update telefonos t set t.codOperador = ? where t.telefono = ?";
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(1, $_POST['nuevaOperadora']);
+    $stmt->bindValue(2, $_POST['telefono']);
+    
+    try {
+        if (!exec($stmt->execute()))
+        {
+            http_response_code(400);
+        }
+    } catch (PDOException $e)
+    {
+        http_response_code(400);
+    }
+    
+    $sql = 'insert into traspasos (telefono, viejaOperadora, nuevaOperadora) VALUES (?, ?, ?)';
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(1, $_POST['telefono']);
+    $stmt->bindValue(2, $viejaOperadora);
+    $stmt->bindValue(3, $_POST['nuevaOperadora']);
+    
+    try {
+        http_response_code($stmt->execute() ? 200 : 400);
+    } catch (PDOException $e)
+    {
+        http_response_code(400);
+    }
+});
+
 $router->dispatch();
 
 function response_json($data)
