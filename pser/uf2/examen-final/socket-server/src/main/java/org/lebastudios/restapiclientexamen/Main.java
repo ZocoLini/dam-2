@@ -1,15 +1,10 @@
 package org.lebastudios.restapiclientexamen;
 
-import org.lebastudios.restapiclientexamen.handles.Handle;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main
 {
@@ -34,23 +29,45 @@ public class Main
 
     private static void talkWithAClient(Socket socket)
     {
-        final Matcher requestMatcher = Pattern.compile("^(GET|POST|PUT|DELETE)\\s+(\\S+)$").matcher("");
-        
         try (socket)
         {
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-            
-            String request = inputStream.readUTF();
-            Optional<String> response = Handle.handleRquest(request, requestMatcher);
-            outputStream.writeUTF(response.orElse("Invalid request"));
 
+            String username = inputStream.readUTF();
+
+            Session session = SessionManager.getInstance().getSession(username);
+            if (session != null) 
+            {
+                if (session.isConnected()) 
+                {
+                    outputStream.writeUTF("alreadyConnected");
+                }
+                else
+                {
+                    outputStream.writeUTF("Welcome back");
+                    session.newConnection(socket);
+                }
+            }
+            else
+            {
+                session = SessionManager.getInstance().startANewSession(socket, outputStream, inputStream, username);
+            }
+            
             boolean exit = false;
             while (!exit && !socket.isClosed())
             {
-                request = inputStream.readUTF();
-                response = Handle.handleRquest(request, requestMatcher);
-                outputStream.writeUTF(response.orElse("Invalid request"));
+                String input = inputStream.readUTF();
+                
+                if (input.equals("salir")) 
+                {
+                    outputStream.writeUTF("Mensaje de cierre recibido, cerrando...");
+                    session.disconnect();
+                    exit = true;
+                    continue;
+                }
+                
+                outputStream.writeUTF(processRequest(input));
             }
         }
         catch (IOException e)
@@ -62,5 +79,20 @@ public class Main
     private static void shutDownServer()
     {
         SERVER_UP = false;
+    }
+    
+    private static String processRequest(String request)
+    {
+        if (request.matches("\\d{2}")) 
+        {
+            return SessionManager.getInstance().usuariosConEdad(Integer.parseInt(request));
+        }
+        
+        if (request.matches("\\d{4}")) 
+        {
+            return SessionManager.getInstance().usuariosNacidosEn(Integer.parseInt(request));
+        }
+        
+        return SessionManager.getInstance().edadDelUsuario(request);
     }
 }

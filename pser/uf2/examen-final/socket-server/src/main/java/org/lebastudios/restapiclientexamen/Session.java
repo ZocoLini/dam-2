@@ -1,24 +1,25 @@
 package org.lebastudios.restapiclientexamen;
 
+import lombok.Getter;
+
 import java.io.IOException;
 import java.net.Socket;
 
+@Getter
 public class Session
 {
     private Socket socket;
     private final String username;
-    private int logins;
+    private final int edad;
 
-    public Session(Socket socket, String username)
+    public Session(Socket socket, String username, int edad)
     {
         this.socket = socket;
         this.username = username;
-        this.logins = 1;
+        this.edad = edad;
     }
-
-    private void addLogin() {this.logins++;}
-
-    public boolean isConnected() {return socket != null && socket.isConnected();}
+    
+    public boolean isConnected() {return socket != null && !socket.isClosed() && socket.isConnected();}
 
     public void disconnect() throws IOException
     {
@@ -33,17 +34,6 @@ public class Session
             throw new IllegalStateException("Que cierre primero el otro la conexion carajo");
         }
 
-        addLogin();
         this.socket = socket;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public int getLogins()
-    {
-        return logins;
     }
 }
