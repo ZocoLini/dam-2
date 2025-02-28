@@ -20,7 +20,7 @@ $router->add('GET', "telefonos", function () {
     
     if (isset($_GET['titular']))
     {
-        $where = $where . " and titular = " . $_GET['titular'];
+        $where = $where . " and titular = '" . $_GET['titular'] . "'";
     }
 
     if (isset($_GET['codOperador']))

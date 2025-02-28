@@ -66,6 +66,8 @@ public class HttpMethods
                     ).uri(URI.create(BASE_REST_API_URI + uri))
                     .build();
 
+            // TODO: Meter el header de url enconded
+            
             int statusCode = client.send(reques, HttpResponse.BodyHandlers.ofString()).statusCode();
 
             return statusCode == 200;

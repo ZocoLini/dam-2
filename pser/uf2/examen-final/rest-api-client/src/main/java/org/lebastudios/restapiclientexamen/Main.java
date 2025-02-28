@@ -68,9 +68,38 @@ public class Main
     {
     }
 
-    private static void visualizarTelefonoDeUnTitular() {}
-
     private static void cambiarDeOperador() {}
+
+    private static void visualizarTelefonoDeUnTitular() 
+    {
+        System.out.println("Introduce el nombre del titular del que se quieren ver los telefonos");
+        String titular = new Scanner(System.in).nextLine();
+        
+        Telefono[] telefonos = HttpMethods.get("telefonos?titular=" + titular, Telefono[].class);
+
+        if (telefonos == null)
+        {
+            System.err.println("Error en la petición al servidor");
+            pause();
+            return;
+        }
+
+        if (telefonos.length == 0) 
+        {
+            System.out.println("Este titular no tiene ningún telefono registrado (No existe en nuestra base de datos " +
+                    "tal y como David la definio de cutre)");
+        }
+        else 
+        {
+            System.out.println("Telefonos");
+            Arrays.stream(telefonos).forEach(tel ->
+            {
+                System.out.printf("Numero: %s - Operadora: %d\n", tel.getNumero(), tel.getCodOperador());
+            });
+        }
+        
+        pause();
+    }
 
     private static void insertarNuevoTelefono()
     {

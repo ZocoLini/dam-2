@@ -7,6 +7,8 @@ Content-Type: application/x-www-form-urlencoded
 
 telefono=681240207&codOperador=1&titular=Borja
 ###
+GET http://localhost:80/examen-final/index.php/telefonos?titular=pepe
+###
 
 PUT http://localhost:80/examen-final/index.php/usuarios/5
 Content-Type: application/x-www-form-urlencoded
