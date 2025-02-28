@@ -220,6 +220,13 @@ public class Main
             return;
         }
 
+        if (telefonos.length == 0) 
+        {
+            System.out.println("Esta operadora, o bien no existe, o bien no tine ningun numero de telefono asociado");
+            pause();
+            return;
+        }
+        
         System.out.println("Telefonos");
         Arrays.stream(telefonos).forEach(tel ->
         {
