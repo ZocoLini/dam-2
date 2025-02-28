@@ -20,7 +20,12 @@ $router->add('GET', "telefonos", function () {
     
     if (isset($_GET['titular']))
     {
-        $where = $where . " titular = " . $_GET['titular'];
+        $where = $where . " and titular = " . $_GET['titular'];
+    }
+
+    if (isset($_GET['codOperador']))
+    {
+        $where = $where . " and codOperador = " . $_GET['codOperador'];
     }
     
     response_query("select telefono, codOperador, titular from telefonos where 1" . $where);
@@ -28,7 +33,25 @@ $router->add('GET', "telefonos", function () {
 
 // POSTS n las tablas
 $router->add("POST", "telefonos", function () {
-    
+    if (!isset($_POST['telefono']) || !isset($_POST['codOperador']) || !isset($_POST['titular']) )
+    {
+        http_send_status(400);
+        return;
+    }
+
+    $db = Database::getInstance();
+    $con = $db->getConnection();
+    $sql = 'insert into telefonos (telefono, codOperador, titular) VALUES (?, ?, ?)';
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(1, $_POST['telefono']);
+    $stmt->bindValue(2, $_POST['codOperador']);
+    $stmt->bindValue(3, $_POST['titular']);
+    try {
+        http_response_code($stmt->execute() ? 200 : 400);
+    } catch (PDOException $e)
+    {
+        http_response_code(400);
+    }
 });
 
 $router->dispatch();
