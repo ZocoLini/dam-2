@@ -11,7 +11,7 @@ import java.net.http.HttpResponse;
 
 public class HttpMethods
 {
-    public static String BASE_REST_API_URI = "http://localhost/examen-final/index.php/";
+    public static String BASE_REST_API_URI = "http://localhost/telefonos/telefonos.php/";
 
     private static final Gson gson = new Gson();
 

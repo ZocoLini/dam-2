@@ -1,17 +1,17 @@
-GET http://localhost:80/examen-final/index.php/operadores
+GET http://localhost:80/telefonos/telefonos.php/operadores
 ###
-GET http://localhost:80/examen-final/index.php/telefonos?codOperador=1
+GET http://localhost:80/telefonos/telefonos.php/telefonos?codOperador=1
 ###
-POST http://localhost:80/examen-final/index.php/telefonos
+POST http://localhost:80/telefonos/telefonos.php/telefonos
 Content-Type: application/x-www-form-urlencoded
 
 telefono=123&codOperador=1&titular=Borja
 ###
-GET http://localhost:80/examen-final/index.php/telefonos?titular=pepe
+GET http://localhost:80/telefonos/telefonos.php/telefonos?titular=pepe
 ###
-PUT http://localhost:80/examen-final/index.php/traspasos
+PUT http://localhost:80/telefonos/telefonos.php/traspasos
 Content-Type: application/x-www-form-urlencoded
 
 motivo=prueba&telefono=600000000&nuevaOperadora=1
 ###
-GET http://localhost:80/examen-final/index.php/traspasos
+GET http://localhost:80/telefonos/telefonos.php/traspasos

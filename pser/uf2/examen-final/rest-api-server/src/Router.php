@@ -14,7 +14,7 @@ class Router {
         
         foreach ($this->routes[$method] ?? [] as $route => $callback) {
             $pattern = preg_replace('/\{([^\/]+)}/', '([^/]+)', $route);
-            if (preg_match("#^examen-final/index.php/$pattern$#", $uri, $matches)) {
+            if (preg_match("#^telefonos/telefonos.php/$pattern$#", $uri, $matches)) {
                 array_shift($matches); // Eliminar la URL completa del array de coincidencias
                 return call_user_func_array($callback, $matches);
             }
