@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.entities.EmpregadoProxecto" table="EMPREGADO_PROXECTO" catalog="EMPRESAHB2_25">
+        <composite-id name="id" class="org.lebastudios.entities.EmpregadoProxectoId">
+            <key-property name="nssempregado" type="string">
+                <column name="NSSEmpregado" length="15" />
+            </key-property>
+            <key-property name="numProxecto" type="int">
+                <column name="NumProxecto" />
+            </key-property>
+        </composite-id>
+         <property name="horas" type="java.lang.Integer">
+            <column name="Horas" />
+        </property><many-to-one name="empregado" class="org.lebastudios.entities.Empregado" update="false" insert="false" fetch="select">
+            <column name="NSSEmpregado" length="15" not-null="true" />
+        </many-to-one>
+        
+        <many-to-one name="proxecto" class="org.lebastudios.entities.Proxecto" update="false" insert="false" fetch="select">
+            <column name="NumProxecto" not-null="true" />
+        </many-to-one>
+       
+    </class>
+</hibernate-mapping>
