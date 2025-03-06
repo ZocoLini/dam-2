@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.entities.Proxecto" table="PROXECTO" catalog="EMPRESAHB2_25">
+        <id name="numProxecto" type="int">
+            <column name="NumProxecto" />
+            <generator class="increment" />
+        </id>
+
+        <property name="nomeProxecto" type="string">
+            <column name="NomeProxecto" length="25" not-null="true" unique="true" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="25" not-null="true" />
+        </property>
+        
+        <bag name="empregadoProxectos" table="EMPREGADO_PROXECTO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NumProxecto" not-null="true" />
+            </key>
+            <one-to-many class="org.lebastudios.entities.EmpregadoProxecto" />
+        </bag><many-to-one name="departamento" class="org.lebastudios.entities.Departamento" fetch="select">
+            <column name="NumDepartControla" not-null="true" />
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>

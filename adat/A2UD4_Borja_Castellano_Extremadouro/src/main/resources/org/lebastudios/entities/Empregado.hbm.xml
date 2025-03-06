@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.lebastudios.entities.Empregado" table="EMPREGADO">
+        <id name="nss" type="string">
+            <column length="15" name="NSS"/>
+            <generator class="assigned"/>
+        </id>
+
+        <property name="nome" type="string">
+            <column length="25" name="Nome" not-null="true"/>
+        </property>
+        <property name="apelido1" type="string">
+            <column length="25" name="Apelido1" not-null="true"/>
+        </property>
+        <property name="apelido2" type="string">
+            <column length="25" name="Apelido2"/>
+        </property>
+        
+        <component class="org.lebastudios.entities.Enderezo" name="enderezo">
+            <property name="rua" type="string">
+                <column length="30" name="Rua"/>
+            </property>
+            <property name="numeroCalle" type="java.lang.Integer">
+                <column name="Numero_Calle"/>
+            </property>
+            <property name="piso" type="string">
+                <column length="4" name="Piso"/>
+            </property>
+            <property name="cp" type="string">
+                <column length="5" name="CP"/>
+            </property>
+            <property name="localidade" type="string">
+                <column length="25" name="Localidade"/>
+            </property>
+            <property name="provincia" type="string">
+                <column length="15" name="Provincia"/>
+            </property>
+        </component>
+        <property name="dataNacemento" type="timestamp">
+            <column length="23" name="DataNacemento"/>
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column length="1" name="Sexo"/>
+        </property>
+        
+        <list name="familiares" table="FAMILIAR">
+            <key>
+                <column length="15" name="NSS_empregado" not-null="true"/>
+            </key>
+            <list-index base="1" column="Numero"/>
+            <composite-element class="org.lebastudios.entities.Familiar">
+                <property name="nss" type="string">
+                    <column length="15" name="NSS" not-null="true"/>
+                </property>
+                <property name="nome" type="string">
+                    <column length="25" name="Nome" not-null="true"/>
+                </property>
+                <property name="apelido1" type="string">
+                    <column length="25" name="Apelido1" not-null="true"/>
+                </property>
+                <property name="apelido2" type="string">
+                    <column length="25" name="Apelido2"/>
+                </property>
+                <property name="dataNacimento" type="date">
+                    <column length="23" name="Data_nacimento"/>
+                </property>
+                <property name="parentesco" type="string">
+                    <column length="20" name="Parentesco" not-null="true"/>
+                </property>
+                <property name="sexo" type="char">
+                    <column length="1" name="Sexo" not-null="true"/>
+                </property>
+            </composite-element>
+        </list><map name="telefonos" table="TELEFONO">
+            <key>
+                <column length="15" name="NSS" not-null="true"/>
+            </key>
+            <map-key column="Telefono" type="string"/>
+            <element column="Informacion" type="string"/>
+        </map><set fetch="select" inverse="true" lazy="true" name="empregadoProxectos" table="EMPREGADO_PROXECTO">
+            <key>
+                <column length="15" name="NSSEmpregado" not-null="true"/>
+            </key>
+            <one-to-many class="org.lebastudios.entities.EmpregadoProxecto"/>
+        </set>
+        
+        <set fetch="select" inverse="true" lazy="true" name="ediciones" table="EDICIONCURSO_EMPREGADO">
+            <key>
+                <column length="15" name="nss" not-null="true"/>
+            </key>
+            <many-to-many class="org.lebastudios.entities.Edicion">
+                <column name="Codigo" not-null="true"/>
+                <column name="Numero" not-null="true"/>
+            </many-to-many>
+        </set>
+        
+        <many-to-one class="org.lebastudios.entities.Departamento" fetch="select" name="departamento">
+            <column name="NumDepartamentoPertenece"/>
+        </many-to-one><one-to-one class="org.lebastudios.entities.Vehiculo" name="vehiculo"/>
+        
+        <many-to-one class="org.lebastudios.entities.Empregado" fetch="select" name="supervisor">
+            <column length="15" name="NSSSupervisa"/>
+        </many-to-one>
+        
+        <set fetch="select" inverse="true" lazy="true" name="supervisados" table="EMPREGADO">
+            <key>
+                <column length="15" name="NSSSupervisa"/>
+            </key>
+            <one-to-many class="org.lebastudios.entities.Empregado"/>
+        </set>
+        <joined-subclass name="org.lebastudios.entities.Empregadofixo" table="EMPREGADOFIXO">
+            <key column="NSS"/>
+            <property name="salario" type="java.lang.Double">
+                <column name="Salario" precision="53" scale="0"/>
+            </property>
+            <property name="dataAlta" type="date">
+                <column length="10" name="DataAlta"/>
+            </property>
+            <property name="categoria" type="string">
+                <column length="20" name="Categoria"/>
+            </property>
+            
+            <map name="horasextras" sort="org.lebastudios.entities.OrdeData" table="HORASEXTRAS">
+                <key>
+                    <column length="15" name="NSS" not-null="true"/>
+                </key>
+                <map-key column="Data" type="date"/>
+                <element column="HorasExtras" type="java.lang.Double"/>
+            </map>
+            
+            <set fetch="select" inverse="true" lazy="true" name="edicionprofesor" table="EDICION">
+                <key>
+                    <column length="15" name="Profesor" not-null="true"/>
+                </key>
+                <one-to-many class="org.lebastudios.entities.Edicion"/>
+            </set>
+            
+            <set name="deptodirector" table="DEPARTAMENTO" inverse="true" fetch="select" lazy="true">
+                <key>
+                    <column length="15" name="NSSDirector" not-null="true"/>
+                </key>
+                <one-to-many class="org.lebastudios.entities.Departamento"/>
+            </set>        </joined-subclass>
+        <joined-subclass name="org.lebastudios.entities.Empregadotemporal" table="EMPREGADOTEMPORAL">
+            <key column="NSS"/>
+            <property name="dataInicio" type="date">
+                <column name="DataInicio" length="10"/>
+            </property>
+            <property name="dataFin" type="date">
+                <column name="DataFin" length="10"/>
+            </property>
+            <property name="costeHora" type="java.lang.Double">
+                <column name="CosteHora" precision="53" scale="0"/>
+            </property>
+            <property name="numHoras" type="java.lang.Double">
+                <column name="NumHoras" precision="53" scale="0"/>
+            </property>
+        </joined-subclass>
+    </class>
+
+</hibernate-mapping>

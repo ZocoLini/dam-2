@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.lebastudios.entities.Edicion" table="EDICION" catalog="EMPRESAHB2_25">
+        <composite-id name="id" class="org.lebastudios.entities.EdicionId">
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="numero" type="int">
+                <column name="Numero" />
+            </key-property>
+        </composite-id>
+      
+        <property name="data" type="date">
+            <column name="Data" length="10" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="25" />
+        </property>
+        
+        <bag name="alumnos" table="EDICIONCURSO_EMPREGADO" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="Codigo" not-null="true" />
+                <column name="Numero" not-null="true" />
+            </key>
+            <many-to-many class="org.lebastudios.entities.Empregado">
+                <column name="nss" length="15" not-null="true" />
+            </many-to-many>
+        </bag>
+        
+          <many-to-one name="curso" class="org.lebastudios.entities.Curso" update="false" insert="false" fetch="select">
+            <column name="Codigo" not-null="true" />
+        </many-to-one>
+        
+        <many-to-one name="empregadofixo" class="org.lebastudios.entities.Empregadofixo" fetch="select">
+            <column name="Profesor" length="15" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
